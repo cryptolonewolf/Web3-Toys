@@ -3,31 +3,67 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Launch a Token Simulator · web3.toys</title>
+    <title>web3.toys: free little games about how web3 works</title>
     <meta
       name="description"
-      content="A 5 minute game: run a fictional token launch, live through launch week, and see what it costs. Simplified numbers, not financial advice."
+      content="Free, bite-sized games that show how web3 really works. Play one in five minutes. Simplified numbers, not financial advice."
     />
-    <meta property="og:title" content="Launch a Token Simulator" />
-    <meta property="og:description" content="I launched a token. Here is what happened. Can you do better?" />
-    <meta name="theme-color" content="#fff4dc" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="web3.toys" />
+    <meta property="og:title" content="web3.toys" />
+    <meta property="og:description" content="Free, bite-sized games that show how web3 really works. Play one in five minutes." />
+    <meta property="og:url" content="https://web3.toys/" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="web3.toys" />
+    <meta name="twitter:description" content="Free, bite-sized games that show how web3 really works. Play one in five minutes." />
+    <meta name="theme-color" content="#FFD93D" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap"
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap"
     />
     <link rel="stylesheet" href="styles/toys.css" />
   </head>
   <body>
-    <header class="site-header">
-      <a class="brand" href="./">web3.toys</a>
-      <span class="byline">by BuildWithAki</span>
-    </header>
-    <div id="hud" class="hud" hidden></div>
-    <main id="app" class="app" aria-live="polite"></main>
-    <noscript><p class="card">This game needs JavaScript turned on.</p></noscript>
-    <script type="module" src="src/app.js"></script>
+    <div class="page">
+      <header class="site-header">
+        <a class="logo" href="./">web3.toys</a>
+        <span class="pill">by BuildWithAki</span>
+      </header>
+
+      <main class="stack">
+        <section class="card card--hero hero" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <p class="label">Free web3 toys</p>
+            <h1 id="hero-title" class="title-xl">Learn web3 by playing with it.</h1>
+          </div>
+          <p class="hero-text">Small games that show how token launches, wallets and markets really work. Each one takes about five minutes.</p>
+          <img class="mascot mascot--lg" src="assets/mascot.svg" alt="" width="116" height="116" />
+        </section>
+
+        <section class="stack stack--tight" aria-labelledby="toys-title">
+          <h2 id="toys-title" class="section-title">Pick a toy</h2>
+          <ul id="toy-list" class="toy-grid">
+            <li>
+              <a class="card card--yellow toy-card" href="simulator/">
+                <h3 class="title-sm">Launch a Token Simulator</h3>
+                <p class="text">Run a fictional token launch and live through launch week.</p>
+              </a>
+            </li>
+          </ul>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>Games with simplified numbers. Not financial advice.</p>
+        <p>web3.toys · by BuildWithAki</p>
+      </footer>
+    </div>
+
+    <script src="js/site.js"></script>
+    <script src="data/toys.js"></script>
+    <script src="js/home.js"></script>
   </body>
 </html>

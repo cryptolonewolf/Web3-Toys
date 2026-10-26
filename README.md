@@ -1,63 +1,87 @@
 # web3.toys
 
-Small games about how web3 actually works. By BuildWithAki.
+Free little games that show how web3 really works. By BuildWithAki.
 
-## Launch a Token Simulator
+This is a plain static website: HTML, CSS and JavaScript files. There is no
+framework, no backend, no login and no database, and nothing to install.
 
-A 5 minute, mobile first game: pick a project, set the raise and token split,
-choose a launch route, a market maker deal and a community plan, then live
-through 7 days of launch week. It ends with a score, a rank, your most
-expensive decisions and a share card.
+## What is where
 
-This is a game with simplified numbers. It is not financial advice and does
-not describe any real company or token.
-
-### Run it
-
-It is a static page with no backend and no build step. ES modules need to be
-served over http, so open it through any static server:
-
-```sh
-npm start            # python3 -m http.server 8080
-# then open http://localhost:8080
-```
-
-To host it, upload the repo root (`index.html`, `src/`, `styles/`) to any
-static host and point web3.toys at it.
-
-### Test it
-
-```sh
-npm test
-```
-
-Needs Node 20 or later. The tests cover the daily rules, the scoring formula
-and ranks, the event triggers, fixed weakest and strongest scenarios, a check
-over 500 random games that no stat ever leaves its range, and a check of the
-content file.
-
-### Where things live
-
-| File | What it holds |
+| Folder or file | What it is |
 | --- | --- |
-| `src/data.js` | All content: project types, raises, buckets, routes, market maker deals, community plans, the 16 events, daily rule numbers, score weights, ranks, disclaimer. |
-| `src/engine.js` | Game state and rules. No DOM, so it runs in Node. `applyDailyRules` holds the daily math, `computeScore` the score. |
-| `src/app.js` | Screens and input. |
-| `src/sharecard.js` | Draws the square share card on a canvas. |
-| `src/config.js` | Email signup form action and book link. |
-| `styles/toys.css` | The shared web3.toys look, meant to be reused by every toy. |
+| `index.html` | The home page: header, intro and the grid of toy cards. |
+| `simulator/` | The Launch a Token Simulator. A placeholder page for now. |
+| `styles/toys.css` | The one shared stylesheet. Every page uses it, so all toys look the same. Colors, fonts, outlines and buttons are set at the top. |
+| `data/` | Content, kept apart from the code. `data/toys.js` is the list of cards on the home page. |
+| `js/` | The small scripts that build the home page cards. |
+| `assets/` | Images. `mascot.svg` is a placeholder for the mascot. |
+| `_parked/` | An earlier version of the simulator game, kept for later. It is not part of the live site. |
 
-### Adding an event
+Each new toy gets its own folder next to `simulator/`.
 
-Add an object to `EVENTS` in `src/data.js`. Give it an `id`, a `title`, a
-`trigger` (choice and stat conditions, documented at the top of the file),
-optional `days`, two responses `a` and `b` with `label`, `effects` and a
-`short` phrase (used in "My biggest mistake was ..."), and a `lesson`. Run
-`npm test` to check it.
+## Preview it on your computer
 
-### Before launch
+1. Download the project from GitHub: on the repository page, click the green
+   **Code** button, then **Download ZIP**, and unzip it.
+2. Open the unzipped folder and double-click `index.html`.
 
-- **Email signup.** Set `CONFIG.signup.action` (and the field name) in
-  `src/config.js` to the embed form of the email tool you pick. Until then the
-  form says signups open soon. Nothing is stored by this site.
-- **Book link.** Set `CONFIG.book.url`. Until then it says "Book coming soon".
+It opens in your web browser. Click the cards and buttons as a visitor would.
+After you change a file, save it and refresh the browser page to see the change.
+
+The fonts load from Google Fonts, so you need an internet connection for the
+page to look right.
+
+## Common changes
+
+- **Change or add a toy card:** edit `data/toys.js`. Each card has a title, a
+  description, tags and a status. `live` makes it clickable, `soon` shows it
+  as Coming soon.
+- **Add the mascot artwork:** replace `assets/mascot.svg` with your drawing,
+  using the same file name. If your file is a PNG, name it `mascot.png` and ask
+  for the pages to point at it.
+- **Change a color or font:** edit the top of `styles/toys.css`.
+
+## Put it online with Vercel
+
+Vercel hosts static sites like this one for free.
+
+1. Go to [vercel.com](https://vercel.com) and sign up with your GitHub account.
+2. Click **Add New**, then **Project**.
+3. Find **web3-toys** in the list and click **Import**. If it is not listed,
+   click the link to adjust GitHub app permissions and give Vercel access to it.
+4. On the setup screen:
+   - Framework Preset: **Other**
+   - Root Directory: leave as it is
+   - Build Command and Output Directory: leave empty
+5. Click **Deploy**. After a minute you get a link ending in `.vercel.app`.
+   Open it and check the site.
+
+From then on, every time a change is saved to GitHub, Vercel updates the site
+by itself within a minute or two.
+
+Vercel publishes the branch GitHub treats as the main one. Right now that is
+`claude/new-session-pu0lz5`. To use a different branch later, change it in
+the Vercel project under **Settings**, then **Git**.
+
+## Point web3.toys at it
+
+1. In your Vercel project, open **Settings**, then **Domains**.
+2. Type `web3.toys` and click **Add**. When it asks, also add `www.web3.toys`
+   and let it redirect to `web3.toys`.
+3. Vercel then shows the records to add at the company where you bought the
+   domain. It usually looks like this:
+   - An **A** record for `@` pointing to the IP address Vercel shows.
+   - A **CNAME** record for `www` pointing to the address Vercel shows.
+4. Log in to your domain company, open the DNS settings for web3.toys, and add
+   exactly the records Vercel shows. Delete any old A or CNAME records for
+   `@` and `www` that point elsewhere.
+5. Back in Vercel, wait until the domains show **Valid Configuration**. This
+   can take from a few minutes to a few hours. Vercel sets up the secure
+   https padlock by itself.
+
+## Rules for every toy
+
+- Games use simplified numbers. Every page says so, and that it is not
+  financial advice.
+- Only invented names. Never a real exchange, market maker, fund or project.
+- Mobile first: large tap targets and no sideways scrolling on a phone.
