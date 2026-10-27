@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Spot the Scam · web3.toys</title>
+    <meta
+      name="description"
+      content="Can you tell a crypto scam from the real thing? Play 10 rounds, or paste a message you got and see what feels fake. Free, and nothing you paste leaves your device."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="web3.toys" />
+    <meta property="og:title" content="Spot the Scam" />
+    <meta property="og:description" content="Scam or legit? Play 10 rounds, or check a message you got. Can you do better?" />
+    <meta property="og:url" content="https://web3.toys/scam/" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Spot the Scam" />
+    <meta name="twitter:description" content="Scam or legit? Play 10 rounds, or check a message you got. Can you do better?" />
+    <meta name="theme-color" content="#FFD93D" />
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap"
+    />
+    <link rel="stylesheet" href="../styles/toys.css" />
+  </head>
+  <body>
+    <div class="page page--narrow">
+      <header class="stack stack--tight">
+        <div class="site-header">
+          <a class="logo" href="../">web3.toys</a>
+          <span id="status-pill" class="pill">by BuildWithAki</span>
+        </div>
+        <div id="progress" class="progress" hidden></div>
+      </header>
+
+      <main id="app" class="stack" aria-live="polite">
+        <noscript>
+          <p class="card">Spot the Scam needs JavaScript turned on.</p>
+        </noscript>
+      </main>
+
+      <footer class="site-footer">
+        <p>Games with simplified numbers. Not financial advice. All brands and people in the game are made up.</p>
+        <p>The checker is a quick guide, not a final verdict. It can miss scams and can flag honest messages.</p>
+        <p>web3.toys · by BuildWithAki</p>
+      </footer>
+    </div>
+
+    <script src="../js/site.js"></script>
+    <script src="../data/site.js"></script>
+    <script src="../data/scam-rules.js"></script>
+    <script src="../data/scam-scenarios.js"></script>
+    <script src="../data/scam-game.js"></script>
+    <script src="../js/toy-kit.js"></script>
+    <script src="../js/scam-checker.js"></script>
+    <script src="../js/scam-game.js"></script>
+    <script src="../js/scam-app.js"></script>
+  </body>
+</html>

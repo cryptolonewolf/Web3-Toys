@@ -11,9 +11,11 @@ framework, no backend, no login and no database, and nothing to install.
 | --- | --- |
 | `index.html` | The home page: header, intro and the grid of toy cards. |
 | `simulator/` | The Launch a Token Simulator. A placeholder page for now. |
+| `scam/` | Spot the Scam: a 10 round game and a message checker. |
 | `styles/toys.css` | The one shared stylesheet. Every page uses it, so all toys look the same. Colors, fonts, outlines and buttons are set at the top. |
-| `data/` | Content, kept apart from the code. `data/toys.js` is the list of cards on the home page. |
-| `js/` | The small scripts that build the home page cards. |
+| `data/` | Content, kept apart from the code. See "Common changes" below. |
+| `js/` | The scripts that run the pages and toys. |
+| `tests/` | Automatic checks for the toys' logic. Not part of the live site. |
 | `assets/` | Images. `mascot.svg` is a placeholder for the mascot. |
 | `_parked/` | An earlier version of the simulator game, kept for later. It is not part of the live site. |
 
@@ -40,6 +42,32 @@ page to look right.
   using the same file name. If your file is a PNG, name it `mascot.png` and ask
   for the pages to point at it.
 - **Change a color or font:** edit the top of `styles/toys.css`.
+- **Signup, report and call links:** edit `data/site.js`. Paste your email
+  tool's form address, your report link and your booking link. Until then the
+  buttons say "coming soon".
+
+### Spot the Scam
+
+- **Game scenarios:** `data/scam-scenarios.js`. Each has the message text,
+  the answer (scam or legit), its red flags and a short explanation. Only use
+  made-up brand names.
+- **Checker rules:** `data/scam-rules.js`. Each rule has a name, the words to
+  look for, a weight from 1 to 3, why it is a red flag and what to do instead.
+  To catch a new wording, add it to that rule's `keywords` list.
+- **Ranks, points and screen wording:** `data/scam-game.js`.
+
+The checker runs only in the visitor's browser. It never sends, saves or opens
+anything from the pasted text. If the text looks like a seed phrase or a
+private key, it does not run the check and tells the person to delete it.
+
+## Run the automatic checks
+
+If you or a developer change the toys' logic, these checks confirm nothing
+broke. They need Node.js, which comes with most developer setups:
+
+```
+node --test tests/*.test.mjs
+```
 
 ## Put it online with Vercel
 
