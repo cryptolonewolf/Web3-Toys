@@ -61,6 +61,13 @@ page to look right.
   If a pasted message contains one, the checker shows "Matches a reported
   scam" at the top. Only add entries you are sure about, note where each came
   from, and never list the names of real companies or people.
+- **Public phishing lists:** `data/scam-feed.js` holds about 20,000 recent
+  scam websites and 251 scam wallets from public lists by security groups
+  (MetaMask's eth-phishing-detect and Polkadot's phishing list; licenses in
+  `data/licenses/`). Turn it on or off with `usePublicLists` at the top of
+  `data/scam-known.js`. Do not edit it by hand; refresh it with
+  `node tools/update-scam-feed.mjs`. It only downloads when someone opens the
+  checker, never during the game.
 - **Ranks, points and screen wording:** `data/scam-game.js`.
 
 The checker runs only in the visitor's browser. It never sends, saves or opens

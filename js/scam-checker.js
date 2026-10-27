@@ -191,36 +191,43 @@
     return ' ' + String(text).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim() + ' ';
   }
 
-  // Builds quick lookup tables from the list once, so long lists stay fast.
-  var indexCache = { known: null, index: null };
+  // Builds quick lookup tables from a list once, so long lists stay fast.
+  var indexCache = [];
 
   function buildIndex(known) {
-    if (indexCache.known === known) return indexCache.index;
-    var index = { domains: {}, evm: {}, addresses: {}, emails: {}, handles: {}, phones: {}, phrases: [] };
+    for (var i = 0; i < indexCache.length; i++) if (indexCache[i].known === known) return indexCache[i].index;
+    var index = { domains: {}, pages: [], evm: {}, addresses: {}, emails: {}, handles: {}, phones: {}, phrases: [] };
+    var note = function (e) { return e.note || known.defaultNote || ''; };
     parseList(known.domains).forEach(function (e) {
       var d = cleanDomain(e.value);
-      if (d) index.domains[d] = withNote(d, e.note);
+      var page = e.value.toLowerCase().replace(/^[a-z]+:\/\//, '').replace(/^www\./, '').replace(/\/+$/, '');
+      // In lists marked matchPaths (the public feed), an entry with a path is one
+      // page on a shared platform: match only that page. Elsewhere the path is
+      // ignored and the whole website is listed.
+      if (known.matchPaths && page.indexOf('/') !== -1) index.pages.push({ page: page, label: withNote(page, note(e)) });
+      else if (d) index.domains[d] = withNote(d, note(e));
     });
     parseList(known.addresses).forEach(function (e) {
-      if (/^0x[0-9a-f]{40}$/i.test(e.value)) index.evm[e.value.toLowerCase()] = withNote(e.value, e.note);
-      else index.addresses[e.value] = withNote(e.value, e.note);
+      if (/^0x[0-9a-f]{40}$/i.test(e.value)) index.evm[e.value.toLowerCase()] = withNote(e.value, note(e));
+      else index.addresses[e.value] = withNote(e.value, note(e));
     });
     parseList(known.emails).forEach(function (e) {
-      index.emails[e.value.toLowerCase()] = withNote(e.value, e.note);
+      index.emails[e.value.toLowerCase()] = withNote(e.value, note(e));
     });
     parseList(known.handles).forEach(function (e) {
       var h = e.value.replace(/^(https?:\/\/)?(t\.me\/|telegram\.me\/|@)/i, '').toLowerCase();
-      if (h) index.handles[h] = withNote('@' + h, e.note);
+      if (h) index.handles[h] = withNote('@' + h, note(e));
     });
     parseList(known.phones).forEach(function (e) {
       var k = phoneKey(e.value);
-      if (k.length >= 7) index.phones[k] = withNote(e.value, e.note);
+      if (k.length >= 7) index.phones[k] = withNote(e.value, note(e));
     });
     parseList(known.phrases).forEach(function (e) {
       var p = normalizeWords(e.value);
-      if (p.trim()) index.phrases.push({ words: p, label: withNote('"' + e.value + '"', e.note) });
+      if (p.trim()) index.phrases.push({ words: p, label: withNote('"' + e.value + '"', note(e)) });
     });
-    indexCache = { known: known, index: index };
+    indexCache.push({ known: known, index: index });
+    if (indexCache.length > 4) indexCache.shift();
     return index;
   }
 
@@ -230,12 +237,19 @@
     while ((m = re.exec(text))) fn(m);
   }
 
-  // Lists everything from the known scam list that appears in the text.
-  function knownMatches(text, known) {
+  // Lists everything from the known scam lists that appears in the text.
+  // `lists` is one list or several (your own list and the public feed).
+  function knownMatches(text, lists) {
     var found = [];
-    if (!known) return found;
-    var index = buildIndex(known);
+    [].concat(lists || []).forEach(function (known) {
+      if (known) matchList(text, buildIndex(known), found);
+    });
+    return found;
+  }
+
+  function matchList(text, index, found) {
     var add = function (label) { if (label && found.indexOf(label) === -1) found.push(label); };
+    var lower = text.toLowerCase();
 
     // Web addresses: the name itself or anything under it (app.name, help@name).
     eachMatch(/[a-z0-9-]+(?:\.[a-z0-9-]+)+/gi, text, function (m) {
@@ -259,19 +273,29 @@
     eachMatch(/\+?\d[\d\s().-]{5,18}\d/g, text, function (m) {
       add(index.phones[phoneKey(m[0])]);
     });
+    // Single pages on shared platforms, like sites.google.com/view/fake-wallet.
+    index.pages.forEach(function (p) {
+      var at = lower.indexOf(p.page);
+      while (at !== -1) {
+        var before = at === 0 ? '' : lower.charAt(at - 1);
+        var after = lower.charAt(at + p.page.length);
+        if (!/[a-z0-9.-]/.test(before) && !/[a-z0-9_-]/.test(after)) return add(p.label);
+        at = lower.indexOf(p.page, at + 1);
+      }
+    });
     // Scam phrases.
     if (index.phrases.length) {
       var words = normalizeWords(text);
       index.phrases.forEach(function (p) { if (words.indexOf(p.words) !== -1) add(p.label); });
     }
-    return found;
   }
 
   // ---------- The check ----------
 
   // Returns either { blocked: 'seed' | 'key' } or
   // { flags: [{ rule, found }], count, weight, level: 'many' | 'some' | 'none', label, note }
-  // `known` (optional) is the known scam list from data/scam-known.js.
+  // `known` (optional) is a known scam list, or several: data/scam-known.js
+  // and data/scam-feed.js. The flag wording comes from the first one that has it.
   function check(text, data, known) {
     text = String(text || '');
     var secret = detectSecret(text);
@@ -298,7 +322,8 @@
     // A match on the known scam list always comes first and always counts as many.
     var knownFound = knownMatches(text, known);
     if (knownFound.length) {
-      var f = known.flag || {};
+      var f = [].concat(known).filter(function (k) { return k && k.flag; })[0];
+      f = (f && f.flag) || {};
       flags.unshift({
         rule: { id: 'known-scam', name: f.name, why: f.why, todo: f.todo, weight: 3 },
         found: knownFound,

@@ -302,6 +302,34 @@ your wallet has been selected for the season 3 retroactive reward
     assert.equal(known('Your wallet has been selected for the season 2 reward'), undefined);
   });
 
+  it('checks several lists at once, with each list\'s default note', () => {
+    const feed = { defaultNote: 'reported on a public phishing list', domains: 'feed-scam.top', matchPaths: true };
+    const r = checker.check('Visit feed-scam.top or fake-claim-site.xyz', RULES, [KNOWN, feed]);
+    const found = r.flags.find((f) => f.rule.id === 'known-scam').found;
+    assert.ok(found.includes('feed-scam.top (reported on a public phishing list)'));
+    assert.ok(found.includes('fake-claim-site.xyz (fake airdrop page)'));
+    assert.equal(r.flags[0].rule.name, 'Matches a reported scam');
+  });
+
+  it('in the public feed, a page on a shared platform flags only that page', () => {
+    const feed = { domains: 'sites.google.com/view/fake-wallet-help', matchPaths: true };
+    const hit = (t) => checker.check(t, RULES, [feed]).flags.some((f) => f.rule.id === 'known-scam');
+    assert.ok(hit('Open https://sites.google.com/view/fake-wallet-help now'));
+    assert.ok(!hit('Our bakery: sites.google.com/view/my-bakery'));
+    assert.ok(!hit('sites.google.com/view/fake-wallet-help2'));
+  });
+
+  it('the generated public feed loads and has no big platforms on it', () => {
+    const feed = loadData('scam-feed.js').WEB3TOYS_SCAM_FEED;
+    const sites = checker.parseList(feed.domains).map((e) => e.value);
+    assert.ok(sites.length > 1000);
+    for (const p of ['google.com', 'sites.google.com', 'github.io', 'vercel.app', 'pages.dev', 'workers.dev', 'medium.com', 'x.com', 't.me']) {
+      assert.ok(!sites.includes(p), `platform on the list: ${p}`);
+    }
+    const everyday = 'github.com/org/repo medium.com/@team ourapp.vercel.app discord.gg/abc x.com/team youtube.com/watch?v=1 sites.google.com/view/my-bakery';
+    assert.ok(!checker.check(everyday, RULES, [feed]).flags.some((f) => f.rule.id === 'known-scam'));
+  });
+
   it('works without a list', () => {
     assert.equal(checker.check('fake-claim-site.xyz', RULES).flags.some((f) => f.rule.id === 'known-scam'), false);
   });

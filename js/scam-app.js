@@ -293,6 +293,34 @@
 
   // ---------- Checker ----------
 
+  // The public phishing lists (data/scam-feed.js) are large, so they load only
+  // when the checker opens, before anything is pasted. Turned on and off with
+  // usePublicLists in data/scam-known.js.
+  var feedLoading = null;
+
+  function loadFeed() {
+    var known = window.WEB3TOYS_SCAM_KNOWN || {};
+    if (!known.usePublicLists) return Promise.resolve(null);
+    if (!feedLoading) {
+      feedLoading = new Promise(function (resolve) {
+        var s = document.createElement('script');
+        s.src = '../data/scam-feed.js';
+        s.onload = function () { resolve(window.WEB3TOYS_SCAM_FEED || null); };
+        s.onerror = function () { resolve(null); };
+        document.head.appendChild(s);
+      });
+    }
+    return feedLoading;
+  }
+
+  // Waits for the feed, but never more than a few seconds.
+  function feedReady() {
+    return Promise.race([
+      loadFeed(),
+      new Promise(function (resolve) { setTimeout(function () { resolve(null); }, 4000); }),
+    ]);
+  }
+
   function checker(prefill) {
     game = null;
     setHash('check');
@@ -309,11 +337,18 @@
       '<button type="button" class="btn btn--block" data-example>Try an example</button>' +
       '</section>' +
       '<p class="small-print center"><strong>Never paste a seed phrase, private key or password</strong>, here or anywhere.</p>' +
+      '<p class="small-print center" data-feed-credit></p>' +
       '<button type="button" class="text-button center" data-home>Or play the game instead</button>',
       { text: 'Message checker', color: 'yellow' }
     );
     var box = app.querySelector('#message');
     if (prefill) box.value = prefill;
+    loadFeed().then(function (feed) {
+      var credit = app.querySelector('[data-feed-credit]');
+      if (feed && credit) {
+        credit.textContent = 'Also checks against public phishing lists from MetaMask and Polkadot, updated ' + feed.updated + '.';
+      }
+    });
     on('[data-example]', function () {
       box.value = RULES.example;
       box.focus();
@@ -326,11 +361,15 @@
         box.focus();
         return;
       }
-      var result = ScamChecker.check(text, RULES, window.WEB3TOYS_SCAM_KNOWN);
-      box.value = '';
-      text = '';
-      if (result.blocked) blocked(result.blocked);
-      else checkResult(result);
+      var button = app.querySelector('[data-run]');
+      button.disabled = true;
+      feedReady().then(function (feed) {
+        var result = ScamChecker.check(text, RULES, [window.WEB3TOYS_SCAM_KNOWN, feed]);
+        box.value = '';
+        text = '';
+        if (result.blocked) blocked(result.blocked);
+        else checkResult(result);
+      });
     });
   }
 
