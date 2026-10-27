@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import * as data from '../src/data.js';
+import { data } from './sim-load.mjs';
 
 const EFFECT_KEYS = new Set(['price', 'hype', 'trust', 'liquidity', 'runway', 'ownership']);
 const TRIGGER_KEYS = new Set(['route', 'mm', 'contract', 'priming', 'split', 'stats', 'flag']);

@@ -10,14 +10,13 @@ framework, no backend, no login and no database, and nothing to install.
 | Folder or file | What it is |
 | --- | --- |
 | `index.html` | The home page: header, intro and the grid of toy cards. |
-| `simulator/` | The Launch a Token Simulator. A placeholder page for now. |
+| `simulator/` | Launch a Token Simulator: a 7 step game about launching a token. |
 | `scam/` | Spot the Scam: a 10 round game and a message checker. |
 | `styles/toys.css` | The one shared stylesheet. Every page uses it, so all toys look the same. Colors, fonts, outlines and buttons are set at the top. |
 | `data/` | Content, kept apart from the code. See "Common changes" below. |
 | `js/` | The scripts that run the pages and toys. |
 | `tests/` | Automatic checks for the toys' logic. Not part of the live site. |
 | `assets/` | Images. `mascot.svg` is a placeholder for the mascot. |
-| `_parked/` | An earlier version of the simulator game, kept for later. It is not part of the live site. |
 
 Each new toy gets its own folder next to `simulator/`.
 
@@ -45,6 +44,15 @@ page to look right.
 - **Signup, report and call links:** edit `data/site.js`. Paste your email
   tool's form address, your report link and your booking link. Until then the
   buttons say "coming soon".
+
+### Launch a Token Simulator
+
+- **All game content:** `data/simulator.js`: project types, raises, token
+  buckets, launch routes, market maker deals, community plans, the 16 launch
+  week events, the daily price rules, scoring, ranks and the words on the
+  screens. Add an event by copying one in the `EVENTS` list.
+- **Book link:** set `bookUrl` in `data/site.js`. Until then the results
+  screen says the book is coming soon.
 
 ### Spot the Scam
 

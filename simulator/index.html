@@ -28,35 +28,32 @@
   </head>
   <body>
     <div class="page page--narrow">
-      <header class="site-header">
-        <a class="logo" href="../">web3.toys</a>
-        <span class="pill">by BuildWithAki</span>
+      <header class="stack stack--tight">
+        <div class="site-header">
+          <a class="logo" href="../">web3.toys</a>
+          <span id="status-pill" class="pill">by BuildWithAki</span>
+        </div>
+        <div id="progress" class="progress" role="img" hidden></div>
+        <div id="meters" class="stat-meters" hidden></div>
       </header>
 
-      <main class="stack">
-        <section class="card card--hero hero" aria-labelledby="sim-title">
-          <div class="hero-copy">
-            <div class="chips"><span class="chip is-white">Coming soon</span></div>
-            <h1 id="sim-title" class="title-lg">Launch a Token Simulator</h1>
-          </div>
-          <p class="hero-text">Run a fictional token launch and live through launch week. Every choice has a cost, and every result comes with a short lesson.</p>
-          <img class="mascot" src="../assets/mascot.svg" alt="" width="84" height="84" />
-        </section>
-
-        <div class="card stack stack--tight">
-          <h2 class="title-sm">The game is being built</h2>
-          <p class="text">Seven quick steps: pick a project, set the raise, choose how you launch, then survive a week of surprises and get a score you can share.</p>
-        </div>
-
-        <a class="btn btn--ink btn--block" href="../">Back to all toys</a>
+      <main id="app" class="stack" aria-live="polite">
+        <noscript>
+          <p class="card">Launch a Token Simulator needs JavaScript turned on.</p>
+        </noscript>
       </main>
 
       <footer class="site-footer">
-        <p>This is a game with simplified numbers. It is not financial advice and does not describe any real company or token.</p>
+        <p>Games with simplified numbers. Not financial advice. All names in the game are made up.</p>
         <p>web3.toys · by BuildWithAki</p>
       </footer>
     </div>
 
     <script src="../js/site.js"></script>
+    <script src="../data/site.js"></script>
+    <script src="../data/simulator.js"></script>
+    <script src="../js/toy-kit.js"></script>
+    <script src="../js/sim-engine.js"></script>
+    <script src="../js/sim-app.js"></script>
   </body>
 </html>

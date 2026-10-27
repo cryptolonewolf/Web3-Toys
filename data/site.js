@@ -22,4 +22,7 @@ window.WEB3TOYS_SITE = {
 
   // Link for the "Book a call" button, for example your calendar booking page.
   callUrl: '',
+
+  // Link for "Get the full book" in the simulator, once the book page exists.
+  bookUrl: '',
 };

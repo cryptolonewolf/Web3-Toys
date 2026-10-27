@@ -96,30 +96,57 @@
     ctx.fillStyle = INK;
     ctx.fillText(by, bx + 28, y + pad + 15);
 
+    // With a stats row the text is set a little smaller so everything fits.
+    var compact = Boolean(d.stats && d.stats.length);
+    var T = compact
+      ? { title: 66, titleLine: 72, big: 140, bigGap: 156, line: 36, lineGap: 46 }
+      : { title: 80, titleLine: 86, big: 170, bigGap: 196, line: 40, lineGap: 52 };
+
     // Title
-    var ty = y + pad + 120;
-    ctx.font = '700 80px ' + DISPLAY;
+    var ty = y + pad + 112;
+    ctx.font = '700 ' + T.title + 'px ' + DISPLAY;
     wrap(ctx, d.title, 640).slice(0, 3).forEach(function (line) {
       ctx.fillText(line, x + pad, ty);
-      ty += 86;
+      ty += T.titleLine;
     });
 
     // Big number and rank
-    ty += 20;
-    ctx.font = '700 170px ' + DISPLAY;
+    ty += 16;
+    ctx.font = '700 ' + T.big + 'px ' + DISPLAY;
     var big = String(d.big);
     ctx.fillText(big, x + pad, ty);
     var nx = x + pad + ctx.measureText(big).width + 28;
-    ctx.font = '800 46px ' + BODY;
-    if (d.bigLabel) ctx.fillText(d.bigLabel, nx, ty + 46);
-    ctx.fillText(d.rank, nx, ty + (d.bigLabel ? 104 : 80));
-    ty += 196;
+    ctx.font = '800 44px ' + BODY;
+    if (d.bigLabel) ctx.fillText(d.bigLabel, nx, ty + (compact ? 30 : 46));
+    ctx.fillText(d.rank, nx, ty + (d.bigLabel ? (compact ? 84 : 104) : 80));
+    ty += T.bigGap;
+
+    // Optional row of small numbers, like Price, Trust and Runway
+    if (compact) {
+      var gap = 20;
+      var bw2 = (640 - gap * (d.stats.length - 1)) / d.stats.length;
+      d.stats.forEach(function (st, i) {
+        var bx2 = x + pad + i * (bw2 + gap);
+        ctx.fillStyle = '#FFFFFF';
+        roundRect(ctx, bx2, ty, bw2, 96, 20);
+        ctx.fill();
+        ctx.lineWidth = 6;
+        ctx.strokeStyle = INK;
+        ctx.stroke();
+        ctx.fillStyle = INK;
+        ctx.font = '800 26px ' + BODY;
+        ctx.fillText(st[0], bx2 + 18, ty + 12);
+        ctx.font = '700 46px ' + DISPLAY;
+        ctx.fillText(String(st[1]), bx2 + 18, ty + 40);
+      });
+      ty += 96 + 28;
+    }
 
     // One line
-    ctx.font = '800 40px ' + BODY;
-    wrap(ctx, d.line, mascot ? 560 : 820).slice(0, 3).forEach(function (line) {
+    ctx.font = '800 ' + T.line + 'px ' + BODY;
+    wrap(ctx, d.line, mascot ? 560 : 820).slice(0, compact ? 2 : 3).forEach(function (line) {
       ctx.fillText(line, x + pad, ty);
-      ty += 52;
+      ty += T.lineGap;
     });
 
     // Call to action pill at the bottom left
@@ -136,7 +163,8 @@
     if (mascot) ctx.drawImage(mascot, x + w - 30 - 330, y + w - 30 - 330, 330, 330);
   }
 
-  // data: { title, big, bigLabel, rank, line, cta, mascotSrc }
+  // data: { title, big, bigLabel, rank, line, cta, mascotSrc, stats }
+  // stats (optional): up to 3 pairs like [['Price', 118], ['Trust', 66]].
   // Draws the square card. Pasted text never goes on it; only these fields.
   function drawShareCard(canvas, data) {
     var fonts = document.fonts

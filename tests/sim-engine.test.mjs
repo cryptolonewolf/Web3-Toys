@@ -1,9 +1,10 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { MARKET_MAKERS, PRIMING_PLANS, PROJECT_TYPES, RAISES, ROUTES } from '../src/data.js';
-import * as engine from '../src/engine.js';
-import { STRONGEST, WEAKEST, bestAnswer, playGame, worstAnswer } from './helpers.js';
+import { data, engine } from './sim-load.mjs';
+import { STRONGEST, WEAKEST, bestAnswer, playGame, worstAnswer } from './sim-helpers.mjs';
+
+const { MARKET_MAKERS, PRIMING_PLANS, PROJECT_TYPES, RAISES, ROUTES } = data;
 
 const half = () => 0.5; // random swing of exactly 0
 

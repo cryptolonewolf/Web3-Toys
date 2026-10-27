@@ -144,6 +144,13 @@ p {
 
 /* ---------- Text styles ---------- */
 
+.title-xl,
+.title-lg,
+.title-md,
+.title-sm {
+  font-family: var(--font-display);
+}
+
 .title-xl {
   font-size: 36px;
   font-weight: 700;
@@ -854,6 +861,228 @@ a.toy-card:active {
   background: var(--ink);
   border-radius: 12px;
   pointer-events: none;
+}
+
+/* ---------- Launch a Token Simulator ---------- */
+
+/* Row of small stat meters under the progress bar */
+.stat-meters[hidden] {
+  display: none;
+}
+
+.stat-meters {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.meter-card {
+  min-width: 0;
+  padding: 6px 8px;
+  background: var(--white);
+  border: var(--line);
+  border-radius: 12px;
+}
+
+.meter-card-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--ink-muted);
+}
+
+.meter-card-head b {
+  color: var(--ink);
+}
+
+.mini-meter {
+  height: 8px;
+  margin-top: 4px;
+  background: var(--track);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.mini-meter > span {
+  display: block;
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.4s ease;
+}
+
+/* Bar colours (also used by the result bars) */
+.fill-yellow,
+.meter > span.fill-yellow { background: var(--yellow); }
+.fill-coral,
+.meter > span.fill-coral { background: var(--coral); }
+.fill-blue,
+.meter > span.fill-blue { background: var(--blue); }
+.fill-mint,
+.meter > span.fill-mint { background: var(--mint); }
+
+/* Big title with the mascot beside it */
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.title-row h1 {
+  flex: 1;
+  min-width: 0;
+}
+
+/* The green tick on a selected choice */
+.choice .check {
+  position: absolute;
+  top: -12px;
+  right: 14px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--mint);
+  border: var(--line);
+  border-radius: 50%;
+}
+
+.choice[aria-pressed='true'] .check {
+  display: flex;
+}
+
+.choice[aria-pressed='true'] .choice-desc {
+  color: var(--ink);
+}
+
+.choice:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Price headline on launch week screens */
+.price-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.price-head .title-md {
+  font-size: 22px;
+}
+
+.chart {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Event card with the mascot peeking over the top edge */
+.event-card {
+  margin-top: 30px;
+}
+
+.event-card .title-md {
+  max-width: calc(100% - 92px);
+  font-size: 24px;
+}
+
+.mascot--peek {
+  position: absolute;
+  top: -38px;
+  right: 8px;
+  width: 88px;
+  height: 88px;
+}
+
+/* Token split sliders */
+.bucket {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bucket-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.bucket-value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+}
+
+.bucket-rule {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-muted);
+}
+
+.bucket-rule.hot {
+  color: #c2273a;
+}
+
+.stepper {
+  display: grid;
+  grid-template-columns: var(--tap) minmax(0, 1fr) var(--tap);
+  gap: 10px;
+  align-items: center;
+}
+
+.stepper button {
+  height: var(--tap);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--ink);
+  background: var(--yellow);
+  border: var(--line);
+  border-radius: 14px;
+  box-shadow: 3px 3px 0 var(--ink);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.stepper button:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--ink);
+}
+
+.stepper input[type='range'] {
+  width: 100%;
+  height: 32px;
+  accent-color: var(--ink);
+}
+
+/* Sticky bar at the bottom of a step, holding the main button */
+.sticky-bar {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  margin: 0 -18px;
+  padding: 12px 18px calc(14px + env(safe-area-inset-bottom, 0px));
+  background: var(--cream);
+  border-top: var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sticky-bar .label.bad {
+  color: #c2273a;
+}
+
+.steps-list {
+  margin: 0;
+  padding-left: 22px;
+  font-size: 15px;
+  line-height: 1.6;
 }
 
 /* ---------- Wider screens ---------- */

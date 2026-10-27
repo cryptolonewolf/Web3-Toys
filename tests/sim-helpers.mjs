@@ -1,5 +1,6 @@
-import { EVENTS } from '../src/data.js';
-import * as engine from '../src/engine.js';
+import { data, engine } from './sim-load.mjs';
+
+const { EVENTS } = data;
 
 // Plays a full game. `plan` holds the setup choices; `answer(event, state)`
 // returns 'a' or 'b'. `check(state)` runs after every change.
