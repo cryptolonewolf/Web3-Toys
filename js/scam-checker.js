@@ -178,23 +178,92 @@
     return note ? value + ' (' + note + ')' : value;
   }
 
-  // Lists every known scam web address or wallet address found in the text.
+  // Phone numbers are compared by their last 9 digits, so "+44 7700 900123",
+  // "07700900123" and "7700-900-123" all match each other.
+  function phoneKey(value) {
+    var digits = String(value).replace(/\D/g, '');
+    return digits.length >= 9 ? digits.slice(-9) : digits;
+  }
+
+  // Lowercase words separated by single spaces, so capitals and punctuation
+  // do not stop a phrase from matching.
+  function normalizeWords(text) {
+    return ' ' + String(text).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim() + ' ';
+  }
+
+  // Builds quick lookup tables from the list once, so long lists stay fast.
+  var indexCache = { known: null, index: null };
+
+  function buildIndex(known) {
+    if (indexCache.known === known) return indexCache.index;
+    var index = { domains: {}, evm: {}, addresses: {}, emails: {}, handles: {}, phones: {}, phrases: [] };
+    parseList(known.domains).forEach(function (e) {
+      var d = cleanDomain(e.value);
+      if (d) index.domains[d] = withNote(d, e.note);
+    });
+    parseList(known.addresses).forEach(function (e) {
+      if (/^0x[0-9a-f]{40}$/i.test(e.value)) index.evm[e.value.toLowerCase()] = withNote(e.value, e.note);
+      else index.addresses[e.value] = withNote(e.value, e.note);
+    });
+    parseList(known.emails).forEach(function (e) {
+      index.emails[e.value.toLowerCase()] = withNote(e.value, e.note);
+    });
+    parseList(known.handles).forEach(function (e) {
+      var h = e.value.replace(/^(https?:\/\/)?(t\.me\/|telegram\.me\/|@)/i, '').toLowerCase();
+      if (h) index.handles[h] = withNote('@' + h, e.note);
+    });
+    parseList(known.phones).forEach(function (e) {
+      var k = phoneKey(e.value);
+      if (k.length >= 7) index.phones[k] = withNote(e.value, e.note);
+    });
+    parseList(known.phrases).forEach(function (e) {
+      var p = normalizeWords(e.value);
+      if (p.trim()) index.phrases.push({ words: p, label: withNote('"' + e.value + '"', e.note) });
+    });
+    indexCache = { known: known, index: index };
+    return index;
+  }
+
+  function eachMatch(re, text, fn) {
+    var m;
+    re.lastIndex = 0;
+    while ((m = re.exec(text))) fn(m);
+  }
+
+  // Lists everything from the known scam list that appears in the text.
   function knownMatches(text, known) {
     var found = [];
     if (!known) return found;
-    parseList(known.domains).forEach(function (e) {
-      var d = cleanDomain(e.value);
-      if (!d) return;
-      // The name itself, or anything under it (app.name, help@name), as a whole word.
-      var re = new RegExp('(?:^|[^a-z0-9.-])(?:[a-z0-9-]+\\.)*' + escapeRegExp(d) + '(?![a-z0-9-]|\\.[a-z0-9])', 'i');
-      if (re.test(text)) found.push(withNote(d, e.note));
+    var index = buildIndex(known);
+    var add = function (label) { if (label && found.indexOf(label) === -1) found.push(label); };
+
+    // Web addresses: the name itself or anything under it (app.name, help@name).
+    eachMatch(/[a-z0-9-]+(?:\.[a-z0-9-]+)+/gi, text, function (m) {
+      var parts = m[0].toLowerCase().split('.');
+      for (var i = 0; i < parts.length - 1; i++) add(index.domains[parts.slice(i).join('.')]);
     });
-    parseList(known.addresses).forEach(function (e) {
-      var a = e.value;
-      var evm = /^0x[0-9a-f]{40}$/i.test(a);
-      var re = new RegExp('(?:^|[^A-Za-z0-9])' + escapeRegExp(a) + '(?![A-Za-z0-9])', evm ? 'i' : '');
-      if (re.test(text)) found.push(withNote(a, e.note));
+    // Wallet addresses: 0x ones whatever the capitals, others exactly.
+    eachMatch(/[A-Za-z0-9]{20,}/g, text, function (m) {
+      add(index.evm[m[0].toLowerCase()]);
+      add(index.addresses[m[0]]);
     });
+    // Email addresses.
+    eachMatch(/[a-z0-9._%+-]+@[a-z0-9-]+(?:\.[a-z0-9-]+)+/gi, text, function (m) {
+      add(index.emails[m[0].toLowerCase()]);
+    });
+    // Chat usernames, written as @name or t.me/name.
+    eachMatch(/(?:^|[^A-Za-z0-9._%+-])(?:@|t\.me\/|telegram\.me\/)([A-Za-z0-9_]{3,32})/gi, text, function (m) {
+      add(index.handles[m[1].toLowerCase()]);
+    });
+    // Phone numbers, however they are written.
+    eachMatch(/\+?\d[\d\s().-]{5,18}\d/g, text, function (m) {
+      add(index.phones[phoneKey(m[0])]);
+    });
+    // Scam phrases.
+    if (index.phrases.length) {
+      var words = normalizeWords(text);
+      index.phrases.forEach(function (p) { if (words.indexOf(p.words) !== -1) add(p.label); });
+    }
     return found;
   }
 

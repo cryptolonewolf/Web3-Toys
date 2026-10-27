@@ -221,7 +221,20 @@ https://www.old-scam.top/claim
 ${EVM}   # fake giveaway
 ${SOL}
 `,
-    flag: { name: 'Contains a known scam address', why: 'Reported.', todo: 'Do not open it.' },
+    emails: `
+Support@Scam-Mailer.top   # fake exchange support
+`,
+    handles: `
+@Fake_Support_Desk
+t.me/claimbot_rewards   # fake claim bot
+`,
+    phones: `
++44 7700 900123   # fake recruiter
+`,
+    phrases: `
+your wallet has been selected for the season 3 retroactive reward
+`,
+    flag: { name: 'Matches a reported scam', why: 'Reported.', todo: 'Do not open it.' },
   };
   const known = (text) => checker.check(text, RULES, KNOWN).flags.find((f) => f.rule.id === 'known-scam');
 
@@ -263,6 +276,32 @@ ${SOL}
     assert.equal(r.level, 'many');
   });
 
+  it('finds email addresses whatever the capitals', () => {
+    assert.deepEqual(known('Reply to support@scam-mailer.top today')?.found, ['Support@Scam-Mailer.top (fake exchange support)']);
+    assert.equal(known('Reply to notsupport@scam-mailer.topper'), undefined);
+  });
+
+  it('finds chat usernames written as @name or t.me/name', () => {
+    assert.ok(known('Message @fake_support_desk for help'));
+    assert.ok(known('Join https://t.me/ClaimBot_Rewards now'));
+    assert.ok(known('Message @claimbot_rewards'));
+    assert.equal(known('our fake_support_desk team'), undefined, 'plain word without @');
+    assert.equal(known('write to help@fake_support_desk.com'), undefined, 'part of an email');
+    assert.equal(known('Message @fake_support_desk2'), undefined, 'longer name');
+  });
+
+  it('finds phone numbers however they are written', () => {
+    for (const text of ['Call +44 7700 900123', 'WhatsApp me on 07700900123', 'text 7700-900-123 now', '(44) 7700 900 123']) {
+      assert.ok(known(text), text);
+    }
+    assert.equal(known('Call +44 7700 900124'), undefined);
+  });
+
+  it('finds scam phrases whatever the capitals and punctuation', () => {
+    assert.ok(known('GOOD NEWS! Your wallet has been selected for the Season-3 retroactive reward!!'));
+    assert.equal(known('Your wallet has been selected for the season 2 reward'), undefined);
+  });
+
   it('works without a list', () => {
     assert.equal(checker.check('fake-claim-site.xyz', RULES).flags.some((f) => f.rule.id === 'known-scam'), false);
   });
@@ -276,6 +315,18 @@ ${SOL}
     for (const e of checker.parseList(file.addresses)) {
       assert.doesNotMatch(e.value, /\s/, `bad wallet address: ${e.value}`);
       assert.ok(e.value.length >= 26 && e.value.length <= 64, `odd length wallet address: ${e.value}`);
+    }
+    for (const e of checker.parseList(file.emails)) {
+      assert.match(e.value, /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i, `bad email: ${e.value}`);
+    }
+    for (const e of checker.parseList(file.handles)) {
+      assert.match(e.value, /^(@|t\.me\/)?[A-Za-z0-9_]{3,32}$/, `bad username: ${e.value}`);
+    }
+    for (const e of checker.parseList(file.phones)) {
+      assert.ok(e.value.replace(/\D/g, '').length >= 9, `phone number too short: ${e.value}`);
+    }
+    for (const e of checker.parseList(file.phrases)) {
+      assert.ok(e.value.trim().split(/\s+/).length >= 5, `phrase needs at least 5 words: ${e.value}`);
     }
   });
 });
