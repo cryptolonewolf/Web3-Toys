@@ -34,6 +34,7 @@ describe('checker: the starting rules each catch their red flag', () => {
     fees: 'Pay a small fee to unlock your airdrop.',
     'unexpected-offer': 'Congratulations, you have won a prize!',
     endorsement: 'This project is backed by a famous investor.',
+    'call-to-cancel': 'A withdrawal was requested. If this was not you, call +1 555 0100 to cancel.',
     'rushed-and-sloppy': 'URGENT!! Dear customer kindly verify NOW or LOSE ACCESS.',
   };
 
@@ -98,6 +99,23 @@ describe('checker: result labels', () => {
     const r2 = checker.check('We never ask for your seed phrase. Now type your seed phrase below.', RULES);
     assert.ok(ids(r1).includes('secrets'));
     assert.ok(ids(r2).includes('secrets'));
+  });
+
+  it('catches the reviewed scam wordings', () => {
+    const cases = [
+      ['Your account has been temporarily locked due to suspicious activity.', 'urgency'],
+      ['A withdrawal request has been initiated. Verify immediately.', 'urgency'],
+      ['Crypto Wallet Validation Required: validating your wallet unlocks rewards.', 'connect-wallet'],
+      ['Please bind your wallet to receive the prize.', 'connect-wallet'],
+      ['The old token is being deprecated. Swap before the deadline.', 'connect-wallet'],
+      ['Good news, your wallet qualifies for the reward.', 'unexpected-offer'],
+      ['Your code is 4821. Did not request this? Call 0800 000 000.', 'call-to-cancel'],
+    ];
+    for (const [text, id] of cases) assert.ok(ids(checker.check(text, RULES)).includes(id), `${id}: ${text}`);
+  });
+
+  it('does not treat an everyday phone number as a call-to-cancel scam', () => {
+    assert.ok(!ids(checker.check('Lovely to meet you! Call me on 07700 900123 about Saturday.', RULES)).includes('call-to-cancel'));
   });
 
   it('sloppy writing only counts together with urgency', () => {

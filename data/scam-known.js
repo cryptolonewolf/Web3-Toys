@@ -24,7 +24,7 @@
 window.WEB3TOYS_SCAM_KNOWN = {
   // Also check against the public phishing lists in data/scam-feed.js
   // (about 20,000 recent scam websites and 251 scam wallets). true or false.
-  usePublicLists: false,
+  usePublicLists: true,
 
   // WEB ADDRESSES: just the name, like  fake-claim-site.xyz  (https:// is ignored).
   // This also catches everything under it, like app.fake-claim-site.xyz, and
