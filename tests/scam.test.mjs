@@ -346,6 +346,10 @@ your wallet has been selected for the season 3 retroactive reward
     }
     const everyday = 'github.com/org/repo medium.com/@team ourapp.vercel.app discord.gg/abc x.com/team youtube.com/watch?v=1 sites.google.com/view/my-bakery';
     assert.ok(!checker.check(everyday, RULES, [feed]).flags.some((f) => f.rule.id === 'known-scam'));
+    for (const s of SCENARIOS) {
+      const text = [s.from && s.from.handle, s.url, s.subject, s.title, s.body, s.button].filter(Boolean).join('\n');
+      assert.ok(!checker.check(text, RULES, [feed]).flags.some((f) => f.rule.id === 'known-scam'), `game message matched the feed: ${s.id}`);
+    }
   });
 
   it('works without a list', () => {
