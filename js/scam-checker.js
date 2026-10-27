@@ -157,11 +157,53 @@
     return matches.filter(function (m, i) { return matches.indexOf(m) === i; });
   }
 
+  // ---------- Known scam list ----------
+
+  // Turns the one-per-line lists in data/scam-known.js into entries.
+  // "fake.xyz   # fake airdrop" becomes { value: 'fake.xyz', note: 'fake airdrop' }.
+  function parseList(raw) {
+    return String(raw || '').split('\n').map(function (line) {
+      var hash = line.indexOf('#');
+      var value = (hash === -1 ? line : line.slice(0, hash)).trim();
+      var note = hash === -1 ? '' : line.slice(hash + 1).trim();
+      return value ? { value: value, note: note } : null;
+    }).filter(Boolean);
+  }
+
+  function cleanDomain(value) {
+    return value.toLowerCase().replace(/^[a-z]+:\/\//, '').replace(/^www\./, '').split(/[\/?#\s]/)[0];
+  }
+
+  function withNote(value, note) {
+    return note ? value + ' (' + note + ')' : value;
+  }
+
+  // Lists every known scam web address or wallet address found in the text.
+  function knownMatches(text, known) {
+    var found = [];
+    if (!known) return found;
+    parseList(known.domains).forEach(function (e) {
+      var d = cleanDomain(e.value);
+      if (!d) return;
+      // The name itself, or anything under it (app.name, help@name), as a whole word.
+      var re = new RegExp('(?:^|[^a-z0-9.-])(?:[a-z0-9-]+\\.)*' + escapeRegExp(d) + '(?![a-z0-9-]|\\.[a-z0-9])', 'i');
+      if (re.test(text)) found.push(withNote(d, e.note));
+    });
+    parseList(known.addresses).forEach(function (e) {
+      var a = e.value;
+      var evm = /^0x[0-9a-f]{40}$/i.test(a);
+      var re = new RegExp('(?:^|[^A-Za-z0-9])' + escapeRegExp(a) + '(?![A-Za-z0-9])', evm ? 'i' : '');
+      if (re.test(text)) found.push(withNote(a, e.note));
+    });
+    return found;
+  }
+
   // ---------- The check ----------
 
   // Returns either { blocked: 'seed' | 'key' } or
   // { flags: [{ rule, found }], count, weight, level: 'many' | 'some' | 'none', label, note }
-  function check(text, data) {
+  // `known` (optional) is the known scam list from data/scam-known.js.
+  function check(text, data, known) {
     text = String(text || '');
     var secret = detectSecret(text);
     if (secret) return { blocked: secret };
@@ -184,9 +226,20 @@
 
     flags.sort(function (a, b) { return b.rule.weight - a.rule.weight; });
 
+    // A match on the known scam list always comes first and always counts as many.
+    var knownFound = knownMatches(text, known);
+    if (knownFound.length) {
+      var f = known.flag || {};
+      flags.unshift({
+        rule: { id: 'known-scam', name: f.name, why: f.why, todo: f.todo, weight: 3 },
+        found: knownFound,
+      });
+    }
+
     var weight = flags.reduce(function (sum, f) { return sum + f.rule.weight; }, 0);
     var labels = data.labels;
-    var level = !flags.length ? 'none' : weight >= labels.manyAt || flags.length >= labels.manyCount ? 'many' : 'some';
+    var level = !flags.length ? 'none'
+      : knownFound.length || weight >= labels.manyAt || flags.length >= labels.manyCount ? 'many' : 'some';
 
     return {
       flags: flags,
@@ -202,6 +255,7 @@
     check: check,
     detectSecret: detectSecret,
     findDomains: findDomains,
+    parseList: parseList,
   };
 
   if (typeof module !== 'undefined' && module.exports) module.exports = api;

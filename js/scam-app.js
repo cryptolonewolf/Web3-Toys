@@ -326,7 +326,7 @@
         box.focus();
         return;
       }
-      var result = ScamChecker.check(text, RULES);
+      var result = ScamChecker.check(text, RULES, window.WEB3TOYS_SCAM_KNOWN);
       box.value = '';
       text = '';
       if (result.blocked) blocked(result.blocked);

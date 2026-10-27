@@ -54,6 +54,11 @@ page to look right.
 - **Checker rules:** `data/scam-rules.js`. Each rule has a name, the words to
   look for, a weight from 1 to 3, why it is a red flag and what to do instead.
   To catch a new wording, add it to that rule's `keywords` list.
+- **Known scam web addresses and wallet addresses:** `data/scam-known.js`.
+  Put each one on its own line, with an optional note after a `#`, like
+  `fake-claim-site.xyz  # fake airdrop page`. If a pasted message contains one,
+  the checker shows "Contains a known scam address" at the top. Only add
+  entries you are sure about, and note where each came from.
 - **Ranks, points and screen wording:** `data/scam-game.js`.
 
 The checker runs only in the visitor's browser. It never sends, saves or opens

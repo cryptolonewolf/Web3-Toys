@@ -689,6 +689,8 @@ a.toy-card:active {
 }
 
 .found-chip {
+  padding: 3px 10px;
+  border-radius: 12px;
   white-space: normal;
   overflow-wrap: anywhere;
 }

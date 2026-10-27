@@ -207,3 +207,75 @@ describe('game', () => {
     assert.equal(game.scoreRound(s, 'legit', ['urgency'], SETTINGS).points, 7);
   });
 });
+
+describe('known scam list', () => {
+  const EVM = '0x52908400098527886E0F7030069857D2E4169EE7';
+  const SOL = '7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU';
+  const KNOWN = {
+    domains: `
+# a comment line
+fake-claim-site.xyz    # fake airdrop page
+https://www.old-scam.top/claim
+`,
+    addresses: `
+${EVM}   # fake giveaway
+${SOL}
+`,
+    flag: { name: 'Contains a known scam address', why: 'Reported.', todo: 'Do not open it.' },
+  };
+  const known = (text) => checker.check(text, RULES, KNOWN).flags.find((f) => f.rule.id === 'known-scam');
+
+  it('reads one entry per line, skipping comments and keeping notes', () => {
+    const entries = checker.parseList(KNOWN.domains);
+    assert.equal(entries.length, 2);
+    assert.equal(entries[0].value, 'fake-claim-site.xyz');
+    assert.equal(entries[0].note, 'fake airdrop page');
+  });
+
+  it('finds a listed web address, with its note, anywhere in a message', () => {
+    for (const text of [
+      'Claim now at fake-claim-site.xyz before it closes',
+      'Go to https://app.fake-claim-site.xyz/claim?id=1',
+      'Email help@FAKE-CLAIM-SITE.XYZ for support.',
+      'Visit old-scam.top.',
+    ]) {
+      assert.ok(known(text), text);
+    }
+    assert.deepEqual(known('see fake-claim-site.xyz')?.found, ['fake-claim-site.xyz (fake airdrop page)']);
+  });
+
+  it('does not match lookalikes or longer names', () => {
+    for (const text of ['notfake-claim-site.xyz', 'fake-claim-site.xyz.example.com', 'fake-claim-site.xyzz', 'old-scam.topic']) {
+      assert.equal(known(text), undefined, text);
+    }
+  });
+
+  it('finds wallet addresses: 0x ignoring capitals, others exactly', () => {
+    assert.ok(known(`send to ${EVM.toLowerCase()} now`));
+    assert.ok(known(`address: ${SOL}`));
+    assert.equal(known(`address: ${SOL.toLowerCase()}`), undefined);
+    assert.equal(known(`${EVM}00`), undefined);
+  });
+
+  it('always comes first and always counts as many red flags', () => {
+    const r = checker.check('Hi, the call moved. Notes: fake-claim-site.xyz', RULES, KNOWN);
+    assert.equal(r.flags[0].rule.id, 'known-scam');
+    assert.equal(r.level, 'many');
+  });
+
+  it('works without a list', () => {
+    assert.equal(checker.check('fake-claim-site.xyz', RULES).flags.some((f) => f.rule.id === 'known-scam'), false);
+  });
+
+  it('the shipped list file is valid', () => {
+    const file = loadData('scam-known.js').WEB3TOYS_SCAM_KNOWN;
+    assert.ok(file.flag.name && file.flag.why && file.flag.todo);
+    for (const e of checker.parseList(file.domains)) {
+      assert.match(e.value.replace(/^https?:\/\//, ''), /^[a-z0-9.-]+\.[a-z]{2,}(\/.*)?$/i, `bad web address: ${e.value}`);
+    }
+    for (const e of checker.parseList(file.addresses)) {
+      assert.doesNotMatch(e.value, /\s/, `bad wallet address: ${e.value}`);
+      assert.ok(e.value.length >= 26 && e.value.length <= 64, `odd length wallet address: ${e.value}`);
+    }
+  });
+});
