@@ -2298,7 +2298,7 @@ a.toy-card:hover .toy-cover {
   accent-color: var(--ink);
 }
 
-/* ---------- Home: neal.fun style grid of toy covers ---------- */
+/* ---------- Home: wide toy cards ---------- */
 
 body.home .page,
 body.home .topbar-inner {
@@ -2331,26 +2331,19 @@ body.home .page {
   text-decoration: none;
 }
 
+.rank-badge--name {
+  padding: 4px 14px;
+  font-size: 15px;
+}
+
 @media (min-width: 700px) {
   .tagline { font-size: 17px; }
-}
-
-.rank-link .rank-badge {
-  gap: 6px;
-  padding: 2px 10px 2px 2px;
-  font-size: 15px;
-}
-
-.rank-link .rank-level {
-  width: 28px;
-  height: 28px;
-  font-size: 15px;
 }
 
 .shelf {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .shelf-label {
@@ -2364,24 +2357,27 @@ body.home .page {
 
 .tile-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 14px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
+/* A wide card: picture on the left, the toy's name on the right */
 .toy-tile {
   position: relative;
-  display: block;
-  aspect-ratio: 1;
-  overflow: hidden;
+  display: flex;
+  align-items: center;
+  /* Phones: a little wider than 2:1 so about five cards fit on one screen */
+  aspect-ratio: 3 / 1;
   color: var(--ink);
   text-decoration: none;
   border: var(--line);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow);
   background: var(--white);
+  rotate: var(--rest, 0deg);
   transition: rotate 0.2s ease, box-shadow 0.2s ease;
   -webkit-tap-highlight-color: transparent;
 }
@@ -2395,6 +2391,8 @@ body.home .page {
   height: 100%;
   max-width: none;
   object-fit: cover;
+  object-position: left center;
+  border-radius: 15px;
 }
 
 .toy-tile.has-cover .tile-art {
@@ -2402,47 +2400,40 @@ body.home .page {
 }
 
 .tile-name {
-  position: absolute;
-  left: 8px;
-  right: 8px;
-  bottom: 8px;
-  padding: 5px 8px;
-  font-family: 'Luckiest Guy', var(--font-display);
-  font-size: 15px;
-  line-height: 1.1;
-  letter-spacing: 0.4px;
-  text-align: center;
-  background: var(--white);
-  border: var(--line);
-  border-radius: 12px;
-  box-shadow: var(--shadow-sm);
-}
-
-.tile-name.toy-font {
-  font-family: var(--font-toy);
-  font-size: calc(15px * var(--toy-scale, 1));
+  position: relative;
+  margin-left: 40%;
+  padding-right: 14px;
+  font-family: var(--font-toy, 'Luckiest Guy'), var(--font-display);
+  font-size: calc(23px * var(--toy-scale, 1));
+  line-height: 1.02;
+  letter-spacing: var(--toy-spacing, 0.4px);
+  color: var(--ink);
+  text-shadow: 2px 2px 0 var(--white), -1px -1px 0 var(--white), 1px -1px 0 var(--white), -1px 1px 0 var(--white);
+  overflow-wrap: break-word;
 }
 
 .tile-sticker {
   position: absolute;
-  top: 8px;
+  z-index: 2;
   font-family: 'Luckiest Guy', var(--font-display);
   border: var(--line);
   box-shadow: var(--shadow-sm);
 }
 
 .tile-soon {
-  left: 8px;
-  padding: 3px 9px 1px;
-  font-size: 13px;
+  top: -10px;
+  right: 14px;
+  padding: 3px 10px 1px;
+  font-size: 14px;
   letter-spacing: 0.6px;
   background: var(--white);
   border-radius: 8px;
-  rotate: -6deg;
+  rotate: 6deg;
 }
 
 .tile-done {
-  right: 8px;
+  top: -10px;
+  right: 14px;
   display: grid;
   place-items: center;
   width: 32px;
@@ -2456,15 +2447,89 @@ body.home .page {
 
 .toy-tile.is-soon .tile-art,
 .toy-tile.is-soon .tile-img {
-  filter: saturate(0.45) brightness(1.05);
+  filter: saturate(0.55) brightness(1.04);
 }
 
 .toy-tile.is-soon {
   box-shadow: 3px 3px 0 var(--ink);
 }
 
+/* Edge details, so each card feels like a different toy */
+.toy-tile[data-edge='round'] { border-radius: 34px 12px 34px 12px; }
+.toy-tile[data-edge='round'] .tile-art,
+.toy-tile[data-edge='round'] .tile-img { border-radius: 31px 9px 31px 9px; }
+
+.toy-tile[data-edge='tape']::before {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  top: -10px;
+  left: 18%;
+  width: 70px;
+  height: 22px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 2px solid rgba(31, 27, 46, 0.35);
+  rotate: -8deg;
+}
+
+.toy-tile[data-edge='pin']::before {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  top: 8px;
+  left: 10px;
+  width: 16px;
+  height: 16px;
+  background: var(--coral);
+  border: var(--line-thin);
+  border-radius: 50%;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.toy-tile[data-edge='corner']::before {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  right: -3px;
+  bottom: -3px;
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(135deg, var(--white) 50%, var(--cream) 50%);
+  border-top: var(--line);
+  border-left: var(--line);
+  border-radius: 8px 0 15px 0;
+}
+
+.toy-tile[data-edge='stamp']::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  inset: 6px;
+  border: 2px dashed rgba(31, 27, 46, 0.45);
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+.toy-tile[data-edge='notch']::before,
+.toy-tile[data-edge='notch']::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  background: var(--cream);
+  border: var(--line);
+  border-radius: 50%;
+}
+
+.toy-tile[data-edge='notch']::before { left: -12px; clip-path: inset(0 0 0 50%); }
+.toy-tile[data-edge='notch']::after { right: -12px; clip-path: inset(0 50% 0 0); }
+
 a.toy-tile:hover {
   rotate: var(--tilt, -2deg);
+  translate: 0 -3px;
   box-shadow: var(--shadow-lg);
   animation: tile-bounce 0.5s ease;
 }
@@ -2482,22 +2547,15 @@ a.toy-tile:active {
   100% { translate: 0 -3px; }
 }
 
-a.toy-tile:hover {
-  translate: 0 -3px;
+@media (min-width: 640px) {
+  .tile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  .toy-tile { aspect-ratio: 2 / 1; }
+  .tile-name { margin-left: 44%; font-size: calc(25px * var(--toy-scale, 1)); }
 }
 
-@media (min-width: 560px) {
-  .tile-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-
-@media (min-width: 820px) {
-  .tile-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
-}
-
-@media (min-width: 1040px) {
-  .tile-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; }
-  .tile-name { font-size: 17px; }
-  .tile-name.toy-font { font-size: calc(17px * var(--toy-scale, 1)); }
+@media (min-width: 1000px) {
+  .tile-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px 20px; }
+  .tile-name { font-size: calc(27px * var(--toy-scale, 1)); }
 }
 
 /* ---------- Wider screens ---------- */

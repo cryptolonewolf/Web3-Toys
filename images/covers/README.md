@@ -22,5 +22,7 @@ id with underscores, as a PNG. It replaces the drawn placeholder by itself.
 | Launch a Token Simulator | `token_simulator.png` |
 | Read the Token Split | `token_split.png` |
 
-Best size: square, 600 by 600 pixels, under 150 KB. Keep the bottom quarter
-plain, because the toy's name sits there.
+Best size: wide, 1200 by 600 pixels (2 to 1), under 200 KB. Put the art on
+the left half and keep the right half calm, because the toy's name sits there.
+On phones the card is a little wider (3 to 1), so the top and bottom edges get
+trimmed slightly; keep the important part in the middle.

@@ -6,13 +6,16 @@
   var esc = C.esc;
   var app = document.getElementById('app');
   var progress = Web3Progress.load(window.localStorage);
+  // Each card rests at its own small tilt.
+  var TILTS = [-1.2, 0.9, -0.5, 1.4, -1.6, 0.6, -0.9, 1.1, -0.3, 1.6];
   var COLORS = { yellow: '#FFD93D', blue: '#4D9DE0', coral: '#FF6B6B', mint: '#6BCB77', violet: '#A98BFF', orange: '#FF9F43', pink: '#FF8FC8', teal: '#3CC6C0' };
 
   Promise.all([C.loadJson('data/home.json'), C.loadJson('data/ranks.json')])
     .then(function (r) { render(r[0], r[1].ranks); })
     .catch(function (err) { app.innerHTML = C.loadError(err); });
 
-  // images/covers/crypto_in_5.png for the card "crypto-in-5". If the picture
+  // images/covers/crypto_in_5.png for the card "crypto-in-5", a wide 2:1
+  // picture with the art on the left. If the picture
   // is not there yet, the drawn placeholder underneath stays visible.
   function coverPath(id) {
     return 'images/covers/' + id.replace(/-/g, '_') + '.png';
@@ -22,12 +25,13 @@
     var cert = live && progress.certificates[c.id];
     var said = c.title + (c.topic ? ', ' + c.topic : '') + '. ' + (c.blurb || '') + (live ? '' : ' Coming soon.') + (cert ? ' Completed.' : '');
     var inner =
-      Web3Covers.svg(c.object, COLORS[c.color] || COLORS.yellow) +
+      Web3Covers.svg(c.object, COLORS[c.color] || COLORS.yellow, c.pattern, c.id) +
       '<img class="tile-img" src="' + coverPath(c.id) + '" alt="" loading="lazy" onload="this.parentNode.classList.add(\'has-cover\')" onerror="this.remove()" />' +
       (cert ? '<span class="tile-sticker tile-done" aria-hidden="true">✓</span>' : '') +
       (live ? '' : '<span class="tile-sticker tile-soon" aria-hidden="true">Soon</span>') +
       '<span class="tile-name' + (c.font ? ' toy-font' : '') + '" aria-hidden="true">' + esc(c.title) + '</span>';
-    var look = ' style="--tilt:' + (k % 2 ? '2deg' : '-2deg') + '"' + (c.font ? ' data-font="' + esc(c.font) + '"' : '');
+    var look = ' style="--rest:' + TILTS[k % TILTS.length] + 'deg;--tilt:' + (k % 2 ? '2.5deg' : '-2.5deg') + '"' +
+      (c.font ? ' data-font="' + esc(c.font) + '"' : '') + (c.edge ? ' data-edge="' + esc(c.edge) + '"' : '');
     return '<li>' + (live
       ? '<a class="toy-tile"' + look + ' href="' + esc(c.path) + '" aria-label="' + esc(said) + '">' + inner + '</a>'
       : '<div class="toy-tile is-soon"' + look + ' role="img" aria-label="' + esc(said) + '">' + inner + '</div>') + '</li>';
@@ -40,7 +44,8 @@
 
     app.innerHTML =
       '<div class="home-top"><h1 class="tagline">' + esc(home.tagline) + '</h1>' +
-      '<a class="rank-link" href="progress/">' + C.rankBadge(rank, Web3Progress.level(rank, ranks)) + '</a></div>' +
+      '<a class="rank-link" href="progress/" aria-label="Your rank: ' + esc(rank.name) + '. Open My Progress">' +
+      '<span class="rank-badge rank-badge--name">' + esc(rank.name) + '</span></a></div>' +
       home.shelves.map(function (shelf) {
         // A card can override its shelf's status, so a shelf can mix live and coming soon cards.
         var isLive = function (c) { return (c.status || shelf.status) === 'live'; };

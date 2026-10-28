@@ -1,5 +1,5 @@
-// Placeholder covers for the home page cards: the toy's own colour and one
-// big cartoon object. A real picture in images/covers/<toy_id>.png replaces
+// Placeholder covers for the home page cards: the toy's own colour and
+// pattern, and one big cartoon object on the left. A real picture in images/covers/<toy_id>.png replaces
 // it automatically. Web3Covers.svg('rocket', '#FF9F43') returns the drawing.
 
 (function () {
@@ -71,15 +71,34 @@
       '<path d="M84 136 Q100 178 116 136Z" fill="#FFD93D"/>',
   };
 
-  function svg(object, color) {
+  // Background patterns, drawn in white over the card colour. Each card has
+  // its own colour and pattern pair, so no two cards look the same.
+  var PATTERNS = {
+    dots: '<circle cx="10" cy="10" r="4"/>',
+    stripes: '<path d="M-5 25 L25 -5 M5 35 L35 5" stroke="#fff" stroke-width="6"/>',
+    grid: '<path d="M0 0 H20 V20" fill="none" stroke="#fff" stroke-width="2.5"/>',
+    zigzag: '<path d="M0 14 L5 6 L10 14 L15 6 L20 14" fill="none" stroke="#fff" stroke-width="3"/>',
+    waves: '<path d="M0 10 Q5 2 10 10 T20 10" fill="none" stroke="#fff" stroke-width="3"/>',
+    checks: '<rect width="10" height="10"/><rect x="10" y="10" width="10" height="10"/>',
+    plus: '<path d="M10 5 V15 M5 10 H15" stroke="#fff" stroke-width="3" stroke-linecap="round"/>',
+    rings: '<circle cx="10" cy="10" r="6" fill="none" stroke="#fff" stroke-width="2.5"/>',
+    triangles: '<path d="M10 4 L16 15 H4Z"/>',
+  };
+
+  // A wide 400 by 200 cover: the pattern, a soft glow and the big object on
+  // the left half, leaving the right side for the toy's name.
+  function svg(object, color, pattern, id) {
     var art = OBJECTS[object] || OBJECTS.coins;
-    return '<svg class="tile-art" viewBox="0 0 200 200" aria-hidden="true" focusable="false">' +
-      '<rect width="200" height="200" fill="' + color + '"/>' +
-      '<g fill="#fff" opacity=".28"><circle cx="30" cy="34" r="20"/><circle cx="176" cy="150" r="26"/><circle cx="168" cy="30" r="9"/></g>' +
-      '<g fill="#fff" stroke="' + INK + '" stroke-width="3" stroke-linejoin="round"><path d="M30 92 l4 9 9 4 -9 4 -4 9 -4 -9 -9 -4 9 -4z"/><path d="M160 66 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z"/></g>' +
-      '<ellipse cx="100" cy="152" rx="50" ry="9" fill="' + INK + '" opacity=".18"/>' +
-      '<g transform="translate(100 86) scale(.74) translate(-100 -100)" stroke="' + INK + '" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">' + art + '</g></svg>';
+    var pid = 'pat-' + (id || object);
+    return '<svg class="tile-art" viewBox="0 0 400 200" preserveAspectRatio="xMinYMid slice" aria-hidden="true" focusable="false">' +
+      '<defs><pattern id="' + pid + '" width="20" height="20" patternUnits="userSpaceOnUse" fill="#fff">' + (PATTERNS[pattern] || PATTERNS.dots) + '</pattern></defs>' +
+      '<rect width="400" height="200" fill="' + color + '"/>' +
+      '<rect width="400" height="200" fill="url(#' + pid + ')" opacity=".22"/>' +
+      '<circle cx="96" cy="100" r="64" fill="#fff" opacity=".3"/>' +
+      '<g fill="#fff" stroke="' + INK + '" stroke-width="3" stroke-linejoin="round"><path d="M30 46 l4 9 9 4 -9 4 -4 9 -4 -9 -9 -4 9 -4z"/><path d="M168 130 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z"/></g>' +
+      '<ellipse cx="96" cy="160" rx="42" ry="7" fill="' + INK + '" opacity=".18"/>' +
+      '<g transform="translate(96 100) scale(.62) translate(-100 -100)" stroke="' + INK + '" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">' + art + '</g></svg>';
   }
 
-  window.Web3Covers = { svg: svg, objects: Object.keys(OBJECTS) };
+  window.Web3Covers = { svg: svg, objects: Object.keys(OBJECTS), patterns: Object.keys(PATTERNS) };
 })();

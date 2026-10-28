@@ -56,7 +56,11 @@ describe('toy looks', () => {
       assert.ok(colors.includes(c.color), `${c.id}: color ${c.color}`);
       assert.ok(new RegExp(`\\b${c.object}:`).test(covers), `${c.id}: object ${c.object}`);
       assert.ok(c.blurb, `${c.id}: blurb`);
+      assert.ok(new RegExp(`\\b${c.pattern}:`).test(covers), `${c.id}: pattern ${c.pattern}`);
+      assert.ok(['tape', 'notch', 'corner', 'stamp', 'pin', 'round'].includes(c.edge), `${c.id}: edge ${c.edge}`);
     }
+    const looks = home.shelves.flatMap((s) => s.cards.map((c) => `${c.color} ${c.pattern}`));
+    assert.equal(new Set(looks).size, looks.length, 'every card needs its own colour and pattern pair');
   });
 
   it('the five new toys are on the home page as coming soon', () => {
