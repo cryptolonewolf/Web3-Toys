@@ -1204,6 +1204,221 @@ a.toy-card:active {
   background: var(--mint);
 }
 
+/* ---------- Toy player ---------- */
+
+/* Aki with a speech bubble */
+.guide {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.guide-face {
+  flex: none;
+  width: 72px;
+  height: 72px;
+}
+
+.guide-bubble {
+  position: relative;
+  margin: 0 0 14px;
+  padding: 10px 14px;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.35;
+  background: var(--white);
+  border: var(--line);
+  border-radius: 16px 16px 16px 4px;
+  box-shadow: var(--shadow-sm);
+}
+
+.lesson-card .title-lg {
+  font-size: 26px;
+}
+
+.lesson-points {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding-left: 22px;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.tip {
+  margin: 0;
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 1.4;
+  background: var(--cream);
+  border: var(--line-thin);
+  border-radius: 12px;
+}
+
+/* Tap-to-flip tiles */
+.reveal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.reveal-tile {
+  min-height: 112px;
+  padding: 12px;
+  font: inherit;
+  color: var(--ink);
+  text-align: left;
+  background: var(--yellow);
+  border: var(--line);
+  border-radius: 14px;
+  box-shadow: 3px 3px 0 var(--ink);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.reveal-tile:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--ink);
+}
+
+.reveal-front {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.15;
+}
+
+.reveal-hint {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--ink-soft);
+}
+
+.reveal-back {
+  display: none;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.reveal-tile[aria-pressed='true'] {
+  background: var(--white);
+}
+
+.reveal-tile[aria-pressed='true'] .reveal-front {
+  display: none;
+}
+
+.reveal-tile[aria-pressed='true'] .reveal-back {
+  display: block;
+}
+
+/* Answers that show right or wrong */
+.choice.is-right {
+  background: var(--mint-tint);
+}
+
+.choice.is-wrong {
+  background: var(--coral-tint);
+}
+
+.choice.is-right .choice-title::before {
+  content: '✓ ';
+}
+
+.choice.is-wrong .choice-title::before {
+  content: '✗ ';
+}
+
+.choice:disabled.is-right,
+.choice:disabled.is-wrong {
+  opacity: 1;
+  cursor: default;
+}
+
+/* Tap-through steps */
+.step-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step-item {
+  border: var(--line);
+  border-radius: 14px;
+  background: var(--white);
+  overflow: hidden;
+}
+
+.step-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: var(--tap);
+  padding: 10px 14px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--ink);
+  text-align: left;
+  background: var(--white);
+  border: 0;
+  cursor: pointer;
+}
+
+.step-head::after {
+  content: '+';
+  font-size: 22px;
+}
+
+.step-item.is-open .step-head {
+  background: var(--yellow);
+  border-bottom: var(--line-thin);
+}
+
+.step-item.is-open .step-head::after {
+  content: '−';
+}
+
+.step-body {
+  display: none;
+  margin: 0;
+  padding: 10px 14px 12px;
+}
+
+.step-item.is-open .step-body {
+  display: block;
+}
+
+/* Trending list */
+.trend-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.trend-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  background: var(--cream);
+  border: var(--line-thin);
+  border-radius: 12px;
+}
+
 /* ---------- Wider screens ---------- */
 
 @media (min-width: 700px) {

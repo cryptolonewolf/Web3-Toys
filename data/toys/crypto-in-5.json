@@ -1,0 +1,108 @@
+{
+  "_help": "Cards for this toy, in order. Card types: story, reveal (tap tiles to flip), pick (choose an answer), steps (tap through a timeline), trending (shows data/trending.json). Optional on any card: aki (what the mascot says), mascot (grin, thinking, worried, celebrating), points (bullet list), tip, link {label, href}.",
+  "id": "crypto-in-5",
+  "title": "Crypto in 5 Minutes",
+  "time": "5 min",
+  "cards": [
+    {
+      "type": "story",
+      "mascot": "grin",
+      "aki": "Hey, I'm Aki. Let's speed-run crypto in five minutes.",
+      "title": "Crypto in 5 Minutes",
+      "text": ["Where it came from, what moves prices, why everyone talks about four year cycles, and what memes are really about.", "Tap Next to go through the cards. There is a short quiz and a certificate at the end."]
+    },
+    {
+      "type": "story",
+      "mascot": "thinking",
+      "aki": "It all starts with a mystery.",
+      "title": "It started with Bitcoin",
+      "text": ["In 2008, during the global financial crisis, someone called Satoshi Nakamoto published a short paper describing Bitcoin: digital money that moves from person to person with no bank in the middle.", "The Bitcoin network went live in January 2009. Nobody knows who Satoshi is to this day."],
+      "points": ["No bank or company runs it. Thousands of computers keep the same shared record.", "There will only ever be 21 million bitcoin.", "Anyone can check every transaction on the public record, called the blockchain."]
+    },
+    {
+      "type": "reveal",
+      "mascot": "grin",
+      "aki": "Then someone asked: what if money could run code?",
+      "title": "Then came Ethereum",
+      "text": ["Ethereum launched in 2015, started by Vitalik Buterin and others. It added programs, called smart contracts, that run on the blockchain. Tap each tile to see what that made possible."],
+      "items": [
+        { "front": "Smart contracts", "back": "Code that runs by itself on the blockchain, like a vending machine: put something in, get something out, no shop assistant needed." },
+        { "front": "DeFi", "back": "Short for decentralised finance: lending, borrowing and trading with smart contracts instead of a bank." },
+        { "front": "NFTs", "back": "Tokens that prove you own one specific digital item, like a piece of art or a ticket." },
+        { "front": "Stablecoins", "back": "Tokens designed to stay worth one dollar, like USDT and USDC. They are how most people move money around crypto." }
+      ]
+    },
+    {
+      "type": "pick",
+      "mascot": "thinking",
+      "aki": "Quick check before we move on.",
+      "title": "What made Bitcoin new?",
+      "options": [
+        { "text": "A big bank created it", "why": "No bank created or runs Bitcoin. That was the whole point." },
+        { "text": "Money that moves without a bank in the middle", "correct": true, "why": "Yes. People send value directly, and a shared public record keeps everyone honest." },
+        { "text": "Each coin is backed by gold", "why": "Bitcoin is not backed by gold. Its value comes from people choosing to use and hold it." }
+      ]
+    },
+    {
+      "type": "story",
+      "mascot": "thinking",
+      "aki": "Prices follow stories more than you would think.",
+      "title": "Narratives move markets",
+      "text": ["A narrative is a story the market gets excited about. Money and attention flow towards whatever story is hot, then move on."],
+      "points": ["2017: ICOs, where new projects sold tokens straight to the public.", "2020: DeFi summer, when lending and trading apps took off.", "2021: NFTs and the metaverse.", "2024 onwards: Bitcoin ETFs, AI and real world assets."],
+      "tip": "By the time a narrative is everywhere on your feed, the early buyers are often looking for someone to sell to."
+    },
+    {
+      "type": "steps",
+      "mascot": "grin",
+      "aki": "Ever heard someone say 'it's the cycle'? Here is what they mean.",
+      "title": "The 4 year cycle",
+      "text": ["Bitcoin's history has moved in rough four year loops. Tap through the phases."],
+      "steps": [
+        { "label": "1. The halving", "text": "About every four years, the number of new bitcoin created each day is cut in half. Halvings happened in 2012, 2016, 2020 and 2024." },
+        { "label": "2. The run up", "text": "In past cycles, prices rose over the following year or so as less new supply met growing demand." },
+        { "label": "3. Mania", "text": "Prices go parabolic, everyone talks about crypto, and new coins launch every day." },
+        { "label": "4. The bear market", "text": "Prices fall hard, often 70 percent or more from the top, and most new projects disappear. Then it slowly starts again." }
+      ],
+      "tip": "Past cycles are not a promise. Many people think big funds and ETFs are changing the pattern."
+    },
+    {
+      "type": "reveal",
+      "mascot": "worried",
+      "aki": "Now, the fun and dangerous part.",
+      "title": "Memes and memecoins",
+      "text": ["Dogecoin started in 2013 as a joke about a dog meme and became one of the biggest coins. Since then, thousands of memecoins launch every day. Tap to see how they work."],
+      "items": [
+        { "front": "Why they pump", "back": "Attention. A funny idea, a community and a wave of posts can send the price up fast." },
+        { "front": "Why they dump", "back": "There is usually no product. Early holders and insiders sell to late buyers, and attention moves on." },
+        { "front": "The odds", "back": "Most memecoins lose almost all their value. A tiny number win big, and those are the ones you hear about." },
+        { "front": "Aki's rule", "back": "Only use money you would spend on a night out, and expect to lose it." }
+      ]
+    },
+    {
+      "type": "pick",
+      "mascot": "thinking",
+      "aki": "What would you think here?",
+      "title": "A memecoin is up 500 percent this week and everyone is posting about it. What is most likely true?",
+      "options": [
+        { "text": "It will keep going up for months", "why": "Some do for a while, but most memecoins fall back once the attention moves on." },
+        { "text": "Early buyers may be looking to sell to late buyers", "correct": true, "why": "Right. When it is all over your feed, you are often the late buyer." },
+        { "text": "A big company must be behind it", "why": "Usually not. Memecoins rarely have a company or a product behind them." }
+      ]
+    },
+    {
+      "type": "trending",
+      "mascot": "grin",
+      "aki": "Here is what people are talking about right now.",
+      "title": "What is trending"
+    },
+    {
+      "type": "story",
+      "mascot": "celebrating",
+      "aki": "You just did crypto in five minutes!",
+      "title": "Quick recap",
+      "points": ["Bitcoin: money with no bank in the middle, capped at 21 million.", "Ethereum: programmable money that made DeFi, NFTs and stablecoins possible.", "Narratives: stories that pull money and attention, then move on.", "The 4 year cycle: halving, run up, mania, bear market. Not a promise.", "Memecoins: attention games where most lose."],
+      "text": ["Ready? The quiz has a few questions, 20 seconds each. Score 70 percent to earn your certificate."]
+    }
+  ]
+}

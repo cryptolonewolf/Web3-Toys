@@ -1,0 +1,13 @@
+{
+  "_help": "The trending panel in Crypto in 5 Minutes. Edit freely: change the date, the items, or the note. Keep it to topics, not buy tips.",
+  "updated": "2026-10-28",
+  "title": "Aki's trending picks",
+  "note": "Topics people are talking about, picked by Aki. Not a buy list and not financial advice.",
+  "items": [
+    { "name": "Stablecoins", "tag": "Payments", "why": "Dollar tokens like USDT and USDC are being used for payments and saving, and governments are writing rules for them." },
+    { "name": "Bitcoin ETFs", "tag": "Big money", "why": "Funds on regular stock markets let people get Bitcoin exposure without a wallet, bringing in large investors." },
+    { "name": "Real world assets", "tag": "RWA", "why": "Things like government bonds and funds are being turned into tokens that trade on blockchains." },
+    { "name": "AI agents", "tag": "AI", "why": "Software bots that can hold wallets and make onchain trades or payments by themselves." },
+    { "name": "Prediction markets", "tag": "Forecasting", "why": "People trade on the outcome of events like elections and sports, and the prices act like live forecasts." }
+  ]
+}
