@@ -581,7 +581,7 @@ window.WEB3TOYS_SIM = {
       line: 'Get the free first chapter of the book, plus new web3 toys when they launch.',
       button: 'Send me the chapter',
     },
-    // The link itself goes in data/site.js (bookUrl).
+    // The link itself goes in config.js (bookUrl).
     bookLabel: 'Get the full book, 5 dollars',
     bookSoon: 'Book coming soon. Leave your email above to hear when it is out.',
   },

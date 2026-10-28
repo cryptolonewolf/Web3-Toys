@@ -1,0 +1,10 @@
+{
+  "_help": "Ranks by number of certificates earned, lowest first. To add ranks when new categories go live, add rows with a higher min.",
+  "ranks": [
+    { "min": 0, "name": "Visitor", "line": "Welcome! Finish a toy to earn your first certificate." },
+    { "min": 1, "name": "Curious", "line": "One down. The rabbit hole goes deeper." },
+    { "min": 2, "name": "Explorer", "line": "You are finding your way around." },
+    { "min": 3, "name": "Navigator", "line": "You can steer through the noise now." },
+    { "min": 4, "name": "Web3 Starter", "line": "You finished Getting Started. Ready for more." }
+  ]
+}

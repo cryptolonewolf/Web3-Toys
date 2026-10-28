@@ -3,19 +3,19 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>web3.toys: free little games about how web3 works</title>
+    <title>web3.toys: learn web3 by playing with it</title>
     <meta
       name="description"
-      content="Free, bite-sized games that show how web3 really works. Play one in five minutes. Simplified numbers, not financial advice."
+      content="Free five minute toys that teach crypto and web3, each with a quiz and a certificate. Educational only, not financial advice."
     />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="web3.toys" />
     <meta property="og:title" content="web3.toys" />
-    <meta property="og:description" content="Free, bite-sized games that show how web3 really works. Play one in five minutes." />
+    <meta property="og:description" content="Free five minute toys that teach crypto and web3, each with a quiz and a certificate." />
     <meta property="og:url" content="https://web3.toys/" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="web3.toys" />
-    <meta name="twitter:description" content="Free, bite-sized games that show how web3 really works. Play one in five minutes." />
+    <meta name="twitter:description" content="Free five minute toys that teach crypto and web3, each with a quiz and a certificate." />
     <meta name="theme-color" content="#FFD93D" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -30,40 +30,24 @@
     <div class="page">
       <header class="site-header">
         <a class="logo" href="./">web3.toys</a>
-        <span class="pill">by BuildWithAki</span>
+        <a class="pill pill-link" href="progress/">My Progress</a>
       </header>
 
-      <main class="stack">
-        <section class="card card--hero hero" aria-labelledby="hero-title">
-          <div class="hero-copy">
-            <p class="label">Free web3 toys</p>
-            <h1 id="hero-title" class="title-xl">Learn web3 by playing with it.</h1>
-          </div>
-          <p class="hero-text">Small games that show how token launches, wallets and markets really work. Each one takes about five minutes.</p>
-          <img class="mascot mascot--lg" src="assets/mascot.svg" alt="" width="116" height="116" />
-        </section>
-
-        <section class="stack stack--tight" aria-labelledby="toys-title">
-          <h2 id="toys-title" class="section-title">Pick a toy</h2>
-          <ul id="toy-list" class="toy-grid">
-            <li>
-              <a class="card card--yellow toy-card" href="simulator/">
-                <h3 class="title-sm">Launch a Token Simulator</h3>
-                <p class="text">Run a fictional token launch and live through launch week.</p>
-              </a>
-            </li>
-          </ul>
-        </section>
+      <main id="app" class="stack">
+        <noscript>
+          <p class="card">web3.toys needs JavaScript turned on.</p>
+        </noscript>
       </main>
 
       <footer class="site-footer">
-        <p>Games with simplified numbers. Not financial advice.</p>
+        <p><strong>Educational only. Not financial advice.</strong></p>
         <p>web3.toys · by BuildWithAki</p>
       </footer>
     </div>
 
-    <script src="js/site.js"></script>
-    <script src="data/toys.js"></script>
+    <script src="config.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/progress.js"></script>
     <script src="js/home.js"></script>
   </body>
 </html>

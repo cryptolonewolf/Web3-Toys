@@ -1,0 +1,50 @@
+{
+  "_help": "Home page shelves and cards. status: live (clickable) or soon (shows Coming soon). Each live card's id must match its toy file in data/toys/ and its quiz in quizzes/.",
+  "heroLabel": "Free web3 toys",
+  "heroTitle": "Learn web3 by playing with it.",
+  "heroText": "Short, playful lessons with a quiz and a certificate at the end. Each one takes about five minutes.",
+  "shelves": [
+    {
+      "id": "getting-started",
+      "title": "Getting Started",
+      "blurb": "Start here. Four quick toys that take you from zero to confident.",
+      "status": "live",
+      "cards": [
+        { "id": "crypto-in-5", "title": "Crypto in 5 Minutes", "time": "5 min", "path": "crypto-in-5/", "blurb": "How it started, narratives, the 4 year cycle, memes and what is trending." },
+        { "id": "getting-started", "title": "Getting Started in Crypto", "time": "6 min", "path": "getting-started/", "blurb": "Wallets, stablecoins, tokens, exchanges, swaps, fees, blockchains, perps and options." },
+        { "id": "dont-lose-money", "title": "How Not to Lose Money", "time": "5 min", "path": "dont-lose-money/", "blurb": "Start small, skip perps, avoid meme gambling, pick good sources and spot scams." },
+        { "id": "earn-small", "title": "Ways to Earn Small", "time": "5 min", "path": "earn-small/", "blurb": "Content, airdrops, writing, videos and internships." }
+      ]
+    },
+    {
+      "id": "career",
+      "title": "Career in Web3",
+      "blurb": "Find your place in the industry.",
+      "status": "soon",
+      "cards": [
+        { "id": "first-job", "title": "Land Your First Web3 Job", "time": "5 min" },
+        { "id": "web3-roles", "title": "Roles in Web3, Explained", "time": "5 min" }
+      ]
+    },
+    {
+      "id": "entrepreneurs",
+      "title": "For Entrepreneurs",
+      "blurb": "Build, raise and launch.",
+      "status": "soon",
+      "cards": [
+        { "id": "raise-first-round", "title": "Raise Your First Round", "time": "6 min" },
+        { "id": "tokenomics-basics", "title": "Tokenomics Basics", "time": "5 min" }
+      ]
+    },
+    {
+      "id": "play",
+      "title": "Play and Learn",
+      "blurb": "Games and simulators.",
+      "status": "soon",
+      "cards": [
+        { "id": "token-simulator", "title": "Launch a Token Simulator", "time": "5 min" },
+        { "id": "token-split", "title": "Read the Token Split", "time": "4 min" }
+      ]
+    }
+  ]
+}

@@ -38,6 +38,11 @@
   box-sizing: border-box;
 }
 
+/* Anything marked hidden stays hidden, whatever its layout class says. */
+[hidden] {
+  display: none !important;
+}
+
 html {
   -webkit-text-size-adjust: 100%;
 }
@@ -1083,6 +1088,120 @@ a.toy-card:active {
   padding-left: 22px;
   font-size: 15px;
   line-height: 1.6;
+}
+
+/* ---------- Home, ranks and progress ---------- */
+
+.pill-link {
+  color: var(--ink);
+  text-decoration: none;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.pill-link:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--ink);
+}
+
+.shelf-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.toy-grid--soon .toy-card {
+  min-height: 0;
+}
+
+.rank-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 6px 12px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.rank-card .label,
+.rank-card .small-print {
+  grid-column: 1 / -1;
+}
+
+.rank-card .go {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+.rank-card:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--ink);
+}
+
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: start;
+  padding: 4px 14px 4px 4px;
+  background: var(--yellow);
+  border: var(--line);
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.rank-level {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  color: var(--yellow);
+  background: var(--ink);
+  border-radius: 50%;
+  font-size: 16px;
+}
+
+.rank-badge--big {
+  align-self: flex-start;
+  font-size: 22px;
+  background: var(--white);
+}
+
+.rank-badge--big .rank-level {
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+}
+
+.rank-ladder {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rank-ladder li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  opacity: 0.5;
+}
+
+.rank-ladder li.is-done,
+.rank-ladder li.is-current {
+  opacity: 1;
+}
+
+.rank-ladder li.is-current .rank-badge {
+  background: var(--mint);
 }
 
 /* ---------- Wider screens ---------- */

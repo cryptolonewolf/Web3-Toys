@@ -1,6 +1,6 @@
 // Shared pieces for every toy: the share card, the share button, the email
 // signup and the "Get the full report" and "Book a call" buttons.
-// Settings come from data/site.js.
+// Settings come from config.js.
 
 (function () {
   var SITE = window.WEB3TOYS_SITE || {};
