@@ -1419,6 +1419,89 @@ a.toy-card:active {
   border-radius: 12px;
 }
 
+/* ---------- Quiz and certificate ---------- */
+
+.timer {
+  position: relative;
+  height: 34px;
+  background: var(--white);
+  border: var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.timer-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 100%;
+  background: var(--mint);
+  transition: width 0.2s linear;
+}
+
+.timer-fill.is-low {
+  background: var(--coral);
+}
+
+.timer-text {
+  position: relative;
+  display: block;
+  line-height: 28px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.review summary {
+  cursor: pointer;
+  min-height: 32px;
+}
+
+.review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.review-list li {
+  padding: 10px 12px;
+  border: var(--line-thin);
+  border-radius: 12px;
+}
+
+.review-list li.is-right {
+  background: var(--mint-tint);
+}
+
+.review-list li.is-wrong {
+  background: var(--coral-tint);
+}
+
+.certificate-preview {
+  max-width: 100%;
+  border: var(--line);
+  border-radius: 14px;
+}
+
+.card--hero .mascot--peek,
+.card--good .mascot--peek,
+.card--warning .mascot--peek {
+  top: -30px;
+}
+
+.card--good:has(.mascot--peek),
+.card--warning:has(.mascot--peek),
+.card--hero:has(.mascot--peek) {
+  margin-top: 26px;
+}
+
+.btn-row a.btn {
+  text-align: center;
+}
+
 /* ---------- Wider screens ---------- */
 
 @media (min-width: 700px) {

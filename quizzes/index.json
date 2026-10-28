@@ -1,0 +1,9 @@
+{
+  "_help": "Toys that have a quiz. letter: one character used inside certificate codes. Never change or reuse a letter once certificates exist, or old codes stop verifying. Pick new letters from: 0-9 and A-Z except I, L, O, U.",
+  "toys": [
+    { "id": "crypto-in-5", "title": "Crypto in 5 Minutes", "letter": "A" },
+    { "id": "getting-started", "title": "Getting Started in Crypto", "letter": "B" },
+    { "id": "dont-lose-money", "title": "How Not to Lose Money", "letter": "C" },
+    { "id": "earn-small", "title": "Ways to Earn Small", "letter": "D" }
+  ]
+}

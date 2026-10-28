@@ -1,0 +1,54 @@
+{
+  "_help": "Quiz for Crypto in 5 Minutes. 5 to 8 questions. answer must match one of the options exactly. explain is shown after the quiz. This folder is never shown to visitors.",
+  "questions": [
+    {
+      "id": "q1",
+      "question": "Who published the Bitcoin paper in 2008?",
+      "options": ["Satoshi Nakamoto", "Vitalik Buterin", "A group of banks", "The US government"],
+      "answer": "Satoshi Nakamoto",
+      "explain": "Satoshi Nakamoto published the Bitcoin paper in 2008. Nobody knows who Satoshi really is."
+    },
+    {
+      "id": "q2",
+      "question": "How many bitcoin will ever exist?",
+      "options": ["21 million", "100 million", "1 billion", "There is no limit"],
+      "answer": "21 million",
+      "explain": "Bitcoin's supply is capped at 21 million."
+    },
+    {
+      "id": "q3",
+      "question": "What did Ethereum add that Bitcoin did not have?",
+      "options": ["Smart contracts: programs that run on the blockchain", "A bank that guarantees deposits", "Coins backed by gold", "Free trading for everyone"],
+      "answer": "Smart contracts: programs that run on the blockchain",
+      "explain": "Ethereum made the blockchain programmable, which made DeFi, NFTs and stablecoins possible."
+    },
+    {
+      "id": "q4",
+      "question": "What is a stablecoin?",
+      "options": ["A token designed to stay worth about one dollar", "A coin whose price can never fall", "A memecoin with a stable community", "A coin you cannot sell"],
+      "answer": "A token designed to stay worth about one dollar",
+      "explain": "Stablecoins like USDT and USDC aim to stay worth one dollar, which makes them handy for moving money around crypto."
+    },
+    {
+      "id": "q5",
+      "question": "What happens at a Bitcoin halving?",
+      "options": ["The number of new bitcoin created each day is cut in half", "The price of bitcoin halves", "Half of all bitcoin is destroyed", "Trading fees are cut in half"],
+      "answer": "The number of new bitcoin created each day is cut in half",
+      "explain": "About every four years, new supply is halved. Past cycles have moved around these events, but that is no promise."
+    },
+    {
+      "id": "q6",
+      "question": "In crypto, what is a narrative?",
+      "options": ["A story the market gets excited about, pulling in money and attention", "The whitepaper of a project", "A tax rule for crypto", "A type of wallet"],
+      "answer": "A story the market gets excited about, pulling in money and attention",
+      "explain": "Narratives like DeFi, NFTs or AI pull attention for a while, then the market moves on."
+    },
+    {
+      "id": "q7",
+      "question": "What mostly drives a memecoin's price?",
+      "options": ["Attention and hype", "Company profits", "Government backing", "Bank interest rates"],
+      "answer": "Attention and hype",
+      "explain": "Most memecoins have no product. When the attention moves on, most lose almost all their value."
+    }
+  ]
+}

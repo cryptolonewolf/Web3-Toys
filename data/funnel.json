@@ -1,0 +1,16 @@
+{
+  "_help": "Words on every finish screen and certificate. The signup form address and the booking link live in config.js. In shareText, {title}, {score} and {link} are filled in automatically.",
+  "call": {
+    "heading": "Want a hand getting started?",
+    "line": "Book a short call with Aki to talk through your questions.",
+    "button": "Book a call with Aki"
+  },
+  "signup": {
+    "heading": "Get new toys first",
+    "line": "One email when a new toy or lesson goes live. No spam, unsubscribe any time.",
+    "button": "Keep me posted"
+  },
+  "shareText": "I just earned my \"{title}\" certificate on web3.toys with {score}%. Check it here:",
+  "shareTip": "Download the image first, then attach it to your post on X.",
+  "nameNote": "Your name goes on the certificate and is used to check it. web3.toys does not store it."
+}

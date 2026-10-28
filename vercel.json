@@ -1,0 +1,12 @@
+{
+  "functions": {
+    "api/*.js": {
+      "includeFiles": "quizzes/**"
+    }
+  },
+  "redirects": [
+    { "source": "/quizzes/:path*", "destination": "/", "permanent": false },
+    { "source": "/api/_lib", "destination": "/", "permanent": false },
+    { "source": "/api/_lib.js", "destination": "/", "permanent": false }
+  ]
+}
