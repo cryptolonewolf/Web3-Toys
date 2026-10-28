@@ -1,0 +1,47 @@
+{
+  "_help": "Quiz for Ways to Earn Small. 5 to 8 questions. answer must match one of the options exactly. explain is shown after the quiz. This folder is never shown to visitors.",
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is an airdrop?",
+      "options": ["Free tokens a project gives to early users", "A fee for sending crypto", "A type of hardware wallet", "A loan from an exchange"],
+      "answer": "Free tokens a project gives to early users",
+      "explain": "Projects reward early, genuine users. It is never guaranteed."
+    },
+    {
+      "id": "q2",
+      "question": "A site asks you to pay a small fee to claim your airdrop. What is it?",
+      "options": ["A scam", "The normal way to claim", "A good deal if the fee is low", "A tax"],
+      "answer": "A scam",
+      "explain": "Real airdrops never ask you to pay to claim."
+    },
+    {
+      "id": "q3",
+      "question": "Which is a real way to earn with writing in web3?",
+      "options": ["Writing docs, guides or research for projects", "Paying to join a writing club", "Copying other people's threads", "Buying followers"],
+      "answer": "Writing docs, guides or research for projects",
+      "explain": "Clear writing is in demand. Publish samples so people can see your work."
+    },
+    {
+      "id": "q4",
+      "question": "What helps most when applying for a first web3 internship?",
+      "options": ["Links to public work you have already done", "A fee paid to a recruiter", "A big wallet balance", "Knowing everything first"],
+      "answer": "Links to public work you have already done",
+      "explain": "A proof of work list beats any CV line."
+    },
+    {
+      "id": "q5",
+      "question": "Why use a separate wallet when testing new apps or claiming rewards?",
+      "options": ["So a bad app cannot touch your main savings", "It makes rewards bigger", "Apps require two wallets", "It avoids all fees"],
+      "answer": "So a bad app cannot touch your main savings",
+      "explain": "Keep experiments away from the money you care about."
+    },
+    {
+      "id": "q6",
+      "question": "A 'job' asks for an activation fee before you start. What should you do?",
+      "options": ["Walk away, real jobs never charge you", "Pay it, it is normal", "Pay half now", "Ask a friend to pay"],
+      "answer": "Walk away, real jobs never charge you",
+      "explain": "Paying to earn is the classic job scam."
+    }
+  ]
+}

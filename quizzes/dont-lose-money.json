@@ -1,0 +1,54 @@
+{
+  "_help": "Quiz for How Not to Lose Money. 5 to 8 questions. answer must match one of the options exactly. explain is shown after the quiz. This folder is never shown to visitors.",
+  "questions": [
+    {
+      "id": "q1",
+      "question": "How much should a beginner put into crypto at first?",
+      "options": ["A small amount they can afford to lose", "Most of their savings", "Borrowed money", "Whatever a friend suggests"],
+      "answer": "A small amount they can afford to lose",
+      "explain": "Starting small lets you learn without real damage."
+    },
+    {
+      "id": "q2",
+      "question": "Why do most beginners lose money on perps?",
+      "options": ["Leverage, liquidations and fees work against them", "Perps are illegal", "Perps never move", "Perps only go up"],
+      "answer": "Leverage, liquidations and fees work against them",
+      "explain": "Small moves can wipe out leveraged positions, and pros sit on the other side."
+    },
+    {
+      "id": "q3",
+      "question": "What usually happens to most new memecoins?",
+      "options": ["They lose almost all their value", "They become stablecoins", "They pay steady dividends", "They are backed by a company"],
+      "answer": "They lose almost all their value",
+      "explain": "Insiders and bots buy early and sell to the crowd. Most memecoins go to zero."
+    },
+    {
+      "id": "q4",
+      "question": "Which is the most reliable source?",
+      "options": ["A project's official docs and onchain data", "An anonymous account posting gem calls", "A screenshot of someone's gains", "A paid post promising 100x"],
+      "answer": "A project's official docs and onchain data",
+      "explain": "Check what actually happened onchain and what the project itself says."
+    },
+    {
+      "id": "q5",
+      "question": "An influencer says a token is 'guaranteed to 100x' and you must buy now. What is the best response?",
+      "options": ["Treat it as a red flag and do not rush", "Buy before it is too late", "Borrow money to buy more", "Share it with friends"],
+      "answer": "Treat it as a red flag and do not rush",
+      "explain": "Nobody can guarantee returns, and many promoters are paid to post."
+    },
+    {
+      "id": "q6",
+      "question": "Someone from 'support' messages you first with a link to fix your wallet. What do you do?",
+      "options": ["Ignore it and use only the official app for help", "Click it fast", "Send them your seed phrase", "Pay their small fee"],
+      "answer": "Ignore it and use only the official app for help",
+      "explain": "Real support never DMs first and never asks for your seed phrase."
+    },
+    {
+      "id": "q7",
+      "question": "A post shows a famous person saying 'send 1 coin and get 2 back'. What is it?",
+      "options": ["A scam", "A real giveaway", "A new kind of airdrop", "A safe trade"],
+      "answer": "A scam",
+      "explain": "Nobody doubles your crypto. Whatever you send is gone."
+    }
+  ]
+}

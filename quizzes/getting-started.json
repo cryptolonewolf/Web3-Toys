@@ -1,0 +1,61 @@
+{
+  "_help": "Quiz for Getting Started in Crypto. 5 to 8 questions. answer must match one of the options exactly. explain is shown after the quiz. This folder is never shown to visitors.",
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is a seed phrase?",
+      "options": ["12 or 24 words that can rebuild your wallet and control your funds", "Your exchange password", "A code to get free tokens", "The name of your wallet app"],
+      "answer": "12 or 24 words that can rebuild your wallet and control your funds",
+      "explain": "Whoever has your seed phrase owns your wallet. Never share it with anyone."
+    },
+    {
+      "id": "q2",
+      "question": "What does 'not your keys, not your coins' mean?",
+      "options": ["If someone else holds the keys, like an exchange, they control your crypto", "You lose coins when you lose your house keys", "Coins only work with a hardware wallet", "Exchanges cannot hold crypto"],
+      "answer": "If someone else holds the keys, like an exchange, they control your crypto",
+      "explain": "On an exchange, the company holds the keys. In your own wallet, you do."
+    },
+    {
+      "id": "q3",
+      "question": "What is a stablecoin?",
+      "options": ["A token designed to stay worth about one dollar", "A coin that only goes up", "A coin stored in a cold wallet", "Bitcoin's original name"],
+      "answer": "A token designed to stay worth about one dollar",
+      "explain": "Stablecoins like USDT and USDC track the dollar, though they can lose that link."
+    },
+    {
+      "id": "q4",
+      "question": "What is the main difference between a CEX and a DEX?",
+      "options": ["A CEX is run by a company that holds your funds; a DEX swaps straight from your own wallet", "A DEX is always cheaper", "A CEX only sells Bitcoin", "There is no difference"],
+      "answer": "A CEX is run by a company that holds your funds; a DEX swaps straight from your own wallet",
+      "explain": "Centralised exchanges are easy but custodial. Decentralised exchanges keep you in control."
+    },
+    {
+      "id": "q5",
+      "question": "What is gas?",
+      "options": ["The network fee for a transaction, paid in the chain's coin", "A type of stablecoin", "The profit from a trade", "A reward for holding tokens"],
+      "answer": "The network fee for a transaction, paid in the chain's coin",
+      "explain": "Every transaction pays gas, so keep a little ETH, SOL or the right coin in your wallet."
+    },
+    {
+      "id": "q6",
+      "question": "You send USDT on a different network than your friend's address uses. What can happen?",
+      "options": ["The money can be lost", "It always arrives anyway", "It turns into another coin", "The network refunds it automatically"],
+      "answer": "The money can be lost",
+      "explain": "Always check that the network matches on both sides before sending."
+    },
+    {
+      "id": "q7",
+      "question": "You open a 10x leveraged position and the price moves 10 percent against you. What happens?",
+      "options": ["You can lose your whole stake", "You lose 1 percent", "Nothing until you sell", "You earn funding"],
+      "answer": "You can lose your whole stake",
+      "explain": "Leverage multiplies losses. At 10x, a 10 percent move can liquidate you."
+    },
+    {
+      "id": "q8",
+      "question": "What is an option?",
+      "options": ["The right, but not the duty, to buy or sell at a set price before a set date", "A free trial on an exchange", "A stablecoin backed by gold", "A wallet setting"],
+      "answer": "The right, but not the duty, to buy or sell at a set price before a set date",
+      "explain": "Options are powerful and complex. Learn them well before using them."
+    }
+  ]
+}

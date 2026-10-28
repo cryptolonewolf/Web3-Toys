@@ -1,0 +1,140 @@
+{
+  "_help": "Cards for this toy, in order. Card types: story, reveal (tap tiles to flip), pick (choose an answer), steps (tap through a timeline), trending. Optional on any card: aki (what the mascot says), mascot (grin, thinking, worried, celebrating), points (bullet list), tip, link {label, href}.",
+  "id": "getting-started",
+  "title": "Getting Started in Crypto",
+  "time": "6 min",
+  "cards": [
+    {
+      "type": "story",
+      "mascot": "grin",
+      "aki": "Let's set you up with the basics everyone else pretends to know.",
+      "title": "Getting Started in Crypto",
+      "text": ["Wallets, coins and tokens, stablecoins, exchanges, swaps, fees, blockchains, and what perps and options are.", "Six minutes, then a quick quiz for your certificate."]
+    },
+    {
+      "type": "reveal",
+      "mascot": "thinking",
+      "aki": "First, where your crypto lives.",
+      "title": "Wallets",
+      "text": ["A wallet does not hold coins. It holds the keys that prove the coins on the blockchain are yours. Tap each tile."],
+      "items": [
+        { "front": "Hot wallet", "back": "An app or browser extension, like MetaMask or Phantom. Handy for everyday use, and online all the time." },
+        { "front": "Cold wallet", "back": "A small device, like a Ledger or Trezor, that keeps your keys offline. Safer for savings." },
+        { "front": "Seed phrase", "back": "12 or 24 words that can rebuild your wallet anywhere. Whoever has them owns everything in it. Write them on paper, never share them." },
+        { "front": "Exchange account", "back": "When crypto sits on an exchange, the exchange holds the keys for you. People say: not your keys, not your coins." }
+      ]
+    },
+    {
+      "type": "pick",
+      "mascot": "worried",
+      "aki": "This one matters more than anything else today.",
+      "title": "Someone in a chat offers to fix your wallet if you share your seed phrase. What do you do?",
+      "options": [
+        { "text": "Share it, they are from support", "why": "Real support never asks for your seed phrase. Anyone who does is trying to empty your wallet." },
+        { "text": "Never share it, and block them", "correct": true, "why": "Exactly. Your seed phrase is your money. No one else ever needs it." },
+        { "text": "Share only half of the words", "why": "Even part of it helps a thief. Never share any of it." }
+      ]
+    },
+    {
+      "type": "story",
+      "mascot": "thinking",
+      "aki": "Coins, tokens, stablecoins: same thing? Not quite.",
+      "title": "Coins, tokens and stablecoins",
+      "points": [
+        "A coin is the main currency of its own blockchain, like BTC on Bitcoin, ETH on Ethereum or SOL on Solana.",
+        "A token is built on top of a blockchain, like a project's token on Ethereum.",
+        "A stablecoin is a token designed to stay worth one dollar, like USDT or USDC. They are how most people move money in crypto."
+      ],
+      "tip": "Stablecoins can lose their dollar link. In 2022 a big one called UST collapsed to almost zero. Stick to large, well-known ones and spread the risk."
+    },
+    {
+      "type": "reveal",
+      "mascot": "grin",
+      "aki": "Different blockchains are like different countries.",
+      "title": "Blockchains",
+      "text": ["Each blockchain is its own network, with its own coin used to pay fees. Tap to compare a few."],
+      "items": [
+        { "front": "Bitcoin", "back": "The first one. Built for sending and holding bitcoin. Slow and very secure." },
+        { "front": "Ethereum", "back": "The home of smart contracts, DeFi and NFTs. Fees are paid in ETH." },
+        { "front": "Solana", "back": "A fast, cheap network popular for trading and memecoins. Fees are paid in SOL." },
+        { "front": "Layer 2s", "back": "Networks like Base and Arbitrum that sit on top of Ethereum to make it faster and cheaper." }
+      ]
+    },
+    {
+      "type": "reveal",
+      "mascot": "thinking",
+      "aki": "Now, where people actually buy and sell.",
+      "title": "CEX and DEX",
+      "items": [
+        { "front": "CEX", "back": "A centralised exchange, run by a company, like Binance, Coinbase or Kraken. You sign up with ID, deposit money and the exchange holds your crypto." },
+        { "front": "DEX", "back": "A decentralised exchange, like Uniswap or Jupiter. Smart contracts swap tokens straight from your own wallet. No sign up." },
+        { "front": "CEX pros and cons", "back": "Easy, with card and bank payments. But you trust the company, and exchanges have failed before." },
+        { "front": "DEX pros and cons", "back": "You stay in control of your coins. But anyone can list a token, including scams, and mistakes cannot be undone." }
+      ]
+    },
+    {
+      "type": "steps",
+      "mascot": "grin",
+      "aki": "Here is what happens when you swap on a DEX.",
+      "title": "How a swap works",
+      "steps": [
+        { "label": "1. Connect your wallet", "text": "Open the DEX from its real address, then connect your wallet. Bookmark it so you never land on a fake copy." },
+        { "label": "2. Pick the tokens", "text": "Choose what you give and what you get. Check the token's contract address, since scammers copy popular names." },
+        { "label": "3. Check the price", "text": "Look at price impact and slippage: how much worse your price can get while the trade goes through." },
+        { "label": "4. Approve and confirm", "text": "Your wallet asks you to approve and sign. You pay a network fee, called gas, and the tokens arrive in seconds." }
+      ]
+    },
+    {
+      "type": "story",
+      "mascot": "worried",
+      "aki": "Fees sneak up on everyone.",
+      "title": "The fees you will meet",
+      "points": [
+        "Gas: the network fee for every transaction, paid in that chain's coin.",
+        "Trading fee: what an exchange or DEX charges per trade.",
+        "Spread: the gap between the buy and sell price.",
+        "Slippage: the price moving against you while a trade goes through.",
+        "Withdrawal fee: what an exchange charges to send crypto out."
+      ],
+      "tip": "Always keep a little of the chain's coin, like ETH or SOL, in your wallet to pay gas."
+    },
+    {
+      "type": "pick",
+      "mascot": "thinking",
+      "aki": "A classic beginner mistake. What would you do?",
+      "title": "You want to send USDT to a friend. What must match on both sides?",
+      "options": [
+        { "text": "The colour of your wallets", "why": "Wallet colours do not matter at all." },
+        { "text": "The network, like Ethereum or Solana", "correct": true, "why": "Yes. USDT exists on many networks. Send on a different network than your friend's address and the money can be lost." },
+        { "text": "The time of day", "why": "Crypto works around the clock. The network is what matters." }
+      ]
+    },
+    {
+      "type": "reveal",
+      "mascot": "worried",
+      "aki": "You will hear about these everywhere. Here is the short version.",
+      "title": "Perps and options",
+      "items": [
+        { "front": "Perps", "back": "Perpetual futures: bets on a price going up or down, with no end date. Usually traded with borrowed money." },
+        { "front": "Leverage", "back": "Borrowed money that multiplies gains and losses. At 10x, a 10 percent move against you can wipe out your whole stake." },
+        { "front": "Liquidation", "back": "When your losses hit the limit, the exchange closes your position and your money is gone." },
+        { "front": "Options", "back": "The right, but not the duty, to buy or sell at a set price before a set date. Powerful and complex." }
+      ],
+      "tip": "Perps and options are advanced tools. Most beginners who trade them lose money. Learn first, trade later, if at all."
+    },
+    {
+      "type": "story",
+      "mascot": "celebrating",
+      "aki": "You now know more than most people on your timeline.",
+      "title": "Quick recap",
+      "points": [
+        "Wallets hold keys, and your seed phrase is your money. Never share it.",
+        "Coins run blockchains, tokens live on them, stablecoins track the dollar.",
+        "CEX: easy, but a company holds your coins. DEX: you hold them, and you must be careful.",
+        "Watch gas, trading fees, spread and slippage, and always match the network.",
+        "Perps and options use leverage. Leave them for later."
+      ],
+      "text": ["Ready for the quiz? 20 seconds per question, 70 percent to pass."]
+    }
+  ]
+}

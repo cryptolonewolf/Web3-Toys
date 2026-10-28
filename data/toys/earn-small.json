@@ -1,0 +1,125 @@
+{
+  "_help": "Cards for this toy, in order. Card types: story, reveal (tap tiles to flip), pick (choose an answer), steps (tap through a timeline), trending. Optional on any card: aki (what the mascot says), mascot (grin, thinking, worried, celebrating), points (bullet list), tip, link {label, href}.",
+  "id": "earn-small",
+  "title": "Ways to Earn Small",
+  "time": "5 min",
+  "cards": [
+    {
+      "type": "story",
+      "mascot": "grin",
+      "aki": "You do not need money to get into web3. You need to be useful.",
+      "title": "Ways to Earn Small",
+      "text": ["Five ways people earn their first crypto: content, airdrops, writing, videos and internships.", "None of them make you rich overnight. All of them build skills and a reputation."]
+    },
+    {
+      "type": "reveal",
+      "mascot": "grin",
+      "aki": "Content is how most people in web3 get noticed.",
+      "title": "Content creation",
+      "items": [
+        { "front": "Explainer threads", "back": "Short posts on X that explain one thing simply. Projects share good ones and sometimes pay for them." },
+        { "front": "Memes", "back": "Communities love good memes. Some projects run meme contests with token prizes." },
+        { "front": "Newsletters", "back": "A weekly roundup of one niche builds an audience that sponsors and projects will pay to reach." },
+        { "front": "Build in public", "back": "Share what you learn as you go. It is a portfolio and a network at the same time." }
+      ]
+    },
+    {
+      "type": "story",
+      "mascot": "thinking",
+      "aki": "Airdrops are real, but they are not free money.",
+      "title": "Airdrops",
+      "text": ["Projects sometimes reward early users with free tokens, called an airdrop, to spread ownership and say thank you."],
+      "points": [
+        "Use new products for real, early on: test networks, apps and points programs.",
+        "It costs time, and sometimes fees. Many people spend more than they get.",
+        "Projects filter out farmers running lots of fake accounts.",
+        "Fake claim sites are everywhere. A real airdrop never asks you to pay first."
+      ]
+    },
+    {
+      "type": "pick",
+      "mascot": "worried",
+      "aki": "Spot the problem.",
+      "title": "A site says you can claim a big airdrop if you pay a small fee first. What is it?",
+      "options": [
+        { "text": "A normal way to claim airdrops", "why": "Real airdrops never ask you to pay to claim." },
+        { "text": "A scam", "correct": true, "why": "Yes. The fee is the scam, and the airdrop never arrives. The site may also try to drain your wallet." },
+        { "text": "A good deal if the fee is small", "why": "The size of the fee does not matter. Paying to receive is the classic trick." }
+      ]
+    },
+    {
+      "type": "story",
+      "mascot": "grin",
+      "aki": "If you can write clearly, web3 needs you.",
+      "title": "Writing",
+      "points": [
+        "Docs and guides: many projects pay for clear documentation and tutorials.",
+        "Research: deep dives into projects for funds, media and research groups.",
+        "Ghostwriting: threads and articles for founders who are too busy to write.",
+        "Community recaps: summaries of calls and governance votes."
+      ],
+      "tip": "Publish samples on a blog or onchain writing platform like Paragraph, so people can see your work before they hire you."
+    },
+    {
+      "type": "reveal",
+      "mascot": "grin",
+      "aki": "Not a writer? Try the camera.",
+      "title": "Videos",
+      "items": [
+        { "front": "Explainers", "back": "Short videos that explain one idea simply, on YouTube, TikTok or Shorts." },
+        { "front": "Tutorials", "back": "Screen recordings showing how to use a product step by step. Projects often pay for these." },
+        { "front": "Live shows", "back": "Hosting livestreams or X Spaces with founders builds a network fast." },
+        { "front": "Editing", "back": "Many creators need editors. It is a skill you can sell straight away." }
+      ]
+    },
+    {
+      "type": "steps",
+      "mascot": "thinking",
+      "aki": "Here is a simple path to your first internship or gig.",
+      "title": "Internships and first gigs",
+      "steps": [
+        { "label": "1. Pick one ecosystem", "text": "Choose one community, like Ethereum, Solana or a project you like, and get to know it well." },
+        { "label": "2. Help out for real", "text": "Answer questions, write a guide, report bugs or translate docs. People notice who shows up." },
+        { "label": "3. Keep a proof of work list", "text": "Collect links to everything you did. It becomes your CV." },
+        { "label": "4. Apply and reach out", "text": "Use web3 job boards like web3.career or CryptoJobsList, and message teams directly with your work attached." }
+      ]
+    },
+    {
+      "type": "story",
+      "mascot": "worried",
+      "aki": "Some 'jobs' are traps. Stay sharp.",
+      "title": "Earn safely",
+      "points": [
+        "Never pay to get a job, a training course with a promised job, or an activation fee.",
+        "Use a separate wallet for testing new apps and claiming rewards.",
+        "Ask to be paid in a well-known stablecoin, and check the network.",
+        "Keep records. In many countries crypto income is taxed."
+      ]
+    },
+    {
+      "type": "pick",
+      "mascot": "thinking",
+      "aki": "Last check before the quiz.",
+      "title": "What is the best way to land your first web3 internship?",
+      "options": [
+        { "text": "Show public work you have already done for the community", "correct": true, "why": "Yes. A link to real work beats any CV line." },
+        { "text": "Pay a recruiter a fee to guarantee a job", "why": "Real jobs never charge you. That is a scam." },
+        { "text": "Wait until you know everything", "why": "Nobody knows everything. Start helping now and learn on the way." }
+      ]
+    },
+    {
+      "type": "story",
+      "mascot": "celebrating",
+      "aki": "Small wins add up. Go make something.",
+      "title": "Quick recap",
+      "points": [
+        "Content: threads, memes, newsletters, building in public.",
+        "Airdrops: use products early, never pay to claim.",
+        "Writing and videos: projects pay for clear explainers and tutorials.",
+        "Internships: pick one ecosystem, help for real, keep proof of your work.",
+        "Never pay to earn."
+      ],
+      "text": ["Ready for the quiz? 20 seconds per question, 70 percent to pass."]
+    }
+  ]
+}

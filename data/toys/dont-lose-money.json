@@ -1,0 +1,129 @@
+{
+  "_help": "Cards for this toy, in order. Card types: story, reveal (tap tiles to flip), pick (choose an answer), steps (tap through a timeline), trending. Optional on any card: aki (what the mascot says), mascot (grin, thinking, worried, celebrating), points (bullet list), tip, link {label, href}.",
+  "id": "dont-lose-money",
+  "title": "How Not to Lose Money",
+  "time": "5 min",
+  "cards": [
+    {
+      "type": "story",
+      "mascot": "worried",
+      "aki": "I have seen a lot of people lose money in crypto. Let's make sure you are not one of them.",
+      "title": "How Not to Lose Money",
+      "text": ["Six habits that keep beginners in the game: start small, skip perps, avoid meme gambling, pick good sources, ignore moon promises, and spot scams."]
+    },
+    {
+      "type": "story",
+      "mascot": "thinking",
+      "aki": "Rule one is boring, and it works.",
+      "title": "Start small",
+      "points": [
+        "Only put in money you could lose without it hurting your rent, bills or sleep.",
+        "Make your first purchase tiny. Treat it as the price of learning.",
+        "Send a small test amount before any big transfer.",
+        "Buying a little on a regular schedule beats betting everything at once."
+      ]
+    },
+    {
+      "type": "pick",
+      "mascot": "thinking",
+      "aki": "Your call.",
+      "title": "You just learned about crypto. How much should you put in first?",
+      "options": [
+        { "text": "Most of my savings, to make it worth it", "why": "Big bets while you are still learning are how most beginners lose money." },
+        { "text": "A small amount I can afford to lose", "correct": true, "why": "Yes. Small stakes let you learn the ropes without real damage." },
+        { "text": "Borrowed money, so I keep my savings", "why": "Never borrow to buy crypto. You can lose the money and still owe it." }
+      ]
+    },
+    {
+      "type": "reveal",
+      "mascot": "worried",
+      "aki": "Perps look like a shortcut. They are a trap for beginners.",
+      "title": "Why perps wreck beginners",
+      "items": [
+        { "front": "Leverage", "back": "At 20x, a 5 percent move against you wipes you out. Crypto moves 5 percent before lunch." },
+        { "front": "Liquidation", "back": "When you hit your limit, your position is closed automatically, often at the worst moment." },
+        { "front": "Funding fees", "back": "Holding a position costs you a fee every few hours, which eats your money even when price goes nowhere." },
+        { "front": "Who is on the other side", "back": "Professional traders and bots with better tools. Most retail perp traders lose." }
+      ]
+    },
+    {
+      "type": "story",
+      "mascot": "worried",
+      "aki": "Memecoins are fun to watch and painful to hold.",
+      "title": "Do not gamble on memecoins",
+      "points": [
+        "Thousands launch every day, and most go to zero within days.",
+        "Bots and insiders buy first and sell to the crowd that arrives later.",
+        "Rug pulls: creators pull the money out and disappear.",
+        "The few big winners are the stories you hear. You never hear about the thousands of losers."
+      ],
+      "tip": "If you play anyway, use only what you would spend on a night out, and expect to lose it."
+    },
+    {
+      "type": "reveal",
+      "mascot": "thinking",
+      "aki": "Who you listen to decides how you invest.",
+      "title": "Good sources versus noise",
+      "items": [
+        { "front": "Good: official sources", "back": "A project's own docs, blog and announcements, reached through its real website." },
+        { "front": "Good: onchain data", "back": "Tools like Etherscan show what actually happened onchain, instead of what someone claims." },
+        { "front": "Good: people who show their work", "back": "Researchers and writers who explain their reasoning, share risks, and admit when they were wrong." },
+        { "front": "Noise", "back": "Anonymous gem calls, screenshots of gains, and anyone who never mentions risk." }
+      ]
+    },
+    {
+      "type": "story",
+      "mascot": "worried",
+      "aki": "Be careful with anyone promising the moon.",
+      "title": "Ignore KOLs promising the moon",
+      "text": ["KOL means key opinion leader: an influencer with a big following. Many are paid to promote tokens, often without saying so, and some sell to their own followers."],
+      "points": [
+        "Words like guaranteed, next 100x or last chance.",
+        "Rushing you to buy right now.",
+        "Referral links on every post.",
+        "Never talking about risk or losses."
+      ],
+      "tip": "If someone is sure a coin will moon, ask yourself why they are telling thousands of strangers."
+    },
+    {
+      "type": "steps",
+      "mascot": "worried",
+      "aki": "Scammers are creative. These are the ones you will meet first.",
+      "title": "Spot common scams",
+      "steps": [
+        { "label": "Fake support", "text": "Someone posing as support messages you first. Real support never DMs first and never asks for your seed phrase." },
+        { "label": "Fake websites", "text": "Lookalike addresses and ads that lead to copies of real sites. Use bookmarks, not search ads." },
+        { "label": "Wallet drainers", "text": "Claim an airdrop pages that ask you to sign or approve. One signature can empty your wallet." },
+        { "label": "Send 1, get 2", "text": "Fake giveaways using famous faces. Nobody doubles your crypto." },
+        { "label": "Pig butchering", "text": "A friendly stranger builds trust for weeks, then guides you to a fake trading app that never lets you withdraw." }
+      ],
+      "link": { "label": "Practise with Spot the Scam", "href": "../scam/" }
+    },
+    {
+      "type": "pick",
+      "mascot": "thinking",
+      "aki": "Let's test that instinct.",
+      "title": "A 'support agent' DMs you a link to fix a problem with your wallet. What do you do?",
+      "options": [
+        { "text": "Click it quickly before the problem gets worse", "why": "The rush is the trick. The link leads to a fake site." },
+        { "text": "Ignore it, block them, and get help only through the official app", "correct": true, "why": "Right. Real support never messages you first." },
+        { "text": "Reply to ask if they are real", "why": "Scammers will always say yes. Do not engage." }
+      ]
+    },
+    {
+      "type": "story",
+      "mascot": "celebrating",
+      "aki": "Stick to these and you will already beat most beginners.",
+      "title": "Quick recap",
+      "points": [
+        "Start small, and only with money you can afford to lose.",
+        "Skip perps and leverage while you are learning.",
+        "Memecoins are a casino. Treat them that way, or skip them.",
+        "Follow sources that show their work, and check onchain.",
+        "Ignore anyone promising the moon.",
+        "Nobody legit DMs first, asks for your seed phrase or doubles your money."
+      ],
+      "text": ["Ready for the quiz? 20 seconds per question, 70 percent to pass."]
+    }
+  ]
+}
