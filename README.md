@@ -1,137 +1,126 @@
 # web3.toys
 
-Free little games that show how web3 really works. By BuildWithAki.
+Free five minute toys that teach crypto and web3, each with a quiz and a
+certificate. By BuildWithAki. Educational only, not financial advice.
 
-This is a plain static website: HTML, CSS and JavaScript files. There is no
-framework, no backend, no login and no database, and nothing to install.
+It is a plain website (HTML, CSS and JavaScript) plus three tiny server
+functions on Vercel that mark quizzes and check certificates. No framework, no
+database, no login, nothing to install.
 
 ## What is where
 
 | Folder or file | What it is |
 | --- | --- |
-| `index.html` | The home page: header, intro and the grid of toy cards. |
-| `simulator/` | Launch a Token Simulator: a 7 step game about launching a token. |
-| `scam/` | Spot the Scam: a 10 round game and a message checker. |
-| `styles/toys.css` | The one shared stylesheet. Every page uses it, so all toys look the same. Colors, fonts, outlines and buttons are set at the top. |
-| `data/` | Content, kept apart from the code. See "Common changes" below. |
-| `js/` | The scripts that run the pages and toys. |
-| `tests/` | Automatic checks for the toys' logic. Not part of the live site. |
-| `assets/` | Images. `mascot.svg` is a placeholder for the mascot. |
+| `config.js` | Your settings: email signup form address, Book a call with Aki link, analytics. |
+| `index.html` | The home page with the four shelves. |
+| `crypto-in-5/`, `getting-started/`, `dont-lose-money/`, `earn-small/` | The four Getting Started toys. |
+| `progress/` | My Progress: rank and certificates. |
+| `verify/` | Where anyone can check a certificate. |
+| `data/` | All the words on the site. See "Edit the content" below. |
+| `quizzes/` | Quiz questions and answers. Never shown to visitors. |
+| `api/` | The three server functions (quiz, mark, verify). |
+| `styles/toys.css` | The one shared look. Colours and fonts are at the top. |
+| `assets/` | Your mascot drawings and the site icon. |
+| `scam/`, `simulator/` | Spot the Scam (linked from How Not to Lose Money) and the Launch a Token Simulator (not listed on the home page yet). |
+| `tests/`, `tools/` | Automatic checks and helper scripts. Not part of the live site. |
 
-Each new toy gets its own folder next to `simulator/`.
+## One-time setup: switch on certificates
 
-## Preview it on your computer
+Certificates are stamped with a secret key that only your Vercel account
+knows. Until you add it, quizzes still work, but passing says certificates are
+not switched on yet.
 
-1. Download the project from GitHub: on the repository page, click the green
-   **Code** button, then **Download ZIP**, and unzip it.
-2. Open the unzipped folder and double-click `index.html`.
+1. Make up a long random password, at least 32 characters. A password manager
+   can generate one. Do not share it or put it in any file.
+2. In Vercel, open the web3-toys project, then **Settings**, then
+   **Environment Variables**.
+3. Add a variable named `CERT_SECRET` with your password as the value, for all
+   environments.
+4. Open **Deployments**, click the three dots on the latest one, and choose
+   **Redeploy**.
 
-It opens in your web browser. Click the cards and buttons as a visitor would.
-After you change a file, save it and refresh the browser page to see the change.
+Never change `CERT_SECRET` later: certificates made with the old key would stop
+verifying.
 
-The fonts load from Google Fonts, so you need an internet connection for the
-page to look right.
+## Your settings (`config.js`)
 
-## Common changes
+- `signup.endpoint`: the form address from your email tool. Until then the
+  signup box says signups open soon. The site never stores emails itself.
+- `bookCallUrl`: your booking page for Book a call with Aki.
+- `analytics.scriptUrl` and `analytics.siteId`: from your analytics tool. While
+  empty, nothing is tracked. The site sends events like quiz started, quiz
+  finished, certificate earned and certificate shared.
 
-- **Change or add a toy card:** edit `data/toys.js`. Each card has a title, a
-  description, tags and a status. `live` makes it clickable, `soon` shows it
-  as Coming soon.
-- **Add the mascot artwork:** replace `assets/mascot.svg` with your drawing,
-  using the same file name. If your file is a PNG, name it `mascot.png` and ask
-  for the pages to point at it.
-- **Change a color or font:** edit the top of `styles/toys.css`.
-- **Signup, report and call links:** edit `data/site.js`. Paste your email
-  tool's form address, your report link and your booking link. Until then the
-  buttons say "coming soon".
+## Edit the content
 
-### Launch a Token Simulator
+Every file below is plain text in JSON format. Keep the quotes and commas as
+they are, and only change the words between the quotes. Each file starts with
+a `_help` line explaining it.
 
-- **All game content:** `data/simulator.js`: project types, raises, token
-  buckets, launch routes, market maker deals, community plans, the 16 launch
-  week events, the daily price rules, scoring, ranks and the words on the
-  screens. Add an event by copying one in the `EVENTS` list.
-- **Book link:** set `bookUrl` in `data/site.js`. Until then the results
-  screen says the book is coming soon.
+| What | File |
+| --- | --- |
+| Home page shelves and cards | `data/home.json` |
+| Ranks | `data/ranks.json` (add a row with a higher `min` to add a rank) |
+| A toy's cards | `data/toys/<toy>.json` |
+| A toy's quiz | `quizzes/<toy>.json` (5 to 8 questions; `answer` must match one option exactly) |
+| Trending panel | `data/trending.json` (change the date when you update it) |
+| Finish screen and share wording | `data/funnel.json` |
 
-### Spot the Scam
+To check a JSON file after editing, paste it into any free "JSON validator"
+website. A missing comma or quote is the usual problem.
 
-- **Game scenarios:** `data/scam-scenarios.js`. Each has the message text,
-  the answer (scam or legit), its red flags and a short explanation. Only use
-  made-up brand names.
-- **Checker rules:** `data/scam-rules.js`. Each rule has a name, the words to
-  look for, a weight from 1 to 3, why it is a red flag and what to do instead.
-  To catch a new wording, add it to that rule's `keywords` list.
-- **Reported scams:** `data/scam-known.js` has sections for web addresses,
-  wallet addresses, email addresses, chat usernames, phone numbers and exact
-  phrases from scam messages. Put each one on its own line, with an optional
-  note after a `#`, like `fake-claim-site.xyz  # fake airdrop page, Oct 2026`.
-  If a pasted message contains one, the checker shows "Matches a reported
-  scam" at the top. Only add entries you are sure about, note where each came
-  from, and never list the names of real companies or people.
-- **Public phishing lists:** `data/scam-feed.js` holds about 20,000 recent
-  scam websites and 251 scam wallets from public lists by security groups
-  (MetaMask's eth-phishing-detect and Polkadot's phishing list; licenses in
-  `data/licenses/`). Turn it on or off with `usePublicLists` at the top of
-  `data/scam-known.js`. Do not edit it by hand; refresh it with
-  `node tools/update-scam-feed.mjs`. It only downloads when someone opens the
-  checker, never during the game.
-- **Ranks, points and screen wording:** `data/scam-game.js`.
+### Toy card types
 
-The checker runs only in the visitor's browser. It never sends, saves or opens
-anything from the pasted text. If the text looks like a seed phrase or a
-private key, it does not run the check and tells the person to delete it.
+`story` (text and bullet points), `reveal` (tiles you tap to flip), `pick`
+(choose an answer, one marked `"correct": true`), `steps` (tap to open each
+step) and `trending` (shows `data/trending.json`). Any card can have `aki`
+(what the mascot says), `mascot` (`grin`, `thinking`, `worried` or
+`celebrating`), `points`, `tip` and `link`.
+
+### Add a new toy later
+
+1. Copy a toy folder, for example `earn-small/`, give it a new name, and change
+   the title, description and `data-toy` inside its `index.html`.
+2. Add `data/toys/<new-id>.json` and `quizzes/<new-id>.json`.
+3. Add it to `quizzes/index.json` with a new unused `letter`.
+4. Add its card to `data/home.json`, and set that shelf to `"live"`.
+
+## Preview your changes
+
+Every change saved to GitHub gets its own Vercel preview link (find it under
+**Deployments** in Vercel, or on the GitHub page for the change). Open that
+link to try the change before it reaches web3.toys.
+
+Pages opened by double-clicking a file on your computer cannot load their
+content or quizzes; use a preview link instead. A developer can run the whole
+site locally with `node tools/dev-server.mjs`, then open http://localhost:3000.
+
+## Progress and privacy
+
+Progress (certificates and rank) is saved only in the visitor's browser.
+Clearing browser data or switching device starts fresh, but certificate codes
+keep verifying. The name on a certificate is used to stamp and check it and is
+not stored by web3.toys.
 
 ## Run the automatic checks
-
-If you or a developer change the toys' logic, these checks confirm nothing
-broke. They need Node.js, which comes with most developer setups:
 
 ```
 node --test tests/*.test.mjs
 ```
 
-## Put it online with Vercel
+These check quiz marking, certificate codes, ranks, that every content file is
+complete, and the older Spot the Scam and simulator logic.
 
-Vercel hosts static sites like this one for free.
+## Spot the Scam and the simulator
 
-1. Go to [vercel.com](https://vercel.com) and sign up with your GitHub account.
-2. Click **Add New**, then **Project**.
-3. Find **web3-toys** in the list and click **Import**. If it is not listed,
-   click the link to adjust GitHub app permissions and give Vercel access to it.
-4. On the setup screen:
-   - Framework Preset: **Other**
-   - Root Directory: leave as it is
-   - Build Command and Output Directory: leave empty
-5. Click **Deploy**. After a minute you get a link ending in `.vercel.app`.
-   Open it and check the site.
+- Spot the Scam content: `data/scam-scenarios.js`, `data/scam-rules.js`,
+  `data/scam-known.js` (reported scams) and `data/scam-game.js`. The public
+  phishing lists in `data/scam-feed.js` refresh every Sunday by a scheduled
+  task, or by running `node tools/update-scam-feed.mjs`.
+- Simulator content: `data/simulator.js`. It is on the home page as Coming
+  soon in Play and Learn; its page still works at web3.toys/simulator.
 
-From then on, every time a change is saved to GitHub, Vercel updates the site
-by itself within a minute or two.
+## Hosting
 
-Vercel publishes the branch GitHub treats as the main one. Right now that is
-`claude/new-session-pu0lz5`. To use a different branch later, change it in
-the Vercel project under **Settings**, then **Git**.
-
-## Point web3.toys at it
-
-1. In your Vercel project, open **Settings**, then **Domains**.
-2. Type `web3.toys` and click **Add**. When it asks, also add `www.web3.toys`
-   and let it redirect to `web3.toys`.
-3. Vercel then shows the records to add at the company where you bought the
-   domain. It usually looks like this:
-   - An **A** record for `@` pointing to the IP address Vercel shows.
-   - A **CNAME** record for `www` pointing to the address Vercel shows.
-4. Log in to your domain company, open the DNS settings for web3.toys, and add
-   exactly the records Vercel shows. Delete any old A or CNAME records for
-   `@` and `www` that point elsewhere.
-5. Back in Vercel, wait until the domains show **Valid Configuration**. This
-   can take from a few minutes to a few hours. Vercel sets up the secure
-   https padlock by itself.
-
-## Rules for every toy
-
-- Games use simplified numbers. Every page says so, and that it is not
-  financial advice.
-- Only invented names. Never a real exchange, market maker, fund or project.
-- Mobile first: large tap targets and no sideways scrolling on a phone.
+The site runs on Vercel and web3.toys points at it. In the Vercel project
+settings, the framework preset is **Other** with no build command.
