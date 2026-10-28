@@ -2298,6 +2298,208 @@ a.toy-card:hover .toy-cover {
   accent-color: var(--ink);
 }
 
+/* ---------- Home: neal.fun style grid of toy covers ---------- */
+
+body.home .page,
+body.home .topbar-inner {
+  max-width: 1200px;
+}
+
+body.home .page {
+  padding-top: 14px;
+  gap: 12px;
+}
+
+.home-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tagline {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.25;
+}
+
+.rank-link {
+  flex: none;
+  text-decoration: none;
+}
+
+@media (min-width: 700px) {
+  .tagline { font-size: 17px; }
+}
+
+.rank-link .rank-badge {
+  gap: 6px;
+  padding: 2px 10px 2px 2px;
+  font-size: 15px;
+}
+
+.rank-link .rank-level {
+  width: 28px;
+  height: 28px;
+  font-size: 15px;
+}
+
+.shelf {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.shelf-label {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ink-muted);
+}
+
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.toy-tile {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  color: var(--ink);
+  text-decoration: none;
+  border: var(--line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow);
+  background: var(--white);
+  transition: rotate 0.2s ease, box-shadow 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tile-art,
+.tile-img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.toy-tile.has-cover .tile-art {
+  visibility: hidden;
+}
+
+.tile-name {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  padding: 5px 8px;
+  font-family: 'Luckiest Guy', var(--font-display);
+  font-size: 15px;
+  line-height: 1.1;
+  letter-spacing: 0.4px;
+  text-align: center;
+  background: var(--white);
+  border: var(--line);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.tile-name.toy-font {
+  font-family: var(--font-toy);
+  font-size: calc(15px * var(--toy-scale, 1));
+}
+
+.tile-sticker {
+  position: absolute;
+  top: 8px;
+  font-family: 'Luckiest Guy', var(--font-display);
+  border: var(--line);
+  box-shadow: var(--shadow-sm);
+}
+
+.tile-soon {
+  left: 8px;
+  padding: 3px 9px 1px;
+  font-size: 13px;
+  letter-spacing: 0.6px;
+  background: var(--white);
+  border-radius: 8px;
+  rotate: -6deg;
+}
+
+.tile-done {
+  right: 8px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 18px;
+  background: var(--mint);
+  border-radius: 50%;
+}
+
+.toy-tile.is-soon .tile-art,
+.toy-tile.is-soon .tile-img {
+  filter: saturate(0.45) brightness(1.05);
+}
+
+.toy-tile.is-soon {
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+a.toy-tile:hover {
+  rotate: var(--tilt, -2deg);
+  box-shadow: var(--shadow-lg);
+  animation: tile-bounce 0.5s ease;
+}
+
+a.toy-tile:active {
+  rotate: 0deg;
+  translate: 3px 3px;
+  box-shadow: 0 0 0 var(--ink);
+}
+
+@keyframes tile-bounce {
+  0% { translate: 0 0; }
+  35% { translate: 0 -8px; }
+  65% { translate: 0 1px; }
+  100% { translate: 0 -3px; }
+}
+
+a.toy-tile:hover {
+  translate: 0 -3px;
+}
+
+@media (min-width: 560px) {
+  .tile-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (min-width: 820px) {
+  .tile-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+}
+
+@media (min-width: 1040px) {
+  .tile-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; }
+  .tile-name { font-size: 17px; }
+  .tile-name.toy-font { font-size: calc(17px * var(--toy-scale, 1)); }
+}
+
 /* ---------- Wider screens ---------- */
 
 @media (min-width: 700px) {

@@ -33,16 +33,38 @@ describe('every page', () => {
 describe('toy looks', () => {
   const FONTS = ['luckiest', 'bungee', 'bangers', 'chewy'];
   const ACCENTS = ['blue', 'mint', 'coral', 'violet', 'yellow'];
-  const shelf = json('data/home.json').shelves.find((s) => s.id === 'getting-started');
+  const home = json('data/home.json');
+  const shelf = home.shelves.find((s) => s.id === 'getting-started');
+  const built = shelf.cards.filter((c) => (c.status || shelf.status) === 'live');
 
-  it('each Getting Started toy has its own name, font, colour and cover', () => {
-    assert.equal(new Set(shelf.cards.map((c) => c.font)).size, shelf.cards.length);
-    assert.equal(new Set(shelf.cards.map((c) => c.accent)).size, shelf.cards.length);
-    for (const c of shelf.cards) {
+  it('each built Getting Started toy has its own name, font and colour', () => {
+    assert.equal(new Set(built.map((c) => c.font)).size, built.length);
+    assert.equal(new Set(built.map((c) => c.accent)).size, built.length);
+    for (const c of built) {
       assert.ok(FONTS.includes(c.font) && ACCENTS.includes(c.accent) && c.topic, c.id);
-      assert.ok(exists(c.cover), c.cover);
       const html = read(`${c.id}/index.html`);
       assert.ok(html.includes(`data-font="${c.font}"`) && html.includes(`data-accent="${c.accent}"`), `${c.id} page look`);
+    }
+  });
+
+  it('every home card has a colour, a placeholder object and a blurb', () => {
+    const covers = read('js/covers.js');
+    const colors = ['yellow', 'blue', 'coral', 'mint', 'violet', 'orange', 'pink', 'teal'];
+    const ids = home.shelves.flatMap((s) => s.cards.map((c) => c.id));
+    assert.equal(new Set(ids).size, ids.length, 'card ids must be unique');
+    for (const c of home.shelves.flatMap((s) => s.cards)) {
+      assert.ok(colors.includes(c.color), `${c.id}: color ${c.color}`);
+      assert.ok(new RegExp(`\\b${c.object}:`).test(covers), `${c.id}: object ${c.object}`);
+      assert.ok(c.blurb, `${c.id}: blurb`);
+    }
+  });
+
+  it('the five new toys are on the home page as coming soon', () => {
+    const where = { 'web3-hacks': 'getting-started', 'hall-of-fame': 'career', 'ways-to-moon': 'entrepreneurs', 'dead-projects': 'play', 'invest-100': 'play' };
+    for (const [id, shelfId] of Object.entries(where)) {
+      const s = home.shelves.find((x) => x.id === shelfId);
+      const c = s.cards.find((x) => x.id === id);
+      assert.ok(c && (c.status || s.status) === 'soon', id);
     }
   });
 

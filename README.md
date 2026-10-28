@@ -22,6 +22,7 @@ database, no login, nothing to install.
 | `quizzes/` | Quiz questions and answers. Never shown to visitors. |
 | `api/` | The three server functions (quiz, mark, verify). |
 | `styles/toys.css` | The one shared look. Colours and fonts are at the top. |
+| `images/covers/` | Home page cover pictures, one per toy (see the list inside). Until a picture is there, a drawn placeholder shows. |
 | `assets/` | The logo (`logo.svg`), toy covers (`covers/`), mascot pictures (`mascot/`) and the site icon. |
 | `scam/`, `simulator/` | Spot the Scam (a live card in Play and Learn, also linked from How Not to Lose Money) and the Launch a Token Simulator (coming soon). |
 | `tests/`, `tools/` | Automatic checks and helper scripts. Not part of the live site. |
@@ -66,7 +67,7 @@ a `_help` line explaining it.
 
 | What | File |
 | --- | --- |
-| Home page shelves and cards | `data/home.json` |
+| Home page tagline, shelves and cards | `data/home.json` (each card: `color` and `object` for its placeholder cover) |
 | Ranks | `data/ranks.json` (add a row with a higher `min` to add a rank) |
 | A toy's cards | `data/toys/<toy>.json` |
 | A toy's quiz | `quizzes/<toy>.json` (5 to 8 questions; `answer` must match one option exactly) |

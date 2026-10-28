@@ -1,65 +1,52 @@
-// Builds the home page from data/home.json and data/ranks.json.
+// Builds the home page from data/home.json and data/ranks.json: a one line
+// tagline, then every toy as a same-size cover card, grouped by small labels.
 
 (function () {
   var C = window.Web3Common;
   var esc = C.esc;
   var app = document.getElementById('app');
   var progress = Web3Progress.load(window.localStorage);
+  var COLORS = { yellow: '#FFD93D', blue: '#4D9DE0', coral: '#FF6B6B', mint: '#6BCB77', violet: '#A98BFF', orange: '#FF9F43', pink: '#FF8FC8', teal: '#3CC6C0' };
 
   Promise.all([C.loadJson('data/home.json'), C.loadJson('data/ranks.json')])
     .then(function (r) { render(r[0], r[1].ranks); })
     .catch(function (err) { app.innerHTML = C.loadError(err); });
 
-  function card(c, live) {
-    var cert = progress.certificates[c.id];
-    var chips =
-      '<span class="chip is-white">' + esc(c.time) + '</span>' +
-      (cert ? '<span class="chip is-mint">✓ Completed</span>' : '') +
-      (live ? '' : '<span class="chip is-blue">Coming soon</span>');
-    var look = (c.font ? ' data-font="' + esc(c.font) + '"' : '') + (c.accent ? ' data-accent="' + esc(c.accent) + '"' : '');
+  // images/covers/crypto_in_5.png for the card "crypto-in-5". If the picture
+  // is not there yet, the drawn placeholder underneath stays visible.
+  function coverPath(id) {
+    return 'images/covers/' + id.replace(/-/g, '_') + '.png';
+  }
+
+  function tile(c, live, k) {
+    var cert = live && progress.certificates[c.id];
+    var said = c.title + (c.topic ? ', ' + c.topic : '') + '. ' + (c.blurb || '') + (live ? '' : ' Coming soon.') + (cert ? ' Completed.' : '');
     var inner =
-      (c.cover ? '<img class="toy-cover" src="' + esc(c.cover) + '" alt="" width="320" height="180" loading="lazy" />' : '') +
-      '<span class="chips">' + chips + '</span>' +
-      '<h3 class="title-sm' + (c.font ? ' toy-font' : '') + '">' + esc(c.title) + '</h3>' +
-      (c.topic ? '<p class="toy-sub">' + esc(c.topic) + '</p>' : '') +
-      (c.blurb ? '<p class="text">' + esc(c.blurb) + '</p>' : '') +
-      (live ? '<span class="go">' + (cert ? 'Play again →' : 'Play →') + '</span>' : '');
+      Web3Covers.svg(c.object, COLORS[c.color] || COLORS.yellow) +
+      '<img class="tile-img" src="' + coverPath(c.id) + '" alt="" loading="lazy" onload="this.parentNode.classList.add(\'has-cover\')" onerror="this.remove()" />' +
+      (cert ? '<span class="tile-sticker tile-done" aria-hidden="true">✓</span>' : '') +
+      (live ? '' : '<span class="tile-sticker tile-soon" aria-hidden="true">Soon</span>') +
+      '<span class="tile-name' + (c.font ? ' toy-font' : '') + '" aria-hidden="true">' + esc(c.title) + '</span>';
+    var look = ' style="--tilt:' + (k % 2 ? '2deg' : '-2deg') + '"' + (c.font ? ' data-font="' + esc(c.font) + '"' : '');
     return '<li>' + (live
-      ? '<a class="card toy-card' + (cert ? ' card--good' : ' card--yellow') + '"' + look + ' href="' + esc(c.path) + '">' + inner + '</a>'
-      : '<div class="card toy-card toy-card--soon"' + look + ' aria-label="' + esc(c.title) + ', coming soon">' + inner + '</div>') + '</li>';
+      ? '<a class="toy-tile"' + look + ' href="' + esc(c.path) + '" aria-label="' + esc(said) + '">' + inner + '</a>'
+      : '<div class="toy-tile is-soon"' + look + ' role="img" aria-label="' + esc(said) + '">' + inner + '</div>') + '</li>';
   }
 
   function render(home, ranks) {
     var n = Web3Progress.count(progress);
     var rank = Web3Progress.rankFor(n, ranks);
-    var next = Web3Progress.nextRank(n, ranks);
+    var k = 0;
 
     app.innerHTML =
-      '<section class="card card--hero hero" aria-labelledby="hero-title">' +
-      '<div class="hero-copy"><p class="label">' + esc(home.heroLabel) + '</p>' +
-      '<h1 id="hero-title" class="title-xl">' + esc(home.heroTitle) + '</h1></div>' +
-      '<p class="hero-text">' + esc(home.heroText) + '</p>' +
-      window.WEB3TOYS.mascotImg('grin', 'mascot mascot--lg', 116) +
-      '</section>' +
-
-      '<a class="card rank-card" href="progress/">' +
-      '<span class="label">Your rank</span>' +
-      C.rankBadge(rank, Web3Progress.level(rank, ranks)) +
-      '<span class="small-print">' + n + (n === 1 ? ' certificate' : ' certificates') +
-      (next ? ' · ' + (next.min - n) + ' more to ' + esc(next.name) : '') + '</span>' +
-      '<span class="go">My Progress →</span></a>' +
-
+      '<div class="home-top"><h1 class="tagline">' + esc(home.tagline) + '</h1>' +
+      '<a class="rank-link" href="progress/">' + C.rankBadge(rank, Web3Progress.level(rank, ranks)) + '</a></div>' +
       home.shelves.map(function (shelf) {
         // A card can override its shelf's status, so a shelf can mix live and coming soon cards.
         var isLive = function (c) { return (c.status || shelf.status) === 'live'; };
-        var anyLive = shelf.cards.some(isLive);
-        return '<section class="shelf stack stack--tight" aria-labelledby="shelf-' + esc(shelf.id) + '">' +
-          '<div class="shelf-head"><h2 id="shelf-' + esc(shelf.id) + '" class="section-title">' + esc(shelf.title) + '</h2>' +
-          (anyLive ? '' : '<span class="chip is-blue">Coming soon</span>') + '</div>' +
-          (shelf.blurb ? '<p class="text">' + esc(shelf.blurb) + '</p>' : '') +
-          '<ul class="toy-grid' + (anyLive ? '' : ' toy-grid--soon') + '">' +
-          shelf.cards.map(function (c) { return card(c, isLive(c)); }).join('') +
-          '</ul></section>';
+        return '<section class="shelf" aria-labelledby="shelf-' + esc(shelf.id) + '">' +
+          '<h2 id="shelf-' + esc(shelf.id) + '" class="shelf-label">' + esc(shelf.title) + '</h2>' +
+          '<ul class="tile-grid">' + shelf.cards.map(function (c) { return tile(c, isLive(c), k++); }).join('') + '</ul></section>';
       }).join('');
   }
 })();
