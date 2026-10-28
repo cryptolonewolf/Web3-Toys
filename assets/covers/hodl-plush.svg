@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-label="A soft plush coin with a smiling face and little arms hugging a heart">
+  <rect width="320" height="240" fill="#FFE3DF"/>
+  <g fill="#FFC9C0"><circle cx="40" cy="44" r="18"/><circle cx="286" cy="200" r="22"/><circle cx="280" cy="40" r="9"/></g>
+  <ellipse cx="160" cy="214" rx="72" ry="10" fill="#1F1B2E" opacity=".2"/>
+  <g stroke="#1F1B2E" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <ellipse cx="124" cy="206" rx="20" ry="10" fill="#E8B800"/><ellipse cx="196" cy="206" rx="20" ry="10" fill="#E8B800"/>
+    <circle cx="160" cy="120" r="80" fill="#FFD93D"/>
+    <circle cx="160" cy="120" r="62" fill="none" stroke-dasharray="2 10"/>
+    <circle cx="134" cy="106" r="8" fill="#1F1B2E"/><circle cx="186" cy="106" r="8" fill="#1F1B2E"/>
+    <circle cx="137" cy="103" r="2.5" fill="#fff" stroke="none"/><circle cx="189" cy="103" r="2.5" fill="#fff" stroke="none"/>
+    <path d="M144 128 Q160 142 176 128" fill="none"/>
+    <ellipse cx="118" cy="126" rx="9" ry="5" fill="#FF8A8A" stroke="none"/><ellipse cx="202" cy="126" rx="9" ry="5" fill="#FF8A8A" stroke="none"/>
+    <path d="M90 150 C110 170 130 172 146 162" fill="none" stroke-width="12"/><path d="M90 150 C110 170 130 172 146 162" fill="none" stroke="#FFD93D" stroke-width="5"/>
+    <path d="M230 150 C210 170 190 172 174 162" fill="none" stroke-width="12"/><path d="M230 150 C210 170 190 172 174 162" fill="none" stroke="#FFD93D" stroke-width="5"/>
+    <path d="M160 176 C150 166 140 160 146 152 C150 146 158 148 160 154 C162 148 170 146 174 152 C180 160 170 166 160 176Z" fill="#FF6B6B"/>
+  </g>
+  <text x="160" y="32" text-anchor="middle" font-family="Arial Black, sans-serif" font-weight="900" font-size="22" fill="#1F1B2E">HODL</text>
+</svg>

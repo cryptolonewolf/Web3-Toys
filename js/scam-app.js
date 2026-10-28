@@ -11,7 +11,7 @@
   var pill = document.getElementById('status-pill');
   var progress = document.getElementById('progress');
 
-  var MASCOT = '../assets/mascot.svg';
+  var MASCOT = window.WEB3TOYS.mascotSrc('grin');
   var SHARE_URL = 'web3.toys/scam';
   var ruleById = {};
   SETTINGS.flags.forEach(function (r) { ruleById[r.id] = r; });
@@ -218,7 +218,7 @@
     }
 
     render(
-      '<section class="card stack stack--tight ' + (r.correct ? 'card--good' : 'card--warning') + '">' +
+      '<section class="card stack stack--tight ' + (r.correct ? 'card--good' : 'card--warning') + '" data-verdict-card>' +
       '<p class="label">' + (r.correct ? 'Nice call' : 'Not quite') + '</p>' +
       '<h1 class="title-lg">' + (r.correct ? (isScam ? 'Right, it is a scam.' : 'Right, it is legit.') : (isScam ? 'This one is a scam.' : 'This one is legit.')) + '</h1>' +
       '<div class="chips"><span class="chip is-white">+' + r.points + ' points</span></div>' +
@@ -229,6 +229,9 @@
       '<button type="button" class="btn btn--ink btn--block" data-next>' + (last ? 'See my rank' : 'Next round') + '</button>',
       { text: 'Round ' + (game.i + 1) + ' of ' + game.rounds.length, color: 'yellow', progress: game.i + 1 }
     );
+    var verdict = app.querySelector('[data-verdict-card]');
+    if (r.correct) window.WEB3TOYS.fx.coins(verdict.querySelector('.chip'));
+    else window.WEB3TOYS.fx.wobble(verdict);
     on('[data-next]', function () {
       if (last) return gameEnd();
       game.i++;
@@ -287,6 +290,7 @@
     }).catch(function () {});
     on('[data-share]', function () { card.share(); });
     on('[data-again]', newGame);
+    if (right >= 7) window.WEB3TOYS.fx.confetti();
     on('[data-check]', function () { game = null; checker(); });
     bindExtras();
   }

@@ -11,16 +11,18 @@ database, no login, nothing to install.
 
 | Folder or file | What it is |
 | --- | --- |
-| `config.js` | Your settings: email signup form address, Book a call with Aki link, analytics. |
+| `config.js` | Your settings: email signup form address, Book a call with Aki link, mascot pictures, analytics. |
 | `index.html` | The home page with the four shelves. |
-| `crypto-in-5/`, `getting-started/`, `dont-lose-money/`, `earn-small/` | The four Getting Started toys. |
+| `crypto-in-5/`, `getting-started/`, `dont-lose-money/`, `earn-small/` | The four Getting Started toys: Genesis Block, Not Your Keys, Don't Get Rekt and Stack Sats. |
+| `real-toys/`, `books/`, `about/`, `book-a-call/` | Real Toys, Books by Aki, About Aki and Book a Call. |
+| `js/site.js` | The top menu, footer links, logo, icons and fun effects. The menu list is at the top. |
 | `progress/` | My Progress: rank and certificates. |
 | `verify/` | Where anyone can check a certificate. |
 | `data/` | All the words on the site. See "Edit the content" below. |
 | `quizzes/` | Quiz questions and answers. Never shown to visitors. |
 | `api/` | The three server functions (quiz, mark, verify). |
 | `styles/toys.css` | The one shared look. Colours and fonts are at the top. |
-| `assets/` | Your mascot drawings and the site icon. |
+| `assets/` | The logo (`logo.svg`), toy covers (`covers/`), mascot pictures (`mascot/`) and the site icon. |
 | `scam/`, `simulator/` | Spot the Scam (a live card in Play and Learn, also linked from How Not to Lose Money) and the Launch a Token Simulator (coming soon). |
 | `tests/`, `tools/` | Automatic checks and helper scripts. Not part of the live site. |
 
@@ -47,6 +49,11 @@ verifying.
 - `signup.endpoint`: the form address from your email tool. Until then the
   signup box says signups open soon. The site never stores emails itself.
 - `bookCallUrl`: your booking page for Book a call with Aki.
+- `mascot`: which picture shows for each mood (grin, thinking, worried,
+  celebrating) and the signed one on About. All pictures live in
+  `assets/mascot/`. To use a new drawing, save it there (a PNG or WEBP with a
+  see-through background works best) and put its file name here. If a picture
+  is missing, a simple placeholder drawing shows instead.
 - `analytics.scriptUrl` and `analytics.siteId`: from your analytics tool. While
   empty, nothing is tracked. The site sends events like quiz started, quiz
   finished, certificate earned and certificate shared.
@@ -65,6 +72,28 @@ a `_help` line explaining it.
 | A toy's quiz | `quizzes/<toy>.json` (5 to 8 questions; `answer` must match one option exactly) |
 | Trending panel | `data/trending.json` (change the date when you update it) |
 | Finish screen and share wording | `data/funnel.json` |
+| Shop panel on each toy page | `data/shop.json` (leave `url` empty and the button says Coming soon) |
+| Books page | `data/books.json` |
+| Real Toys page | `data/real-toys.json` |
+| About Aki page | `data/about.json` (replace the lines starting with TODO) |
+| Book a Call page | `data/book-a-call.json` (the button uses `bookCallUrl` in `config.js`) |
+
+### Toy names, fonts and colours
+
+Each Getting Started toy has a name, a cover picture, a heading font and an
+accent colour. They are set in three places, so change all three when you
+rename one: its card in `data/home.json` (`title`, `topic`, `font`, `accent`,
+`cover`), its own `index.html` (the title at the top, `data-font` and
+`data-accent`), and its title in `quizzes/index.json` (shown on certificates).
+Fonts: `luckiest`, `bungee`, `bangers`, `chewy`. Colours: `blue`, `mint`,
+`coral`, `violet`, `yellow`. The site uses six fonts in total; adding more
+slows pages down.
+
+### Real Toys interest
+
+Taps on "I want this" are sent to your analytics tool as `real_toy_vote`. The
+Notify me form sends the email to your email tool (the `signup` address in
+`config.js`) with the chosen toys in a field called `interest`.
 
 To check a JSON file after editing, paste it into any free "JSON validator"
 website. A missing comma or quote is the usual problem.

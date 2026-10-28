@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-label="Colourful wooden blocks stacked into a chain tower">
+  <rect width="320" height="240" fill="#DDF3DF"/>
+  <g fill="#C3E9C7"><circle cx="46" cy="50" r="20"/><circle cx="282" cy="194" r="16"/></g>
+  <ellipse cx="160" cy="216" rx="110" ry="10" fill="#1F1B2E" opacity=".2"/>
+  <defs>
+    <g id="k" stroke="#1F1B2E" stroke-width="4" stroke-linejoin="round">
+      <path d="M0 -26 L30 -11 L0 4 L-30 -11Z" fill="#fff" fill-opacity=".55"/>
+      <path d="M-30 -11 L0 4 V38 L-30 23Z" fill-opacity=".9"/>
+      <path d="M30 -11 L0 4 V38 L30 23Z" fill-opacity=".7"/>
+    </g>
+  </defs>
+  <g fill="#4D9DE0"><use href="#k" x="110" y="178"/></g>
+  <g fill="#FF6B6B"><use href="#k" x="170" y="178"/></g>
+  <g fill="#FFD93D"><use href="#k" x="230" y="178"/></g>
+  <g fill="#6BCB77"><use href="#k" x="140" y="134"/></g>
+  <g fill="#A98BFF"><use href="#k" x="200" y="134"/></g>
+  <g fill="#FFD93D"><use href="#k" x="170" y="90"/></g>
+  <g fill="#FF6B6B" transform="rotate(-12 80 80)"><use href="#k" x="80" y="80"/></g>
+  <g fill="#FFFFFF" stroke="#1F1B2E" stroke-width="2.5" stroke-linejoin="round">
+    <path d="M262 46 l4 9 9 4 -9 4 -4 9 -4 -9 -9 -4 9 -4z"/>
+  </g>
+</svg>

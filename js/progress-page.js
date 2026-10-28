@@ -29,7 +29,7 @@
       '<h1 id="rank-title" class="sr-only">Your rank: ' + esc(rank.name) + '</h1></div>' +
       C.rankBadge(rank, Web3Progress.level(rank, ranks), true) +
       '<p class="hero-text">' + esc(rank.line) + '</p>' +
-      '<img class="mascot mascot--lg" src="../assets/aki-celebrating.svg" alt="" width="116" height="116" />' +
+      '<img class="mascot mascot--lg" src="' + window.WEB3TOYS.mascotSrc('celebrating') + '" alt="" width="116" height="116" />' +
       '</section>' +
 
       '<section class="card stack stack--tight"><h2 class="title-sm">' +

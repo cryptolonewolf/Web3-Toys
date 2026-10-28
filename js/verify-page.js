@@ -8,7 +8,7 @@
 
   app.innerHTML =
     '<div class="title-row"><h1 class="title-lg">Verify a certificate</h1>' +
-    '<img class="mascot" src="../assets/aki-thinking.svg" alt="" width="84" height="84" /></div>' +
+    '<img class="mascot" src="' + window.WEB3TOYS.mascotSrc('thinking') + '" alt="" width="84" height="84" /></div>' +
     '<p class="text">Enter the code and the name exactly as they appear on the certificate.</p>' +
     '<form class="card stack stack--tight" data-form>' +
     '<label class="label" for="code">Certificate code</label>' +

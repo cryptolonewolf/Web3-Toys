@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" role="img" aria-label="A wallet with coins and a big golden key">
+  <rect width="320" height="180" fill="#6BCB77"/>
+  <g fill="#86D891"><circle cx="30" cy="30" r="10"/><circle cx="290" cy="150" r="14"/><circle cx="270" cy="24" r="7"/><circle cx="40" cy="150" r="6"/></g>
+  <ellipse cx="150" cy="158" rx="80" ry="9" fill="#1F1B2E" opacity=".25"/>
+  <g stroke="#1F1B2E" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <ellipse cx="112" cy="64" rx="18" ry="6" fill="#E8B800"/><ellipse cx="112" cy="60" rx="18" ry="6" fill="#FFD93D"/>
+    <ellipse cx="146" cy="58" rx="18" ry="6" fill="#E8B800"/><ellipse cx="146" cy="54" rx="18" ry="6" fill="#FFD93D"/>
+    <rect x="74" y="66" width="140" height="86" rx="16" fill="#FF6B6B"/>
+    <path d="M74 86 H214" fill="none"/>
+    <rect x="168" y="96" width="58" height="34" rx="12" fill="#FFE3DF"/>
+    <circle cx="186" cy="113" r="6" fill="#FFD93D"/>
+    <g transform="rotate(-28 236 70)">
+      <circle cx="236" cy="70" r="26" fill="#FFD93D"/>
+      <circle cx="236" cy="70" r="9" fill="#6BCB77"/>
+      <path d="M262 64 H316 V76 H262Z" fill="#FFD93D"/>
+      <path d="M296 76 V92 H306 V76 M280 76 V86 H288 V76" fill="#FFD93D"/>
+    </g>
+  </g>
+  <g fill="#FFFFFF" stroke="#1F1B2E" stroke-width="2.5" stroke-linejoin="round">
+    <path d="M48 62 l4 9 9 4 -9 4 -4 9 -4 -9 -9 -4 9 -4z"/>
+    <path d="M272 128 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z"/>
+  </g>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" role="img" aria-label="A glowing first block with a chain growing out of it">
+  <rect width="320" height="180" fill="#4D9DE0"/>
+  <g fill="#6FB2EA"><path d="M150 95 L60 -10 H120Z"/><path d="M150 95 L200 -10 H260Z"/><path d="M150 95 L-10 60 V130Z"/><path d="M150 95 L330 40 V100Z"/></g>
+  <ellipse cx="150" cy="156" rx="64" ry="10" fill="#1F1B2E" opacity=".25"/>
+  <g stroke="#1F1B2E" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <g fill="none"><rect x="196" y="100" width="26" height="14" rx="7" transform="rotate(20 209 107)"/><rect x="214" y="108" width="26" height="14" rx="7" fill="#BFE0FA" transform="rotate(20 227 115)"/></g>
+    <path d="M150 45 L200 70 L150 95 L100 70Z" fill="#FFE98A"/>
+    <path d="M100 70 L150 95 V150 L100 125Z" fill="#FFD93D"/>
+    <path d="M200 70 L150 95 V150 L200 125Z" fill="#E8B800"/>
+    <ellipse cx="125" cy="112" rx="8" ry="12" fill="none" transform="skewY(26.5) translate(0 -62)"/>
+    <path d="M262 104 L282 114 L262 124 L242 114Z" fill="#BFE0FA"/>
+    <path d="M242 114 L262 124 V146 L242 136Z" fill="#FFFFFF"/>
+    <path d="M282 114 L262 124 V146 L282 136Z" fill="#9CCBF0"/>
+    <path d="M300 128 L312 134 L300 140 L288 134Z" fill="#BFE0FA"/>
+    <path d="M288 134 L300 140 V153 L288 147Z" fill="#FFFFFF"/>
+    <path d="M312 134 L300 140 V153 L312 147Z" fill="#9CCBF0"/>
+  </g>
+  <g fill="#FFFFFF" stroke="#1F1B2E" stroke-width="2.5" stroke-linejoin="round">
+    <path d="M52 34 l5 11 11 5 -11 5 -5 11 -5 -11 -11 -5 11 -5z"/>
+    <path d="M262 28 l4 8 8 4 -8 4 -4 8 -4 -8 -8 -4 8 -4z"/>
+    <path d="M58 132 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z"/>
+  </g>
+</svg>

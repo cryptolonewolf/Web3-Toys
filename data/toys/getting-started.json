@@ -1,14 +1,14 @@
 {
   "_help": "Cards for this toy, in order. Card types: story, reveal (tap tiles to flip), pick (choose an answer), steps (tap through a timeline), trending. Optional on any card: aki (what the mascot says), mascot (grin, thinking, worried, celebrating), points (bullet list), tip, link {label, href}.",
   "id": "getting-started",
-  "title": "Getting Started in Crypto",
+  "title": "Not Your Keys: Getting Started in Crypto",
   "time": "6 min",
   "cards": [
     {
       "type": "story",
       "mascot": "grin",
       "aki": "Let's set you up with the basics everyone else pretends to know.",
-      "title": "Getting Started in Crypto",
+      "title": "Not Your Keys",
       "text": ["Wallets, coins and tokens, stablecoins, exchanges, swaps, fees, blockchains, and what perps and options are.", "Six minutes, then a quick quiz for your certificate."]
     },
     {

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" role="img" aria-label="A shield blocking a crashing price chart, next to a banana peel">
+  <rect width="320" height="180" fill="#FF6B6B"/>
+  <g stroke="#FF8A8A" stroke-width="2"><path d="M0 45 H320 M0 90 H320 M0 135 H320"/></g>
+  <path d="M18 40 L70 70 L98 52 L150 112 L184 96 L236 150" fill="none" stroke="#1F1B2E" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M18 40 L70 70 L98 52 L150 112 L184 96 L236 150" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M222 156 L246 158 L238 136Z" fill="#FFFFFF" stroke="#1F1B2E" stroke-width="4" stroke-linejoin="round"/>
+  <ellipse cx="146" cy="160" rx="46" ry="7" fill="#1F1B2E" opacity=".25"/>
+  <g stroke="#1F1B2E" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M146 30 L190 46 V88 C190 118 170 140 146 152 C122 140 102 118 102 88 V46Z" fill="#FFD93D"/>
+    <path d="M146 44 L178 56 V88 C178 110 164 127 146 137Z" fill="#4D9DE0"/>
+    <path d="M124 92 L140 108 L170 76" fill="none" stroke-width="7"/>
+    <path d="M262 150 C258 132 270 124 276 120 C278 132 272 142 270 150Z" fill="#FFD93D"/>
+    <path d="M270 150 C282 140 296 140 304 146 C294 150 282 152 270 150Z" fill="#FFE98A"/>
+    <path d="M262 150 C252 140 238 140 232 146 C244 152 254 152 262 150Z" fill="#FFE98A"/>
+    <ellipse cx="268" cy="152" rx="12" ry="4" fill="#E8B800"/>
+  </g>
+  <g fill="#FFFFFF" stroke="#1F1B2E" stroke-width="2.5" stroke-linejoin="round">
+    <path d="M232 34 l4 9 9 4 -9 4 -4 9 -4 -9 -9 -4 9 -4z"/>
+    <path d="M44 118 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z"/>
+  </g>
+</svg>

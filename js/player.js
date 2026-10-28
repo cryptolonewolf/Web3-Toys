@@ -9,17 +9,22 @@
   var pill = document.getElementById('status-pill');
   var bar = document.getElementById('progress');
   var toyId = document.body.getAttribute('data-toy');
+  var site = window.WEB3TOYS;
 
-  var POSES = {
-    grin: '../assets/aki-grin.svg',
-    thinking: '../assets/aki-thinking.svg',
-    worried: '../assets/aki-worried.svg',
-    celebrating: '../assets/aki-celebrating.svg',
+  // A small badge naming each card type, and a doodle in the card's corner.
+  var KINDS = {
+    story: { label: 'Story', icon: 'book' },
+    reveal: { label: 'Tap to flip', icon: 'eye' },
+    pick: { label: 'Quick check', icon: 'quiz' },
+    steps: { label: 'Step by step', icon: 'steps' },
+    trending: { label: 'Trending', icon: 'flame' },
   };
+  var DOODLES = ['coin', 'block', 'key', 'star', 'chain', 'rocket'];
 
   var toy = null;
   var trending = null;
   var index = 0;
+  var shown = -1;
   var answered = {}; // pick cards answered, by card index
 
   C.loadJson('../data/toys/' + toyId + '.json')
@@ -38,13 +43,12 @@
 
   function guide(card) {
     if (!card.aki) return '';
-    return '<div class="guide"><img class="guide-face" src="' + (POSES[card.mascot] || POSES.grin) + '" alt="Aki" width="72" height="72" />' +
-      '<p class="guide-bubble">' + esc(card.aki) + '</p></div>';
+    return '<div class="guide">' + site.face(card.mascot || 'grin') + '<p class="guide-bubble">' + esc(card.aki) + '</p></div>';
   }
 
   function extras(card) {
     return (card.points ? '<ul class="lesson-points">' + card.points.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ul>' : '') +
-      (card.tip ? '<p class="tip"><strong>Aki\'s tip:</strong> ' + esc(card.tip) + '</p>' : '') +
+      (card.tip ? '<p class="tip">' + site.icon('bulb') + '<strong>Aki\'s tip:</strong> ' + esc(card.tip) + '</p>' : '') +
       (card.link ? '<a class="btn btn--block" href="' + esc(card.link.href) + '">' + esc(card.link.label) + '</a>' : '');
   }
 
@@ -97,16 +101,23 @@
     app.innerHTML =
       guide(card) +
       '<section class="card lesson-card stack stack--tight">' +
-      '<h1 class="title-lg">' + esc(card.title) + '</h1>' + body(card, i) + extras(card) + '</section>' +
+      '<span class="card-kind">' + site.icon((KINDS[card.type] || KINDS.story).icon) + (KINDS[card.type] || KINDS.story).label + '</span>' +
+      site.icon(DOODLES[i % DOODLES.length], 'doodle') +
+      // Questions stay in the plain font so they are easy to read.
+      '<h1 class="title-lg' + (card.type === 'pick' ? '' : ' toy-font') + '">' + esc(card.title) + '</h1>' + body(card, i) + extras(card) + '</section>' +
       '<div class="sticky-bar"><div class="btn-row">' +
       '<button type="button" class="btn" data-back' + (i === 0 ? ' disabled' : '') + '>Back</button>' +
       '<button type="button" class="btn btn--ink" data-next' + (mustAnswer ? ' disabled' : '') + '>' + (last ? 'Take the quiz' : 'Next') + '</button>' +
       '</div>' + (mustAnswer ? '<p class="small-print center">Pick an answer to continue.</p>' : '') + '</div>';
 
-    window.scrollTo(0, 0);
-    var h = app.querySelector('h1');
-    h.setAttribute('tabindex', '-1');
-    h.focus({ preventScroll: true });
+    // Answering a pick card draws the same card again; stay where you are then.
+    if (i !== shown) {
+      window.scrollTo(0, 0);
+      var h = app.querySelector('h1');
+      h.setAttribute('tabindex', '-1');
+      h.focus({ preventScroll: true });
+    }
+    shown = i;
 
     wire(card, i, last);
   }
@@ -124,8 +135,12 @@
     });
     app.querySelectorAll('[data-option]').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        answered[i] = Number(btn.getAttribute('data-option'));
+        var k = Number(btn.getAttribute('data-option'));
+        answered[i] = k;
         show(i);
+        var picked = app.querySelector('[data-option="' + k + '"]');
+        if (card.options[k].correct) site.fx.coins(picked);
+        else site.fx.wobble(picked);
       });
     });
     app.querySelectorAll('.step-head').forEach(function (head) {
@@ -148,6 +163,7 @@
   }
 
   function startQuiz() {
+    shown = -1;
     bar.hidden = true;
     if (window.ToyQuiz) ToyQuiz.start(toy, { app: app, pill: pill, backToCards: function () { show(toy.cards.length - 1); } });
     else app.innerHTML = '<section class="card"><p class="text">The quiz is coming soon.</p></section>';

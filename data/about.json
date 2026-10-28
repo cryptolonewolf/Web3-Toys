@@ -1,0 +1,20 @@
+{
+  "_help": "The About Aki page. Replace every line that starts with TODO with your own words. paragraphs is a list; add or remove lines. links: label and url for your profiles (leave url empty to hide a link).",
+  "label": "About",
+  "title": "Hi, I'm Aki.",
+  "paragraphs": [
+    "TODO: One or two sentences on who you are and what you do.",
+    "TODO: Why you built web3.toys, and who it is for.",
+    "TODO: Your background in web3, marketing and growth, with one or two results you are proud of."
+  ],
+  "factsTitle": "Quick facts",
+  "facts": [
+    "TODO: Years in web3",
+    "TODO: Teams or projects helped",
+    "TODO: Where you are based"
+  ],
+  "links": [
+    { "label": "Aki on X", "url": "" },
+    { "label": "Aki on LinkedIn", "url": "" }
+  ]
+}

@@ -20,6 +20,17 @@ window.WEB3TOYS_CONFIG = {
   // While empty, the button says booking opens soon.
   bookCallUrl: '',
 
+  // MASCOT pictures, all in the assets/mascot folder. To use a new drawing
+  // for a mood, save it in that folder and put its file name here. If a
+  // picture is missing, a simple placeholder drawing shows instead.
+  mascot: {
+    grin: 'assets/mascot/aki.webp',
+    thinking: 'assets/mascot/aki.webp',
+    worried: 'assets/mascot/aki.webp',
+    celebrating: 'assets/mascot/aki.webp',
+    signed: 'assets/mascot/aki-signed.webp',
+  },
+
   // Older toys (Spot the Scam, the simulator) also use these.
   reportUrl: '',
   bookUrl: '',

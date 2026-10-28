@@ -7,7 +7,12 @@
   var esc = C.esc;
   var CONFIG = window.WEB3TOYS_CONFIG || {};
   var API = '../api/';
-  var CELEBRATE = '../assets/aki-celebrating.svg';
+  var site = window.WEB3TOYS;
+  var CELEBRATE = site.mascotSrc('celebrating');
+
+  function peek(pose) {
+    return site.mascotImg(pose, 'mascot mascot--peek', 88);
+  }
 
   var funnel = null;
   var ranks = null;
@@ -87,9 +92,10 @@
     ui = context;
     extras().catch(function () {});
     render(
-      '<div class="guide"><img class="guide-face" src="../assets/aki-thinking.svg" alt="Aki" width="72" height="72" />' +
+      '<div class="guide">' + site.face('thinking') +
       '<p class="guide-bubble">Let\'s see what stuck. You have got this.</p></div>' +
-      '<section class="card card--yellow stack stack--tight"><h1 class="title-lg">Quiz time</h1>' +
+      '<section class="card card--yellow stack stack--tight"><span class="card-kind">' + site.icon('quiz') + 'Quiz</span>' +
+      '<h1 class="title-lg toy-font">Quiz time</h1>' +
       '<ul class="lesson-points"><li>A few multiple choice questions.</li><li>20 seconds for each one.</li>' +
       '<li>Score 70 percent to earn your certificate.</li><li>Not this time? Retry as often as you like.</li></ul></section>' +
       '<button type="button" class="btn btn--ink btn--block" data-go>Start the quiz</button>' +
@@ -178,7 +184,7 @@
     var progress = Web3Progress.load(window.localStorage);
     if (result.passed) {
       render(
-        '<section class="card card--good stack stack--tight"><img class="mascot mascot--peek" src="' + CELEBRATE + '" alt="" width="88" height="88" />' +
+        '<section class="card card--good stack stack--tight">' + peek('celebrating') +
         '<p class="label">You passed!</p><h1 class="title-xl">' + result.score + '%</h1>' +
         '<p class="text text--ink">' + result.correct + ' of ' + result.total + ' right. Your certificate is one step away.</p></section>' +
         '<form class="card stack stack--tight" data-name-form>' +
@@ -191,6 +197,7 @@
         'Passed', 'mint'
       );
       bindFunnel();
+      site.fx.confetti();
       ui.app.querySelector('[data-name-form]').addEventListener('submit', function (e) {
         e.preventDefault();
         var name = ui.app.querySelector('#cert-name').value.trim();
@@ -211,6 +218,7 @@
           var after = Web3Progress.rankFor(Web3Progress.count(progress), ranks);
           C.track('certificate_earned', { toy: toy.id, score: r.certificate.score });
           showCertificate(progress.certificates[toy.id], after, after !== before ? after : null);
+          site.fx.confetti();
         }).catch(function (err) {
           button.disabled = false;
           error.textContent = err.message;
@@ -218,7 +226,7 @@
       });
     } else {
       render(
-        '<section class="card card--warning stack stack--tight"><img class="mascot mascot--peek" src="../assets/aki-worried.svg" alt="" width="88" height="88" />' +
+        '<section class="card card--warning stack stack--tight" data-result>' + peek('worried') +
         '<p class="label">Not quite</p><h1 class="title-xl">' + result.score + '%</h1>' +
         '<p class="text text--ink">' + result.correct + ' of ' + result.total + ' right. You need ' + result.passMark + ' percent to pass. Have another go, the questions come in a new order.</p></section>' +
         '<button type="button" class="btn btn--ink btn--block" data-retry>Retry the quiz</button>' +
@@ -229,6 +237,7 @@
       on('[data-retry]', function () { run(toy); });
       on('[data-cards]', ui.backToCards);
       bindFunnel();
+      site.fx.wobble(ui.app.querySelector('[data-result]'));
     }
   }
 
@@ -334,7 +343,13 @@
       ctx.fillText('Code ' + cert.code, 120, 820);
       ctx.fillText('Check it at web3.toys/verify', 120, 864);
 
-      if (img) ctx.drawImage(img, W - 120 - 380, H - 90 - 400, 380, 380);
+      // Fit the mascot inside a 380 by 380 box, keeping its shape.
+      if (img) {
+        var k = Math.min(380 / img.width, 380 / img.height);
+        var w = img.width * k;
+        var h = img.height * k;
+        ctx.drawImage(img, W - 120 - 190 - w / 2, H - 110 - h, w, h);
+      }
       return canvas;
     });
   }
@@ -347,7 +362,7 @@
     var file = 'web3toys-certificate-' + cert.toy + '.png';
 
     render(
-      '<section class="card card--hero stack stack--tight"><img class="mascot mascot--peek" src="' + CELEBRATE + '" alt="" width="88" height="88" />' +
+      '<section class="card card--hero stack stack--tight">' + peek('celebrating') +
       '<p class="label">Certificate earned</p><h1 class="title-lg">' + esc(cert.title) + '</h1>' +
       (rankUp ? '<p class="text text--ink">New rank unlocked: ' + C.rankBadge(rankUp, Web3Progress.level(rankUp, ranks)) + '</p>' : '') +
       '</section>' +

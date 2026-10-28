@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" role="img" aria-label="Three growing stacks of coins with a sprout on top">
+  <defs>
+    <g id="c" stroke="#1F1B2E" stroke-width="3.5" stroke-linejoin="round">
+      <path d="M-30 0 V9 A30 9 0 0 0 30 9 V0Z" fill="#E8B800"/>
+      <ellipse rx="30" ry="9" fill="#FFD93D"/>
+    </g>
+  </defs>
+  <rect width="320" height="180" fill="#A98BFF"/>
+  <g fill="#B9A0FF"><circle cx="40" cy="36" r="16"/><circle cx="286" cy="40" r="10"/><circle cx="292" cy="146" r="18"/></g>
+  <ellipse cx="160" cy="160" rx="110" ry="9" fill="#1F1B2E" opacity=".25"/>
+  <use href="#c" x="90" y="146"/><use href="#c" x="90" y="134"/>
+  <use href="#c" x="160" y="146"/><use href="#c" x="160" y="134"/><use href="#c" x="160" y="122"/><use href="#c" x="160" y="110"/>
+  <use href="#c" x="230" y="146"/><use href="#c" x="230" y="134"/><use href="#c" x="230" y="122"/><use href="#c" x="230" y="110"/><use href="#c" x="230" y="98"/><use href="#c" x="230" y="86"/><use href="#c" x="230" y="74"/>
+  <g stroke="#1F1B2E" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M230 72 C230 58 232 50 236 42" fill="none"/>
+    <path d="M234 48 C222 36 206 38 202 44 C212 54 226 54 234 48Z" fill="#6BCB77"/>
+    <path d="M236 42 C244 28 260 26 266 30 C260 42 246 46 236 42Z" fill="#6BCB77"/>
+    <path d="M60 110 V62 M48 74 L60 60 L72 74" fill="none" stroke="#FFFFFF" stroke-width="6"/>
+  </g>
+  <g fill="#FFFFFF" stroke="#1F1B2E" stroke-width="2.5" stroke-linejoin="round">
+    <path d="M128 40 l4 9 9 4 -9 4 -4 9 -4 -9 -9 -4 9 -4z"/>
+    <path d="M282 92 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z"/>
+  </g>
+</svg>

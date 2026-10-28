@@ -1,0 +1,23 @@
+{
+  "_help": "The Book a Call page. The booking button uses bookCallUrl in config.js. Change price to your real price.",
+  "label": "Book a Call",
+  "title": "Marketing and growth calls for web3 teams.",
+  "text": "One focused call with Aki to find out what is holding your growth back, and what to do next.",
+  "getTitle": "What you get",
+  "get": [
+    { "icon": "rocket", "title": "A growth plan", "text": "Three clear next steps for your launch, community or content." },
+    { "icon": "star", "title": "Honest feedback", "text": "A fresh look at your site, pitch and channels, from someone who has done it." },
+    { "icon": "report", "title": "A written summary", "text": "Notes from the call sent to you afterwards, so nothing gets lost." }
+  ],
+  "forTitle": "Who it is for",
+  "for": [
+    "Web3 founders getting ready to launch a token or product",
+    "Small teams who need more users but have no marketing lead",
+    "Projects whose community went quiet and want it back"
+  ],
+  "priceTitle": "Price",
+  "price": "TODO: price per call",
+  "priceNote": "Payment details are shared when you book.",
+  "button": "Book your call",
+  "soon": "Booking opens soon. Check back shortly."
+}

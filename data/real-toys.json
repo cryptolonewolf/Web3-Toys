@@ -1,0 +1,41 @@
+{
+  "_help": "The Real Toys page: ideas for physical toys, to see which ones people want. Each concept: id (short, no spaces), name, line, cover (a picture in assets/covers), points (what it is), and price (a rough guess or 'TBD'). Visitors tap 'I want this' and can leave their email in the form at the bottom. Votes go to your analytics tool; emails go to your email tool with the chosen toys in an 'interest' field.",
+  "label": "Real Toys",
+  "title": "Web3 toys you can hold.",
+  "text": "We are thinking about making real, physical toys. Tap the ones you would want, and we will build the most wanted first.",
+  "concepts": [
+    {
+      "id": "hodl-plush",
+      "name": "HODL Plush",
+      "line": "A huggable coin that never sells.",
+      "cover": "assets/covers/hodl-plush.svg",
+      "points": ["Soft plush coin, about 25 cm", "Says \"HODL\" when you squeeze it", "A desk buddy for long red days"],
+      "price": "About $29"
+    },
+    {
+      "id": "seed-vault",
+      "name": "Seed Vault",
+      "line": "A tiny steel safe that teaches seed phrase safety.",
+      "cover": "assets/covers/seed-vault.svg",
+      "points": ["Practice tiles to store a 12 word phrase offline", "Dial lock and a fireproof feel", "Card that explains why paper and screenshots are risky"],
+      "price": "About $39"
+    },
+    {
+      "id": "block-stack",
+      "name": "Block Stack",
+      "line": "Wooden blocks that show how a blockchain links up.",
+      "cover": "assets/covers/block-stack.svg",
+      "points": ["12 colourful wooden blocks", "Each block has a slot for the one before it", "A game for kids and curious grown ups"],
+      "price": "About $35"
+    }
+  ],
+  "vote": "I want this",
+  "voted": "Added to your list",
+  "form": {
+    "heading": "Notify me",
+    "line": "Leave your email and we will tell you when a Real Toy is ready. Tick the ones you like.",
+    "button": "Notify me",
+    "thanks": "Thanks! We will let you know.",
+    "soon": "Thanks! Signups open soon, but your vote is counted."
+  }
+}

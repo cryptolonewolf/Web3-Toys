@@ -1,0 +1,35 @@
+{
+  "_help": "The shop panel on each toy page (right side on computers, under the toy on phones). Items are listed per toy id; 'default' is used for any toy without its own list. Each item: kind (Report, Book or Service), title, blurb, price (like \"$9\" or \"Free\"), url (the page where people buy or book; leave it empty and the button says Coming soon), button (the button words), cover (a picture in assets/, or leave it out for a drawn cover) and color (blue, coral, mint, violet or yellow) and icon (report, book, call, key, shield, coin, block, star, rocket) for the drawn cover.",
+  "heading": "Aki's shop",
+  "line": "Go deeper on this toy.",
+  "default": [
+    { "kind": "Book", "title": "Crypto for Busy People", "blurb": "The whole Getting Started series as one short read.", "price": "Free", "url": "", "button": "Get it", "color": "yellow", "icon": "book" },
+    { "kind": "Service", "title": "Marketing and growth call", "blurb": "For web3 teams who want more users.", "price": "From $TBD", "url": "", "button": "Book a call", "color": "mint", "icon": "call" }
+  ],
+  "toys": {
+    "crypto-in-5": [
+      { "kind": "Report", "title": "The 4 Year Cycle, Explained", "blurb": "Charts and plain words on how past cycles played out.", "price": "$9", "url": "", "button": "Get the report", "color": "blue", "icon": "report" },
+      { "kind": "Book", "title": "Crypto for Busy People", "blurb": "The basics in one short read, no jargon.", "price": "Free", "url": "", "button": "Get it", "color": "yellow", "icon": "book" },
+      { "kind": "Service", "title": "Narrative briefing for teams", "blurb": "Which stories the market cares about and where you fit.", "price": "From $TBD", "url": "", "button": "Book a call", "color": "mint", "icon": "call" }
+    ],
+    "getting-started": [
+      { "kind": "Report", "title": "Wallet Setup Checklist", "blurb": "A printable checklist for your first safe wallet.", "price": "Free", "url": "", "button": "Get the checklist", "color": "mint", "icon": "key" },
+      { "kind": "Book", "title": "Your First 30 Days in Crypto", "blurb": "Day by day steps from zero to confident.", "price": "$12", "url": "", "button": "Get the book", "color": "yellow", "icon": "book" },
+      { "kind": "Service", "title": "One to one onboarding", "blurb": "Set up your wallet together on a call.", "price": "From $TBD", "url": "", "button": "Book a call", "color": "blue", "icon": "call" }
+    ],
+    "dont-lose-money": [
+      { "kind": "Report", "title": "The Scam Field Guide", "blurb": "The most common crypto scams and how to spot them.", "price": "$9", "url": "", "button": "Get the report", "color": "coral", "icon": "shield" },
+      { "kind": "Book", "title": "Don't Get Rekt", "blurb": "Risk rules for beginners, with real stories.", "price": "$15", "url": "", "button": "Get the book", "color": "yellow", "icon": "book" },
+      { "kind": "Service", "title": "Security check call", "blurb": "We go through your wallets and habits together.", "price": "From $TBD", "url": "", "button": "Book a call", "color": "mint", "icon": "call" }
+    ],
+    "earn-small": [
+      { "kind": "Report", "title": "Airdrop Hunting Without Getting Scammed", "blurb": "How real airdrops work and which ones to skip.", "price": "$9", "url": "", "button": "Get the report", "color": "violet", "icon": "coin" },
+      { "kind": "Book", "title": "Get Paid in Web3", "blurb": "Writing, video and internship paths, step by step.", "price": "$12", "url": "", "button": "Get the book", "color": "yellow", "icon": "book" },
+      { "kind": "Service", "title": "Portfolio review", "blurb": "Feedback on your content before you apply.", "price": "From $TBD", "url": "", "button": "Book a call", "color": "mint", "icon": "call" }
+    ],
+    "scam": [
+      { "kind": "Report", "title": "The Scam Field Guide", "blurb": "The most common crypto scams and how to spot them.", "price": "$9", "url": "", "button": "Get the report", "color": "coral", "icon": "shield" },
+      { "kind": "Service", "title": "Security check call", "blurb": "We go through your wallets and habits together.", "price": "From $TBD", "url": "", "button": "Book a call", "color": "mint", "icon": "call" }
+    ]
+  }
+}

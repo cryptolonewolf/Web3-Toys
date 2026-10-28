@@ -1,5 +1,5 @@
 {
-  "_help": "Home page shelves and cards. status: live (clickable) or soon (shows Coming soon). A card can set its own status to override its shelf. Each live card's id must match its toy file in data/toys/ and its quiz in quizzes/, except cards with kind game, like Spot the Scam, which are stand-alone games without a certificate.",
+  "_help": "Home page shelves and cards. Each toy card can have its own look: title (its fun name), topic (what it teaches, in plain words), font (luckiest, bungee, bangers or chewy), accent (blue, mint, coral, violet or yellow) and cover (a picture in assets/covers). If you rename a toy, also change its name in its own index.html and in quizzes/index.json. status: live (clickable) or soon (shows Coming soon). A card can set its own status to override its shelf. Each live card's id must match its toy file in data/toys/ and its quiz in quizzes/, except cards with kind game, like Spot the Scam, which are stand-alone games without a certificate.",
   "heroLabel": "Free web3 toys",
   "heroTitle": "Learn web3 by playing with it.",
   "heroText": "Short, playful lessons with a quiz and a certificate at the end. Each one takes about five minutes.",
@@ -10,10 +10,10 @@
       "blurb": "Start here. Four quick toys that take you from zero to confident.",
       "status": "live",
       "cards": [
-        { "id": "crypto-in-5", "title": "Crypto in 5 Minutes", "time": "5 min", "path": "crypto-in-5/", "blurb": "How it started, narratives, the 4 year cycle, memes and what is trending." },
-        { "id": "getting-started", "title": "Getting Started in Crypto", "time": "6 min", "path": "getting-started/", "blurb": "Wallets, stablecoins, tokens, exchanges, swaps, fees, blockchains, perps and options." },
-        { "id": "dont-lose-money", "title": "How Not to Lose Money", "time": "5 min", "path": "dont-lose-money/", "blurb": "Start small, skip perps, avoid meme gambling, pick good sources and spot scams." },
-        { "id": "earn-small", "title": "Ways to Earn Small", "time": "5 min", "path": "earn-small/", "blurb": "Content, airdrops, writing, videos and internships." }
+        { "id": "crypto-in-5", "title": "Genesis Block", "topic": "Crypto in 5 Minutes", "font": "luckiest", "accent": "blue", "cover": "assets/covers/genesis-block.svg", "time": "5 min", "path": "crypto-in-5/", "blurb": "How it started, narratives, the 4 year cycle, memes and what is trending." },
+        { "id": "getting-started", "title": "Not Your Keys", "topic": "Getting Started in Crypto", "font": "bungee", "accent": "mint", "cover": "assets/covers/not-your-keys.svg", "time": "6 min", "path": "getting-started/", "blurb": "Wallets, stablecoins, tokens, exchanges, swaps, fees, blockchains, perps and options." },
+        { "id": "dont-lose-money", "title": "Don't Get Rekt", "topic": "How Not to Lose Money", "font": "bangers", "accent": "coral", "cover": "assets/covers/dont-get-rekt.svg", "time": "5 min", "path": "dont-lose-money/", "blurb": "Start small, skip perps, avoid meme gambling, pick good sources and spot scams." },
+        { "id": "earn-small", "title": "Stack Sats", "topic": "Ways to Earn Small", "font": "chewy", "accent": "violet", "cover": "assets/covers/stack-sats.svg", "time": "5 min", "path": "earn-small/", "blurb": "Content, airdrops, writing, videos and internships." }
       ]
     },
     {
@@ -42,7 +42,7 @@
       "blurb": "Games and simulators.",
       "status": "live",
       "cards": [
-        { "id": "scam", "kind": "game", "title": "Spot the Scam", "time": "5 min", "path": "scam/", "blurb": "Scam or legit? Play 10 rounds, or paste a message you got and see how risky it looks." },
+        { "id": "scam", "kind": "game", "title": "Spot the Scam", "topic": "Scam or legit?", "accent": "yellow", "cover": "assets/covers/spot-the-scam.svg", "time": "5 min", "path": "scam/", "blurb": "Scam or legit? Play 10 rounds, or paste a message you got and see how risky it looks." },
         { "id": "token-simulator", "status": "soon", "title": "Launch a Token Simulator", "time": "5 min" },
         { "id": "token-split", "status": "soon", "title": "Read the Token Split", "time": "4 min" }
       ]

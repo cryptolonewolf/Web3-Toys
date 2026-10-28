@@ -1,14 +1,14 @@
 {
   "_help": "Cards for this toy, in order. Card types: story, reveal (tap tiles to flip), pick (choose an answer), steps (tap through a timeline), trending. Optional on any card: aki (what the mascot says), mascot (grin, thinking, worried, celebrating), points (bullet list), tip, link {label, href}.",
   "id": "dont-lose-money",
-  "title": "How Not to Lose Money",
+  "title": "Don't Get Rekt: How Not to Lose Money",
   "time": "5 min",
   "cards": [
     {
       "type": "story",
       "mascot": "worried",
       "aki": "I have seen a lot of people lose money in crypto. Let's make sure you are not one of them.",
-      "title": "How Not to Lose Money",
+      "title": "Don't Get Rekt",
       "text": ["Six habits that keep beginners in the game: start small, skip perps, avoid meme gambling, pick good sources, ignore moon promises, and spot scams."]
     },
     {

@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Crypto in 5 Minutes · web3.toys</title>
+    <title>Genesis Block: Crypto in 5 Minutes · web3.toys</title>
     <meta name="description" content="How crypto started, narratives, the 4 year cycle, memes and what is trending, in five minutes. With a quiz and a certificate." />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="web3.toys" />
-    <meta property="og:title" content="Crypto in 5 Minutes" />
+    <meta property="og:title" content="Genesis Block: Crypto in 5 Minutes" />
     <meta property="og:description" content="How crypto started, narratives, the 4 year cycle, memes and what is trending, in five minutes. With a quiz and a certificate." />
     <meta property="og:url" content="https://web3.toys/crypto-in-5/" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Crypto in 5 Minutes" />
+    <meta name="twitter:title" content="Genesis Block: Crypto in 5 Minutes" />
     <meta name="twitter:description" content="How crypto started, narratives, the 4 year cycle, memes and what is trending, in five minutes. With a quiz and a certificate." />
     <meta name="theme-color" content="#FFD93D" />
     <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
@@ -19,25 +19,35 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bangers&family=Bungee&family=Chewy&family=Fredoka:wght@500;600;700&family=Luckiest+Guy&family=Nunito:wght@600;700;800&display=swap"
     />
     <link rel="stylesheet" href="../styles/toys.css" />
   </head>
-  <body data-toy="crypto-in-5">
-    <div class="page page--narrow">
+  <body data-toy="crypto-in-5" data-font="luckiest" data-accent="blue">
+    <header id="topbar" class="topbar">
+      <div class="topbar-inner"><a class="logo" href="../">web3.toys</a></div>
+    </header>
+
+    <div class="page page--toy">
       <header class="stack stack--tight">
         <div class="site-header">
-          <a class="logo" href="../">web3.toys</a>
+          <div class="toy-hero">
+            <img class="toy-hero-cover" src="../assets/covers/genesis-block.svg" alt="" width="72" height="46" />
+            <div><p class="toy-hero-name toy-font">Genesis Block</p><p class="small-print">Crypto in 5 Minutes</p></div>
+          </div>
           <span id="status-pill" class="pill">by BuildWithAki</span>
         </div>
         <div id="progress" class="progress" hidden></div>
       </header>
 
-      <main id="app" class="stack" aria-live="polite">
-        <noscript>
-          <p class="card">Crypto in 5 Minutes needs JavaScript turned on.</p>
-        </noscript>
-      </main>
+      <div class="toy-layout">
+        <main id="app" class="stack" aria-live="polite">
+          <noscript>
+            <p class="card">Genesis Block needs JavaScript turned on.</p>
+          </noscript>
+        </main>
+        <aside id="shop" class="shop" data-toy="crypto-in-5" aria-label="Shop"></aside>
+      </div>
 
       <footer class="site-footer">
         <p><strong>Educational only. Not financial advice.</strong></p>
@@ -45,11 +55,13 @@
       </footer>
     </div>
 
+    <script src="../js/site.js"></script>
     <script src="../config.js"></script>
     <script src="../js/common.js"></script>
     <script src="../js/progress.js"></script>
     <script src="../js/toy-kit.js"></script>
     <script src="../js/quiz.js"></script>
     <script src="../js/player.js"></script>
+    <script src="../js/shop.js"></script>
   </body>
 </html>

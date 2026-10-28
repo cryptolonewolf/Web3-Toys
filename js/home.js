@@ -16,14 +16,17 @@
       '<span class="chip is-white">' + esc(c.time) + '</span>' +
       (cert ? '<span class="chip is-mint">✓ Completed</span>' : '') +
       (live ? '' : '<span class="chip is-blue">Coming soon</span>');
+    var look = (c.font ? ' data-font="' + esc(c.font) + '"' : '') + (c.accent ? ' data-accent="' + esc(c.accent) + '"' : '');
     var inner =
+      (c.cover ? '<img class="toy-cover" src="' + esc(c.cover) + '" alt="" width="320" height="180" loading="lazy" />' : '') +
       '<span class="chips">' + chips + '</span>' +
-      '<h3 class="title-sm">' + esc(c.title) + '</h3>' +
+      '<h3 class="title-sm' + (c.font ? ' toy-font' : '') + '">' + esc(c.title) + '</h3>' +
+      (c.topic ? '<p class="toy-sub">' + esc(c.topic) + '</p>' : '') +
       (c.blurb ? '<p class="text">' + esc(c.blurb) + '</p>' : '') +
       (live ? '<span class="go">' + (cert ? 'Play again →' : 'Play →') + '</span>' : '');
     return '<li>' + (live
-      ? '<a class="card toy-card' + (cert ? ' card--good' : ' card--yellow') + '" href="' + esc(c.path) + '">' + inner + '</a>'
-      : '<div class="card toy-card toy-card--soon" aria-label="' + esc(c.title) + ', coming soon">' + inner + '</div>') + '</li>';
+      ? '<a class="card toy-card' + (cert ? ' card--good' : ' card--yellow') + '"' + look + ' href="' + esc(c.path) + '">' + inner + '</a>'
+      : '<div class="card toy-card toy-card--soon"' + look + ' aria-label="' + esc(c.title) + ', coming soon">' + inner + '</div>') + '</li>';
   }
 
   function render(home, ranks) {
@@ -36,7 +39,7 @@
       '<div class="hero-copy"><p class="label">' + esc(home.heroLabel) + '</p>' +
       '<h1 id="hero-title" class="title-xl">' + esc(home.heroTitle) + '</h1></div>' +
       '<p class="hero-text">' + esc(home.heroText) + '</p>' +
-      '<img class="mascot mascot--lg" src="assets/aki-grin.svg" alt="" width="116" height="116" />' +
+      window.WEB3TOYS.mascotImg('grin', 'mascot mascot--lg', 116) +
       '</section>' +
 
       '<a class="card rank-card" href="progress/">' +

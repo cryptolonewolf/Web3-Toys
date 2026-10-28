@@ -160,7 +160,11 @@
     ctx.fillStyle = YELLOW;
     ctx.fillText(cta, x + pad + 43, cy + 18);
 
-    if (mascot) ctx.drawImage(mascot, x + w - 30 - 330, y + w - 30 - 330, 330, 330);
+    // Fit the mascot inside a 330 by 330 corner box, keeping its shape.
+    if (mascot) {
+      var k = Math.min(330 / mascot.width, 330 / mascot.height);
+      ctx.drawImage(mascot, x + w - 30 - 165 - (mascot.width * k) / 2, y + w - 30 - mascot.height * k, mascot.width * k, mascot.height * k);
+    }
   }
 
   // data: { title, big, bigLabel, rank, line, cta, mascotSrc, stats }

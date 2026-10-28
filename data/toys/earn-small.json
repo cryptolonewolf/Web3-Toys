@@ -1,14 +1,14 @@
 {
   "_help": "Cards for this toy, in order. Card types: story, reveal (tap tiles to flip), pick (choose an answer), steps (tap through a timeline), trending. Optional on any card: aki (what the mascot says), mascot (grin, thinking, worried, celebrating), points (bullet list), tip, link {label, href}.",
   "id": "earn-small",
-  "title": "Ways to Earn Small",
+  "title": "Stack Sats: Ways to Earn Small",
   "time": "5 min",
   "cards": [
     {
       "type": "story",
       "mascot": "grin",
       "aki": "You do not need money to get into web3. You need to be useful.",
-      "title": "Ways to Earn Small",
+      "title": "Stack Sats",
       "text": ["Five ways people earn their first crypto: content, airdrops, writing, videos and internships.", "None of them make you rich overnight. All of them build skills and a reputation."]
     },
     {

@@ -13,7 +13,7 @@
   var progress = document.getElementById('progress');
   var meters = document.getElementById('meters');
 
-  var MASCOT = '../assets/mascot.svg';
+  var MASCOT = window.WEB3TOYS.mascotSrc('grin');
   var LABELS = { price: 'Price', hype: 'Hype', trust: 'Trust', liquidity: 'Liquidity', runway: 'Runway', ownership: 'Ownership' };
   var CHECK =
     '<span class="check" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F1B2E" ' +

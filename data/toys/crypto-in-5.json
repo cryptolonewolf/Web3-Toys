@@ -1,14 +1,14 @@
 {
   "_help": "Cards for this toy, in order. Card types: story, reveal (tap tiles to flip), pick (choose an answer), steps (tap through a timeline), trending (shows data/trending.json). Optional on any card: aki (what the mascot says), mascot (grin, thinking, worried, celebrating), points (bullet list), tip, link {label, href}.",
   "id": "crypto-in-5",
-  "title": "Crypto in 5 Minutes",
+  "title": "Genesis Block: Crypto in 5 Minutes",
   "time": "5 min",
   "cards": [
     {
       "type": "story",
       "mascot": "grin",
       "aki": "Hey, I'm Aki. Let's speed-run crypto in five minutes.",
-      "title": "Crypto in 5 Minutes",
+      "title": "Genesis Block",
       "text": ["Where it came from, what moves prices, why everyone talks about four year cycles, and what memes are really about.", "Tap Next to go through the cards. There is a short quiz and a certificate at the end."]
     },
     {
