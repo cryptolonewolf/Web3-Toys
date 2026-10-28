@@ -1,5 +1,5 @@
 {
-  "_help": "Home page shelves and cards. status: live (clickable) or soon (shows Coming soon). Each live card's id must match its toy file in data/toys/ and its quiz in quizzes/.",
+  "_help": "Home page shelves and cards. status: live (clickable) or soon (shows Coming soon). A card can set its own status to override its shelf. Each live card's id must match its toy file in data/toys/ and its quiz in quizzes/, except cards with kind game, like Spot the Scam, which are stand-alone games without a certificate.",
   "heroLabel": "Free web3 toys",
   "heroTitle": "Learn web3 by playing with it.",
   "heroText": "Short, playful lessons with a quiz and a certificate at the end. Each one takes about five minutes.",
@@ -40,10 +40,11 @@
       "id": "play",
       "title": "Play and Learn",
       "blurb": "Games and simulators.",
-      "status": "soon",
+      "status": "live",
       "cards": [
-        { "id": "token-simulator", "title": "Launch a Token Simulator", "time": "5 min" },
-        { "id": "token-split", "title": "Read the Token Split", "time": "4 min" }
+        { "id": "scam", "kind": "game", "title": "Spot the Scam", "time": "5 min", "path": "scam/", "blurb": "Scam or legit? Play 10 rounds, or paste a message you got and see how risky it looks." },
+        { "id": "token-simulator", "status": "soon", "title": "Launch a Token Simulator", "time": "5 min" },
+        { "id": "token-split", "status": "soon", "title": "Read the Token Split", "time": "4 min" }
       ]
     }
   ]

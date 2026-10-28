@@ -167,14 +167,26 @@ describe('progress and ranks', () => {
 describe('content files', () => {
   const home = json('data/home.json');
   const index = json('quizzes/index.json').toys;
-  const live = home.shelves.filter((s) => s.status === 'live').flatMap((s) => s.cards);
+  const isLive = (s, c) => (c.status || s.status) === 'live';
+  const live = home.shelves.flatMap((s) => s.cards.filter((c) => isLive(s, c) && c.kind !== 'game'));
   const TYPES = ['story', 'reveal', 'pick', 'steps', 'trending'];
   const POSES = ['grin', 'thinking', 'worried', 'celebrating'];
 
-  it('has four shelves, only Getting Started live, every card with a time', () => {
+  it('has four shelves, every card with a time, and live cards with a page', () => {
     assert.deepEqual(home.shelves.map((s) => s.title), ['Getting Started', 'Career in Web3', 'For Entrepreneurs', 'Play and Learn']);
-    assert.deepEqual(home.shelves.map((s) => s.status), ['live', 'soon', 'soon', 'soon']);
-    for (const s of home.shelves) for (const c of s.cards) assert.ok(c.title && c.time, c.id);
+    for (const s of home.shelves) {
+      for (const c of s.cards) {
+        assert.ok(c.title && c.time, c.id);
+        if (isLive(s, c)) readFileSync(new URL(`../${c.path}index.html`, import.meta.url));
+      }
+    }
+  });
+
+  it('shows Spot the Scam as a live game in Play and Learn, and the simulator as coming soon', () => {
+    const play = home.shelves.find((s) => s.id === 'play');
+    const scam = play.cards.find((c) => c.id === 'scam');
+    assert.ok(isLive(play, scam) && scam.path === 'scam/' && scam.kind === 'game');
+    assert.ok(!isLive(play, play.cards.find((c) => c.id === 'token-simulator')));
   });
 
   it('ranks are in order and start at 0', () => {

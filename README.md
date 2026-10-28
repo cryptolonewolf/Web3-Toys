@@ -21,7 +21,7 @@ database, no login, nothing to install.
 | `api/` | The three server functions (quiz, mark, verify). |
 | `styles/toys.css` | The one shared look. Colours and fonts are at the top. |
 | `assets/` | Your mascot drawings and the site icon. |
-| `scam/`, `simulator/` | Spot the Scam (linked from How Not to Lose Money) and the Launch a Token Simulator (not listed on the home page yet). |
+| `scam/`, `simulator/` | Spot the Scam (a live card in Play and Learn, also linked from How Not to Lose Money) and the Launch a Token Simulator (coming soon). |
 | `tests/`, `tools/` | Automatic checks and helper scripts. Not part of the live site. |
 
 ## One-time setup: switch on certificates

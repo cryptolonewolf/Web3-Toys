@@ -47,13 +47,15 @@
       '<span class="go">My Progress →</span></a>' +
 
       home.shelves.map(function (shelf) {
-        var live = shelf.status === 'live';
+        // A card can override its shelf's status, so a shelf can mix live and coming soon cards.
+        var isLive = function (c) { return (c.status || shelf.status) === 'live'; };
+        var anyLive = shelf.cards.some(isLive);
         return '<section class="shelf stack stack--tight" aria-labelledby="shelf-' + esc(shelf.id) + '">' +
           '<div class="shelf-head"><h2 id="shelf-' + esc(shelf.id) + '" class="section-title">' + esc(shelf.title) + '</h2>' +
-          (live ? '' : '<span class="chip is-blue">Coming soon</span>') + '</div>' +
+          (anyLive ? '' : '<span class="chip is-blue">Coming soon</span>') + '</div>' +
           (shelf.blurb ? '<p class="text">' + esc(shelf.blurb) + '</p>' : '') +
-          '<ul class="toy-grid' + (live ? '' : ' toy-grid--soon') + '">' +
-          shelf.cards.map(function (c) { return card(c, live); }).join('') +
+          '<ul class="toy-grid' + (anyLive ? '' : ' toy-grid--soon') + '">' +
+          shelf.cards.map(function (c) { return card(c, isLive(c)); }).join('') +
           '</ul></section>';
       }).join('');
   }
