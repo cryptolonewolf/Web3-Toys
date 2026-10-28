@@ -2298,7 +2298,7 @@ a.toy-card:hover .toy-cover {
   accent-color: var(--ink);
 }
 
-/* ---------- Home: wide toy cards ---------- */
+/* ---------- Home page ---------- */
 
 body.home .page,
 body.home .topbar-inner {
@@ -2364,198 +2364,516 @@ body.home .page {
   list-style: none;
 }
 
-/* A wide card: picture on the left, the toy's name on the right */
-.toy-tile {
+@media (min-width: 700px) {
+  .tile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+}
+
+@media (min-width: 1060px) {
+  .tile-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+}
+
+/* ---------- Toy cards: every card is its own little logo ----------
+   The only thing they share is the rounded corners. Sizes use cqi (a
+   percentage of the card's width) so titles scale with the card. */
+
+.xcard {
   position: relative;
   display: flex;
   align-items: center;
-  /* Phones: a little wider than 2:1 so about five cards fit on one screen */
-  aspect-ratio: 3 / 1;
-  color: var(--ink);
+  justify-content: center;
+  aspect-ratio: 2.7 / 1;
+  overflow: hidden;
+  border-radius: 18px;
+  container-type: inline-size;
   text-decoration: none;
-  border: var(--line);
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow);
-  background: var(--white);
-  rotate: var(--rest, 0deg);
-  transition: rotate 0.2s ease, box-shadow 0.2s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
-.tile-art,
-.tile-img {
+.xart {
   position: absolute;
   inset: 0;
-  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.xart * {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.xtitle {
+  position: relative;
+  z-index: 1;
+  padding: 0 14cqi;
+  text-align: center;
+  line-height: 1.05;
+}
+
+.xcard .tile-img {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
   width: 100%;
   height: 100%;
   max-width: none;
   object-fit: cover;
-  object-position: left center;
-  border-radius: 15px;
+  opacity: 0;
 }
 
-.toy-tile.has-cover .tile-art {
-  visibility: hidden;
-}
-
-.tile-name {
-  position: relative;
-  margin-left: 40%;
-  padding-right: 14px;
-  font-family: var(--font-toy, 'Luckiest Guy'), var(--font-display);
-  font-size: calc(23px * var(--toy-scale, 1));
-  line-height: 1.02;
-  letter-spacing: var(--toy-spacing, 0.4px);
-  color: var(--ink);
-  text-shadow: 2px 2px 0 var(--white), -1px -1px 0 var(--white), 1px -1px 0 var(--white), -1px 1px 0 var(--white);
-  overflow-wrap: break-word;
+.xcard.has-cover .tile-img {
+  opacity: 1;
 }
 
 .tile-sticker {
   position: absolute;
-  z-index: 2;
-  font-family: 'Luckiest Guy', var(--font-display);
-  border: var(--line);
-  box-shadow: var(--shadow-sm);
+  z-index: 4;
+  font-family: var(--font-body);
+  font-weight: 800;
+  border: 2px solid var(--ink);
 }
 
 .tile-soon {
-  top: -10px;
-  right: 14px;
-  padding: 3px 10px 1px;
-  font-size: 14px;
-  letter-spacing: 0.6px;
+  top: 7px;
+  right: 9px;
+  padding: 1px 8px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--ink);
   background: var(--white);
-  border-radius: 8px;
-  rotate: 6deg;
+  border-radius: 999px;
+  rotate: 5deg;
 }
 
 .tile-done {
-  top: -10px;
-  right: 14px;
+  top: 7px;
+  right: 9px;
   display: grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
-  font-family: var(--font-body);
-  font-weight: 800;
-  font-size: 18px;
+  width: 26px;
+  height: 26px;
+  font-size: 15px;
   background: var(--mint);
   border-radius: 50%;
 }
 
-.toy-tile.is-soon .tile-art,
-.toy-tile.is-soon .tile-img {
-  filter: saturate(0.55) brightness(1.04);
+.xcard:focus-visible {
+  outline: 4px solid var(--blue);
+  outline-offset: 3px;
 }
 
-.toy-tile.is-soon {
-  box-shadow: 3px 3px 0 var(--ink);
+/* 1. Genesis Block: pixels and a yellow glow */
+.xcard--crypto-in-5 {
+  background: #0b0b14;
+  box-shadow: 0 0 0 3px #2a2a3d;
 }
 
-/* Edge details, so each card feels like a different toy */
-.toy-tile[data-edge='round'] { border-radius: 34px 12px 34px 12px; }
-.toy-tile[data-edge='round'] .tile-art,
-.toy-tile[data-edge='round'] .tile-img { border-radius: 31px 9px 31px 9px; }
+.xcard--crypto-in-5 .xtitle {
+  font-size: 6.6cqi;
+  line-height: 1.35;
+  color: #ffe45c;
+  text-shadow: 0 0 6px rgba(255, 217, 61, 0.9), 0 0 18px rgba(255, 217, 61, 0.55), 3px 3px 0 #7a5a00;
+}
 
-.toy-tile[data-edge='tape']::before {
-  content: '';
+.xcard--crypto-in-5:hover .pblock {
+  animation: px-hop 0.5s steps(2) var(--d) 2;
+}
+
+@keyframes px-hop {
+  50% { transform: translateY(-3px); }
+}
+
+/* 2. Not Your Keys: white, thick yellow border, a key ring O */
+.xcard--getting-started {
+  background: #fff;
+  border: 7px solid #ffd93d;
+  box-shadow: 0 0 0 2.5px var(--ink);
+}
+
+.xcard--getting-started .xtitle {
+  font-size: 9.4cqi;
+  color: var(--ink);
+  white-space: nowrap;
+  padding: 0;
+}
+
+.keyring {
+  display: inline-block;
+  width: 0.78em;
+  height: 0.78em;
+  margin: 0 0.04em;
+  vertical-align: -0.02em;
+}
+
+.keyring svg {
+  display: block;
+  width: 100%;
+  height: 150%;
+  overflow: visible;
+}
+
+.ringkey {
+  transform-box: view-box;
+  transform-origin: 20px 20px;
+  transition: transform 0.4s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.xcard--getting-started:hover .ringkey {
+  transform: rotate(-35deg);
+}
+
+/* 3. Don't Get Rekt: caution stripes, red comic title, a shake */
+.xcard--dont-lose-money {
+  background: #ffe14d;
+  box-shadow: 0 0 0 3px var(--ink);
+}
+
+.xcard--dont-lose-money .xtitle {
+  font-size: 11.5cqi;
+  letter-spacing: 0.04em;
+  color: #e8262f;
+  -webkit-text-stroke: 0.035em var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 0.05em 0.05em 0 var(--ink);
+  rotate: -3deg;
+  padding: 0 20cqi;
+}
+
+.xcard--dont-lose-money:hover .xtitle {
+  animation: rekt-shake 0.35s linear 2;
+}
+
+.xcard--dont-lose-money:hover .rekt-skull {
+  animation: rekt-shake 0.35s linear 2 reverse;
+}
+
+@keyframes rekt-shake {
+  0%, 100% { translate: 0 0; }
+  25% { translate: -3px 1px; }
+  50% { translate: 3px -1px; }
+  75% { translate: -2px -1px; }
+}
+
+/* 4. Stack Sats: purple, gold gradient title with a hard shadow */
+.xcard--earn-small {
+  background: #5a2ac0;
+  box-shadow: 4px 4px 0 #2a0f5c;
+}
+
+.xcard--earn-small .xtitle {
+  font-size: 12cqi;
+  background: linear-gradient(180deg, #fff6b0 0%, #ffd93d 45%, #e8a800 55%, #ffe36b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0.04em 0.04em 0 #2a0f5c);
+  padding: 0 28cqi;
+}
+
+.xcard--earn-small:hover .cstack {
+  animation: coin-bounce 0.5s ease var(--d) 1;
+}
+
+@keyframes coin-bounce {
+  40% { transform: translateY(-6px); }
+  70% { transform: translateY(1px); }
+}
+
+/* 5. Famous Web3 Hacks: a case file with a stamp */
+.xcard--web3-hacks {
+  background: #e8c887;
+  box-shadow: 3px 4px 0 #a07c3c;
+}
+
+.xcard--web3-hacks .xtitle {
+  font-size: 8.4cqi;
+  color: #2b2b2b;
+  padding: 0 22cqi 0 12cqi;
+}
+
+.stamp {
   position: absolute;
-  z-index: 2;
-  top: -10px;
-  left: 18%;
-  width: 70px;
-  height: 22px;
-  background: rgba(255, 255, 255, 0.75);
-  border: 2px solid rgba(31, 27, 46, 0.35);
-  rotate: -8deg;
+  bottom: -1.1em;
+  right: 20cqi;
+  padding: 0.05em 0.3em;
+  font-size: 0.55em;
+  letter-spacing: 0.12em;
+  color: #c8102e;
+  border: 0.12em solid #c8102e;
+  border-radius: 0.15em;
+  rotate: -12deg;
+  opacity: 0.85;
 }
 
-.toy-tile[data-edge='pin']::before {
-  content: '';
-  position: absolute;
-  z-index: 2;
-  top: 8px;
-  left: 10px;
-  width: 16px;
-  height: 16px;
-  background: var(--coral);
-  border: var(--line-thin);
-  border-radius: 50%;
-  box-shadow: 2px 2px 0 var(--ink);
+.xcard--web3-hacks:hover .stamp {
+  animation: thump 0.4s cubic-bezier(0.3, 1.6, 0.5, 1);
 }
 
-.toy-tile[data-edge='corner']::before {
-  content: '';
-  position: absolute;
-  z-index: 2;
-  right: -3px;
-  bottom: -3px;
-  width: 30px;
-  height: 30px;
-  background: linear-gradient(135deg, var(--white) 50%, var(--cream) 50%);
-  border-top: var(--line);
-  border-left: var(--line);
-  border-radius: 8px 0 15px 0;
+@keyframes thump {
+  0% { scale: 1.8; opacity: 0; }
+  60% { scale: 0.92; opacity: 1; }
+  100% { scale: 1; }
 }
 
-.toy-tile[data-edge='stamp']::before {
-  content: '';
-  position: absolute;
-  z-index: 1;
-  inset: 6px;
-  border: 2px dashed rgba(31, 27, 46, 0.45);
-  border-radius: 12px;
-  pointer-events: none;
+/* 6. Spot the Scam: an envelope and a marker title */
+.xcard--scam {
+  background: #fff6e5;
+  box-shadow: 3px 3px 0 #b8a37a;
 }
 
-.toy-tile[data-edge='notch']::before,
-.toy-tile[data-edge='notch']::after {
-  content: '';
-  position: absolute;
-  z-index: 2;
-  top: 50%;
-  width: 20px;
-  height: 20px;
-  margin-top: -10px;
-  background: var(--cream);
-  border: var(--line);
-  border-radius: 50%;
+.xcard--scam .xtitle {
+  font-size: 11cqi;
+  color: var(--ink);
+  rotate: -2deg;
+  text-decoration: underline wavy #e63946 0.06em;
+  text-underline-offset: 0.18em;
 }
 
-.toy-tile[data-edge='notch']::before { left: -12px; clip-path: inset(0 0 0 50%); }
-.toy-tile[data-edge='notch']::after { right: -12px; clip-path: inset(0 50% 0 0); }
+.xcard--scam .hook {
+  transform-box: view-box;
+  transform-origin: 30px 0;
+}
 
-a.toy-tile:hover {
-  rotate: var(--tilt, -2deg);
+.xcard--scam:hover .hook {
+  animation: sway 0.8s ease-in-out 2;
+}
+
+@keyframes sway {
+  25% { transform: rotate(10deg); }
+  75% { transform: rotate(-8deg); }
+}
+
+/* 7. Launch a Token Simulator: a sky and a rocket */
+.xcard--token-simulator {
+  background: #7cc8ff;
+  box-shadow: 0 4px 0 #3b8fd0;
+}
+
+.xcard--token-simulator .xtitle {
+  font-size: 7.6cqi;
+  color: #ff5a5f;
+  padding: 0 18cqi 0 8cqi;
+}
+
+.xcard--token-simulator:hover .rocket {
+  animation: launch 0.9s ease-in forwards;
+}
+
+@keyframes launch {
+  30% { translate: -2px 2px; }
+  100% { translate: 40px -80px; }
+}
+
+/* 8. Fish the Dead Projects: dark water, a creepy title */
+.xcard--dead-projects {
+  background: #03121b;
+  box-shadow: inset 0 0 0 2px #2b5d73;
+}
+
+.xcard--dead-projects .xtitle {
+  font-size: 11.5cqi;
+  letter-spacing: 0.03em;
+  color: #a6ff4d;
+  text-shadow: 0 0 10px rgba(166, 255, 77, 0.45), 2px 3px 0 #000;
+}
+
+.xcard--dead-projects:hover .line {
+  animation: bob 0.9s ease-in-out 2;
+}
+
+.xcard--dead-projects:hover .bubbles {
+  animation: rise 1.4s ease-out;
+}
+
+@keyframes bob {
+  50% { transform: translateY(5px); }
+}
+
+@keyframes rise {
+  to { transform: translateY(-18px); opacity: 0; }
+}
+
+/* 9. Ways to the Moon: neon on a night sky */
+.xcard--ways-to-moon {
+  background: #0b1033;
+  box-shadow: 0 0 0 2px #3a2a8a;
+}
+
+.xcard--ways-to-moon .xtitle {
+  font-size: 9.6cqi;
+  color: #ff7ae0;
+  text-shadow: 0 0 4px #ff4fd8, 0 0 14px #ff4fd8, 0 0 28px rgba(255, 79, 216, 0.6);
+  padding: 0 20cqi 0 10cqi;
+}
+
+.xcard--ways-to-moon:hover .xtitle {
+  animation: flicker 1s linear;
+}
+
+.xcard--ways-to-moon:hover .twinkle {
+  animation: twinkle 0.8s ease-in-out var(--d) 2;
+}
+
+@keyframes flicker {
+  10%, 30% { opacity: 0.4; }
+  20%, 40%, 100% { opacity: 1; }
+}
+
+@keyframes twinkle {
+  50% { transform: scale(2.4); }
+}
+
+/* Career in Web3 */
+.xcard--first-job {
+  background: #c8925a;
+  box-shadow: inset 0 0 0 5px #8a5a2b;
+}
+
+.xcard--first-job .xtitle {
+  font-size: 8.8cqi;
+  color: #fff8e1;
+  text-shadow: 2px 2px 0 #4a2a10, 0 0 1px #4a2a10;
+  padding: 0 24cqi;
+}
+
+.xcard--first-job .note {
+  transform-box: fill-box;
+  transform-origin: top center;
+}
+
+.xcard--first-job:hover .note {
+  animation: sway 0.9s ease-in-out;
+}
+
+.xcard--web3-roles {
+  background: #2ec4b6;
+  box-shadow: 0 5px 0 #1d6fd6;
+}
+
+.xcard--web3-roles .xtitle {
+  font-size: 8cqi;
+  color: #fff;
+  text-shadow: 3px 3px 0 #0b3a6e;
+  padding: 0 24cqi;
+}
+
+.xcard--web3-roles:hover .badge {
+  animation: fan 0.5s ease;
+}
+
+@keyframes fan {
+  50% { transform: rotate(14deg) translateY(-3px); }
+}
+
+.xcard--hall-of-fame {
+  background: #4a0812;
+  box-shadow: 0 0 0 3px #e8b923;
+}
+
+.xcard--hall-of-fame .xtitle {
+  font-size: 6.6cqi;
+  font-weight: 700;
+  color: #ffe9a8;
+  text-shadow: 0 2px 0 #7a5a00, 0 0 16px rgba(255, 233, 168, 0.35);
+  padding: 0 20cqi;
+}
+
+.xcard--hall-of-fame:hover .sparkle {
+  animation: twinkle 0.6s ease-in-out 2;
+}
+
+/* For Entrepreneurs */
+.xcard--raise-first-round {
+  background: #d8ebcf;
+  box-shadow: 3px 3px 0 #2f5e3a;
+}
+
+.xcard--raise-first-round .xtitle {
+  font-size: 9.4cqi;
+  color: #234d2c;
+  padding: 0 14cqi 0 20cqi;
+}
+
+.xcard--raise-first-round:hover .seal {
+  animation: spin-seal 0.8s ease;
+}
+
+@keyframes spin-seal {
+  to { transform: rotate(360deg); }
+}
+
+.xcard--tokenomics-basics {
+  background: #1e5aa8;
+  box-shadow: 0 0 0 2px #0f3a75;
+}
+
+.xcard--tokenomics-basics .xtitle {
+  font-size: 7.4cqi;
+  color: #fff;
+  padding: 0 24cqi 0 8cqi;
+}
+
+.xcard--tokenomics-basics:hover .pie {
+  animation: spin-seal 1s ease;
+}
+
+/* Play and Learn: What If You Invested $100 and Read the Token Split */
+.xcard--invest-100 {
+  background: #06140c;
+  box-shadow: inset 0 0 22px rgba(57, 255, 136, 0.25), 0 0 0 2px #0f3a20;
+}
+
+.xcard--invest-100 .xtitle {
+  font-size: 12.5cqi;
+  line-height: 0.95;
+  color: #39ff88;
+  text-shadow: 0 0 8px rgba(57, 255, 136, 0.7);
+}
+
+.xcard--invest-100 .chart {
+  stroke-dasharray: 420;
+}
+
+.xcard--invest-100:hover .chart {
+  animation: draw 1.2s ease-out;
+}
+
+@keyframes draw {
+  from { stroke-dashoffset: 420; }
+  to { stroke-dashoffset: 0; }
+}
+
+.xcard--token-split {
+  background: #fff;
+  box-shadow: 3px 3px 0 #9b1c26;
+}
+
+.xcard--token-split .xtitle {
+  font-size: 11cqi;
+  color: #fff;
+  text-shadow: -2px -2px 0 #9b1c26, 2px -2px 0 #9b1c26, -2px 2px 0 #9b1c26, 2px 2px 0 #9b1c26, 4px 4px 0 #9b1c26;
+  padding: 0 22cqi;
+}
+
+.xcard--token-split:hover .slice {
+  animation: pull 0.6s ease;
+}
+
+@keyframes pull {
+  50% { transform: translateY(-5px) rotate(-8deg); }
+}
+
+/* Hover on every card: a small lift, each card its own way above */
+a.xcard {
+  transition: translate 0.2s ease;
+}
+
+a.xcard:hover {
   translate: 0 -3px;
-  box-shadow: var(--shadow-lg);
-  animation: tile-bounce 0.5s ease;
 }
 
-a.toy-tile:active {
-  rotate: 0deg;
-  translate: 3px 3px;
-  box-shadow: 0 0 0 var(--ink);
-}
-
-@keyframes tile-bounce {
-  0% { translate: 0 0; }
-  35% { translate: 0 -8px; }
-  65% { translate: 0 1px; }
-  100% { translate: 0 -3px; }
-}
-
-@media (min-width: 640px) {
-  .tile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-  .toy-tile { aspect-ratio: 2 / 1; }
-  .tile-name { margin-left: 44%; font-size: calc(25px * var(--toy-scale, 1)); }
-}
-
-@media (min-width: 1000px) {
-  .tile-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px 20px; }
-  .tile-name { font-size: calc(27px * var(--toy-scale, 1)); }
+a.xcard:active {
+  translate: 0 1px;
 }
 
 /* ---------- Wider screens ---------- */
