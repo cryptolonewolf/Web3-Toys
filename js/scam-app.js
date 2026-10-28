@@ -2,7 +2,7 @@
 // scam-checker.js, shared pieces in toy-kit.js.
 
 (function () {
-  var RULES = window.WEB3TOYS_SCAM_RULES;
+  var RULES = null; // checker rules, loaded from data/scam_rules.json when the checker opens
   var SCENARIOS = window.WEB3TOYS_SCAM_SCENARIOS;
   var SETTINGS = window.WEB3TOYS_SCAM_GAME;
   var esc = ToyKit.esc;
@@ -14,7 +14,7 @@
   var MASCOT = '../assets/mascot.svg';
   var SHARE_URL = 'web3.toys/scam';
   var ruleById = {};
-  RULES.rules.forEach(function (r) { ruleById[r.id] = r; });
+  SETTINGS.flags.forEach(function (r) { ruleById[r.id] = r; });
 
   var game = null;
 
@@ -167,7 +167,7 @@
       '<section class="stack stack--tight" aria-labelledby="tag-title">' +
       '<h2 id="tag-title" class="title-sm">Tag the red flags you spot <span class="small-print">(optional)</span></h2>' +
       '<div class="flag-grid">' +
-      RULES.rules.map(function (r) {
+      SETTINGS.flags.map(function (r) {
         return '<button type="button" class="flag-toggle" aria-pressed="false" data-tag="' + esc(r.id) + '">' + esc(r.tag) + '</button>';
       }).join('') +
       '</div></section>' +
@@ -321,17 +321,31 @@
     ]);
   }
 
+  // The checker rules (data/scam_rules.json) load when the checker opens.
+  var rulesLoading = null;
+
+  function loadRules() {
+    if (!rulesLoading) {
+      rulesLoading = fetch('../data/scam_rules.json', { cache: 'no-cache' })
+        .then(function (r) { if (!r.ok) throw new Error('rules ' + r.status); return r.json(); })
+        .then(function (data) { RULES = data; return data; })
+        .catch(function (err) { rulesLoading = null; throw err; });
+    }
+    return rulesLoading;
+  }
+
   function checker(prefill) {
     game = null;
     setHash('check');
     render(
       '<div class="stack stack--tight">' +
       '<h1 class="title-lg">Check a message</h1>' +
-      '<p class="text">Paste a message, email, promotion or deal you got, then tap Check it. We point out what feels fake.</p></div>' +
+      '<p class="text">Paste a message, email, promotion or deal you got, then tap Check it. We point out what looks like a scam.</p></div>' +
       '<section class="card stack stack--tight">' +
-      '<p class="privacy-note"><strong>Stays on your device.</strong> The check runs right here in your browser. Nothing you paste is sent anywhere or saved, and links in it are never opened.</p>' +
       '<label class="label" for="message">Paste it here</label>' +
       '<textarea id="message" class="field field--area" rows="8" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Paste the message here"></textarea>' +
+      '<p class="privacy-line">Your message stays in your browser.</p>' +
+      '<p class="small-print">The check runs on this device using our rules. Nothing you paste is sent anywhere or saved, and links in it are never opened.</p>' +
       '<p class="small-print" data-error aria-live="polite"></p>' +
       '<button type="button" class="btn btn--ink btn--block" data-run>Check it</button>' +
       '<button type="button" class="btn btn--block" data-example>Try an example</button>' +
@@ -342,7 +356,13 @@
       { text: 'Message checker', color: 'yellow' }
     );
     var box = app.querySelector('#message');
+    var error = app.querySelector('[data-error]');
     if (prefill) box.value = prefill;
+    loadRules().catch(function () {
+      error.textContent = location.protocol === 'file:'
+        ? 'The checker needs the website. Open this page through its web address or a Vercel preview link.'
+        : 'The checker rules could not load. Please refresh the page.';
+    });
     loadFeed().then(function (feed) {
       var credit = app.querySelector('[data-feed-credit]');
       if (feed && credit) {
@@ -350,25 +370,33 @@
       }
     });
     on('[data-example]', function () {
-      box.value = RULES.example;
-      box.focus();
+      loadRules().then(function (rules) {
+        box.value = rules.example;
+        box.focus();
+      }).catch(function () {});
     });
     on('[data-home]', start);
     on('[data-run]', function () {
       var text = box.value;
       if (!text.trim()) {
-        app.querySelector('[data-error]').textContent = 'Paste a message in the box first.';
+        error.textContent = 'Paste a message in the box first.';
         box.focus();
         return;
       }
       var button = app.querySelector('[data-run]');
       button.disabled = true;
-      feedReady().then(function (feed) {
-        var result = ScamChecker.check(text, RULES, [window.WEB3TOYS_SCAM_KNOWN, feed]);
+      Promise.all([loadRules(), feedReady()]).then(function (r) {
+        var result = ScamChecker.check(text, r[0], [window.WEB3TOYS_SCAM_KNOWN, r[1]]);
         box.value = '';
-        text = '';
-        if (result.blocked) blocked(result.blocked);
-        else checkResult(result);
+        if (result.blocked) {
+          text = '';
+          blocked(result.blocked);
+        } else {
+          checkResult(result, text);
+        }
+      }).catch(function () {
+        button.disabled = false;
+        error.textContent = 'The checker rules could not load. Please refresh the page.';
       });
     });
   }
@@ -395,42 +423,53 @@
     });
   }
 
-  function checkResult(r) {
-    var tone = r.level === 'many' ? 'card--warning' : r.level === 'some' ? 'card--yellow' : '';
-    var countText = r.count === 1 ? 'red flag found' : 'red flags found';
+  var LEVEL_STYLE = {
+    critical: { card: 'card--warning', chip: 'is-coral' },
+    high: { card: 'card--warning', chip: 'is-coral' },
+    medium: { card: 'card--yellow', chip: 'is-white' },
+    low: { card: '', chip: 'is-white' },
+  };
+
+  // text: the pasted message. It is only shown back on this screen, in this
+  // browser, and is gone when the visitor checks another or leaves.
+  function checkResult(r, text) {
+    var style = LEVEL_STYLE[r.level.id] || LEVEL_STYLE.low;
+    var flagWord = r.count === 1 ? 'red flag' : 'red flags';
 
     var card = shareCard(
       {
         title: 'I checked a message for scams.',
-        big: r.count,
-        bigLabel: countText,
-        rank: r.label,
-        line: 'Nothing I pasted left my device.',
+        big: r.score,
+        bigLabel: 'out of 100',
+        rank: r.level.label + ' risk',
+        line: r.count + ' ' + flagWord + ' found. Nothing I pasted left my device.',
         cta: 'Check yours',
       },
-      'I ran a message through the Spot the Scam checker: ' + r.count + ' ' + countText + '. Check yours at ' + SHARE_URL,
+      'I ran a message through the Spot the Scam checker: ' + r.level.label + ' risk, ' + r.count + ' ' + flagWord + '. Check yours at ' + SHARE_URL,
       'scam-check.png'
     );
 
     render(
-      '<section class="card ' + tone + ' stack stack--tight" aria-labelledby="result-title">' +
-      '<p class="label">Result</p>' +
-      '<h1 id="result-title" class="title-lg">' + esc(r.label) + '</h1>' +
-      '<p class="score-line"><span class="score-big">' + r.count + '</span><span class="label">' + countText + '</span></p>' +
-      (r.note ? '<p class="text text--ink"><strong>' + esc(r.note) + '</strong></p>' : '') +
+      '<section class="card ' + style.card + ' stack stack--tight" aria-labelledby="result-title">' +
+      '<div class="chips"><span class="chip ' + style.chip + '">' + esc(r.level.label) + ' risk</span>' +
+      '<span class="chip is-white">' + r.count + ' ' + flagWord + '</span></div>' +
+      '<p class="score-line"><span class="score-big">' + r.score + '</span><span class="label">out of 100</span></p>' +
+      '<h1 id="result-title" class="title-md">' + esc(r.level.message) + '</h1>' +
       '</section>' +
-      r.flags.map(function (f) {
-        return (
-          '<article class="card stack stack--tight">' +
-          '<h2 class="title-sm">' + esc(f.rule.name) + '</h2>' +
-          '<div class="chips">' + f.found.map(function (x) {
-            return '<span class="chip is-white found-chip">' + esc(x) + '</span>';
-          }).join('') + '</div>' +
-          '<p class="text"><strong class="text--ink">Why it is a red flag:</strong> ' + esc(f.rule.why) + '</p>' +
-          '<p class="text"><strong class="text--ink">What to do:</strong> ' + esc(f.rule.todo) + '</p>' +
-          '</article>'
-        );
-      }).join('') +
+      (r.flags.length
+        ? '<section class="stack stack--tight"><h2 class="section-title">What we found</h2>' +
+          r.flags.map(function (f) {
+            return '<article class="card stack stack--tight">' +
+              '<div class="chips"><span class="chip is-white">' + esc(f.category) + '</span>' +
+              '<span class="chip ' + (f.rule.critical ? 'is-coral' : 'is-yellow') + '">' + (f.rule.critical ? 'Critical' : '+' + f.points) + '</span></div>' +
+              '<h3 class="title-sm">' + esc(f.rule.name) + '</h3>' +
+              '<p class="text">' + esc(f.rule.explain) + '</p></article>';
+          }).join('') + '</section>'
+        : '') +
+      '<section class="card stack stack--tight"><h2 class="title-sm">Your message</h2>' +
+      (r.spans.length ? '<p class="small-print">Highlighted words matched a rule.</p>' : '') +
+      '<div class="msg-highlight">' + ScamChecker.highlight(text, r.spans) + '</div>' +
+      '<p class="small-print">Shown only on this screen, in your browser.</p></section>' +
       '<p class="small-print center">' + esc(SETTINGS.notes.checker) + '</p>' +
       '<div class="btn-row">' +
       '<button type="button" class="btn btn--ink" data-again>Check another</button>' +

@@ -23,6 +23,25 @@ window.WEB3TOYS_SCAM_GAME = {
     { min: 0, label: 'Rekt Rookie', line: 'The scammers won this round. Read the lessons and try again.' },
   ],
 
+  // Red flags players can tag in each round. Scenarios in data/scam-scenarios.js
+  // list their flags by these ids. (The message checker has its own rules in
+  // data/scam_rules.json.)
+  flags: [
+    { id: 'secrets', tag: 'Asks for secrets', name: 'Asks for your seed phrase, private key or password' },
+    { id: 'returns', tag: 'Too good to be true', name: 'Promises guaranteed or very high returns' },
+    { id: 'send-to-receive', tag: 'Send to get more', name: 'Asks you to send crypto to get more back' },
+    { id: 'urgency', tag: 'Rushing you', name: 'Rushes you with fake urgency or a countdown' },
+    { id: 'fake-support', tag: 'Support DMs you', name: 'A support person or admin messaged you first' },
+    { id: 'off-platform', tag: 'Move to a private chat', name: 'Pushes you to a private chat app' },
+    { id: 'connect-wallet', tag: 'Connect or sign', name: 'Asks you to connect a wallet or sign something' },
+    { id: 'links', tag: 'Odd link', name: 'Has a shortened, unknown or lookalike link' },
+    { id: 'fees', tag: 'Pay to unlock', name: 'Asks for a fee to unlock or verify a prize' },
+    { id: 'unexpected-offer', tag: 'Surprise prize or job', name: 'Unexpected prize, refund or job from someone you do not know' },
+    { id: 'endorsement', tag: 'Famous backer', name: 'Claims backing from a celebrity or an exchange' },
+    { id: 'call-to-cancel', tag: 'Call to cancel', name: 'Asks you to call a number to cancel or secure your account' },
+    { id: 'rushed-and-sloppy', tag: 'Rushed and sloppy', name: 'Rushed and sloppy writing' },
+  ],
+
   typeLabels: {
     dm: 'Direct message',
     post: 'Social post',

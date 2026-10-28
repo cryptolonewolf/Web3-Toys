@@ -868,6 +868,36 @@ a.toy-card:active {
   pointer-events: none;
 }
 
+/* Checker: privacy line and the highlighted message */
+.privacy-line {
+  margin: 0;
+  padding: 8px 12px;
+  font-size: 15px;
+  font-weight: 800;
+  background: var(--mint-tint);
+  border: var(--line-thin);
+  border-radius: 12px;
+}
+
+.msg-highlight {
+  padding: 12px 14px;
+  font-size: 15px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: var(--cream);
+  border: var(--line-thin);
+  border-radius: 12px;
+}
+
+.msg-highlight mark {
+  padding: 0 2px;
+  color: var(--ink);
+  background: var(--yellow);
+  border-bottom: 3px solid var(--coral);
+  border-radius: 4px;
+}
+
 /* ---------- Launch a Token Simulator ---------- */
 
 /* Row of small stat meters under the progress bar */

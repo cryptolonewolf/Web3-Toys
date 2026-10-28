@@ -113,10 +113,15 @@ complete, and the older Spot the Scam and simulator logic.
 
 ## Spot the Scam and the simulator
 
-- Spot the Scam content: `data/scam-scenarios.js`, `data/scam-rules.js`,
-  `data/scam-known.js` (reported scams) and `data/scam-game.js`. The public
-  phishing lists in `data/scam-feed.js` refresh every Sunday by a scheduled
-  task, or by running `node tools/update-scam-feed.mjs`.
+- Spot the Scam message checker: every rule is in `data/scam_rules.json`,
+  grouped into ten categories. Each rule has a name, a category, points, a one
+  line explanation and the phrases or patterns it matches. The total is capped
+  at 100; a seed phrase or private key request goes straight to 100. Levels:
+  Critical 80+, High 60+, Medium 30+, Low under 30. After changing rules, run
+  the checks: `data/test_messages.json` holds 10 scam and 5 normal messages
+  that must keep their scores. Reported scams go in `data/scam-known.js`; the
+  public phishing lists in `data/scam-feed.js` refresh every Sunday.
+- Spot the Scam game: `data/scam-scenarios.js` and `data/scam-game.js`.
 - Simulator content: `data/simulator.js`. It is on the home page as Coming
   soon in Play and Learn; its page still works at web3.toys/simulator.
 

@@ -1,0 +1,283 @@
+{
+  "_help": "Rules for Check a message in Spot the Scam. Each rule: id (no spaces), name, category, points, explain (one plain line), and what to match. phrases: words to find, capitals do not matter. patterns: advanced text patterns (regular expressions, backslashes doubled). onlyWith: the rule only counts if the message also has one of these signals: link, payment, urgency, credentials. skipIfNegated: ignore a phrase when 'never', 'no' or similar comes just before it. skipIfAfter: ignore a match when one of these words comes just before it. critical: true jumps the score straight to 100. A few rules have a type that runs a built-in check (links, brands, lookalikes, emojis, capitals, exclamation marks, reported scams); their settings are listed with them. Each rule counts once. The total is capped at 100.",
+
+  "maxScore": 100,
+
+  "levels": [
+    { "id": "critical", "min": 80, "label": "Critical", "message": "Almost certainly a scam. Do not click, reply or connect your wallet." },
+    { "id": "high", "min": 60, "label": "High", "message": "Strong scam signs." },
+    { "id": "medium", "min": 30, "label": "Medium", "message": "Suspicious. Check through the official app or site, never through this message." },
+    { "id": "low", "min": 0, "label": "Low", "message": "Few or no red flags matched our rules. That does not mean this message is safe." }
+  ],
+
+  "categories": {
+    "wallet": "Wallet theft",
+    "rewards": "Fake rewards",
+    "support": "Fake support and security alerts",
+    "links": "Bad links",
+    "money": "Money traps",
+    "jobs": "Fake jobs and deals",
+    "files": "Risky files",
+    "dao": "DAO and governance",
+    "pressure": "Pressure",
+    "ai": "Tricking AI"
+  },
+
+  "_signalsHelp": "Signals used by onlyWith. A link is any web address or IP address in the message. The others match these phrases and patterns.",
+  "signals": {
+    "payment": {
+      "phrases": ["pay", "payment", "fee", "deposit", "send", "transfer", "gas fee", "upfront", "wire"],
+      "patterns": []
+    },
+    "urgency": {
+      "phrases": ["expires in", "expired in", "expire in", "last chance", "within 24 hours", "within 48 hours", "act now", "immediately", "urgent", "today only", "hurry", "now or", "before it is too late", "before it's too late"],
+      "patterns": ["\\b\\d{1,3}\\s?(minutes?|mins?|hours?|hrs?)\\s?(left|remaining)\\b"]
+    },
+    "credentials": {
+      "phrases": ["password", "otp", "2fa", "two factor", "verification code", "seed phrase", "recovery phrase", "private key", "api key", "login details", "passcode"],
+      "patterns": []
+    }
+  },
+
+  "negations": ["never", "not", "no", "don't", "dont", "do not", "won't", "will not", "without", "nobody"],
+
+  "brands": [
+    { "name": "Binance", "aliases": ["binance"], "official": ["binance.com", "binance.us"] },
+    { "name": "Coinbase", "aliases": ["coinbase"], "official": ["coinbase.com"] },
+    { "name": "MetaMask", "aliases": ["metamask"], "official": ["metamask.io"] },
+    { "name": "Phantom", "aliases": ["phantom"], "official": ["phantom.app", "phantom.com"] },
+    { "name": "Uniswap", "aliases": ["uniswap"], "official": ["uniswap.org", "app.uniswap.org"] },
+    { "name": "Ledger", "aliases": ["ledger"], "official": ["ledger.com"] },
+    { "name": "Kraken", "aliases": ["kraken"], "official": ["kraken.com"] },
+    { "name": "Trezor", "aliases": ["trezor"], "official": ["trezor.io"] },
+    { "name": "OpenSea", "aliases": ["opensea"], "official": ["opensea.io"] },
+    { "name": "Trust Wallet", "aliases": ["trustwallet"], "official": ["trustwallet.com"] }
+  ],
+
+  "rules": [
+    {
+      "id": "seed-request",
+      "name": "Asks for your seed phrase or private key",
+      "category": "wallet",
+      "points": 100,
+      "critical": true,
+      "skipIfNegated": true,
+      "explain": "Anyone with your seed phrase or private key can empty your wallet, and no real company ever asks for it.",
+      "phrases": ["enter your seed phrase", "enter your recovery phrase", "secret recovery phrase", "share your seed phrase", "send your seed phrase", "your 12 word", "your 24 word", "your 12-word", "your 24-word", "enter your private key", "share your private key", "send your private key", "paste your private key", "import your seed"],
+      "patterns": ["\\b(enter|share|send|provide|type|submit|confirm|verify|give|paste|input|write|upload|validate|sync)\\b[^.!?\\n]{0,40}\\b(seed phrase|seed words|recovery phrase|private key|mnemonic|backup phrase|secret phrase|\\d{2}[- ]word)"]
+    },
+    {
+      "id": "wallet-import",
+      "name": "Asks you to import a wallet, sign to verify or install a wallet extension",
+      "category": "wallet",
+      "points": 35,
+      "skipIfNegated": true,
+      "explain": "Importing your wallet into a site, signing to 'verify ownership' or installing an unknown extension can hand over control of your funds.",
+      "phrases": ["import your wallet", "restore your wallet", "rectify your wallet", "sync your wallet", "validate your wallet", "verify ownership", "verify wallet ownership", "sign a message to verify", "sign the message to verify", "sign this message to verify", "install the wallet extension", "install our wallet extension", "install this wallet extension", "connect your wallet to verify", "connect your wallet to validate"],
+      "patterns": []
+    },
+    {
+      "id": "reward-bait",
+      "name": "Promises free tokens or a reward",
+      "category": "rewards",
+      "points": 20,
+      "onlyWith": ["link", "payment", "urgency", "credentials"],
+      "explain": "Surprise rewards are the most common bait. Real projects announce them on their official site, not in messages.",
+      "phrases": ["unclaimed tokens", "unclaimed rewards", "exclusive airdrop", "you have won", "you've won", "you won", "claim your allocation", "claim your reward", "claim your tokens", "claim your airdrop", "rewards waiting", "reward is waiting", "rewards are waiting", "eligible for the airdrop", "your wallet qualifies"],
+      "patterns": []
+    },
+    {
+      "id": "reward-amount",
+      "name": "Offers you a coin amount, or mining or payout money",
+      "category": "rewards",
+      "points": 20,
+      "onlyWith": ["link", "payment", "urgency", "credentials"],
+      "skipIfAfter": ["fee", "pay", "deposit", "cost", "price", "send", "bought", "buy"],
+      "explain": "Messages that put a coin amount in front of you, or talk about mining payouts, are trying to make you excited enough to skip the checks.",
+      "phrases": [],
+      "patterns": [
+        "\\b\\d+(?:[.,]\\d+)?\\s?(BTC|ETH|USDT|USDC|SOL|BNB|XRP|TON|TRX|DOGE)\\b",
+        "\\b(mining|payout|pay-out)\\b[^.!?\\n]{0,25}\\$?\\d[\\d,.]*",
+        "\\$?\\d[\\d,.]*\\s?(BTC|ETH|USDT|USD)?\\s(mining|payout)\\b"
+      ]
+    },
+    {
+      "id": "pay-to-unlock",
+      "name": "Asks for a fee to unlock or verify",
+      "category": "rewards",
+      "points": 35,
+      "explain": "Real rewards never ask you to pay first. The fee is the scam.",
+      "phrases": ["small gas fee", "verification fee", "unlock fee", "activation fee", "release fee", "processing fee", "pay to claim", "pay the gas fee to claim"],
+      "patterns": ["\\b(pay|send|deposit)\\b[^.!?\\n]{0,40}\\b(fee|gas|tax)\\b[^.!?\\n]{0,50}\\b(claim|unlock|release|verify|receive|withdraw|activate)", "\\b(claim|unlock|release|receive|activate)\\b[^.!?\\n]{0,40}\\b(pay|send|deposit)\\b[^.!?\\n]{0,30}\\b(fee|gas)\\b"]
+    },
+    {
+      "id": "security-alert",
+      "name": "Fake account alert",
+      "category": "support",
+      "points": 60,
+      "onlyWith": ["link", "payment", "urgency", "credentials"],
+      "explain": "Scammers fake alerts about suspended or hacked accounts to rush you onto a fake site. Check your account only in the official app.",
+      "phrases": ["otp code", "reset code", "account suspended", "account has been suspended", "account is suspended", "account will be suspended", "account frozen", "account has been frozen", "funds will be frozen", "account compromised", "wallet compromised", "has been compromised", "withdrawal pending", "withdrawal is pending", "pending withdrawal", "verify now", "verify your account now", "unusual activity", "unusual login", "account locked", "account has been locked"],
+      "patterns": []
+    },
+    {
+      "id": "credentials-request",
+      "name": "Asks for a code, password or API key",
+      "category": "support",
+      "points": 60,
+      "skipIfNegated": true,
+      "explain": "One-time codes, 2FA codes, passwords and API keys let someone into your account. Never send them to anyone.",
+      "phrases": ["enter the otp", "enter your otp", "send the code", "share the code", "reply with the code", "enter the code we sent", "confirm your new password", "enter your password", "send your password", "api secret"],
+      "patterns": ["\\b(enter|share|send|provide|confirm|tell|give|type|submit|reply with|forward)\\b[^.!?\\n]{0,40}\\b(otp|one[- ]time (code|password)|2fa|two[- ]factor|password|passcode|api key|authenticator code|verification code|security code)\\b"]
+    },
+    {
+      "id": "paste-or-short-link",
+      "name": "Paste site or link shortener",
+      "category": "links",
+      "points": 25,
+      "type": "linkHosts",
+      "explain": "Paste sites and shortened links hide where they really go, and scammers use them to dodge filters.",
+      "hosts": ["justpaste.it", "pastebin.com", "telegra.ph", "bit.ly", "tinyurl.com", "t.co", "goo.gl", "cutt.ly", "is.gd", "rb.gy", "shorturl.at", "ow.ly", "tiny.cc", "rebrand.ly", "paste.ee", "rentry.co", "controlc.com", "linktr.ee"]
+    },
+    {
+      "id": "brand-fake-link",
+      "name": "Brand name with a link that is not its official site",
+      "category": "links",
+      "points": 30,
+      "type": "brandLink",
+      "explain": "The link uses a well known name but is not that company's real website, a classic way to copy a login page.",
+      "brandWords": ["support", "claim", "verify", "security", "secure", "help", "recovery", "airdrop", "reward", "rewards", "team", "official"]
+    },
+    {
+      "id": "lookalike-brand",
+      "name": "Misspelled brand or lookalike characters",
+      "category": "links",
+      "points": 20,
+      "type": "lookalike",
+      "explain": "A name that is almost right, like binnance or c0inbase, is built to fool a quick glance."
+    },
+    {
+      "id": "ip-link",
+      "name": "Link to a bare IP address",
+      "category": "links",
+      "points": 20,
+      "explain": "Real companies use named websites. A link made of numbers hides who runs it.",
+      "phrases": [],
+      "patterns": ["\\b(?:https?://)?(?:\\d{1,3}\\.){3}\\d{1,3}(?::\\d+)?(?:/[^\\s]*)?"]
+    },
+    {
+      "id": "reported-scam",
+      "name": "Matches a reported scam",
+      "category": "links",
+      "points": 80,
+      "type": "reported",
+      "explain": "This message contains a web address, wallet, email, username, phone number or wording that has been reported as part of a scam."
+    },
+    {
+      "id": "too-good-returns",
+      "name": "Promises guaranteed or risk free money",
+      "category": "money",
+      "points": 35,
+      "explain": "Nobody can guarantee returns in crypto. Promises like these are bait.",
+      "phrases": ["guaranteed returns", "guaranteed return", "guaranteed profit", "guaranteed profits", "risk free yield", "risk-free yield", "risk free returns", "risk-free returns", "risk free profit", "double your crypto", "double your bitcoin", "double your btc", "double your eth", "double your money", "send 1 get 2"],
+      "patterns": ["\\b\\d{1,3}\\s?%\\s?(daily|a day|per day|weekly|a week)\\b"]
+    },
+    {
+      "id": "recovery-or-withdraw-fee",
+      "name": "Fee to recover funds or to withdraw",
+      "category": "money",
+      "points": 35,
+      "explain": "Fund recovery services that charge upfront, and platforms that want a deposit or tax before you can withdraw, are scams.",
+      "phrases": ["recover stolen funds", "recover your stolen", "recover lost crypto", "recover your lost", "funds recovery", "tax to withdraw", "deposit to withdraw", "withdrawal tax", "unlock your withdrawal"],
+      "patterns": ["\\b(pay|send|deposit)\\b[^.!?\\n]{0,30}\\b(tax|deposit|fee)\\b[^.!?\\n]{0,40}\\bwithdraw", "\\bwithdraw\\w*\\b[^.!?\\n]{0,40}\\b(pay|deposit)\\b[^.!?\\n]{0,30}\\b(tax|fee|deposit)\\b"]
+    },
+    {
+      "id": "job-or-deal-trap",
+      "name": "Job or deal that costs you money or control",
+      "category": "jobs",
+      "points": 35,
+      "explain": "Real jobs and deals never ask you to deposit crypto, pay a listing fee, or run code or install apps for an interview.",
+      "phrases": ["listing fee", "guaranteed listing", "guaranteed funding", "deposit to start", "deposit to activate", "deposit to begin", "run this code", "run the code", "run this script", "run the script", "run this command", "install this app", "install our app", "install the app for the interview"],
+      "patterns": ["\\b(interview|demo|test task|assessment|technical round)\\b[^\\n]{0,80}\\b(run|install|download|clone|execute)\\b", "\\b(run|install|download|clone|execute)\\b[^\\n]{0,80}\\b(interview|demo|test task|assessment)\\b", "\\bdeposit\\b[^.!?\\n]{0,40}\\b(to start|to begin|to activate)\\b"]
+    },
+    {
+      "id": "move-to-telegram",
+      "name": "Pushes you to a private chat",
+      "category": "jobs",
+      "points": 35,
+      "onlyWith": ["link", "payment", "credentials"],
+      "explain": "Moving the conversation to Telegram or WhatsApp takes you away from places where others could warn you.",
+      "phrases": ["move to telegram", "move to whatsapp", "continue on telegram", "continue on whatsapp", "contact us on telegram", "message me on telegram", "add me on telegram", "chat on telegram", "t.me/", "wa.me/"],
+      "patterns": []
+    },
+    {
+      "id": "risky-file",
+      "name": "Risky file or locked zip",
+      "category": "files",
+      "points": 35,
+      "explain": "Program files and password protected zips are how malware gets past email filters onto your computer.",
+      "phrases": ["password protected zip", "password-protected zip", "password protected file", "password protected archive"],
+      "patterns": ["\\.(exe|msi|scr|bat|ps1|iso)\\b", "\\b(zip|rar|7z)\\b[^.!?\\n]{0,40}\\bpassword\\b", "\\bpassword\\b[^.!?\\n]{0,40}\\b(zip|rar|7z)\\b"]
+    },
+    {
+      "id": "dao-pressure",
+      "name": "Urgent vote, emergency migration or sign to approve",
+      "category": "dao",
+      "points": 35,
+      "explain": "Fake governance alerts rush you into signing approvals that let someone move your tokens.",
+      "phrases": ["urgent vote", "vote to keep your tokens", "vote to keep tokens", "emergency token migration", "emergency migration", "migrate your tokens before", "sign to approve", "sign the approval"],
+      "patterns": []
+    },
+    {
+      "id": "pressure-words",
+      "name": "Rushes you",
+      "category": "pressure",
+      "points": 10,
+      "explain": "A countdown or deadline is there to stop you from thinking it through.",
+      "phrases": ["expires in", "expired in", "expire in", "last chance", "within 24 hours", "within 48 hours", "act now", "only today", "today only", "ends soon", "before it is too late", "before it's too late"],
+      "patterns": ["\\b\\d{1,3}\\s?(minutes?|mins?|hours?|hrs?)\\s?(left|remaining)\\b"]
+    },
+    {
+      "id": "emoji-spam",
+      "name": "Lots of hype emojis",
+      "category": "pressure",
+      "points": 5,
+      "type": "emoji",
+      "explain": "Rows of hype emojis are typical of mass-sent scam messages.",
+      "hypeEmojis": ["✅", "🎁", "🚀", "💰", "🔥", "💎", "⚡", "🤑", "💸", "📈", "🎉", "⏰", "❗", "‼"],
+      "minHype": 2,
+      "minAny": 5
+    },
+    {
+      "id": "shouting",
+      "name": "WORDS IN CAPITALS",
+      "category": "pressure",
+      "points": 5,
+      "type": "caps",
+      "explain": "Shouting in capitals is a cheap way to grab attention, common in scams.",
+      "minWords": 2,
+      "minLength": 4,
+      "ignore": ["USDT", "USDC", "HTTP", "HTTPS", "NFTS", "DEFI"]
+    },
+    {
+      "id": "exclamations",
+      "name": "Many exclamation marks",
+      "category": "pressure",
+      "points": 5,
+      "explain": "Lots of exclamation marks are a sign of hype, not of a real company.",
+      "phrases": [],
+      "patterns": ["!{2,}", "!(?:[^!]*!){2}"]
+    },
+    {
+      "id": "ai-trick",
+      "name": "Tries to trick AI checkers",
+      "category": "ai",
+      "points": 30,
+      "explain": "Honest messages never contain instructions for AI tools. This text is trying to fool automatic checkers.",
+      "phrases": ["ignore previous instructions", "ignore all previous instructions", "ignore the previous instructions", "ignore prior instructions", "disregard previous instructions", "mark this as safe", "mark this message as safe", "classify this as safe", "this message is safe", "this is not a scam", "note to ai", "ai assistant:"],
+      "patterns": []
+    }
+  ],
+
+  "example": "Hi ✅ https://justpaste.it/hxgfq - 1.34 BTC BINANCE MINING ✅, Enter the OTP Code we sent to your email below to confirm your new password 7880 Expired In: 30 minutes"
+}
