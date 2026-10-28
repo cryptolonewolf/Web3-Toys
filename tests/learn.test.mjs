@@ -172,8 +172,8 @@ describe('content files', () => {
   const TYPES = ['story', 'reveal', 'pick', 'steps', 'trending'];
   const POSES = ['grin', 'thinking', 'worried', 'celebrating'];
 
-  it('has four shelves, every card with a time, and live cards with a page', () => {
-    assert.deepEqual(home.shelves.map((s) => s.title), ['Getting Started', 'Career in Web3', 'For Entrepreneurs', 'Play and Learn']);
+  it('has four sections, every card with a time, and live cards with a page', () => {
+    assert.deepEqual(home.shelves.map((s) => s.title), ['Games', 'For Beginners', 'For Degens', 'For Pros']);
     for (const s of home.shelves) {
       for (const c of s.cards) {
         assert.ok(c.title && c.time, c.id);
@@ -182,8 +182,8 @@ describe('content files', () => {
     }
   });
 
-  it('shows Spot the Scam as a live game in Play and Learn, and the simulator as coming soon', () => {
-    const play = home.shelves.find((s) => s.id === 'play');
+  it('shows Spot the Scam as a live game in Games, and the simulator as coming soon', () => {
+    const play = home.shelves.find((s) => s.id === 'games');
     const scam = play.cards.find((c) => c.id === 'scam');
     assert.ok(isLive(play, scam) && scam.path === 'scam/' && scam.kind === 'game');
     assert.ok(!isLive(play, play.cards.find((c) => c.id === 'token-simulator')));

@@ -55,7 +55,7 @@
               '<a href="../verify/?code=' + encodeURIComponent(c.code) + '&name=' + encodeURIComponent(c.name) + '">Verify</a></p>' +
               '</article>';
           }).join('')
-        : '<section class="card"><p class="text">No certificates yet. <a href="../#shelf-getting-started">Start with Getting Started</a>.</p></section>') +
+        : '<section class="card"><p class="text">No certificates yet. <a href="../#shelf-beginners">Start with For Beginners</a>.</p></section>') +
       '</section>' +
 
       '<p class="small-print center">Your progress is saved in this browser only. Clearing your browser data, or using another device, starts you fresh.</p>' +

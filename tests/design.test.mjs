@@ -34,10 +34,9 @@ describe('toy looks', () => {
   const FONTS = ['luckiest', 'bungee', 'bangers', 'chewy'];
   const ACCENTS = ['blue', 'mint', 'coral', 'violet', 'yellow'];
   const home = json('data/home.json');
-  const shelf = home.shelves.find((s) => s.id === 'getting-started');
-  const built = shelf.cards.filter((c) => (c.status || shelf.status) === 'live');
+  const built = home.shelves.flatMap((s) => s.cards).filter((c) => c.status === 'live' && c.kind !== 'game');
 
-  it('each built Getting Started toy has its own name, font and colour', () => {
+  it('each built toy has its own name, font and colour', () => {
     assert.equal(new Set(built.map((c) => c.font)).size, built.length);
     assert.equal(new Set(built.map((c) => c.accent)).size, built.length);
     for (const c of built) {
@@ -64,7 +63,7 @@ describe('toy looks', () => {
   });
 
   it('the five new toys are on the home page as coming soon', () => {
-    const where = { 'web3-hacks': 'getting-started', 'hall-of-fame': 'career', 'ways-to-moon': 'entrepreneurs', 'dead-projects': 'play', 'invest-100': 'play' };
+    const where = { 'web3-hacks': 'beginners', 'hall-of-fame': 'degens', 'ways-to-moon': 'pros', 'dead-projects': 'games', 'invest-100': 'games' };
     for (const [id, shelfId] of Object.entries(where)) {
       const s = home.shelves.find((x) => x.id === shelfId);
       const c = s.cards.find((x) => x.id === id);

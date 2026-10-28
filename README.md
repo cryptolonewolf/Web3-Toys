@@ -12,7 +12,7 @@ database, no login, nothing to install.
 | Folder or file | What it is |
 | --- | --- |
 | `config.js` | Your settings: email signup form address, Book a call with Aki link, mascot pictures, analytics. |
-| `index.html` | The home page with the four shelves. |
+| `index.html` | The home page with four sections: Games, For Beginners, For Degens and For Pros. |
 | `crypto-in-5/`, `getting-started/`, `dont-lose-money/`, `earn-small/` | The four Getting Started toys: Genesis Block, Not Your Keys, Don't Get Rekt and Stack Sats. |
 | `real-toys/`, `books/`, `about/`, `book-a-call/` | Real Toys, Books by Aki, About Aki and Book a Call. |
 | `js/site.js` | The top menu, footer links, logo, icons and fun effects. The menu list is at the top. |
@@ -113,7 +113,7 @@ step) and `trending` (shows `data/trending.json`). Any card can have `aki`
    the title, description and `data-toy` inside its `index.html`.
 2. Add `data/toys/<new-id>.json` and `quizzes/<new-id>.json`.
 3. Add it to `quizzes/index.json` with a new unused `letter`.
-4. Add its card to `data/home.json`, and set that shelf to `"live"`.
+4. Add its card to a section in `data/home.json`, with `"status": "live"`.
 
 ## Preview your changes
 

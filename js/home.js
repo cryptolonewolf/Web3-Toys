@@ -41,8 +41,10 @@
       home.shelves.map(function (shelf) {
         // A card can override its shelf's status, so a shelf can mix live and coming soon cards.
         var isLive = function (c) { return (c.status || shelf.status) === 'live'; };
-        return '<section class="shelf" aria-labelledby="shelf-' + esc(shelf.id) + '">' +
-          '<h2 id="shelf-' + esc(shelf.id) + '" class="shelf-label">' + esc(shelf.title) + '</h2>' +
+        return '<section class="shelf shelf--' + esc(shelf.color || 'yellow') + '" aria-labelledby="shelf-' + esc(shelf.id) + '">' +
+          '<div class="shelf-head"><h2 id="shelf-' + esc(shelf.id) + '" class="shelf-title">' +
+          (shelf.icon ? '<span class="shelf-icon" aria-hidden="true">' + esc(shelf.icon) + '</span>' : '') + esc(shelf.title) + '</h2>' +
+          (shelf.blurb ? '<p class="shelf-blurb">' + esc(shelf.blurb) + '</p>' : '') + '</div>' +
           '<ul class="tile-grid">' + shelf.cards.map(function (c) { return tile(c, isLive(c)); }).join('') + '</ul></section>';
       }).join('');
   }

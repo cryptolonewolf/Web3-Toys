@@ -2343,16 +2343,73 @@ body.home .page {
 .shelf {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
+  padding-top: 18px;
+  border-top: 3px dashed rgba(31, 27, 46, 0.25);
 }
 
-.shelf-label {
-  font-family: var(--font-body);
-  font-weight: 800;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--ink-muted);
+.shelf:first-of-type {
+  padding-top: 4px;
+  border-top: 0;
+}
+
+.shelf + .shelf {
+  margin-top: 14px;
+}
+
+.shelf-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+}
+
+/* The section name: a big sticker in the section's colour */
+.shelf-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px 4px 10px;
+  font-family: 'Luckiest Guy', var(--font-display);
+  font-weight: 400;
+  font-size: 26px;
+  letter-spacing: 0.6px;
+  line-height: 1;
+  color: var(--ink);
+  background: var(--shelf, var(--yellow));
+  border: var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  rotate: -1.5deg;
+}
+
+.shelf-icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin-top: -2px;
+  font-size: 20px;
+  background: var(--white);
+  border: var(--line-thin);
+  border-radius: 50%;
+}
+
+.shelf-blurb {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--ink-soft);
+}
+
+.shelf--yellow { --shelf: var(--yellow); }
+.shelf--mint { --shelf: var(--mint); }
+.shelf--coral { --shelf: var(--coral); }
+.shelf--violet { --shelf: var(--violet); }
+
+@media (min-width: 700px) {
+  .shelf-title { font-size: 32px; }
+  .shelf-icon { width: 40px; height: 40px; font-size: 24px; }
 }
 
 .tile-grid {
