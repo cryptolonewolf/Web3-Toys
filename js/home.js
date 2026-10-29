@@ -38,14 +38,33 @@
       '<div class="home-top"><h1 class="tagline">' + esc(home.tagline) + '</h1>' +
       '<a class="rank-link" href="progress/" aria-label="Your rank: ' + esc(rank.name) + '. Open My Progress">' +
       '<span class="rank-badge rank-badge--name">' + esc(rank.name) + '</span></a></div>' +
-      home.shelves.map(function (shelf) {
-        // A card can override its shelf's status, so a shelf can mix live and coming soon cards.
-        var isLive = function (c) { return (c.status || shelf.status) === 'live'; };
-        return '<section class="shelf shelf--' + esc(shelf.color || 'yellow') + '" aria-labelledby="shelf-' + esc(shelf.id) + '">' +
-          '<div class="shelf-head"><h2 id="shelf-' + esc(shelf.id) + '" class="shelf-title">' +
-          (shelf.icon ? '<span class="shelf-icon" aria-hidden="true">' + esc(shelf.icon) + '</span>' : '') + esc(shelf.title) + '</h2>' +
-          (shelf.blurb ? '<p class="shelf-blurb">' + esc(shelf.blurb) + '</p>' : '') + '</div>' +
-          '<ul class="tile-grid">' + shelf.cards.map(function (c) { return tile(c, isLive(c)); }).join('') + '</ul></section>';
-      }).join('');
+      sections(home.shelves);
+  }
+
+  // Sections marked "column" sit side by side on computers; the rest are full width.
+  function sections(shelves) {
+    var html = '';
+    var row = '';
+    shelves.forEach(function (shelf) {
+      if (shelf.column) {
+        row += section(shelf, true);
+        return;
+      }
+      if (row) html += '<div class="shelf-row">' + row + '</div>';
+      row = '';
+      html += section(shelf, false);
+    });
+    if (row) html += '<div class="shelf-row">' + row + '</div>';
+    return html;
+  }
+
+  function section(shelf, column) {
+    // A card can override its shelf's status, so a shelf can mix live and coming soon cards.
+    var isLive = function (c) { return (c.status || shelf.status) === 'live'; };
+    return '<section class="shelf shelf--' + esc(shelf.color || 'yellow') + (column ? ' shelf--column' : '') + '" aria-labelledby="shelf-' + esc(shelf.id) + '">' +
+      '<div class="shelf-head"><h2 id="shelf-' + esc(shelf.id) + '" class="shelf-title">' +
+      (shelf.icon ? '<span class="shelf-icon" aria-hidden="true">' + esc(shelf.icon) + '</span>' : '') + esc(shelf.title) + '</h2>' +
+      (shelf.blurb ? '<p class="shelf-blurb">' + esc(shelf.blurb) + '</p>' : '') + '</div>' +
+      '<ul class="tile-grid">' + shelf.cards.map(function (c) { return tile(c, isLive(c)); }).join('') + '</ul></section>';
   }
 })();

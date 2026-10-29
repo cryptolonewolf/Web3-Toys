@@ -173,7 +173,7 @@ describe('content files', () => {
   const POSES = ['grin', 'thinking', 'worried', 'celebrating'];
 
   it('has four sections, every card with a time, and live cards with a page', () => {
-    assert.deepEqual(home.shelves.map((s) => s.title), ['Games', 'For Beginners', 'For Degens', 'For Pros']);
+    assert.deepEqual(home.shelves.map((s) => s.title), ['For Beginners', 'For Degens', 'For Pros', 'Games']);
     for (const s of home.shelves) {
       for (const c of s.cards) {
         assert.ok(c.title && c.time, c.id);

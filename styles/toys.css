@@ -2348,13 +2348,64 @@ body.home .page {
   border-top: 3px dashed rgba(31, 27, 46, 0.25);
 }
 
-.shelf:first-of-type {
+/* The first section on the page needs no line above it */
+.home-top + .shelf,
+.home-top + .shelf-row > .shelf:first-child {
   padding-top: 4px;
   border-top: 0;
 }
 
+/* For Beginners, For Degens and For Pros: stacked on phones, side by side
+   on computers (see below) */
+.shelf-row {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.shelf-row + .shelf,
 .shelf + .shelf {
   margin-top: 14px;
+}
+
+@media (min-width: 900px) {
+  .shelf-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    align-items: start;
+  }
+
+  .shelf-row > .shelf {
+    padding: 4px 22px 0;
+    border-top: 0;
+  }
+
+  .shelf-row > .shelf:first-child {
+    padding-left: 0;
+  }
+
+  .shelf-row > .shelf:last-child {
+    padding-right: 0;
+  }
+
+  .shelf-row > .shelf + .shelf {
+    border-left: 3px dashed rgba(31, 27, 46, 0.25);
+  }
+
+  .shelf--column .tile-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .shelf-row + .shelf {
+    margin-top: 30px;
+    padding-top: 26px;
+  }
+
+  .shelf--column .shelf-title {
+    font-size: 26px;
+  }
 }
 
 .shelf-head {
