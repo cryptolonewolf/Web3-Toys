@@ -42,6 +42,14 @@ describe('Fish the Dead Projects rules', () => {
     assert.equal(F.marker(250, 1000), 0.5);
   });
 
+  it('the shark dive shows every catch once, oldest first', () => {
+    const order = F.diveOrder(catches);
+    assert.equal(order.length, catches.length);
+    assert.equal(new Set(order.map((c) => c.id)).size, catches.length);
+    order.forEach((c, i) => i && assert.ok(c.year >= order[i - 1].year, `${c.name} after ${order[i - 1].name}`));
+    assert.equal(order.at(-1).name, 'Blur');
+  });
+
   it('scores rarity plus a streak bonus, and ranks by score', () => {
     assert.equal(F.points(1, 1, T.points, T.streakBonus), 100);
     assert.equal(F.points(3, 3, T.points, T.streakBonus), 500);

@@ -3946,6 +3946,212 @@ a.xcard:active {
   height: 26px;
 }
 
+/* ---------- Fish the Dead Projects: shark dive ---------- */
+
+.dive-hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 800;
+}
+
+.dive-year {
+  font-family: 'Luckiest Guy', var(--font-display);
+  font-size: 22px;
+}
+
+.dive-ocean {
+  --depth: 0;
+  position: relative;
+  height: min(52vh, 520px);
+  overflow: hidden;
+  border: var(--line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow);
+  background: color-mix(in srgb, #020a10 calc(var(--depth) * 100%), #2a8bb0);
+  touch-action: none;
+}
+
+.dive-world {
+  position: absolute;
+  inset: 0 0 auto 0;
+  will-change: transform;
+}
+
+.dive-mark {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  padding-top: 4px;
+  font-family: 'Luckiest Guy', var(--font-display);
+  font-size: 18px;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.75);
+  border-top: 2px dashed rgba(255, 255, 255, 0.35);
+}
+
+.dfish {
+  position: absolute;
+  display: grid;
+  justify-items: center;
+  width: 34%;
+  max-width: 150px;
+  text-align: center;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  animation: swim 2.4s ease-in-out infinite alternate;
+}
+
+.dfish:nth-child(odd) { animation-delay: -1.2s; }
+
+@keyframes swim {
+  from { translate: -6px 0; }
+  to { translate: 6px 0; }
+}
+
+.dfish-svg {
+  width: 84px;
+  height: 42px;
+}
+
+.dfish--r1 .dfish-fill { fill: #b7c9a8; }
+.dfish--r2 .dfish-fill { fill: #8fc8f0; }
+.dfish--r3 .dfish-fill { fill: #ffd93d; }
+.dfish.is-fresh .dfish-fill { fill: #ff9f8f; }
+
+.dfish-num {
+  margin-top: -6px;
+  padding: 0 8px;
+  font: 800 13px var(--font-body);
+  color: var(--ink);
+  background: var(--yellow);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+}
+
+.dfish-name {
+  margin-top: 2px;
+  font: 800 13px/1.15 var(--font-body);
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.dfish.is-eaten {
+  transform: scale(0.2);
+  opacity: 0;
+}
+
+.dive-shark {
+  position: absolute;
+  top: 22%;
+  left: 30%;
+  z-index: 2;
+  width: 64px;
+  margin-left: -32px;
+  margin-top: -40px;
+  transition: left 0.35s ease;
+  filter: drop-shadow(3px 4px 0 rgba(0, 0, 0, 0.35));
+}
+
+.shark-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.shark-tail {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: tail 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes tail {
+  from { transform: rotate(-12deg); }
+  to { transform: rotate(12deg); }
+}
+
+.shark-jaw {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+}
+
+.dive-shark.is-chomping .shark-jaw {
+  animation: chomp 0.25s ease;
+}
+
+@keyframes chomp {
+  50% { transform: scaleY(1.6); }
+}
+
+.dive-toast {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  z-index: 3;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  font: inherit;
+  text-align: left;
+  color: var(--ink);
+  cursor: pointer;
+  animation: pop-in 0.25s ease;
+}
+
+.dive-toast-num {
+  flex: none;
+  font-family: 'Luckiest Guy', var(--font-display);
+  font-size: 24px;
+}
+
+.dive-toast-body {
+  display: grid;
+  gap: 2px;
+}
+
+.dive-toast-line {
+  font-size: 14px;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.dive-go {
+  min-height: 64px;
+  font-size: 22px;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.dive-go.is-holding {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--yellow), 0 0 0 0 var(--ink);
+}
+
+.dive-log {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dive-log summary {
+  cursor: pointer;
+  padding: 6px 0;
+}
+
+.dive-log details[open] {
+  padding-bottom: 8px;
+  border-bottom: 2px dashed var(--track);
+}
+
 /* ---------- Wider screens ---------- */
 
 @media (min-width: 700px) {

@@ -109,9 +109,55 @@
       '<p class="text text--ink">' + esc(T.intro) + '</p>' +
       '<div class="fish-stage">' + scene() + '</div>' +
       (have ? '<p class="small-print">Tackle box: ' + have + ' of ' + catches.length + ' caught.</p>' : '') +
-      '<button type="button" class="btn btn--ink btn--block" data-start>' + esc(T.startButton) + '</button></section>';
+      '<button type="button" class="btn btn--ink btn--block" data-dive>🦈 ' + esc(T.diveButton) + '</button>' +
+      '<p class="small-print">' + esc(T.diveLine) + '</p>' +
+      '<button type="button" class="btn btn--block" data-start>🎣 ' + esc(T.fishButton) + '</button></section>';
     pill.textContent = 'Go fishing';
     app.querySelector('[data-start]').addEventListener('click', start);
+    app.querySelector('[data-dive]').addEventListener('click', dive);
+  }
+
+  // ---------- Shark mode (js/shark-dive.js) ----------
+
+  function dive() {
+    stopAll();
+    sfx.play('pop');
+    C.track('shark_started');
+    SharkDive.start({
+      T: T,
+      catches: catches,
+      app: app,
+      pill: pill,
+      esc: esc,
+      fill: fill,
+      track: C.track,
+      shareUrl: SHARE_URL,
+      remember: function (c) {
+        var b = box();
+        if (!b[c.id]) {
+          b[c.id] = Date.now();
+          saveBox(b);
+        }
+      },
+      cardHtml: cardBody,
+      showCard: showCard,
+      goFishing: start,
+    });
+  }
+
+  // The full story of one catch in a pop-up.
+  function showCard(c) {
+    var modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = '<div class="card stack stack--tight fish-card--r' + c.rarity + '" role="dialog" aria-modal="true" aria-labelledby="catch-title">' +
+      '<div class="fish-card-head">' + fishIcon(c.rarity) + '<div><p class="label">' + esc(c.kind) + ' · ' + (c.date || c.year) + '</p>' +
+      '<h2 class="title-md" id="catch-title">' + esc(c.name) + '</h2></div></div>' + cardBody(c) +
+      '<button type="button" class="btn btn--ink btn--block" data-close>Keep diving</button></div>';
+    document.body.appendChild(modal);
+    var close = function () { modal.remove(); };
+    modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
+    modal.querySelector('[data-close]').addEventListener('click', close);
+    modal.querySelector('[data-close]').focus();
   }
 
   function start() {
@@ -329,12 +375,17 @@
       '<div class="fish-card-head">' + fishIcon(c.rarity) + '<div><p class="label">' + esc(T.rarity[c.rarity]) + ' · ' + esc(c.kind) + ' · died ' + c.year + '</p>' +
       '<h2 class="title-md">' + esc(c.name) + '</h2></div></div>' +
       '<div class="chips"><span class="chip is-mint">+' + pts + '</span>' + (isNew ? '<span class="chip is-yellow">New in your tackle box</span>' : '') + '</div>' +
-      (c.promised ? '<p class="text text--ink"><strong>' + esc(T.promisedLabel) + ':</strong> ' + esc(c.promised) + '</p>' : '') +
+      cardBody(c) + '</section>';
+  }
+
+  // What it promised, its peak, why it died and the source.
+  function cardBody(c) {
+    return (c.promised ? '<p class="text text--ink"><strong>' + esc(T.promisedLabel) + ':</strong> ' + esc(c.promised) + '</p>' : '') +
       (c.peak ? '<p class="text text--ink"><strong>' + esc(T.peakLabel) + ':</strong> ' + esc(c.peak) + '</p>' : '') +
       '<p class="text text--ink"><strong>' + esc(T.diedLabel) + ':</strong> ' + esc(c.died) + '</p>' +
       '<p class="small-print">Source: ' + c.sources.map(function (s) {
         return s.url ? '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.label) + '</a>' : esc(s.label);
-      }).join(', ') + '</p></section>';
+      }).join(', ') + '</p>';
   }
 
   // ---------- The haul ----------

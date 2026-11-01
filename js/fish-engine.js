@@ -58,5 +58,12 @@
     return r;
   }
 
-  return { pickCatch: pickCatch, weight: weight, zone: zone, inZone: inZone, marker: marker, points: points, rankFor: rankFor };
+  // The shark dive shows every catch, oldest at the top: by year, then by
+  // date where one is known.
+  function diveOrder(entries) {
+    var key = function (e) { return (e.date || String(e.year) + '-00-00') + '|' + e.name; };
+    return entries.slice().sort(function (a, b) { return key(a) < key(b) ? -1 : key(a) > key(b) ? 1 : 0; });
+  }
+
+  return { diveOrder: diveOrder, pickCatch: pickCatch, weight: weight, zone: zone, inZone: inZone, marker: marker, points: points, rankFor: rankFor };
 });

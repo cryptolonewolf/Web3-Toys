@@ -64,5 +64,35 @@
     "button": "Keep me posted"
   },
   "freshTitle": "Shut down in 2026",
-  "freshNone": "None yet. Fresh graves bite now and then."
+  "freshNone": "None yet. Fresh graves bite now and then.",
+  "diveButton": "Dive with the shark",
+  "diveLine": "Hold to dive. The shark eats every dead project on the way down, oldest first.",
+  "fishButton": "Or go fishing for rare catches",
+  "holdDive": "Hold to dive",
+  "diveHint": "Let go any time to read. Tap a card for the full story.",
+  "eatenLabel": "Eaten",
+  "sharkDone": "You ate every dead project in the ocean.",
+  "sharkRanks": [
+    {
+      "name": "Minnow",
+      "min": 0,
+      "line": "Just a nibble. The ocean is deep."
+    },
+    {
+      "name": "Hungry Shark",
+      "min": 0.5,
+      "line": "You ate your way through half the graveyard."
+    },
+    {
+      "name": "Megalodon",
+      "min": 1,
+      "line": "Every single one. Nothing dead escapes you."
+    }
+  ],
+  "logTitle": "Everything you ate",
+  "sharkShare": {
+    "title": "I dove the crypto graveyard.",
+    "cta": "Dive in yourself",
+    "text": "My shark ate {n} dead crypto projects, from {first} to {last}. Rank: {rank}. Dive in: {link}"
+  }
 }

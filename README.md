@@ -172,6 +172,8 @@ complete, and the older Spot the Scam and simulator logic.
   ones with sources, plus 75 projects shut down in 2026 from the CoinStats
   tracker, with only a name and date so far), words and settings in
   `data/dead-projects.json`. Every entry has `"review": true` until checked.
+  The shark dive shows all of them in date order (oldest first); the
+  fishing game hunts for rare ones.
 - Rug or Real (Read the Token Split): made up tokens in
   `data/token_splits.json` (each split adds up to 100, with a verdict and a
   one line why), words and scoring in `data/token-split.json`.
