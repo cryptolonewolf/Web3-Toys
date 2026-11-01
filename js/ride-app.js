@@ -381,6 +381,7 @@
     on('[data-other]', pickToken);
     ToyKit.bind(app, app.querySelector('[data-soon-msg]'));
     if (sum.beatHold || (sum.drops && sum.held === sum.drops)) site.fx.confetti();
+    site.coins.award('finish', 'invest-100', 'Finished Ride the Chart', app.querySelector('.title-xl'));
   }
 
   function stat(label, big, small) {

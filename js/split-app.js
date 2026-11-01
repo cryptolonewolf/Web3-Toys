@@ -284,5 +284,6 @@
     app.querySelector('[data-again]').addEventListener('click', start);
     ToyKit.bind(app, app.querySelector('[data-soon-msg]'));
     if (game.score >= max * 0.8) site.fx.confetti();
+    site.coins.award('finish', 'token-split', 'Finished Rug or Real', app.querySelector('.split-title'));
   }
 })();

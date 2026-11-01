@@ -291,6 +291,7 @@
     on('[data-share]', function () { card.share(); });
     on('[data-again]', newGame);
     if (right >= 7) window.WEB3TOYS.fx.confetti();
+    window.WEB3TOYS.coins.award('finish', 'scam', 'Finished Spot the Scam', app.querySelector('.score-big'));
     on('[data-check]', function () { game = null; checker(); });
     bindExtras();
   }

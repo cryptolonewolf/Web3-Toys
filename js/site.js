@@ -117,7 +117,9 @@
     bar.innerHTML =
       '<div class="topbar-inner">' +
       '<a class="logo" href="' + ROOT + '">' + logoSvg() + '</a>' +
-      '<nav class="topnav" id="topnav" aria-label="Main">' + menuLinks('topnav-link') + '</nav>' +
+      '<nav class="topnav" id="topnav" aria-label="Main">' + menuLinks('topnav-link') +
+      '<a class="topnav-link menu-coins" href="' + ROOT + 'progress/#coins" hidden>' + icon('coin') + '&nbsp;<span data-coin-count>0</span>&nbsp;coins</a></nav>' +
+      '<a class="coin-count" href="' + ROOT + 'progress/#coins" hidden title="Your coins">' + icon('coin') + '<span data-coin-count>0</span><span class="sr-only"> coins</span></a>' +
       '<a class="btn btn--yellow btn--call" href="' + ROOT + CALL.href + '"' + (here(CALL.href) ? ' aria-current="page"' : '') + '>' + icon('call') + '<span>' + CALL.label + '</span></a>' +
       '<button type="button" class="menu-btn" aria-expanded="false" aria-controls="topnav"><span class="sr-only">Menu</span><span class="menu-lines" aria-hidden="true"></span></button>' +
       '</div>';
@@ -270,6 +272,89 @@
     play('pop');
   });
 
+  // ---------- Coins ----------
+  // Visitors earn coins for playing, finishing and sharing. Each reward counts
+  // once per toy, so tapping a button again earns nothing. Coins live in this
+  // browser only. How many each action gives is set in config.js (points).
+  var COINS_KEY = 'web3toys.coins.v1';
+  var COIN_DEFAULTS = { daily: 5, finish: 20, certificate: 50, share: 10, x: 10 };
+
+  function wallet() {
+    try {
+      var w = JSON.parse(window.localStorage.getItem(COINS_KEY));
+      if (w && typeof w.balance === 'number') return w;
+    } catch (e) { /* broken or blocked storage */ }
+    return { balance: 0, claimed: {}, history: [] };
+  }
+
+  function saveWallet(w) {
+    try { window.localStorage.setItem(COINS_KEY, JSON.stringify(w)); } catch (e) { /* private mode */ }
+  }
+
+  function coinAmount(kind) {
+    var p = config().points || {};
+    return p[kind] != null ? p[kind] : COIN_DEFAULTS[kind] || 0;
+  }
+
+  // award('share', 'scam', 'Shared Spot the Scam', button). Returns the coins
+  // given (0 if this was already claimed).
+  function award(kind, key, label, el) {
+    var w = wallet();
+    var id = kind + ':' + key;
+    var n = coinAmount(kind);
+    if (!n || w.claimed[id]) return 0;
+    w.claimed[id] = Date.now();
+    w.balance += n;
+    w.history.unshift({ at: new Date().toISOString().slice(0, 10), label: label, coins: n });
+    w.history = w.history.slice(0, 50);
+    saveWallet(w);
+    showCoins();
+    popCoins(n, el);
+    play('cash');
+    return n;
+  }
+
+  // Taking coins away, when a visitor asks to redeem a reward.
+  function spend(n, label) {
+    var w = wallet();
+    if (n > w.balance) return false;
+    w.balance -= n;
+    w.history.unshift({ at: new Date().toISOString().slice(0, 10), label: label, coins: -n });
+    saveWallet(w);
+    showCoins();
+    return true;
+  }
+
+  // "+10" floating up from the button that earned it.
+  function popCoins(n, el) {
+    var counter = document.querySelector('.coin-count');
+    var target = el || (counter && counter.offsetParent ? counter : document.querySelector('.menu-btn'));
+    var tag = document.createElement('span');
+    tag.className = 'coin-pop';
+    tag.setAttribute('role', 'status');
+    tag.innerHTML = '+' + n + ' ' + icon('coin') + '<span class="sr-only"> coins</span>';
+    var r = target ? target.getBoundingClientRect() : { left: innerWidth / 2, top: 80, width: 0 };
+    tag.style.left = Math.min(innerWidth - 80, Math.max(8, r.left + r.width / 2 - 30)) + 'px';
+    tag.style.top = Math.max(70, r.top - 10) + 'px';
+    document.body.appendChild(tag);
+    setTimeout(function () { tag.remove(); }, 1600);
+    if (target) coins(target, 4);
+  }
+
+  function showCoins() {
+    var n = wallet().balance;
+    document.querySelectorAll('[data-coin-count]').forEach(function (el) { el.textContent = n.toLocaleString('en-US'); });
+    document.querySelectorAll('.coin-count, .menu-coins').forEach(function (el) { el.hidden = n <= 0; });
+  }
+
+  // Posting on X from any toy earns coins once per page.
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="https://x.com/intent"], a[href^="https://twitter.com/intent"]');
+    if (!a) return;
+    var page = location.pathname.replace(/index\.html$/, '').replace(/\/$/, '').split('/').pop() || 'home';
+    award('x', page, 'Posted on X from ' + (document.title.split(' · ')[0] || page), a);
+  });
+
   // ---------- Older helper ----------
   // When a page is opened straight from the computer (double-clicked) instead
   // of from a website, links to a folder like "simulator/" would show a file
@@ -294,11 +379,18 @@
     logoSvg: logoSvg,
     fx: { confetti: confetti, coins: coins, wobble: wobble, calm: calm },
     sound: { play: play, on: soundOn, button: soundButton },
+    coins: { award: award, spend: spend, wallet: wallet, amount: coinAmount, refresh: showCoins },
   };
 
   function start() {
     buildTopbar();
     buildFooter();
+    showCoins();
+    // Opening any toy earns a small coin bonus once a day.
+    if (document.getElementById('shop')) {
+      var name = (document.title.split(' · ')[0] || '').split(':')[0];
+      award('daily', new Date().toISOString().slice(0, 10), 'First toy of the day: ' + name);
+    }
     fixFolderLinks(document);
   }
 

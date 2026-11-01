@@ -20,6 +20,21 @@ window.WEB3TOYS_CONFIG = {
   // While empty, the button says booking opens soon.
   bookCallUrl: '',
 
+  // COINS. How many coins each action earns. Each one counts once per toy.
+  // daily: opening the first toy of the day. finish: finishing a game.
+  // certificate: earning a certificate. share: sharing a result card.
+  // x: tapping Post on X (or Share on X).
+  points: { daily: 5, finish: 20, certificate: 50, share: 10, x: 10 },
+
+  // REDEEMING COINS. Requests come to you and you send the coupon yourself.
+  // endpoint: a form address (for example from Formspree or your email tool)
+  // that receives the request. email: used instead when endpoint is empty;
+  // the visitor's email app opens with the request filled in. While both
+  // are empty, the button says redeeming opens soon.
+  // shopTool: the tool you sell through (for example Gumroad), shown to
+  // visitors so they know where the coupon works.
+  redeem: { endpoint: '', email: '', shopTool: '' },
+
   // MASCOT pictures, all in the assets/mascot folder. To use a new drawing
   // for a mood, save it in that folder and put its file name here. If a
   // picture is missing, a simple placeholder drawing shows instead.

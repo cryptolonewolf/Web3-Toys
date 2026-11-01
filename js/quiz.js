@@ -219,6 +219,7 @@
           C.track('certificate_earned', { toy: toy.id, score: r.certificate.score });
           showCertificate(progress.certificates[toy.id], after, after !== before ? after : null);
           site.fx.confetti();
+          site.coins.award('certificate', toy.id, 'Earned the ' + r.certificate.title + ' certificate');
         }).catch(function (err) {
           button.disabled = false;
           error.textContent = err.message;

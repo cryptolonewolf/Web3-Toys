@@ -194,6 +194,9 @@
   // ---------- Share button ----------
 
   function share(canvas, text, filename) {
+    // Sharing a result card earns coins once per card type (see js/site.js).
+    var site = window.WEB3TOYS;
+    if (site && site.coins) site.coins.award('share', filename.replace(/\.png$/, ''), 'Shared a result card');
     return new Promise(function (resolve) { canvas.toBlob(resolve, 'image/png'); }).then(function (blob) {
       var file = typeof File === 'function' ? new File([blob], filename, { type: 'image/png' }) : null;
       if (file && navigator.canShare && navigator.canShare({ files: [file] })) {

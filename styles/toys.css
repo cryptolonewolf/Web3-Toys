@@ -3591,6 +3591,165 @@ a.xcard:active {
   .split-pie { width: 120px; height: 120px; }
 }
 
+/* ---------- Coins ---------- */
+
+/* The counter in the menu bar: computers only; on phones it is in the menu */
+.coin-count {
+  display: none;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px 4px 6px;
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--ink);
+  text-decoration: none;
+  background: var(--white);
+  border: var(--line-thin);
+  border-radius: 999px;
+}
+
+.coin-count .icon {
+  width: 22px;
+  height: 22px;
+}
+
+@media (min-width: 880px) {
+  .coin-count:not([hidden]) {
+    display: inline-flex;
+    margin-left: 6px;
+  }
+
+  .menu-coins {
+    display: none !important;
+  }
+}
+
+.coin-pop {
+  position: fixed;
+  z-index: 70;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 10px 3px 8px;
+  font: 800 16px var(--font-body);
+  color: var(--ink);
+  background: var(--yellow);
+  border: var(--line-thin);
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+  pointer-events: none;
+  animation: coin-float 1.5s ease-out forwards;
+}
+
+.coin-pop .icon {
+  width: 20px;
+  height: 20px;
+}
+
+@keyframes coin-float {
+  0% { translate: 0 8px; opacity: 0; scale: 0.7; }
+  15% { translate: 0 0; opacity: 1; scale: 1; }
+  75% { translate: 0 -26px; opacity: 1; }
+  100% { translate: 0 -40px; opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coin-pop {
+    animation: coin-fade 1.5s steps(1) forwards !important;
+  }
+}
+
+@keyframes coin-fade {
+  to { opacity: 0; }
+}
+
+.coin-price {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: 4px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ink-soft);
+}
+
+.coin-price .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.coins-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.coins-balance {
+  font-family: 'Luckiest Guy', var(--font-display);
+  font-size: 30px;
+  line-height: 1;
+}
+
+.coins-history ul {
+  display: grid;
+  gap: 4px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+}
+
+.coins-history li {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.coins-history b { color: #1f8a3a; }
+.coins-history b.is-spent { color: #c2273a; }
+
+.reward-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reward {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 12px;
+  align-items: center;
+}
+
+.reward .meter {
+  grid-column: 1 / -1;
+}
+
+.reward.is-ready {
+  background: var(--mint-tint);
+}
+
+.reward-price {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Luckiest Guy', var(--font-display);
+  font-size: 22px;
+}
+
+.coins-choices {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.check-row.is-locked {
+  color: var(--ink-muted);
+}
+
 /* ---------- Wider screens ---------- */
 
 @media (min-width: 700px) {

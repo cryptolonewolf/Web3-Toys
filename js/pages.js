@@ -121,7 +121,9 @@
       '<ul class="book-grid">' + data.books.map(function (b) {
         return '<li><article class="card book-card">' + bookCover(b) +
           '<div class="shop-info"><h2 class="title-sm">' + esc(b.title) + '</h2>' +
-          '<p class="text">' + esc(b.line) + '</p><p class="price">' + esc(b.price) + '</p>' + buyButton(b) + '</div></article></li>';
+          '<p class="text">' + esc(b.line) + '</p><p class="price">' + esc(b.price) +
+          (b.coins ? ' <a class="coin-price" href="../progress/?redeem=free-small#coins">or ' + site.icon('coin') + b.coins.toLocaleString('en-US') + '</a>' : '') +
+          '</p>' + buyButton(b) + '</div></article></li>';
       }).join('') + '</ul>';
     app.querySelectorAll('[data-item]').forEach(function (a) {
       a.addEventListener('click', function () { C.track('book_clicked', { book: a.getAttribute('data-item') }); });

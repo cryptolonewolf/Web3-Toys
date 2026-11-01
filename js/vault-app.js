@@ -195,6 +195,7 @@
       '</section>');
     sfx.play('ding');
     if (score >= max * 0.7) site.fx.confetti();
+    site.coins.award('finish', 'web3-hacks', 'Reached the bottom of the Vault Dive');
     C.track('vault_finished', { score: score, rank: rank.name });
     card.ready.then(function () {
       var img = app.querySelector('[data-preview]');

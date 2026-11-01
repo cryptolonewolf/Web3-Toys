@@ -59,6 +59,22 @@ verifying.
   empty, nothing is tracked. The site sends events like quiz started, quiz
   finished, certificate earned and certificate shared.
 
+## Coins
+
+Visitors earn coins for playing and sharing: opening the first toy of the
+day, finishing a game, earning a certificate, sharing a result card and
+posting on X. Each counts once per toy. The amounts are under `points` in
+`config.js`. Rewards and their coin prices are in `data/rewards.json`; shop
+items and books with a `coins` field show a second, coin price.
+
+Coins live in the visitor's browser, so they are a fun bonus, not money:
+clearing the browser or switching phones starts at zero, and the site cannot
+check that someone really posted on X. Redeeming is by request: set
+`redeem.endpoint` (a form address, for example from Formspree) or
+`redeem.email` in `config.js`. Each request arrives with the reward, the
+visitor's email, their balance and coin history, and an optional link to
+their post. Check it and send the coupon from your shop tool yourself.
+
 ## Edit the content
 
 Every file below is plain text in JSON format. Keep the quotes and commas as
