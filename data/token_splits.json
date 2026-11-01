@@ -1,0 +1,588 @@
+{
+ "_help": "Rug or Real: made up tokens only, with fictional names. Each has slices (label and percent, adding up to 100), tags (the stickers on the card), verdict (real means the split looks fair, rug means red flags) and why (one line shown after the swipe). Slice colours come from the label: Team, Investors, Advisors, Community, Treasury, Liquidity, Airdrop, Ecosystem, Public sale, Presale, Rewards, Mining rewards, Grants, Unknown wallet, Marketing wallet.",
+ "tokens": [
+  {
+   "id": "breezly",
+   "name": "Breezly",
+   "ticker": "BRZ",
+   "verdict": "real",
+   "slices": [
+    {
+     "label": "Community",
+     "pct": 45
+    },
+    {
+     "label": "Treasury",
+     "pct": 20
+    },
+    {
+     "label": "Team",
+     "pct": 15
+    },
+    {
+     "label": "Investors",
+     "pct": 12
+    },
+    {
+     "label": "Liquidity",
+     "pct": 8
+    }
+   ],
+   "tags": [
+    "Team: 4 year vesting",
+    "Liquidity locked 2 years"
+   ],
+   "why": "Most tokens go to the community, and the team's share unlocks slowly over four years."
+  },
+  {
+   "id": "pondly",
+   "name": "Pondly",
+   "ticker": "PND",
+   "verdict": "real",
+   "slices": [
+    {
+     "label": "Airdrop",
+     "pct": 30
+    },
+    {
+     "label": "Ecosystem",
+     "pct": 25
+    },
+    {
+     "label": "Team",
+     "pct": 18
+    },
+    {
+     "label": "Investors",
+     "pct": 17
+    },
+    {
+     "label": "Liquidity",
+     "pct": 10
+    }
+   ],
+   "tags": [
+    "Insiders: 1 year cliff",
+    "Unlocks spread over 3 years"
+   ],
+   "why": "Insiders get 35% but must wait a year before selling any."
+  },
+  {
+   "id": "lumora",
+   "name": "Lumora",
+   "ticker": "LUM",
+   "verdict": "real",
+   "slices": [
+    {
+     "label": "Community",
+     "pct": 50
+    },
+    {
+     "label": "Treasury",
+     "pct": 25
+    },
+    {
+     "label": "Team",
+     "pct": 15
+    },
+    {
+     "label": "Liquidity",
+     "pct": 10
+    }
+   ],
+   "tags": [
+    "Treasury needs a public vote",
+    "Team: 3 year vesting"
+   ],
+   "why": "Half goes to users, and the treasury cannot be spent without a vote."
+  },
+  {
+   "id": "gravel",
+   "name": "Gravel",
+   "ticker": "GRV",
+   "verdict": "real",
+   "slices": [
+    {
+     "label": "Public sale",
+     "pct": 40
+    },
+    {
+     "label": "Ecosystem",
+     "pct": 25
+    },
+    {
+     "label": "Team",
+     "pct": 15
+    },
+    {
+     "label": "Investors",
+     "pct": 10
+    },
+    {
+     "label": "Liquidity",
+     "pct": 10
+    }
+   ],
+   "tags": [
+    "Team: 3 year vesting",
+    "Investors: 1 year cliff"
+   ],
+   "why": "A big public sale, and insiders unlock slowly."
+  },
+  {
+   "id": "tidepool",
+   "name": "Tidepool",
+   "ticker": "TDP",
+   "verdict": "real",
+   "slices": [
+    {
+     "label": "Rewards",
+     "pct": 40
+    },
+    {
+     "label": "Treasury",
+     "pct": 20
+    },
+    {
+     "label": "Team",
+     "pct": 20
+    },
+    {
+     "label": "Investors",
+     "pct": 15
+    },
+    {
+     "label": "Advisors",
+     "pct": 5
+    }
+   ],
+   "tags": [
+    "All insiders vest over 4 years"
+   ],
+   "why": "Insiders hold 40%, which is common, but it unlocks over four years."
+  },
+  {
+   "id": "mossbit",
+   "name": "Mossbit",
+   "ticker": "MSB",
+   "verdict": "real",
+   "slices": [
+    {
+     "label": "Community",
+     "pct": 60
+    },
+    {
+     "label": "Team",
+     "pct": 15
+    },
+    {
+     "label": "Liquidity",
+     "pct": 15
+    },
+    {
+     "label": "Treasury",
+     "pct": 10
+    }
+   ],
+   "tags": [
+    "Liquidity locked 3 years",
+    "Team: 4 year vesting"
+   ],
+   "why": "The community gets most of it and the liquidity cannot be pulled."
+  },
+  {
+   "id": "quillr",
+   "name": "Quillr",
+   "ticker": "QLR",
+   "verdict": "real",
+   "slices": [
+    {
+     "label": "Community",
+     "pct": 35
+    },
+    {
+     "label": "Investors",
+     "pct": 20
+    },
+    {
+     "label": "Team",
+     "pct": 20
+    },
+    {
+     "label": "Treasury",
+     "pct": 15
+    },
+    {
+     "label": "Liquidity",
+     "pct": 10
+    }
+   ],
+   "tags": [
+    "Insiders: 1 year cliff",
+    "Then 3 years of vesting"
+   ],
+   "why": "Insiders hold 40%, but nobody can sell in the first year."
+  },
+  {
+   "id": "orbitly",
+   "name": "Orbitly",
+   "ticker": "ORB",
+   "verdict": "real",
+   "slices": [
+    {
+     "label": "Mining rewards",
+     "pct": 60
+    },
+    {
+     "label": "Liquidity",
+     "pct": 40
+    }
+   ],
+   "tags": [
+    "No team share",
+    "Liquidity burned"
+   ],
+   "why": "A fair launch: no insider share, and the liquidity can never be removed."
+  },
+  {
+   "id": "sproutz",
+   "name": "Sproutz",
+   "ticker": "SPZ",
+   "verdict": "real",
+   "slices": [
+    {
+     "label": "Grants",
+     "pct": 30
+    },
+    {
+     "label": "Community",
+     "pct": 30
+    },
+    {
+     "label": "Team",
+     "pct": 15
+    },
+    {
+     "label": "Investors",
+     "pct": 15
+    },
+    {
+     "label": "Liquidity",
+     "pct": 10
+    }
+   ],
+   "tags": [
+    "Team: 4 year vesting",
+    "Grants paid out monthly"
+   ],
+   "why": "Most supply funds builders and users, paid out slowly."
+  },
+  {
+   "id": "kettle",
+   "name": "Kettle",
+   "ticker": "KTL",
+   "verdict": "real",
+   "slices": [
+    {
+     "label": "Community",
+     "pct": 40
+    },
+    {
+     "label": "Treasury",
+     "pct": 25
+    },
+    {
+     "label": "Investors",
+     "pct": 15
+    },
+    {
+     "label": "Team",
+     "pct": 12
+    },
+    {
+     "label": "Liquidity",
+     "pct": 8
+    }
+   ],
+   "tags": [
+    "Vesting is public on chain"
+   ],
+   "why": "Insiders get 27% and anyone can check when it unlocks."
+  },
+  {
+   "id": "moonpup",
+   "name": "MoonPup",
+   "ticker": "MPUP",
+   "verdict": "rug",
+   "slices": [
+    {
+     "label": "Team",
+     "pct": 40
+    },
+    {
+     "label": "Community",
+     "pct": 40
+    },
+    {
+     "label": "Liquidity",
+     "pct": 20
+    }
+   ],
+   "tags": [
+    "Team: no vesting"
+   ],
+   "why": "The team gets 40% with no vesting, so they can sell on day one."
+  },
+  {
+   "id": "lambo-inu",
+   "name": "Lambo Inu",
+   "ticker": "LINU",
+   "verdict": "rug",
+   "slices": [
+    {
+     "label": "Unknown wallet",
+     "pct": 35
+    },
+    {
+     "label": "Community",
+     "pct": 40
+    },
+    {
+     "label": "Liquidity",
+     "pct": 25
+    }
+   ],
+   "tags": [
+    "Unknown wallet holds 35%"
+   ],
+   "why": "One unexplained wallet holds 35%, and one sale could crash the price."
+  },
+  {
+   "id": "safeyield",
+   "name": "SafeYield",
+   "ticker": "SYLD",
+   "verdict": "rug",
+   "slices": [
+    {
+     "label": "Team",
+     "pct": 30
+    },
+    {
+     "label": "Investors",
+     "pct": 30
+    },
+    {
+     "label": "Advisors",
+     "pct": 10
+    },
+    {
+     "label": "Community",
+     "pct": 20
+    },
+    {
+     "label": "Liquidity",
+     "pct": 10
+    }
+   ],
+   "tags": [
+    "Community gets 20%"
+   ],
+   "why": "Insiders hold 70% and the community gets crumbs."
+  },
+  {
+   "id": "rocketeer",
+   "name": "Rocketeer",
+   "ticker": "RKT",
+   "verdict": "rug",
+   "slices": [
+    {
+     "label": "Community",
+     "pct": 45
+    },
+    {
+     "label": "Investors",
+     "pct": 25
+    },
+    {
+     "label": "Team",
+     "pct": 20
+    },
+    {
+     "label": "Liquidity",
+     "pct": 10
+    }
+   ],
+   "tags": [
+    "Everything unlocked at launch"
+   ],
+   "why": "Insiders' 45% unlocks at launch, so they can dump right away."
+  },
+  {
+   "id": "chillfi",
+   "name": "ChillFi",
+   "ticker": "CHL",
+   "verdict": "rug",
+   "slices": [
+    {
+     "label": "Community",
+     "pct": 60
+    },
+    {
+     "label": "Team",
+     "pct": 25
+    },
+    {
+     "label": "Liquidity",
+     "pct": 15
+    }
+   ],
+   "tags": [
+    "Liquidity not locked",
+    "Team can mint more"
+   ],
+   "why": "The liquidity is not locked, so the team can pull it and leave holders stuck."
+  },
+  {
+   "id": "gemzilla",
+   "name": "Gemzilla",
+   "ticker": "GEMZ",
+   "verdict": "rug",
+   "slices": [
+    {
+     "label": "Presale",
+     "pct": 50
+    },
+    {
+     "label": "Team",
+     "pct": 30
+    },
+    {
+     "label": "Liquidity",
+     "pct": 15
+    },
+    {
+     "label": "Community",
+     "pct": 5
+    }
+   ],
+   "tags": [
+    "Team: no vesting",
+    "Community gets 5%"
+   ],
+   "why": "Only 5% for the community, while the team's 30% is free to sell."
+  },
+  {
+   "id": "yieldmax",
+   "name": "YieldMax 9000",
+   "ticker": "YM9K",
+   "verdict": "rug",
+   "slices": [
+    {
+     "label": "Treasury",
+     "pct": 45
+    },
+    {
+     "label": "Community",
+     "pct": 30
+    },
+    {
+     "label": "Team",
+     "pct": 15
+    },
+    {
+     "label": "Liquidity",
+     "pct": 10
+    }
+   ],
+   "tags": [
+    "Team spends the treasury freely"
+   ],
+   "why": "Between its share and a treasury only it controls, the team runs 60%."
+  },
+  {
+   "id": "pepe-royale",
+   "name": "Pepe Royale",
+   "ticker": "PROY",
+   "verdict": "rug",
+   "slices": [
+    {
+     "label": "Community",
+     "pct": 40
+    },
+    {
+     "label": "Marketing wallet",
+     "pct": 30
+    },
+    {
+     "label": "Team",
+     "pct": 20
+    },
+    {
+     "label": "Liquidity",
+     "pct": 10
+    }
+   ],
+   "tags": [
+    "Marketing wallet: no rules",
+    "Team: no vesting"
+   ],
+   "why": "Half the supply sits in wallets the team can sell from any time."
+  },
+  {
+   "id": "quantumkoin",
+   "name": "QuantumKoin",
+   "ticker": "QKN",
+   "verdict": "rug",
+   "slices": [
+    {
+     "label": "Investors",
+     "pct": 45
+    },
+    {
+     "label": "Community",
+     "pct": 25
+    },
+    {
+     "label": "Team",
+     "pct": 20
+    },
+    {
+     "label": "Liquidity",
+     "pct": 10
+    }
+   ],
+   "tags": [
+    "Investors unlock after 3 months"
+   ],
+   "why": "Insiders hold 65% and investors can sell after just three months."
+  },
+  {
+   "id": "hyperdrop",
+   "name": "Hyperdrop",
+   "ticker": "HYD",
+   "verdict": "rug",
+   "slices": [
+    {
+     "label": "Community",
+     "pct": 40
+    },
+    {
+     "label": "Airdrop",
+     "pct": 30
+    },
+    {
+     "label": "Team",
+     "pct": 20
+    },
+    {
+     "label": "Liquidity",
+     "pct": 10
+    }
+   ],
+   "tags": [
+    "Airdrop went to team-linked wallets"
+   ],
+   "why": "An airdrop that lands in the team's own wallets is still insider supply."
+  }
+ ]
+}

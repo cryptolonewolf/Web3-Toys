@@ -152,6 +152,9 @@ complete, and the older Spot the Scam and simulator logic.
   that must keep their scores. Reported scams go in `data/scam-known.js`; the
   public phishing lists in `data/scam-feed.js` refresh every Sunday.
 - Spot the Scam game: `data/scam-scenarios.js` and `data/scam-game.js`.
+- Rug or Real (Read the Token Split): made up tokens in
+  `data/token_splits.json` (each split adds up to 100, with a verdict and a
+  one line why), words and scoring in `data/token-split.json`.
 - The Vault Dive (Famous Web3 Hacks): the hacks are in `data/hacks.json`
   (one floor each, smallest first, every one with a source link and
   `"review": true` until you have checked it), words and scoring in

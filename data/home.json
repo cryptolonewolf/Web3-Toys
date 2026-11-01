@@ -53,7 +53,7 @@
         {"id": "dead-projects", "status": "soon", "title": "Fish the Dead Projects", "time": "5 min", "color": "teal", "object": "rod", "blurb": "Fish up dead chains, rugged tokens and abandoned projects, and learn why they died.", "pattern": "waves", "edge": "corner", "font": "chewy"},
         {"id": "invest-100", "kind": "game", "status": "live", "path": "invest-100/", "title": "What If You Invested $100", "time": "5 min", "color": "orange", "object": "rocket", "blurb": "Pick a token and a date and see what $100 became, and how bumpy the ride was.", "pattern": "dots", "edge": "tape", "font": "luckiest"},
         {"id": "token-simulator", "status": "soon", "title": "Launch a Token Simulator", "time": "5 min", "color": "pink", "object": "button", "blurb": "Launch a token and survive launch week.", "pattern": "grid", "edge": "notch", "font": "bangers"},
-        {"id": "token-split", "status": "soon", "title": "Read the Token Split", "time": "4 min", "color": "coral", "object": "pizza", "blurb": "Read a token split like a pro.", "pattern": "plus", "edge": "pin", "font": "chewy"}
+        {"id": "token-split", "status": "live", "kind": "game", "path": "token-split/", "title": "Read the Token Split", "time": "4 min", "color": "coral", "object": "pizza", "blurb": "Read a token split like a pro.", "pattern": "plus", "edge": "pin", "font": "chewy"}
       ]
     }
   ],
