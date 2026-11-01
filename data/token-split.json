@@ -1,0 +1,48 @@
+{
+  "_help": "Rug or Real (Read the Token Split): words and scoring. rounds: how many cards per game. seconds: time per card. points: for a right answer, plus up to speedBonus for answering fast. ranks: min is the share of the top score.",
+  "title": "Rug or Real",
+  "intro": "Made up tokens, real red flags. Swipe right if the split looks fair, left if it smells like a rug.",
+  "note": "Real here means the split looks fair, not that the token is safe.",
+  "startButton": "Start swiping",
+  "rounds": 8,
+  "seconds": 10,
+  "points": 100,
+  "speedBonus": 50,
+  "rugButton": "Rug",
+  "realButton": "Real",
+  "swipeHint": "Swipe or tap. 10 seconds per card.",
+  "rightLine": "Right!",
+  "wrongLine": "Not quite.",
+  "slowLine": "Too slow!",
+  "isRug": "It's a rug.",
+  "isReal": "It looks fair.",
+  "nextButton": "Next card",
+  "finishButton": "See my score",
+  "ranks": [
+    {
+      "name": "Rugged",
+      "min": 0,
+      "line": "The rugs got you this time. Watch the team share and the unlocks."
+    },
+    {
+      "name": "Rug Spotter",
+      "min": 0.45,
+      "line": "You spot most red flags. Keep checking vesting and liquidity."
+    },
+    {
+      "name": "Tokenomics Hawk",
+      "min": 0.8,
+      "line": "Nothing gets past you. Insiders, unlocks, liquidity: you read them all."
+    }
+  ],
+  "share": {
+    "title": "I played Rug or Real.",
+    "cta": "Can you spot the rugs?",
+    "text": "I scored {score} in Rug or Real and ranked {rank}. Can you spot the rugs? {link}"
+  },
+  "signup": {
+    "heading": "Get new toys first",
+    "line": "One email when a new toy goes live. No spam.",
+    "button": "Keep me posted"
+  }
+}
