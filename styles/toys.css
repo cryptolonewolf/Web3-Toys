@@ -3750,6 +3750,202 @@ a.xcard:active {
   color: var(--ink-muted);
 }
 
+/* ---------- Fish the Dead Projects ---------- */
+
+.fish-intro {
+  text-align: center;
+}
+
+.fish-title {
+  font-family: 'Luckiest Guy', var(--font-display);
+  font-weight: 400;
+  font-size: 38px;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+.fish-hud {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 800;
+}
+
+.fish-stage {
+  overflow: hidden;
+  border: var(--line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow);
+  background: #03121b;
+}
+
+.fish-scene {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.fish-float-inner {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.fish-line,
+.fish-float {
+  transition: transform 0.5s cubic-bezier(0.3, 1.2, 0.5, 1), d 0.5s ease;
+}
+
+.is-waiting .fish-float-inner {
+  animation: bob-float 1.4s ease-in-out infinite;
+}
+
+.is-bite .fish-float-inner {
+  animation: dip 0.35s ease-in-out infinite;
+}
+
+.is-reeling .fish-float-inner {
+  animation: dip 0.6s ease-in-out infinite;
+}
+
+@keyframes bob-float {
+  50% { transform: translateY(2px); }
+}
+
+@keyframes dip {
+  50% { transform: translateY(9px); }
+}
+
+.fish-power,
+.fish-reel {
+  position: relative;
+  height: 30px;
+  overflow: hidden;
+  background: var(--white);
+  border: var(--line);
+  border-radius: 999px;
+}
+
+.fish-power span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  background: linear-gradient(90deg, var(--mint), var(--yellow), var(--coral));
+}
+
+.fish-zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--mint);
+  border-left: 2px solid var(--ink);
+  border-right: 2px solid var(--ink);
+}
+
+.fish-marker {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  width: 8px;
+  margin-left: -4px;
+  background: var(--ink);
+  border-radius: 4px;
+}
+
+.fish-hits {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  min-height: 20px;
+}
+
+.fish-dot {
+  width: 16px;
+  height: 16px;
+  background: var(--white);
+  border: var(--line-thin);
+  border-radius: 50%;
+}
+
+.fish-dot.is-hit {
+  background: var(--mint);
+}
+
+.fish-miss {
+  margin-left: 6px;
+  font-weight: 800;
+  color: #c2273a;
+}
+
+.fish-act {
+  min-height: 64px;
+  font-size: 22px;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.fish-act--wait {
+  background: var(--track);
+}
+
+.fish-card {
+  animation: pop-in 0.35s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.fish-card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fish-icon {
+  flex: none;
+  width: 72px;
+  height: 36px;
+}
+
+.fish-card--r2 { background: #e2effb; }
+.fish-card--r3 { background: #fff1b8; }
+
+.fish-box {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fish-box li {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 2px;
+  min-height: 72px;
+  padding: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  text-align: center;
+  color: var(--ink-muted);
+  background: var(--track);
+  border: var(--line-thin);
+  border-radius: 12px;
+}
+
+.fish-box li.is-caught {
+  color: var(--ink);
+  background: var(--white);
+}
+
+.fish-box li.fish-card--r2 { background: #e2effb; }
+.fish-box li.fish-card--r3 { background: #fff1b8; }
+
+.fish-box .fish-icon {
+  width: 52px;
+  height: 26px;
+}
+
 /* ---------- Wider screens ---------- */
 
 @media (min-width: 700px) {

@@ -1,0 +1,1770 @@
+{
+ "_help": "Fish the Dead Projects: the catches. Real projects that died, each with what it promised, its peak (a figure only where well documented, otherwise in words), why it died (what went wrong, never how), the year it died, rarity (1 common, 2 rare, 3 legendary: bigger collapses are rarer and score more) and sources. Entries with fresh: true are the 2026 shutdowns from the CoinStats tracker: they only have a name and date so far (promised and peak are empty and hidden until filled in), weight (0.15) makes each one bite less often so the classic catches still turn up, and their source has no link yet (add the article address in url). Every entry is marked review: true until you have checked it against its sources; then set it to false.",
+ "catches": [
+  {
+   "id": "luna",
+   "name": "Terra (LUNA)",
+   "kind": "Dead chain",
+   "year": 2022,
+   "rarity": 3,
+   "promised": "A blockchain for payments, powering its own dollar stablecoin.",
+   "peak": "About $119 a coin (April 2022).",
+   "died": "When its stablecoin lost its dollar peg, LUNA was printed in huge amounts and fell more than 99% in days.",
+   "sources": [
+    {
+     "label": "Wikipedia: Terra",
+     "url": "https://en.wikipedia.org/wiki/Terra_(blockchain)"
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "ust",
+   "name": "TerraUSD (UST)",
+   "kind": "Broken stablecoin",
+   "year": 2022,
+   "rarity": 3,
+   "promised": "A digital dollar kept at $1 by code instead of cash in a bank.",
+   "peak": "About $18 billion in coins (May 2022).",
+   "died": "Big withdrawals broke the $1 peg in May 2022, and confidence never came back.",
+   "sources": [
+    {
+     "label": "Wikipedia: Terra",
+     "url": "https://en.wikipedia.org/wiki/Terra_(blockchain)"
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "ftt",
+   "name": "FTX Token (FTT)",
+   "kind": "Exchange token",
+   "year": 2022,
+   "rarity": 3,
+   "promised": "Discounts and perks on FTX, one of the biggest exchanges.",
+   "peak": "About $84 a token (September 2021).",
+   "died": "FTX collapsed in November 2022 after customer money was found missing; its founder was later convicted of fraud.",
+   "sources": [
+    {
+     "label": "Wikipedia: FTX",
+     "url": "https://en.wikipedia.org/wiki/FTX"
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "celsius",
+   "name": "Celsius (CEL)",
+   "kind": "Collapsed lender",
+   "year": 2022,
+   "rarity": 3,
+   "promised": "High interest on your crypto, with a bank-like feel.",
+   "peak": "Billions of dollars in customer deposits (2021).",
+   "died": "It froze withdrawals in June 2022 and went bankrupt; its founder later pleaded guilty to fraud.",
+   "sources": [
+    {
+     "label": "Wikipedia: Celsius Network",
+     "url": "https://en.wikipedia.org/wiki/Celsius_Network"
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "onecoin",
+   "name": "OneCoin",
+   "kind": "Fake coin",
+   "year": 2017,
+   "rarity": 3,
+   "promised": "The next Bitcoin, sold through education packages.",
+   "peak": "More than $4 billion raised from investors (2014 to 2016).",
+   "died": "There was never a real blockchain; its founder vanished in 2017 and is still wanted.",
+   "sources": [
+    {
+     "label": "Wikipedia: OneCoin",
+     "url": "https://en.wikipedia.org/wiki/OneCoin"
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "diem",
+   "name": "Diem (Libra)",
+   "kind": "Abandoned project",
+   "year": 2022,
+   "rarity": 3,
+   "promised": "A global digital currency from Facebook for billions of users.",
+   "peak": "Backed by Facebook and big partners at launch (2019).",
+   "died": "Regulators pushed back for years, and the project was sold off and shut in 2022.",
+   "sources": [
+    {
+     "label": "Wikipedia: Diem",
+     "url": "https://en.wikipedia.org/wiki/Diem_(digital_currency)"
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "bitconnect",
+   "name": "BitConnect (BCC)",
+   "kind": "Ponzi token",
+   "year": 2018,
+   "rarity": 2,
+   "promised": "Daily profits from a secret trading bot.",
+   "peak": "About $460 a coin (late 2017).",
+   "died": "Regulators ordered it to stop in January 2018 and the price crashed; US authorities called it a Ponzi scheme.",
+   "sources": [
+    {
+     "label": "Wikipedia: BitConnect",
+     "url": "https://en.wikipedia.org/wiki/BitConnect"
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "safemoon",
+   "name": "SafeMoon",
+   "kind": "Collapsed token",
+   "year": 2023,
+   "rarity": 2,
+   "promised": "A token that rewards holders and goes \"safely to the moon\".",
+   "peak": "Billions of dollars in market value (2021).",
+   "died": "The company went bankrupt in 2023 and US prosecutors charged its leaders with fraud.",
+   "sources": [
+    {
+     "label": "Wikipedia: SafeMoon",
+     "url": "https://en.wikipedia.org/wiki/SafeMoon"
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "titan",
+   "name": "Iron Finance (TITAN)",
+   "kind": "Dead token",
+   "year": 2021,
+   "rarity": 2,
+   "promised": "A partly backed stablecoin with sky-high yields.",
+   "peak": "About $64 a token (June 2021).",
+   "died": "A run on the stablecoin in June 2021 sent TITAN to almost zero within a day.",
+   "sources": [
+    {
+     "label": "Wikipedia: Iron Finance",
+     "url": "https://en.wikipedia.org/wiki/Iron_Finance"
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "wonderland",
+   "name": "Wonderland (TIME)",
+   "kind": "Dead token",
+   "year": 2022,
+   "rarity": 2,
+   "promised": "Huge yields from a shared treasury.",
+   "peak": "Thousands of dollars a token (late 2021).",
+   "died": "In January 2022 its treasury manager was revealed to be a co-founder of a collapsed exchange, and trust vanished.",
+   "sources": [
+    {
+     "label": "Wikipedia: Wonderland",
+     "url": "https://en.wikipedia.org/wiki/Wonderland_(cryptocurrency)"
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "quadriga",
+   "name": "QuadrigaCX",
+   "kind": "Collapsed exchange",
+   "year": 2019,
+   "rarity": 2,
+   "promised": "Canada's easy place to buy bitcoin.",
+   "peak": "Customers owed about C$215 million when it failed (2019).",
+   "died": "After its founder died in 2018, most customer money turned out to be missing.",
+   "sources": [
+    {
+     "label": "Wikipedia: QuadrigaCX",
+     "url": "https://en.wikipedia.org/wiki/QuadrigaCX"
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "dao",
+   "name": "The DAO",
+   "kind": "Abandoned project",
+   "year": 2016,
+   "rarity": 2,
+   "promised": "An investment fund run by its token holders, with no managers.",
+   "peak": "About $150 million raised (2016).",
+   "died": "A bug let an attacker drain a third of it; Ethereum rolled back the theft and the project shut down.",
+   "sources": [
+    {
+     "label": "Wikipedia: The DAO",
+     "url": "https://en.wikipedia.org/wiki/The_DAO"
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "fei",
+   "name": "Fei Protocol",
+   "kind": "Abandoned project",
+   "year": 2022,
+   "rarity": 2,
+   "promised": "A new kind of stablecoin, launched with huge demand.",
+   "peak": "About $1.3 billion raised at launch (April 2021).",
+   "died": "After years of struggle and a big hack at a partner, the team wound it down in 2022.",
+   "sources": [
+    {
+     "label": "Wikipedia: Fei Protocol",
+     "url": "https://en.wikipedia.org/wiki/Fei_Protocol"
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "basis",
+   "name": "Basis",
+   "kind": "Abandoned project",
+   "year": 2018,
+   "rarity": 1,
+   "promised": "A stablecoin run purely by code.",
+   "peak": "About $133 million raised from investors (2018).",
+   "died": "US securities rules made the design unworkable, and it returned money and shut down in 2018.",
+   "sources": [
+    {
+     "label": "Wikipedia: Basis",
+     "url": "https://en.wikipedia.org/wiki/Basis_(cryptocurrency)"
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "squid",
+   "name": "Squid Game token",
+   "kind": "Rug pull",
+   "year": 2021,
+   "rarity": 1,
+   "promised": "A play-to-earn game riding a hit TV show.",
+   "peak": "About $2,800 a token (November 2021).",
+   "died": "Buyers could not sell, and the creators cashed out and vanished the same day.",
+   "sources": [
+    {
+     "label": "Wikipedia: Squid Game token",
+     "url": "https://en.wikipedia.org/wiki/Squid_Game_(cryptocurrency)"
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "anubis",
+   "name": "AnubisDAO",
+   "kind": "Rug pull",
+   "year": 2021,
+   "rarity": 1,
+   "promised": "A new dog-themed DeFi project.",
+   "peak": "About $60 million raised in a day (October 2021).",
+   "died": "The money left its wallet within a day of the sale and was never returned.",
+   "sources": [
+    {
+     "label": "Wikipedia: Rug pull",
+     "url": "https://en.wikipedia.org/wiki/Exit_scam"
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "frosties",
+   "name": "Frosties NFT",
+   "kind": "Rug pull",
+   "year": 2022,
+   "rarity": 1,
+   "promised": "Cute ice cream NFTs with games and rewards to come.",
+   "peak": "About $1.1 million raised (January 2022).",
+   "died": "The creators shut the site and kept the money; they were later charged in the US.",
+   "sources": [
+    {
+     "label": "US Attorney, SDNY",
+     "url": "https://www.justice.gov/usao-sdny/pr/two-defendants-charged-non-fungible-token-nft-fraud-and-money-laundering-scheme-0"
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "plexcoin",
+   "name": "PlexCoin",
+   "kind": "Fraud token",
+   "year": 2017,
+   "rarity": 1,
+   "promised": "Returns of more than 1,000% in about a month.",
+   "peak": "About $15 million raised (2017).",
+   "died": "US regulators froze it in December 2017 as a fraud.",
+   "sources": [
+    {
+     "label": "SEC press release",
+     "url": "https://www.sec.gov/news/press-release/2017-219"
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "centra",
+   "name": "Centra Tech",
+   "kind": "Fraud token",
+   "year": 2018,
+   "rarity": 1,
+   "promised": "A crypto debit card backed by big banks, promoted by celebrities.",
+   "peak": "About $25 million raised (2017).",
+   "died": "The bank partnerships were fake; its founders were charged in 2018 and later convicted.",
+   "sources": [
+    {
+     "label": "SEC press release",
+     "url": "https://www.sec.gov/news/press-release/2018-53"
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "bst",
+   "name": "Bitcoin Savings and Trust",
+   "kind": "Ponzi scheme",
+   "year": 2012,
+   "rarity": 1,
+   "promised": "7% interest a week on bitcoin.",
+   "peak": "At least 700,000 bitcoin taken in (2011 to 2012).",
+   "died": "It paid old investors with new deposits until it collapsed in 2012.",
+   "sources": [
+    {
+     "label": "SEC press release",
+     "url": "https://www.sec.gov/news/press/2013/2013-132.htm"
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-blur",
+   "name": "Blur",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on October 12, 2026. Only its website front end was shut; the rest stays onchain.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-abstract",
+   "name": "Abstract",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on October 6, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-blast",
+   "name": "Blast",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on October 2, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-neon-evm",
+   "name": "Neon EVM",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on October 1, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-oneswap",
+   "name": "OneSwap",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on September 15, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-coinex-smart-chain",
+   "name": "CoinEx Smart Chain",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on September 15, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-coinex",
+   "name": "CoinEx",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on September 15, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-balancer",
+   "name": "Balancer",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on September 14, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-router-protocol",
+   "name": "Router Protocol",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on September 5, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-full-sail",
+   "name": "Full Sail",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on September 1, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-lisk-chain",
+   "name": "Lisk Chain",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on August 25, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-shipyard-ipfs",
+   "name": "Shipyard (IPFS)",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on August 24, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-paystream",
+   "name": "Paystream",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on August 15, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-trepa",
+   "name": "Trepa",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on August 10, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-fireplace",
+   "name": "Fireplace",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on August 10, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-step-app",
+   "name": "Step App",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on August 5, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-proof-of-play",
+   "name": "Proof of Play",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on August 4, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-poap",
+   "name": "POAP",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on August 3, 2026. The company wound down; the badges stay onchain.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-bitmart",
+   "name": "BitMart",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on July 26, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-dango",
+   "name": "Dango",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on July 25, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-bitmex",
+   "name": "BitMEX",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on July 23, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-odos",
+   "name": "ODOS",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on July 23, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-secondfi",
+   "name": "SecondFi",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on July 22, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-zapper",
+   "name": "Zapper",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on July 9, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-xenea",
+   "name": "Xenea",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on July 9, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-ctrl-wallet",
+   "name": "Ctrl Wallet",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on July 7, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-ascendex",
+   "name": "AscendEX",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on July 6, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-polygon-zkevm",
+   "name": "Polygon zkEVM",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on July 1, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-loopring",
+   "name": "Loopring",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on June 28, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-sophon",
+   "name": "Sophon",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on June 25, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-ionic",
+   "name": "Ionic",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on June 18, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-soundness",
+   "name": "Soundness",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on June 18, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-powerloom",
+   "name": "Powerloom",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on June 16, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-satori",
+   "name": "Satori",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on June 16, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-swell",
+   "name": "Swell",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on June 16, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-ventuals",
+   "name": "Ventuals",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on June 15, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-fishing-frenzy",
+   "name": "Fishing Frenzy",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on June 15, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-pudgy-party",
+   "name": "Pudgy Party",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on June 12, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-botanix",
+   "name": "Botanix",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on June 10, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-hyli",
+   "name": "Hyli",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on June 10, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-radiant-capital",
+   "name": "Radiant Capital",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on June 1, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-zero-network",
+   "name": "Zero Network",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on May 22, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-everclear",
+   "name": "Everclear",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on May 21, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-syndicate",
+   "name": "Syndicate",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on May 21, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-fantasy",
+   "name": "Fantasy",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on May 20, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-legend",
+   "name": "Legend",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on May 13, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-phi",
+   "name": "Phi",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on May 4, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-carrot",
+   "name": "Carrot",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on May 1, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-genso-online",
+   "name": "Genso Online",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on April 30, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-luckio",
+   "name": "Luckio",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on April 24, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-mint-blockchain",
+   "name": "Mint Blockchain",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on April 17, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-xociety",
+   "name": "XOCIETY",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on April 16, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-77-bit",
+   "name": "77-Bit",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on April 16, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-opulous",
+   "name": "Opulous",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on April 15, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-foundation",
+   "name": "Foundation",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on April 15, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-pixel-heroes-adventure",
+   "name": "Pixel Heroes Adventure",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on April 15, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-megaphone",
+   "name": "Megaphone",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on April 12, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-seamless-protocol",
+   "name": "Seamless Protocol",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on April 7, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-dmail",
+   "name": "Dmail",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on April 3, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-leap-wallet",
+   "name": "Leap Wallet",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on April 3, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-intergaze",
+   "name": "Intergaze",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on April 2, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-magic-eden-wallet",
+   "name": "Magic Eden Wallet",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on April 1, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-yupp-ai",
+   "name": "Yupp AI",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on March 31, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-milkyway",
+   "name": "MilkyWay",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on March 26, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-tally",
+   "name": "Tally",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on March 17, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-blockfills",
+   "name": "BlockFills",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on March 15, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-datahaven",
+   "name": "DataHaven",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on March 15, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-angle-protocol",
+   "name": "Angle Protocol",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on March 4, 2026. It retired its stablecoins, not the whole protocol.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-step-finance",
+   "name": "Step Finance",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on February 24, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-remora-markets",
+   "name": "Remora Markets",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on February 24, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-parsec",
+   "name": "Parsec",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on February 19, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-zerolend",
+   "name": "ZeroLend",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on February 16, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-polynomial",
+   "name": "Polynomial",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on February 13, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-entropy",
+   "name": "Entropy",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on January 26, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  },
+  {
+   "id": "2026-slingshot",
+   "name": "Slingshot",
+   "kind": "Shut down in 2026",
+   "year": 2026,
+   "rarity": 1,
+   "fresh": true,
+   "weight": 0.15,
+   "promised": "",
+   "peak": "",
+   "died": "Announced it was shutting down or winding down on January 6, 2026.",
+   "sources": [
+    {
+     "label": "CoinStats shutdown tracker (28 October 2026), sent by Aki",
+     "url": ""
+    }
+   ],
+   "review": true
+  }
+ ]
+}

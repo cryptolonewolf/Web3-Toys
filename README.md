@@ -168,6 +168,10 @@ complete, and the older Spot the Scam and simulator logic.
   that must keep their scores. Reported scams go in `data/scam-known.js`; the
   public phishing lists in `data/scam-feed.js` refresh every Sunday.
 - Spot the Scam game: `data/scam-scenarios.js` and `data/scam-game.js`.
+- Fish the Dead Projects: catches in `data/dead_projects.json` (20 detailed
+  ones with sources, plus 75 projects shut down in 2026 from the CoinStats
+  tracker, with only a name and date so far), words and settings in
+  `data/dead-projects.json`. Every entry has `"review": true` until checked.
 - Rug or Real (Read the Token Split): made up tokens in
   `data/token_splits.json` (each split adds up to 100, with a verdict and a
   one line why), words and scoring in `data/token-split.json`.

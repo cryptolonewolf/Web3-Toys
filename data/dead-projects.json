@@ -1,0 +1,68 @@
+{
+  "_help": "Fish the Dead Projects: words and settings. casts: how many casts in a game. biteWindowMs: how long the player has to tap after a bite. hitsToLand and missesToLose: the reeling timing bar. points: score for each rarity. streakBonus: extra points per catch in a row. ranks: min is the score needed.",
+  "title": "Fish the Dead Projects",
+  "intro": "Cast into the crypto graveyard and reel up dead chains, rugged tokens and abandoned projects.",
+  "startButton": "Start fishing",
+  "casts": 8,
+  "biteMinMs": 1500,
+  "biteMaxMs": 4500,
+  "biteWindowMs": 1100,
+  "hitsToLand": 3,
+  "missesToLose": 3,
+  "points": {
+    "1": 100,
+    "2": 200,
+    "3": 400
+  },
+  "streakBonus": 50,
+  "rarity": {
+    "1": "Common",
+    "2": "Rare",
+    "3": "Legendary"
+  },
+  "castButton": "Hold to cast",
+  "castHint": "Hold to power up, let go to cast. Longer casts find rarer catches.",
+  "waitButton": "Waiting for a bite...",
+  "biteButton": "Bite! Tap now!",
+  "reelButton": "Reel! Tap in the green",
+  "nextButton": "Cast again",
+  "finishButton": "See my haul",
+  "tooEarly": "Too early! You scared it off.",
+  "gotAway": "Too slow. It got away.",
+  "snapped": "The line slipped. It got away.",
+  "promisedLabel": "Promised",
+  "peakLabel": "Peak",
+  "diedLabel": "Why it died",
+  "ranks": [
+    {
+      "name": "Bait Dangler",
+      "min": 0,
+      "line": "A few nibbles. The graveyard is deep, cast again."
+    },
+    {
+      "name": "Wreck Diver",
+      "min": 900,
+      "line": "You hauled up some famous wrecks."
+    },
+    {
+      "name": "Kraken Catcher",
+      "min": 1800,
+      "line": "Legendary catches. You know where the bodies are buried."
+    }
+  ],
+  "lesson": "Most of these promised big returns with little risk. If it sounds too good to be true, it usually is.",
+  "boxTitle": "Your tackle box",
+  "boxLine": "Every catch you have ever landed. Can you collect them all?",
+  "share": {
+    "title": "I went fishing in the crypto graveyard.",
+    "cta": "Cast your line",
+    "text": "I fished up {n} dead crypto projects and scored {score}. Rank: {rank}. Go fishing: {link}"
+  },
+  "signup": {
+    "heading": "Get new toys first",
+    "line": "One email when a new toy goes live. No spam.",
+    "button": "Keep me posted"
+  },
+  "freshTitle": "Shut down in 2026",
+  "freshNone": "None yet. Fresh graves bite now and then."
+}
