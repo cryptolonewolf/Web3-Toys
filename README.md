@@ -152,6 +152,14 @@ complete, and the older Spot the Scam and simulator logic.
   that must keep their scores. Reported scams go in `data/scam-known.js`; the
   public phishing lists in `data/scam-feed.js` refresh every Sunday.
 - Spot the Scam game: `data/scam-scenarios.js` and `data/scam-game.js`.
+- Ride the Chart (What If You Invested $100): words and settings in
+  `data/invest-100.json`, prices in `data/prices/` (one file per token, one
+  closing price per month). To download or refresh the prices, a developer
+  runs `CRYPTOCOMPARE_API_KEY=... node tools/fetch-prices.mjs` with a free
+  key from developers.coindesk.com. Every price file records its source and
+  snapshot date and starts with `"review": true`; check a few months against
+  the source, then set it to false. Until real prices are in, a made up
+  Testcoin is used and the page says so.
 - Simulator content: `data/simulator.js`. It is on the home page as Coming
   soon in Play and Learn; its page still works at web3.toys/simulator.
 

@@ -1,0 +1,51 @@
+{
+  "_help": "Ride the Chart (What If You Invested $100). All the words and settings. tiers: how far (in percent) the price must fall from its last peak before the ride pauses to ask hold or sell; it asks again at each deeper tier. rejoinRise: after selling, how far (percent) the price must bounce off its low before the player is offered one chance to jump back in. minMonths: the shortest ride allowed. ranks.list: min is the share of drops the player held through (0 to 1). Prices live in data/prices/.",
+  "title": "Ride the Chart",
+  "intro": "Put $100 into a real token at any month in its history. Then ride its price to today.",
+  "pickToken": "Pick a token",
+  "pickMonth": "When do you buy?",
+  "startButton": "Start the ride",
+  "randomButton": "Surprise me",
+  "rideHint": "Hold the button to ride. Tap it for one month.",
+  "rideButton": "Hold to ride",
+  "dropTitle": "Down {pct}% from the top!",
+  "dropLine": "Your $100 is worth {value} right now.",
+  "holdButton": "Hold",
+  "sellButton": "Sell",
+  "rejoinTitle": "It bounced {pct}% off the bottom.",
+  "rejoinLine": "Jump back in with your {value}?",
+  "rejoinYes": "Jump back in",
+  "rejoinNo": "Stay out",
+  "soldNote": "You sold. The ghost cart shows what holding would do.",
+  "tiers": [30, 60, 80],
+  "rejoinRise": 50,
+  "minMonths": 12,
+  "ranks": {
+    "noDrops": { "name": "Smooth Rider", "line": "No big drops on your ride. That is rare, enjoy it." },
+    "list": [
+      { "name": "Paper Hands", "min": 0, "line": "You sold at the first scary dip." },
+      { "name": "Shaky Hands", "min": 0.25, "line": "You held a little, then the fear won." },
+      { "name": "Steady Hands", "min": 0.5, "line": "You held through half the storms." },
+      { "name": "Iron Hands", "min": 0.75, "line": "Most drops did not shake you." },
+      { "name": "Diamond Hands", "min": 1, "line": "You held through every single drop." }
+    ]
+  },
+  "resultTitle": "Your $100 became",
+  "holdLine": "Just holding the whole way: {hold}",
+  "beatLine": "You beat holding. Timing worked this time, but it rarely does twice.",
+  "behindLine": "Holding did better than your moves.",
+  "sameLine": "You held the whole way.",
+  "question": "It fell 50% or more {n} times. Would you really have held?",
+  "pastNote": "Past results do not predict the future.",
+  "survivorNote": "These tokens are still around today. Many others went to zero and are not on this list.",
+  "share": {
+    "title": "I rode the chart.",
+    "cta": "Ride it yourself",
+    "text": "My $100 in {token} from {start} became {value}. Rank: {rank}. Ride the chart yourself: {link}"
+  },
+  "signup": {
+    "heading": "Get new toys first",
+    "line": "One email when a new toy goes live. No spam.",
+    "button": "Keep me posted"
+  }
+}

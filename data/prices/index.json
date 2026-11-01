@@ -1,0 +1,15 @@
+{
+  "_help": "The tokens in Ride the Chart. Each has a file data/prices/<id>.json with one closing price per month in US dollars. tools/fetch-prices.mjs downloads them. sample: true means test prices only, and the page says so.",
+  "sample": true,
+  "source": "",
+  "sourceUrl": "",
+  "snapshot": "",
+  "review": true,
+  "tokens": [
+    {
+      "id": "TEST",
+      "name": "Testcoin (made up)",
+      "color": "#FFD93D"
+    }
+  ]
+}

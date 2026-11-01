@@ -205,6 +205,70 @@
     setTimeout(function () { el.classList.remove('fx-wobble'); }, 600);
   }
 
+  // ---------- Sound effects ----------
+  // Off until the visitor taps a speaker button; the choice is remembered.
+  // Short notes made in the browser, so there are no sound files to load.
+  var SOUND_KEY = 'web3toys.sound.v1';
+  var audio = null;
+
+  // Each sound is a list of notes: [start pitch, length in seconds, wave,
+  // volume, end pitch (optional), delay (optional)].
+  var SOUNDS = {
+    tick: [[740, 0.03, 'square', 0.025]],
+    pop: [[520, 0.09, 'sine', 0.12, 900]],
+    drop: [[620, 0.45, 'sawtooth', 0.06, 110]],
+    cash: [[1180, 0.07, 'triangle', 0.1], [1580, 0.12, 'triangle', 0.1, null, 0.07]],
+    ding: [[880, 0.15, 'sine', 0.12], [1320, 0.3, 'sine', 0.1, null, 0.12]],
+    buzz: [[150, 0.25, 'square', 0.05]],
+  };
+
+  function soundOn() {
+    try { return window.localStorage.getItem(SOUND_KEY) === 'on'; } catch (e) { return false; }
+  }
+
+  function play(name) {
+    if (!soundOn() || !SOUNDS[name]) return;
+    try {
+      audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+      var t0 = audio.currentTime;
+      SOUNDS[name].forEach(function (n) {
+        var t = t0 + (n[5] || 0);
+        var osc = audio.createOscillator();
+        var gain = audio.createGain();
+        osc.type = n[2];
+        osc.frequency.setValueAtTime(n[0], t);
+        if (n[4]) osc.frequency.exponentialRampToValueAtTime(n[4], t + n[1]);
+        gain.gain.setValueAtTime(n[3], t);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + n[1]);
+        osc.connect(gain);
+        gain.connect(audio.destination);
+        osc.start(t);
+        osc.stop(t + n[1] + 0.02);
+      });
+    } catch (e) {
+      // Sound is a bonus; never let it break a toy.
+    }
+  }
+
+  // A speaker button for a toy's header. Any number of them stay in step.
+  function soundButton() {
+    var on = soundOn();
+    return '<button type="button" class="sound-btn" data-sound-toggle aria-pressed="' + on + '">' +
+      '<span aria-hidden="true">' + (on ? '🔊' : '🔇') + '</span><span class="sr-only">Sound effects</span></button>';
+  }
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest && e.target.closest('[data-sound-toggle]');
+    if (!btn) return;
+    var on = !soundOn();
+    try { window.localStorage.setItem(SOUND_KEY, on ? 'on' : 'off'); } catch (err) { /* private mode */ }
+    document.querySelectorAll('[data-sound-toggle]').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(on));
+      b.firstChild.textContent = on ? '🔊' : '🔇';
+    });
+    play('pop');
+  });
+
   // ---------- Older helper ----------
   // When a page is opened straight from the computer (double-clicked) instead
   // of from a website, links to a folder like "simulator/" would show a file
@@ -228,6 +292,7 @@
     icon: icon,
     logoSvg: logoSvg,
     fx: { confetti: confetti, coins: coins, wobble: wobble, calm: calm },
+    sound: { play: play, on: soundOn, button: soundButton },
   };
 
   function start() {
