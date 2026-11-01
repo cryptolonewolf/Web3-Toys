@@ -4152,6 +4152,36 @@ a.xcard:active {
   border-bottom: 2px dashed var(--track);
 }
 
+/* "+10" on share buttons (js/site.js) */
+.coin-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: 6px;
+  padding: 1px 7px 1px 6px;
+  font: 800 13px var(--font-body);
+  color: var(--ink);
+  background: var(--yellow);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.coin-tag .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.btn:has(.coin-tag) {
+  white-space: nowrap;
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+.coin-tag.is-done {
+  background: var(--mint-tint);
+}
+
 /* ---------- Wider screens ---------- */
 
 @media (min-width: 700px) {

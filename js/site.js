@@ -309,6 +309,7 @@
     w.history = w.history.slice(0, 50);
     saveWallet(w);
     showCoins();
+    queueTags();
     popCoins(n, el);
     play('cash');
     return n;
@@ -347,13 +348,51 @@
     document.querySelectorAll('.coin-count, .menu-coins').forEach(function (el) { el.hidden = n <= 0; });
   }
 
+  // Each toy page earns sharing coins once: once for its share card, once
+  // for posting on X.
+  function pageKey() {
+    return location.pathname.replace(/index\.html$/, '').replace(/\/$/, '').split('/').pop() || 'home';
+  }
+
+  var X_LINKS = 'a[href^="https://x.com/intent"], a[href^="https://twitter.com/intent"]';
+
   // Posting on X from any toy earns coins once per page.
   document.addEventListener('click', function (e) {
-    var a = e.target.closest && e.target.closest('a[href^="https://x.com/intent"], a[href^="https://twitter.com/intent"]');
+    var a = e.target.closest && e.target.closest(X_LINKS);
     if (!a) return;
-    var page = location.pathname.replace(/index\.html$/, '').replace(/\/$/, '').split('/').pop() || 'home';
-    award('x', page, 'Posted on X from ' + (document.title.split(' · ')[0] || page), a);
+    award('x', pageKey(), 'Posted on X from ' + (document.title.split(' · ')[0] || pageKey()), a);
   });
+
+  // A small "+10" tag on every Share and Post on X button, so visitors know
+  // sharing earns coins. Once earned, it turns into a tick.
+  function tagButtons() {
+    var claimed = wallet().claimed;
+    document.querySelectorAll('[data-share], ' + X_LINKS).forEach(function (el) {
+      var kind = el.matches(X_LINKS) ? 'x' : 'share';
+      var n = coinAmount(kind);
+      if (!n) return;
+      var done = Boolean(claimed[kind + ':' + pageKey()]);
+      var tag = el.querySelector('.coin-tag');
+      if (!tag) {
+        tag = document.createElement('span');
+        tag.className = 'coin-tag';
+        el.appendChild(tag);
+      }
+      var html = done ? '✓' + icon('coin') + '<span class="sr-only"> coins earned</span>' : '+' + n + icon('coin') + '<span class="sr-only"> coins</span>';
+      if (tag.innerHTML !== html) tag.innerHTML = html;
+      tag.classList.toggle('is-done', done);
+    });
+  }
+
+  var tagQueued = false;
+  function queueTags() {
+    if (tagQueued) return;
+    tagQueued = true;
+    requestAnimationFrame(function () {
+      tagQueued = false;
+      tagButtons();
+    });
+  }
 
   // ---------- Older helper ----------
   // When a page is opened straight from the computer (double-clicked) instead
@@ -379,13 +418,16 @@
     logoSvg: logoSvg,
     fx: { confetti: confetti, coins: coins, wobble: wobble, calm: calm },
     sound: { play: play, on: soundOn, button: soundButton },
-    coins: { award: award, spend: spend, wallet: wallet, amount: coinAmount, refresh: showCoins },
+    coins: { award: award, spend: spend, wallet: wallet, amount: coinAmount, refresh: showCoins, pageKey: pageKey },
   };
 
   function start() {
     buildTopbar();
     buildFooter();
     showCoins();
+    // Toys draw their buttons later, so tag them whenever the page changes.
+    tagButtons();
+    new MutationObserver(queueTags).observe(document.body, { childList: true, subtree: true });
     // Opening any toy earns a small coin bonus once a day.
     if (document.getElementById('shop')) {
       var name = (document.title.split(' · ')[0] || '').split(':')[0];
