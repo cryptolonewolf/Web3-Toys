@@ -12,7 +12,7 @@
         {"id": "crypto-in-5", "title": "Genesis Block", "topic": "Crypto in 5 Minutes", "font": "luckiest", "accent": "blue", "time": "5 min", "path": "crypto-in-5/", "blurb": "How it started, narratives, the 4 year cycle, memes and what is trending.", "color": "blue", "object": "cube", "pattern": "rings", "edge": "tape", "status": "live"},
         {"id": "getting-started", "title": "Not Your Keys", "topic": "Getting Started in Crypto", "font": "bungee", "accent": "mint", "time": "6 min", "path": "getting-started/", "blurb": "Wallets, stablecoins, tokens, exchanges, swaps, fees, blockchains, perps and options.", "color": "mint", "object": "key", "pattern": "grid", "edge": "notch", "status": "live"},
         {"id": "dont-lose-money", "title": "Don't Get Rekt", "topic": "How Not to Lose Money", "font": "bangers", "accent": "coral", "time": "5 min", "path": "dont-lose-money/", "blurb": "Start small, skip perps, avoid meme gambling, pick good sources and spot scams.", "color": "coral", "object": "skull", "pattern": "zigzag", "edge": "corner", "status": "live"},
-        {"id": "web3-hacks", "status": "soon", "title": "Famous Web3 Hacks", "time": "5 min", "color": "orange", "object": "lock", "blurb": "A timeline of the biggest hacks, what went wrong and the lesson from each.", "pattern": "stripes", "edge": "pin", "font": "bangers"}
+        {"id": "web3-hacks", "status": "live", "kind": "dive", "path": "web3-hacks/", "title": "Famous Web3 Hacks", "time": "5 min", "color": "orange", "object": "lock", "blurb": "A timeline of the biggest hacks, what went wrong and the lesson from each.", "pattern": "stripes", "edge": "pin", "font": "bangers"}
       ]
     },
     {

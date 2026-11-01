@@ -3263,6 +3263,186 @@ a.xcard:active {
   background: #fff1b8;
 }
 
+/* ---------- The Vault Dive ---------- */
+
+.vtop {
+  display: grid;
+  gap: 12px;
+  text-align: center;
+}
+
+.vtitle {
+  font-family: 'Luckiest Guy', var(--font-display);
+  font-weight: 400;
+  font-size: 44px;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+.vtop-art {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.vtop-art .vdoor-svg {
+  width: 150px;
+}
+
+.vtop-art .vpile-svg {
+  width: 150px;
+}
+
+/* The coin pile and running total stay at the top while you scroll */
+.vhud {
+  position: sticky;
+  top: 70px;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  background: var(--white);
+  border: var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.vpile-svg {
+  display: block;
+  width: 100%;
+}
+
+.vhud-lost {
+  font-family: 'Luckiest Guy', var(--font-display);
+  font-size: 30px;
+  line-height: 1;
+  color: #c2273a;
+}
+
+.vhud-side {
+  text-align: right;
+}
+
+.vfloors {
+  display: grid;
+  margin: 0 -18px;
+}
+
+/* Each floor gets darker the deeper you go */
+.vfloor {
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+  min-height: 92vh;
+  align-content: center;
+  padding: 40px 18px;
+  background: color-mix(in srgb, #0b1033 calc(var(--depth) * 92%), #fff8e1);
+  border-top: 3px dashed rgba(31, 27, 46, 0.2);
+}
+
+.vfloor.is-deep {
+  color: #fff8e1;
+}
+
+.vlevel {
+  font-family: 'Luckiest Guy', var(--font-display);
+  font-size: 22px;
+  letter-spacing: 1px;
+  opacity: 0.8;
+}
+
+.vdoor {
+  width: 150px;
+  perspective: 600px;
+}
+
+.vdoor-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.vdoor .vdoor-svg {
+  transform-origin: left center;
+  transition: transform 0.9s cubic-bezier(0.3, 1.2, 0.5, 1), opacity 0.9s ease;
+}
+
+.vdoor-wheel {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.5s ease;
+}
+
+.vdoor.is-open .vdoor-wheel {
+  transform: rotate(180deg);
+}
+
+.vdoor.is-open .vdoor-svg {
+  transform: rotateY(-75deg);
+  opacity: 0.5;
+  transition-delay: 0.35s;
+}
+
+.vcard {
+  width: 100%;
+  max-width: 520px;
+  color: var(--ink);
+}
+
+.vguess-amount {
+  font-family: 'Luckiest Guy', var(--font-display);
+  font-size: 40px;
+  line-height: 1;
+  text-align: center;
+}
+
+.vscale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: -8px;
+}
+
+.vcard--open {
+  animation: pop-in 0.4s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.vlost {
+  font-family: 'Luckiest Guy', var(--font-display);
+  font-size: 38px;
+  line-height: 1;
+  color: #c2273a;
+}
+
+.vpoints {
+  font-weight: 800;
+  padding: 4px 10px;
+  justify-self: start;
+  background: var(--coral-tint);
+  border: var(--line-thin);
+  border-radius: 999px;
+}
+
+.vpoints.is-good {
+  background: var(--mint-tint);
+}
+
+.vscroll {
+  font-weight: 800;
+  animation: float 1.6s ease-in-out infinite;
+}
+
+.vbottom {
+  padding: 40px 18px;
+  background: #0b1033;
+}
+
+.vbottom .section-title {
+  color: #fff8e1;
+}
+
 /* ---------- Wider screens ---------- */
 
 @media (min-width: 700px) {

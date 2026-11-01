@@ -1,0 +1,142 @@
+{
+  "_help": "The Vault Dive (Famous Web3 Hacks). One floor per hack, from the smallest at the top to the biggest at the bottom. amountUsd: approximate US dollars lost, valued at the time of the hack. what: what went wrong, in one or two plain sentences (never how to do it). lesson: how to stay safe. returned: optional note when money came back. Every entry has sources and review: true until checked against them; set review to false once checked.",
+  "note": "Amounts are approximate, in US dollars at the time of each hack.",
+  "hacks": [
+    {
+      "id": "nomad",
+      "name": "Nomad Bridge",
+      "year": 2022,
+      "date": "2022-08-01",
+      "amountUsd": 190000000,
+      "what": "A routine upgrade left the bridge accepting withdrawals it should have refused. Once people noticed, hundreds of copycats emptied it within hours.",
+      "lesson": "One careless update can open the doors. Bridges hold huge pots of money, so keep only what you need on them.",
+      "sources": [{ "label": "rekt.news: Nomad", "url": "https://rekt.news/nomad-rekt/" }],
+      "review": true
+    },
+    {
+      "id": "euler",
+      "name": "Euler Finance",
+      "year": 2023,
+      "date": "2023-03-13",
+      "amountUsd": 197000000,
+      "what": "A flaw in a newer part of the lending app's code let an attacker take far more than they should have, even though the code had been audited.",
+      "lesson": "Audits lower risk, they do not remove it. Do not put everything in one app.",
+      "returned": "The attacker returned almost all of it a few weeks later.",
+      "sources": [{ "label": "rekt.news: Euler", "url": "https://rekt.news/euler-rekt/" }],
+      "review": true
+    },
+    {
+      "id": "wazirx",
+      "name": "WazirX",
+      "year": 2024,
+      "date": "2024-07-18",
+      "amountUsd": 235000000,
+      "what": "Attackers got the exchange's wallet signers to approve a change that handed them control of a big wallet. Customer withdrawals were frozen for months.",
+      "lesson": "On an exchange, the exchange holds your keys. Keep there only what you are actively trading.",
+      "sources": [{ "label": "Wikipedia: WazirX", "url": "https://en.wikipedia.org/wiki/WazirX" }],
+      "review": true
+    },
+    {
+      "id": "dmm",
+      "name": "DMM Bitcoin",
+      "year": 2024,
+      "date": "2024-05-31",
+      "amountUsd": 308000000,
+      "what": "About 4,500 bitcoin left the Japanese exchange's wallet. The FBI later said North Korean hackers first fooled a worker at its wallet software company.",
+      "lesson": "People are the weakest link. Fake job offers and fake files are a favourite way in.",
+      "sources": [{ "label": "FBI statement", "url": "https://www.fbi.gov/news/press-releases/fbi-dc3-and-npa-identification-of-north-korean-cyber-actors-tracked-as-tradertraitor-responsible-for-theft-of-308-million-from-bitcoindmmcom" }],
+      "review": true
+    },
+    {
+      "id": "wormhole",
+      "name": "Wormhole",
+      "year": 2022,
+      "date": "2022-02-02",
+      "amountUsd": 326000000,
+      "what": "A missing check in the bridge let an attacker create 120,000 wrapped ether that had nothing behind them.",
+      "lesson": "A wrapped token is only as good as the bridge behind it.",
+      "returned": "Its backer, Jump Crypto, refilled the bridge so users were not left short.",
+      "sources": [{ "label": "rekt.news: Wormhole", "url": "https://rekt.news/wormhole-rekt/" }],
+      "review": true
+    },
+    {
+      "id": "mtgox",
+      "name": "Mt. Gox",
+      "year": 2014,
+      "date": "2014-02-24",
+      "amountUsd": 450000000,
+      "what": "The world's biggest bitcoin exchange found about 850,000 bitcoin missing after years of thefts nobody spotted, and collapsed.",
+      "lesson": "Not your keys, not your coins. Customers waited about ten years to get some of it back.",
+      "sources": [{ "label": "Wikipedia: Mt. Gox", "url": "https://en.wikipedia.org/wiki/Mt._Gox" }],
+      "review": true
+    },
+    {
+      "id": "ftx",
+      "name": "FTX",
+      "year": 2022,
+      "date": "2022-11-11",
+      "amountUsd": 477000000,
+      "what": "On the very day the exchange filed for bankruptcy, someone drained its wallets. Prosecutors later charged a group that had taken over a staff phone number.",
+      "lesson": "When an exchange is in trouble, its security often is too. Move funds you own to your own wallet.",
+      "sources": [{ "label": "Wikipedia: Bankruptcy of FTX", "url": "https://en.wikipedia.org/wiki/Bankruptcy_of_FTX" }],
+      "review": true
+    },
+    {
+      "id": "coincheck",
+      "name": "Coincheck",
+      "year": 2018,
+      "date": "2018-01-26",
+      "amountUsd": 530000000,
+      "what": "The Japanese exchange kept its NEM coins in a wallet that was always online, and attackers took them in one go.",
+      "lesson": "Online hot wallets are handy but risky. Most money should sit in offline cold storage.",
+      "sources": [{ "label": "Wikipedia: Coincheck", "url": "https://en.wikipedia.org/wiki/Coincheck" }],
+      "review": true
+    },
+    {
+      "id": "bnb-bridge",
+      "name": "BNB Chain bridge",
+      "year": 2022,
+      "date": "2022-10-06",
+      "amountUsd": 570000000,
+      "what": "A bug in the bridge's checks let an attacker create 2 million BNB from nothing. The chain was paused and most of it never got out.",
+      "lesson": "Some chains can be paused by a small group. That can stop a hack, but it also shows who is really in control.",
+      "returned": "Most of it was frozen before it could leave the chain.",
+      "sources": [{ "label": "rekt.news: BNB Bridge", "url": "https://rekt.news/bnb-bridge-rekt/" }],
+      "review": true
+    },
+    {
+      "id": "poly",
+      "name": "Poly Network",
+      "year": 2021,
+      "date": "2021-08-10",
+      "amountUsd": 611000000,
+      "what": "A flaw in how the bridge checked who was allowed to move funds let a hacker take them across three chains.",
+      "lesson": "Bridges are some of the riskiest places for money in crypto.",
+      "returned": "The hacker gave almost all of it back within two weeks.",
+      "sources": [{ "label": "rekt.news: Poly Network", "url": "https://rekt.news/polynetwork-rekt/" }],
+      "review": true
+    },
+    {
+      "id": "ronin",
+      "name": "Ronin Network",
+      "year": 2022,
+      "date": "2022-03-23",
+      "amountUsd": 625000000,
+      "what": "Withdrawals needed 5 of 9 keys, and attackers got hold of 5 of them, partly through a fake job offer. Nobody noticed for six days.",
+      "lesson": "A few keys means a few targets. Never open files from surprise job offers on a work computer.",
+      "sources": [{ "label": "rekt.news: Ronin", "url": "https://rekt.news/ronin-rekt/" }],
+      "review": true
+    },
+    {
+      "id": "bybit",
+      "name": "Bybit",
+      "year": 2025,
+      "date": "2025-02-21",
+      "amountUsd": 1500000000,
+      "what": "Attackers tampered with the wallet screen the exchange's signers used, so a transfer that looked routine actually handed over the wallet. It is the biggest crypto theft so far.",
+      "lesson": "Check what you are really signing, not just what the screen shows. Hardware wallets help.",
+      "sources": [{ "label": "FBI alert", "url": "https://www.ic3.gov/PSA/2025/PSA250226" }],
+      "review": true
+    }
+  ]
+}

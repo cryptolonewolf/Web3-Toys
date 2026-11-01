@@ -220,6 +220,7 @@
     cash: [[1180, 0.07, 'triangle', 0.1], [1580, 0.12, 'triangle', 0.1, null, 0.07]],
     ding: [[880, 0.15, 'sine', 0.12], [1320, 0.3, 'sine', 0.1, null, 0.12]],
     buzz: [[150, 0.25, 'square', 0.05]],
+    clunk: [[90, 0.3, 'square', 0.09, 45], [60, 0.25, 'sine', 0.12, null, 0.05]],
   };
 
   function soundOn() {

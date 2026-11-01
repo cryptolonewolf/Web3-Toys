@@ -1,0 +1,30 @@
+{
+  "_help": "The Vault Dive (Famous Web3 Hacks): words and scoring. The hacks are in data/hacks.json and the quiz in quizzes/web3-hacks.json. closeRatio: a guess within this many times the real amount scores full points; farRatio: this many times off scores zero.",
+  "id": "web3-hacks",
+  "title": "The Vault Dive",
+  "certTitle": "The Vault Dive: Famous Web3 Hacks",
+  "intro": "Dive down a vault, one floor per famous hack. Guess how much was lost before each door opens.",
+  "startButton": "Start the dive",
+  "pileLabel": "Total lost",
+  "guessQuestion": "How much was lost?",
+  "lockButton": "Lock in my guess",
+  "scrollHint": "Scroll down to the next floor",
+  "pointsLine": "You guessed {guess}. +{points} points",
+  "closeRatio": 1.1,
+  "farRatio": 4,
+  "ranks": [
+    { "name": "Vault Tourist", "min": 0 },
+    { "name": "Vault Detective", "min": 0.4 },
+    { "name": "Vault Expert", "min": 0.7 },
+    { "name": "Vault Oracle", "min": 0.9 }
+  ],
+  "bottomTitle": "You reached the bottom.",
+  "bottomLine": "{total} lost across these {n} hacks alone.",
+  "bottomLesson": "Most of it was lost through stolen keys, fooled people and bridges. Keep most of your crypto in a wallet only you control.",
+  "quizButton": "Take the quiz for your certificate",
+  "share": {
+    "title": "I dove the Vault.",
+    "cta": "Dive in yourself",
+    "text": "I guessed my way through {n} famous crypto hacks and scored {score}. Rank: {rank}. Try the Vault Dive: {link}"
+  }
+}

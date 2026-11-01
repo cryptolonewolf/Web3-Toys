@@ -152,6 +152,11 @@ complete, and the older Spot the Scam and simulator logic.
   that must keep their scores. Reported scams go in `data/scam-known.js`; the
   public phishing lists in `data/scam-feed.js` refresh every Sunday.
 - Spot the Scam game: `data/scam-scenarios.js` and `data/scam-game.js`.
+- The Vault Dive (Famous Web3 Hacks): the hacks are in `data/hacks.json`
+  (one floor each, smallest first, every one with a source link and
+  `"review": true` until you have checked it), words and scoring in
+  `data/web3-hacks.json`, quiz in `quizzes/web3-hacks.json` (certificate
+  letter E).
 - Ride the Chart (What If You Invested $100): words and settings in
   `data/invest-100.json`, prices in `data/prices/` (one file per token, one
   closing price per month). To download or refresh the prices, a developer

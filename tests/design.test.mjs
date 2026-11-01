@@ -34,7 +34,7 @@ describe('toy looks', () => {
   const FONTS = ['luckiest', 'bungee', 'bangers', 'chewy'];
   const ACCENTS = ['blue', 'mint', 'coral', 'violet', 'yellow'];
   const home = json('data/home.json');
-  const built = home.shelves.flatMap((s) => s.cards).filter((c) => c.status === 'live' && c.kind !== 'game');
+  const built = home.shelves.flatMap((s) => s.cards).filter((c) => c.status === 'live' && !c.kind);
 
   it('each built toy has its own name, font and colour', () => {
     assert.equal(new Set(built.map((c) => c.font)).size, built.length);
@@ -62,12 +62,15 @@ describe('toy looks', () => {
     assert.equal(new Set(looks).size, looks.length, 'every card needs its own colour and pattern pair');
   });
 
-  it('the five new toys are on the home page as coming soon', () => {
+  it('the five new toys are on the home page, live once built', () => {
     const where = { 'web3-hacks': 'beginners', 'hall-of-fame': 'careers', 'ways-to-moon': 'pros', 'dead-projects': 'games', 'invest-100': 'games' };
+    const built = ['web3-hacks'];
     for (const [id, shelfId] of Object.entries(where)) {
       const s = home.shelves.find((x) => x.id === shelfId);
       const c = s.cards.find((x) => x.id === id);
-      assert.ok(c && (c.status || s.status) === 'soon', id);
+      assert.ok(c, id);
+      assert.equal(c.status || s.status, built.includes(id) ? 'live' : 'soon', id);
+      if (built.includes(id)) readFileSync(new URL(`../${c.path}index.html`, import.meta.url));
     }
   });
 

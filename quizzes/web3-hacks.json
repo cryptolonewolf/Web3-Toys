@@ -1,0 +1,47 @@
+{
+  "_help": "Quiz for The Vault Dive (Famous Web3 Hacks). 5 to 8 questions. answer must match one of the options exactly. explain is shown after the quiz. This folder is never shown to visitors.",
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What does \"not your keys, not your coins\" mean?",
+      "options": ["If someone else holds the keys, they control your crypto", "Keys are only for bitcoin", "Lost keys can be reset by email", "Exchanges never lose coins"],
+      "answer": "If someone else holds the keys, they control your crypto",
+      "explain": "Mt. Gox, Coincheck, FTX and others lost money customers had left with them."
+    },
+    {
+      "id": "q2",
+      "question": "Why are bridges a big target?",
+      "options": ["They hold huge pools of money in one place", "They are run by banks", "They only hold small amounts", "They cannot be updated"],
+      "answer": "They hold huge pools of money in one place",
+      "explain": "Ronin, Wormhole, Nomad, Poly Network and the BNB bridge were all bridges."
+    },
+    {
+      "id": "q3",
+      "question": "Where should most of your crypto live?",
+      "options": ["In a wallet only you control, mostly offline", "On whichever exchange pays the most", "Split across as many new apps as possible", "In a screenshot of your seed phrase"],
+      "answer": "In a wallet only you control, mostly offline",
+      "explain": "Keep on exchanges only what you are actively trading."
+    },
+    {
+      "id": "q4",
+      "question": "A recruiter sends a surprise job offer with a file to open. What is the safe move?",
+      "options": ["Do not open it on a computer that touches your crypto", "Open it right away", "Forward it to your whole team", "Send your wallet address to apply"],
+      "answer": "Do not open it on a computer that touches your crypto",
+      "explain": "Fake job offers helped attackers into Ronin and other hacks."
+    },
+    {
+      "id": "q5",
+      "question": "What does an audit mean for an app?",
+      "options": ["It lowers the risk, but bugs can still be there", "The app can never be hacked", "Your money is insured", "The team will refund any loss"],
+      "answer": "It lowers the risk, but bugs can still be there",
+      "explain": "Euler had been audited and still lost about $197 million."
+    },
+    {
+      "id": "q6",
+      "question": "In the Bybit hack, what went wrong when the signers approved the transfer?",
+      "options": ["The screen showed something different from what they really signed", "They shared their password on social media", "The exchange had no security at all", "A customer guessed the password"],
+      "answer": "The screen showed something different from what they really signed",
+      "explain": "Check what you are really signing. Hardware wallets show the true details."
+    }
+  ]
+}

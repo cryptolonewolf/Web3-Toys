@@ -168,7 +168,7 @@ describe('content files', () => {
   const home = json('data/home.json');
   const index = json('quizzes/index.json').toys;
   const isLive = (s, c) => (c.status || s.status) === 'live';
-  const live = home.shelves.flatMap((s) => s.cards.filter((c) => isLive(s, c) && c.kind !== 'game'));
+  const live = home.shelves.flatMap((s) => s.cards.filter((c) => isLive(s, c) && !c.kind));
   const TYPES = ['story', 'reveal', 'pick', 'steps', 'trending'];
   const POSES = ['grin', 'thinking', 'worried', 'celebrating'];
 

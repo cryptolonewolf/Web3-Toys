@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>The Vault Dive: Famous Web3 Hacks · web3.toys</title>
+    <meta name="description" content="Dive down a vault, one floor per famous crypto hack. Guess how much was lost, learn what went wrong and how to stay safe, then earn a certificate." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="web3.toys" />
+    <meta property="og:title" content="The Vault Dive: Famous Web3 Hacks" />
+    <meta property="og:description" content="Guess how much was lost in the biggest crypto hacks, one vault floor at a time." />
+    <meta property="og:url" content="https://web3.toys/web3-hacks/" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="The Vault Dive" />
+    <meta name="twitter:description" content="Guess how much was lost in the biggest crypto hacks, one vault floor at a time." />
+    <meta name="theme-color" content="#FFD93D" />
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers&family=Bungee&family=Chewy&family=Fredoka:wght@500;600;700&family=Luckiest+Guy&family=Nunito:wght@600;700;800&display=swap" />
+    <link rel="stylesheet" href="../styles/toys.css" />
+  </head>
+  <body data-toy="web3-hacks">
+    <header id="topbar" class="topbar">
+      <div class="topbar-inner"><a class="logo" href="../">web3.toys</a></div>
+    </header>
+
+    <div class="page page--toy">
+      <header class="stack stack--tight">
+        <div class="site-header">
+          <div class="toy-hero">
+            <div><p class="toy-hero-name ride-hero-name">The Vault Dive</p><p class="small-print">Famous Web3 Hacks</p></div>
+          </div>
+          <div class="ride-tools">
+            <span id="status-pill" class="pill">by BuildWithAki</span>
+            <span data-sound-slot></span>
+          </div>
+        </div>
+      </header>
+
+      <div class="toy-layout">
+        <main id="app" class="stack" aria-live="polite">
+          <noscript>
+            <p class="card">The Vault Dive needs JavaScript turned on.</p>
+          </noscript>
+        </main>
+        <aside id="shop" class="shop" data-toy="web3-hacks" aria-label="Shop"></aside>
+      </div>
+
+      <footer class="site-footer">
+        <p><strong>Educational only. Not financial advice.</strong></p>
+        <p>Amounts are approximate, in US dollars at the time of each hack. Sources are linked on every floor.</p>
+        <p>web3.toys · by BuildWithAki</p>
+      </footer>
+    </div>
+
+    <script src="../js/site.js"></script>
+    <script src="../config.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/toy-kit.js"></script>
+    <script src="../js/progress.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script src="../js/vault-engine.js"></script>
+    <script src="../js/vault-app.js"></script>
+    <script src="../js/shop.js"></script>
+    <script>document.querySelector('[data-sound-slot]').outerHTML = window.WEB3TOYS.sound.button();</script>
+  </body>
+</html>
