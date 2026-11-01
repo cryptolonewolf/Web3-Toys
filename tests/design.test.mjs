@@ -63,7 +63,7 @@ describe('toy looks', () => {
   });
 
   it('the five new toys are on the home page as coming soon', () => {
-    const where = { 'web3-hacks': 'beginners', 'hall-of-fame': 'degens', 'ways-to-moon': 'pros', 'dead-projects': 'games', 'invest-100': 'games' };
+    const where = { 'web3-hacks': 'beginners', 'hall-of-fame': 'careers', 'ways-to-moon': 'pros', 'dead-projects': 'games', 'invest-100': 'games' };
     for (const [id, shelfId] of Object.entries(where)) {
       const s = home.shelves.find((x) => x.id === shelfId);
       const c = s.cards.find((x) => x.id === id);

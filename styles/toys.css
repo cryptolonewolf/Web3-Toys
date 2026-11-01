@@ -2355,8 +2355,9 @@ body.home .page {
   border-top: 0;
 }
 
-/* For Beginners, For Degens and For Pros: stacked on phones, side by side
-   on computers (see below) */
+/* Sections marked "column" in data/home.json share a row when they fit.
+   Each section spans as many grid columns as it has cards (--s2 and --s3,
+   set by js/home.js), so every card keeps the same size. */
 .shelf-row {
   display: flex;
   flex-direction: column;
@@ -2364,49 +2365,71 @@ body.home .page {
 }
 
 .shelf-row + .shelf,
-.shelf + .shelf {
+.shelf + .shelf,
+.shelf + .shelf-row,
+.shelf-row + .shelf-row {
   margin-top: 14px;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 700px) {
   .shelf-row {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0;
-    align-items: start;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 18px;
   }
 
   .shelf-row > .shelf {
-    padding: 4px 22px 0;
+    grid-column: span var(--s2);
+  }
+
+  .home-top + .shelf-row > .shelf {
+    padding-top: 4px;
     border-top: 0;
   }
 
-  .shelf-row > .shelf:first-child {
-    padding-left: 0;
-  }
-
-  .shelf-row > .shelf:last-child {
-    padding-right: 0;
-  }
-
-  .shelf-row > .shelf + .shelf {
-    border-left: 3px dashed rgba(31, 27, 46, 0.25);
-  }
-
-  .shelf--column .tile-grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 16px;
-  }
-
-  .shelf-row + .shelf {
-    margin-top: 30px;
-    padding-top: 26px;
-  }
-
-  .shelf--column .shelf-title {
-    font-size: 26px;
+  .shelf-row > .shelf .tile-grid {
+    grid-template-columns: repeat(var(--s2), minmax(0, 1fr));
   }
 }
+
+@media (min-width: 1100px) {
+  .shelf-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px 20px;
+  }
+
+  .shelf-row > .shelf {
+    grid-column: span var(--s3);
+  }
+
+  .shelf-row > .shelf .tile-grid {
+    grid-template-columns: repeat(var(--s3), minmax(0, 1fr));
+  }
+}
+
+/* Coming soon: smaller cards, two across on phones */
+.shelf--soon .tile-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.shelf--soon .tile-soon {
+  top: 4px;
+  right: 5px;
+  padding: 0 5px;
+  font-size: 8px;
+  border-width: 1.5px;
+}
+
+@media (min-width: 700px) {
+  .shelf--soon .tile-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+}
+
+@media (min-width: 1100px) {
+  .shelf--soon .tile-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+}
+
+.shelf--blue { --shelf: var(--blue); }
 
 .shelf-head {
   display: flex;
@@ -2476,7 +2499,7 @@ body.home .page {
   .tile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 }
 
-@media (min-width: 1060px) {
+@media (min-width: 1100px) {
   .tile-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 }
 

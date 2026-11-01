@@ -304,7 +304,10 @@
     var d = DESIGNS[id];
     if (!d) return null;
     loadFont(d, title);
-    return d.art() + '<span class="xtitle" style="font-family:\'' + d.font + '\', var(--font-display)">' + (d.title ? d.title(esc(title)) : esc(title)) + '</span>';
+    // Titles with drawn letters or extra words (like the key ring O) carry the
+    // plain toy name for screen readers.
+    var label = d.title ? ' role="img" aria-label="' + esc(title) + '"' : '';
+    return d.art() + '<span class="xtitle"' + label + ' style="font-family:\'' + d.font + '\', var(--font-display)">' + (d.title ? d.title(esc(title)) : esc(title)) + '</span>';
   }
 
   window.Web3Cards = { card: card, ids: Object.keys(DESIGNS) };

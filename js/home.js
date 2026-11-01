@@ -38,33 +38,46 @@
       '<div class="home-top"><h1 class="tagline">' + esc(home.tagline) + '</h1>' +
       '<a class="rank-link" href="progress/" aria-label="Your rank: ' + esc(rank.name) + '. Open My Progress">' +
       '<span class="rank-badge rank-badge--name">' + esc(rank.name) + '</span></a></div>' +
-      sections(home.shelves);
+      sections(home);
   }
 
-  // Sections marked "column" sit side by side on computers; the rest are full width.
-  function sections(shelves) {
+  // Live toys show in their own section. Every coming soon toy goes into one
+  // Coming soon section at the bottom, and moves up by itself once it is live.
+  // Sections marked "column" share a row on wider screens when they fit.
+  function sections(home) {
+    var soon = [];
     var html = '';
     var row = '';
-    shelves.forEach(function (shelf) {
+    home.shelves.forEach(function (shelf) {
+      var live = shelf.cards.filter(function (c) { return isLive(c, shelf); });
+      shelf.cards.forEach(function (c) { if (!isLive(c, shelf)) soon.push(c); });
+      if (!live.length) return;
       if (shelf.column) {
-        row += section(shelf, true);
+        row += section(shelf, live, true, '');
         return;
       }
       if (row) html += '<div class="shelf-row">' + row + '</div>';
       row = '';
-      html += section(shelf, false);
+      html += section(shelf, live, true, '');
     });
     if (row) html += '<div class="shelf-row">' + row + '</div>';
+    if (soon.length && home.soonSection) html += section(home.soonSection, soon, false, ' shelf--soon');
     return html;
   }
 
-  function section(shelf, column) {
-    // A card can override its shelf's status, so a shelf can mix live and coming soon cards.
-    var isLive = function (c) { return (c.status || shelf.status) === 'live'; };
-    return '<section class="shelf shelf--' + esc(shelf.color || 'yellow') + (column ? ' shelf--column' : '') + '" aria-labelledby="shelf-' + esc(shelf.id) + '">' +
+  // A card can set its own status; otherwise its section's status counts.
+  function isLive(c, shelf) {
+    return (c.status || shelf.status) === 'live';
+  }
+
+  // n cards: the section spans that many grid columns (up to 2 or 3), so
+  // small sections can share a row and every card stays the same size.
+  function section(shelf, cards, live, extra) {
+    var n = cards.length;
+    return '<section class="shelf shelf--' + esc(shelf.color || 'yellow') + extra + '" style="--s2:' + Math.min(n, 2) + ';--s3:' + Math.min(n, 3) + '" aria-labelledby="shelf-' + esc(shelf.id) + '">' +
       '<div class="shelf-head"><h2 id="shelf-' + esc(shelf.id) + '" class="shelf-title">' +
       (shelf.icon ? '<span class="shelf-icon" aria-hidden="true">' + esc(shelf.icon) + '</span>' : '') + esc(shelf.title) + '</h2>' +
       (shelf.blurb ? '<p class="shelf-blurb">' + esc(shelf.blurb) + '</p>' : '') + '</div>' +
-      '<ul class="tile-grid">' + shelf.cards.map(function (c) { return tile(c, isLive(c)); }).join('') + '</ul></section>';
+      '<ul class="tile-grid">' + cards.map(function (c) { return tile(c, live); }).join('') + '</ul></section>';
   }
 })();
