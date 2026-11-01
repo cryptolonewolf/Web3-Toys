@@ -64,7 +64,7 @@ describe('toy looks', () => {
 
   it('the five new toys are on the home page, live once built', () => {
     const where = { 'web3-hacks': 'beginners', 'hall-of-fame': 'careers', 'ways-to-moon': 'pros', 'dead-projects': 'games', 'invest-100': 'games' };
-    const built = ['web3-hacks'];
+    const built = ['web3-hacks', 'invest-100'];
     for (const [id, shelfId] of Object.entries(where)) {
       const s = home.shelves.find((x) => x.id === shelfId);
       const c = s.cards.find((x) => x.id === id);

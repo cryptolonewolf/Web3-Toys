@@ -37,11 +37,15 @@ const TOKENS = [
 const SOURCE = 'CryptoCompare (CoinDesk Data), daily close in USD, last day of each month';
 const SOURCE_URL = 'https://min-api.cryptocompare.com/documentation?key=Historical&cat=dataHistoday';
 
+// The free key allows about 10 calls a minute, so wait between calls.
+const pause = () => new Promise((r) => setTimeout(r, 7000));
+
 async function daily(symbol) {
   const days = [];
   let toTs = Math.floor(Date.now() / 1000);
   for (let page = 0; page < 10; page++) {
     const url = `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${symbol}&tsym=USD&limit=2000&toTs=${toTs}&api_key=${KEY}`;
+    await pause();
     const res = await fetch(url);
     const body = await res.json();
     if (body.Response !== 'Success') throw new Error(`${symbol}: ${body.Message || res.status}`);

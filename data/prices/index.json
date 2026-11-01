@@ -1,15 +1,85 @@
 {
-  "_help": "The tokens in Ride the Chart. Each has a file data/prices/<id>.json with one closing price per month in US dollars. tools/fetch-prices.mjs downloads them. sample: true means test prices only, and the page says so.",
-  "sample": true,
-  "source": "",
-  "sourceUrl": "",
-  "snapshot": "",
+  "_help": "The tokens in Ride the Chart. Each has a file data/prices/<id>.json with one closing price per month in US dollars. tools/fetch-prices.mjs downloads them.",
+  "sample": false,
+  "source": "CryptoCompare (CoinDesk Data), daily close in USD, last day of each month",
+  "sourceUrl": "https://min-api.cryptocompare.com/documentation?key=Historical&cat=dataHistoday",
+  "snapshot": "2026-11-01",
   "review": true,
   "tokens": [
     {
-      "id": "TEST",
-      "name": "Testcoin (made up)",
-      "color": "#FFD93D"
+      "id": "BTC",
+      "name": "Bitcoin",
+      "color": "#F7931A"
+    },
+    {
+      "id": "ETH",
+      "name": "Ethereum",
+      "color": "#8A92B2"
+    },
+    {
+      "id": "SOL",
+      "name": "Solana",
+      "color": "#9945FF"
+    },
+    {
+      "id": "BNB",
+      "name": "BNB",
+      "color": "#F3BA2F"
+    },
+    {
+      "id": "XRP",
+      "name": "XRP",
+      "color": "#23292F"
+    },
+    {
+      "id": "ADA",
+      "name": "Cardano",
+      "color": "#0033AD"
+    },
+    {
+      "id": "DOGE",
+      "name": "Dogecoin",
+      "color": "#C2A633"
+    },
+    {
+      "id": "AVAX",
+      "name": "Avalanche",
+      "color": "#E84142"
+    },
+    {
+      "id": "DOT",
+      "name": "Polkadot",
+      "color": "#E6007A"
+    },
+    {
+      "id": "LINK",
+      "name": "Chainlink",
+      "color": "#2A5ADA"
+    },
+    {
+      "id": "LTC",
+      "name": "Litecoin",
+      "color": "#A6A9AA"
+    },
+    {
+      "id": "SHIB",
+      "name": "Shiba Inu",
+      "color": "#FFA409"
+    },
+    {
+      "id": "UNI",
+      "name": "Uniswap",
+      "color": "#FF007A"
+    },
+    {
+      "id": "TRX",
+      "name": "TRON",
+      "color": "#FF060A"
+    },
+    {
+      "id": "POL",
+      "name": "Polygon (MATIC, now POL)",
+      "color": "#8247E5"
     }
   ]
 }
