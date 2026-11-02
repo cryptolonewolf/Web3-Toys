@@ -71,7 +71,8 @@
         {"id": "tool-agreements", "status": "live", "kind": "tool", "path": "builder/agreements/", "title": "SAFT and Agreement Templates", "time": "Tool", "blurb": "Fill the blanks, download the document, then ask a lawyer."},
         {"id": "tool-meme-kit", "status": "live", "kind": "tool", "path": "builder/meme-kit/", "title": "Meme Coin Launch Kit", "time": "Tool", "blurb": "Names, tickers, a logo and launch posts, launched responsibly."},
         {"id": "tool-kol-scorecard", "status": "live", "kind": "tool", "path": "builder/kol-scorecard/", "title": "KOL Vetting Scorecard", "time": "Tool", "blurb": "Score a KOL from public numbers before you pay."},
-        {"id": "tool-airdrop-planner", "status": "live", "kind": "tool", "path": "builder/airdrop-planner/", "title": "Airdrop Campaign Planner", "time": "Tool", "blurb": "Who gets tokens, how many, and when they can claim."}
+        {"id": "tool-airdrop-planner", "status": "live", "kind": "tool", "path": "builder/airdrop-planner/", "title": "Airdrop Campaign Planner", "time": "Tool", "blurb": "Who gets tokens, how many, and when they can claim."},
+        {"id": "tool-links-checker", "status": "live", "kind": "tool", "path": "builder/links-checker/", "title": "Official Links Checker", "time": "Tool", "blurb": "Is that link the real domain, or a look-alike?"}
       ]
     },
     {

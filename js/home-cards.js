@@ -424,6 +424,19 @@
         );
       },
     },
+    'tool-links-checker': {
+      font: 'Space Mono',
+      title: function () { return 'Official<br>Links<br>Checker'; },
+      art: function () {
+        return svg(
+          '<rect width="270" height="100" fill="#F0FFF4"/>' +
+          '<g class="lk-chain" fill="none" stroke="' + INK + '" stroke-width="7" stroke-linecap="round">' +
+          '<rect x="168" y="36" width="44" height="26" rx="13"/><rect x="200" y="36" width="44" height="26" rx="13" stroke="#6BCB77"/>' +
+          '<rect x="200" y="36" width="44" height="26" rx="13" fill="none" stroke="' + INK + '" stroke-width="2.5"/></g>' +
+          '<circle cx="246" cy="22" r="14" fill="#6BCB77" stroke="' + INK + '" stroke-width="2.5"/><path d="M239 22 l5 5 l9 -10" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>'
+        );
+      },
+    },
   };
 
   // Loads one Google Font with only the letters it needs.

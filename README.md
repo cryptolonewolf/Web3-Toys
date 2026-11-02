@@ -97,6 +97,10 @@ window, "Save as PDF"), Download PNG, Copy and Reset.
 - Airdrop Campaign Planner (`builder/airdrop-planner/`): eligibility rules,
   anti-farming ideas, sharing methods and tiers, timeline steps and warnings
   are in `data/tools/airdrop.json`.
+- Official Links Checker (`builder/links-checker/`): the official domains
+  (exchanges, wallets, explorers, apps), the three result texts and the
+  look-alike reasons are in `data/tools/official_domains.json`. Verify every
+  domain before going live; projects change domains.
 
 ## Project Academy
 

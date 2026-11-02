@@ -306,3 +306,29 @@ describe('Airdrop Campaign Planner', () => {
     assert.equal(A.plan({ ...ac.defaults, snapshot: '2026-12-01' }, ac).warnings.length, 0);
   });
 });
+
+describe('Official Links Checker', () => {
+  const L = require('../js/links-engine.js');
+  const od = json('data/tools/official_domains.json');
+  const kind = (u) => L.check(u, od).kind;
+
+  it('matches official domains and their subdomains', () => {
+    assert.equal(od.review, true);
+    ['binance.com', 'https://www.binance.com/en/login', 'accounts.binance.com', 'jup.ag', 'phantom.app'].forEach((u) => assert.equal(kind(u), 'match', u));
+  });
+
+  it('spots look-alikes', () => {
+    ['binance-support.com', 'blnance.com', 'binance.org', 'metamsk.io', 'rnetamask.io', 'https://binance.com@evil.io', 'etherscan.io.verify-wallet.xyz', 'https://xn--bnance-zta.com', '192.168.1.1']
+      .forEach((u) => assert.equal(kind(u), 'similar', u));
+  });
+
+  it('says not on our list otherwise, and never calls a link safe', () => {
+    assert.equal(kind('example.org'), 'unknown');
+    assert.equal(kind('hello'), 'invalid');
+    assert.ok(!JSON.stringify(od.results).toLowerCase().includes('safe'));
+    assert.ok(od.always.includes('cannot tell if a page, message or request is safe'));
+    assert.equal(od.results.match.title, 'Matches the official domain');
+    assert.equal(od.results.similar.title, 'Looks similar, be careful');
+    assert.equal(od.results.unknown.title, 'Not on our list');
+  });
+});
