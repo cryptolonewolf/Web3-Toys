@@ -1,0 +1,20 @@
+{
+  "_help": "Cap Table and Dilution Simulator settings. founders: who starts with the company (percent). rounds: the starting rounds. types: the round types with their fields and a one line explanation. The maths is simplified on purpose: a SAFE counts as a post-money SAFE (amount divided by the cap), a priced round sells new shares at the pre-money valuation, a SAFT sells future tokens (amount divided by the token valuation) and does not change shares, and token warrants give shareholders a share of the token supply in line with their shares.",
+  "colors": ["#FF6B6B", "#4D9DE0", "#6BCB77", "#FFD93D", "#A98BFF", "#FF9F43", "#3CC6C0", "#FF8FC8", "#8FD694", "#E07A5F"],
+  "founders": [
+    { "name": "Founder A", "pct": 60 },
+    { "name": "Founder B", "pct": 40 }
+  ],
+  "rounds": [
+    { "type": "safe", "name": "Pre-seed SAFE", "amount": 500000, "cap": 8000000 },
+    { "type": "warrant", "name": "Token warrants", "tokenPct": 15 },
+    { "type": "priced", "name": "Seed round", "amount": 2000000, "pre": 15000000 }
+  ],
+  "types": {
+    "safe": { "label": "SAFE", "line": "A promise of shares later, at a price set by its cap.", "fields": [["amount", "Amount ($)"], ["cap", "Valuation cap ($)"]] },
+    "priced": { "label": "Priced round", "line": "New shares sold now at a set valuation.", "fields": [["amount", "Amount ($)"], ["pre", "Pre-money valuation ($)"]] },
+    "saft": { "label": "SAFT", "line": "A promise of tokens later. It does not sell shares.", "fields": [["amount", "Amount ($)"], ["fdv", "Token valuation, FDV ($)"]] },
+    "warrant": { "label": "Token warrants", "line": "Shareholders get rights to tokens, in line with their shares.", "fields": [["tokenPct", "Token supply for shareholders (%)"]] }
+  },
+  "note": "Simplified on purpose: no option pool, no SAFE discounts or pro rata rights. Real terms change the numbers."
+}

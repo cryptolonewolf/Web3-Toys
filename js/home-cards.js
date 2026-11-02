@@ -355,6 +355,21 @@
         );
       },
     },
+    'tool-cap-table': {
+      font: 'Bebas Neue',
+      title: function () { return 'Cap Table<br>&amp; Dilution'; },
+      art: function () {
+        var bar = function (y, parts) {
+          var x = 176;
+          return parts.map(function (p) { var s = '<rect x="' + x + '" y="' + y + '" width="' + p[0] + '" height="14" fill="' + p[1] + '" stroke="' + INK + '" stroke-width="1.8"/>'; x += p[0]; return s; }).join('');
+        };
+        return svg(
+          '<rect width="270" height="100" fill="#F4F1FF"/>' +
+          '<g class="cap-bars">' + bar(16, [[84, '#FF6B6B']]) + bar(40, [[60, '#FF6B6B'], [24, '#4D9DE0']]) + bar(64, [[48, '#FF6B6B'], [20, '#4D9DE0'], [16, '#6BCB77']]) + '</g>' +
+          '<g fill="#A98BFF" opacity=".5"><circle cx="20" cy="18" r="6"/><circle cx="36" cy="84" r="4"/></g>'
+        );
+      },
+    },
   };
 
   // Loads one Google Font with only the letters it needs.

@@ -80,6 +80,9 @@ window, "Save as PDF"), Download PNG, Copy and Reset.
 - Pitch Deck Builder (`builder/pitch-deck/`): the questions (one step per
   slide) are in `data/tools/pitch-deck.json`; the 10 visual templates (fonts,
   colours, decoration) in `data/tools/deck_templates.json`.
+- Cap Table and Dilution Simulator (`builder/cap-table/`): the starting
+  founders, rounds, round types and chart colours are in
+  `data/tools/cap-table.json`.
 
 ## Project Academy
 

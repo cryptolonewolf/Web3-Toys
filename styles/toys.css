@@ -4750,6 +4750,51 @@ a.xcard:active {
   animation: nudge 0.5s ease;
 }
 
+.xcard--tool-cap-table {
+  background: #f4f1ff;
+  box-shadow: 0 0 0 3px var(--ink), 4px 4px 0 3px #a98bff;
+}
+
+.xcard--tool-cap-table .xtitle {
+  font-size: 12cqi;
+  line-height: 0.95;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  padding: 0 38cqi 0 4cqi;
+}
+
+.xcard--tool-cap-table:hover .cap-bars rect {
+  animation: nudge 0.5s ease;
+}
+
+/* Cap Table and Dilution Simulator */
+.cap-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cap-row .field:first-child {
+  flex: 1;
+}
+
+.cap-x {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  margin-left: auto;
+  font: 800 20px var(--font-body);
+  color: var(--ink);
+  background: var(--white);
+  border: var(--line-thin);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.cap-x:disabled {
+  opacity: 0.35;
+}
+
 /* The Tools page */
 .tool-list {
   display: grid;

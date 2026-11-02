@@ -66,7 +66,8 @@
         {"id": "tool-tokenomics", "status": "live", "kind": "tool", "path": "builder/tokenomics/", "title": "Tokenomics Generator", "time": "Tool", "blurb": "Split your supply, add vesting, and see the unlocks and the red flags."},
         {"id": "tool-mcap-fdv", "status": "live", "kind": "tool", "path": "builder/mcap-fdv/", "title": "Market Cap and FDV", "time": "Tool", "blurb": "Market cap, FDV and the gap between them, with what the gap means."},
         {"id": "tool-launch-budget", "status": "live", "kind": "tool", "path": "builder/launch-budget/", "title": "Launch Budget Planner", "time": "Tool", "blurb": "Split your raise, compare with typical ranges, and see your runway."},
-        {"id": "tool-pitch-deck", "status": "live", "kind": "tool", "path": "builder/pitch-deck/", "title": "Pitch Deck Builder", "time": "Tool", "blurb": "Answer short steps, pick one of 10 styles, download your deck."}
+        {"id": "tool-pitch-deck", "status": "live", "kind": "tool", "path": "builder/pitch-deck/", "title": "Pitch Deck Builder", "time": "Tool", "blurb": "Answer short steps, pick one of 10 styles, download your deck."},
+        {"id": "tool-cap-table", "status": "live", "kind": "tool", "path": "builder/cap-table/", "title": "Cap Table and Dilution", "time": "Tool", "blurb": "Founders, rounds, and who owns what after each one."}
       ]
     },
     {

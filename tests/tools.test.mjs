@@ -169,3 +169,28 @@ describe('Pitch Deck Builder', () => {
     assert.equal(D.slides(steps, {})[0].name, 'Your project');
   });
 });
+
+describe('Cap Table and Dilution Simulator', () => {
+  const E = require('../js/cap-engine.js');
+
+  it('a SAFE takes amount over cap, a priced round amount over post-money', () => {
+    const r = E.simulate([{ name: 'A', pct: 100 }], [
+      { type: 'safe', name: 'SAFE', amount: 1e6, cap: 10e6 },
+      { type: 'priced', name: 'Seed', amount: 2e6, pre: 8e6 },
+    ]);
+    const share = (st, n) => st.holders.find((h) => h.name === n).pct;
+    assert.ok(Math.abs(share(r.stages[1], 'SAFE') - 10) < 1e-9);
+    assert.ok(Math.abs(share(r.stages[2], 'Seed') - 20) < 1e-9);
+    assert.ok(Math.abs(share(r.stages[2], 'A') - 72) < 1e-9);
+    assert.ok(Math.abs(r.final.reduce((s, h) => s + h.pct, 0) - 100) < 1e-9);
+  });
+
+  it('SAFTs and token warrants promise tokens without changing shares', () => {
+    const r = E.simulate([{ name: 'A', pct: 50 }, { name: 'B', pct: 50 }], [
+      { type: 'saft', name: 'SAFT', amount: 1e6, fdv: 50e6 },
+      { type: 'warrant', name: 'W', tokenPct: 10 },
+    ]);
+    assert.equal(r.final.length, 2);
+    assert.deepEqual(r.tokens.map((t) => [t.name, Math.round(t.pct * 100) / 100]), [['SAFT', 2], ['A', 5], ['B', 5]]);
+  });
+});
