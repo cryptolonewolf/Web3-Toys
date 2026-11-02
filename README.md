@@ -15,6 +15,7 @@ database, no login, nothing to install.
 | `index.html` | The home page with four sections: Games, For Beginners, For Degens and For Pros. |
 | `crypto-in-5/`, `getting-started/`, `dont-lose-money/`, `earn-small/` | The four Getting Started toys: Genesis Block, Not Your Keys, Don't Get Rekt and Stack Sats. |
 | `builder/` | The Tools section for builders, one folder per tool. |
+| `academy/` | The Project Academy: courses, the course page and List your project. |
 | `real-toys/`, `books/`, `about/`, `book-a-call/` | Real Toys, Books by Aki, About Aki and Book a Call. |
 | `js/site.js` | The top menu, footer links, logo, icons and fun effects. The menu list is at the top. |
 | `progress/` | My Progress: rank and certificates. |
@@ -73,6 +74,29 @@ window, "Save as PDF"), Download PNG, Copy and Reset.
   templates and the warning rules are in `data/tools/tokenomics.json`.
 - Market Cap and FDV Calculator (`builder/mcap-fdv/`): example presets and
   the one line explanations are in `data/tools/mcap-fdv.json`.
+
+## Project Academy
+
+Short sponsored courses about web3 projects, at web3.toys/academy/.
+
+- Each course has a public file `data/academy/<id>.json` (name, logo, colours,
+  X handle, website, chain, category, lessons, `vetted` and
+  `sponsored_until`) and a private question pool
+  `quizzes/academy/<id>.json` (15 to 30 questions with answers, never shown
+  to visitors; the server marks them). List new courses in
+  `data/academy/index.json` and in `quizzes/academy/index.json`, with a new
+  two character `code` (used in W3P certificate codes; never reuse one).
+- A course only shows while `vetted` is true and `sponsored_until` has not
+  passed. Logos and lesson pictures go in `assets/academy/<id>/`.
+- Each attempt draws 10 questions, 20 seconds each, 80% to pass. A fail locks
+  retries for 10 minutes on that device. Passing gives a "[Project] Pro" tag
+  (shown on My Progress, counts toward the rank) and a certificate in the
+  project's colours, checkable at web3.toys/verify.
+- The List your project page: words in `data/academy/listing.json`; the price
+  and the application form link are `academy.price` and `academy.formUrl` in
+  `config.js`. The templates projects fill in are
+  `assets/academy/course-template.md` and `course-template.json`.
+- Lumen Protocol is a made up sample course for testing.
 
 ## Coins
 

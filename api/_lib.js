@@ -23,7 +23,28 @@ function quizIndex() {
   return readJson('index.json').toys;
 }
 
+// Project Academy courses: quizzes/academy/index.json lists them, each with
+// a two character code used in their certificates (codes start W3P).
+const ACADEMY_PASS_MARK = 80;
+const ACADEMY_DRAW = 10;
+
+function academyIndex() {
+  return readJson('academy/index.json').courses;
+}
+
+function loadAcademy(id) {
+  const entry = academyIndex().find((c) => c.id === id);
+  if (!entry) return null;
+  try {
+    const quiz = readJson(`academy/${entry.id}.json`);
+    return { ...quiz, id: `academy:${entry.id}`, title: entry.title, projectCode: entry.code, academy: true, passMark: ACADEMY_PASS_MARK, draw: ACADEMY_DRAW };
+  } catch (e) {
+    return null;
+  }
+}
+
 function loadQuiz(toy) {
+  if (String(toy).startsWith('academy:')) return loadAcademy(String(toy).slice(8));
   const entry = quizIndex().find((t) => t.id === toy);
   if (!entry) return null;
   try {
@@ -40,7 +61,9 @@ function publicQuiz(quiz) {
     toy: quiz.id,
     title: quiz.title,
     timeLimit: TIME_LIMIT,
-    passMark: PASS_MARK,
+    passMark: quiz.passMark || PASS_MARK,
+    // Academy: the visitor's browser picks this many questions from the pool.
+    ...(quiz.draw ? { draw: quiz.draw } : {}),
     questions: quiz.questions.map((q) => ({
       id: q.id,
       question: q.question,
@@ -50,8 +73,18 @@ function publicQuiz(quiz) {
 }
 
 // answers: { questionId: optionIndex or null (ran out of time) }
+// Academy quizzes are marked on the questions drawn (quiz.draw of them).
 function grade(quiz, answers) {
-  const review = quiz.questions.map((q) => {
+  const passMark = quiz.passMark || PASS_MARK;
+  let questions = quiz.questions;
+  if (quiz.draw) {
+    const asked = Object.keys(answers || {});
+    questions = quiz.questions.filter((q) => asked.includes(q.id)).slice(0, quiz.draw);
+    if (questions.length < quiz.draw) {
+      return { score: 0, correct: 0, total: quiz.draw, passed: false, passMark, review: [], error: `Answer all ${quiz.draw} questions.` };
+    }
+  }
+  const review = questions.map((q) => {
     const right = q.options.indexOf(q.answer);
     const chosen = Object.prototype.hasOwnProperty.call(answers || {}, q.id) ? answers[q.id] : null;
     return {
@@ -64,8 +97,8 @@ function grade(quiz, answers) {
     };
   });
   const correct = review.filter((r) => r.correct).length;
-  const score = Math.round((correct / quiz.questions.length) * 100);
-  return { score, correct, total: quiz.questions.length, passed: score >= PASS_MARK, passMark: PASS_MARK, review };
+  const score = Math.round((correct / questions.length) * 100);
+  return { score, correct, total: questions.length, passed: score >= passMark, passMark, review };
 }
 
 function cleanName(name) {
@@ -105,8 +138,8 @@ function signature(secret, body, name) {
   return s;
 }
 
-function formatCode(raw) {
-  return `W3T-${raw.slice(0, 4)}-${raw.slice(4, 8)}-${raw.slice(8, 12)}-${raw.slice(12, 16)}`;
+function formatCode(raw, prefix = 'W3T') {
+  return `${prefix}-${raw.slice(0, 4)}-${raw.slice(4, 8)}-${raw.slice(8, 12)}-${raw.slice(12, 16)}`;
 }
 
 function dateFromDay(day) {
@@ -116,13 +149,20 @@ function dateFromDay(day) {
 // Makes a certificate code: toy letter, date and score, plus the stamp.
 function issue(secret, quiz, score, name, now = Date.now()) {
   const day = Math.floor((now - EPOCH) / 86400000);
+  if (quiz.academy) {
+    // W3P codes: project code (2), date (3) and score (2), plus a 9 character stamp.
+    const pbody = 'P' + quiz.projectCode + toB32(day, 3) + toB32(score, 2);
+    return { code: formatCode(pbody.slice(1) + signature(secret, pbody, name).slice(0, 9), 'W3P'), date: dateFromDay(day) };
+  }
   const body = quiz.letter + toB32(day, 3) + toB32(score, 2);
   return { code: formatCode(body + signature(secret, body, name)), date: dateFromDay(day) };
 }
 
 // Checks a code and name. Returns the certificate details, or null.
 function verify(secret, code, name) {
-  const raw = String(code || '').toUpperCase().replace(/[^0-9A-Z]/g, '').replace(/^W3T/, '');
+  const clean = String(code || '').toUpperCase().replace(/[^0-9A-Z]/g, '');
+  if (clean.startsWith('W3P')) return verifyAcademy(secret, clean.slice(3), name);
+  const raw = clean.replace(/^W3T/, '');
   if (raw.length !== 16 || !cleanName(name)) return null;
   const body = raw.slice(0, 6);
   const given = raw.slice(6);
@@ -133,6 +173,19 @@ function verify(secret, code, name) {
   const day = fromB32(body.slice(1, 4));
   if (!toy || Number.isNaN(score) || Number.isNaN(day) || score > 100) return null;
   return { toy: toy.id, title: toy.title, name: cleanName(name), score, date: dateFromDay(day), code: formatCode(raw) };
+}
+
+function verifyAcademy(secret, raw, name) {
+  if (raw.length !== 16 || !cleanName(name)) return null;
+  const body = 'P' + raw.slice(0, 7);
+  const given = raw.slice(7);
+  const expected = signature(secret, body, name).slice(0, 9);
+  if (!crypto.timingSafeEqual(Buffer.from(given), Buffer.from(expected))) return null;
+  const course = academyIndex().find((c) => c.code === raw.slice(0, 2));
+  const day = fromB32(raw.slice(2, 5));
+  const score = fromB32(raw.slice(5, 7));
+  if (!course || Number.isNaN(score) || Number.isNaN(day) || score > 100) return null;
+  return { toy: `academy:${course.id}`, title: course.title, name: cleanName(name), score, date: dateFromDay(day), code: formatCode(raw, 'W3P') };
 }
 
 function send(res, status, body) {
@@ -158,4 +211,4 @@ function query(req) {
   return req.query || Object.fromEntries(new URL(req.url, 'http://x').searchParams);
 }
 
-module.exports = { PASS_MARK, TIME_LIMIT, loadQuiz, publicQuiz, grade, issue, verify, cleanName, quizIndex, send, readBody, query };
+module.exports = { PASS_MARK, TIME_LIMIT, ACADEMY_PASS_MARK, ACADEMY_DRAW, academyIndex, loadQuiz, publicQuiz, grade, issue, verify, cleanName, quizIndex, send, readBody, query };

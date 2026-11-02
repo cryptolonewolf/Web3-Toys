@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Lumen Protocol logo (made up)">
+  <circle cx="60" cy="60" r="56" fill="#1B2A6B" stroke="#1F1B2E" stroke-width="6"/>
+  <g stroke="#1F1B2E" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M60 22 C82 22 92 40 88 56 C85 68 74 72 72 84 H48 C46 72 35 68 32 56 C28 40 38 22 60 22Z" fill="#FFC94D"/>
+    <path d="M48 84 H72 V92 H48Z M51 92 H69 L66 100 H54Z" fill="#FFFFFF"/>
+    <path d="M52 52 L60 64 L68 52" fill="none"/>
+  </g>
+  <g stroke="#FFC94D" stroke-width="5" stroke-linecap="round"><path d="M18 40 L10 36 M102 40 L110 36 M60 8 V2"/></g>
+</svg>

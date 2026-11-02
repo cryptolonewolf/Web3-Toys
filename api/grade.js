@@ -15,6 +15,7 @@ module.exports = async (req, res) => {
   if (!quiz) return send(res, 404, { error: 'No quiz for this toy.' });
 
   const result = grade(quiz, body.answers);
+  if (result.error) return send(res, 400, result);
   const name = cleanName(body.name);
   if (result.passed && name) {
     const secret = process.env.CERT_SECRET;

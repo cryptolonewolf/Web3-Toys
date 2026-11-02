@@ -21,6 +21,9 @@
     });
     var certs = Object.keys(progress.certificates).map(function (k) { return progress.certificates[k]; })
       .sort(function (a, b) { return a.date < b.date ? 1 : -1; });
+    // Project Academy certificates are Pro tags; they count toward the rank too.
+    var pros = certs.filter(function (c) { return String(c.toy).indexOf('academy:') === 0; });
+    pros.forEach(function (c) { paths[c.toy] = 'academy/course/?id=' + encodeURIComponent(c.toy.slice(8)); });
     var pct = next ? Math.round((n / next.min) * 100) : 100;
 
     app.innerHTML =
@@ -43,6 +46,10 @@
         return '<li class="' + state + '">' + C.rankBadge(r, i + 1) +
           '<span class="small-print">' + r.min + (r.min === 1 ? ' certificate' : ' certificates') + '</span></li>';
       }).join('') + '</ol></section>' +
+
+      (pros.length ? '<section class="card stack stack--tight"><h2 class="title-sm">Your Pro tags</h2><div class="chips">' + pros.map(function (c) {
+        return '<a class="pro-tag" href="../' + esc(paths[c.toy]) + '#certificate">' + esc(c.title) + '</a>';
+      }).join('') + '</div><p class="small-print">Earned in the <a href="../academy/">Project Academy</a>. They count toward your rank.</p></section>' : '') +
 
       '<section class="stack stack--tight"><h2 class="section-title">Your certificates</h2>' +
       (certs.length

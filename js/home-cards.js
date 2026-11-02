@@ -314,6 +314,18 @@
         );
       },
     },
+    academy: {
+      font: 'Fredericka the Great',
+      art: function () {
+        return svg(
+          '<rect width="270" height="100" fill="#8B5A2B"/><rect x="6" y="6" width="258" height="88" rx="4" fill="#2F4F3A"/>' +
+          '<g fill="none" stroke="#E8F0E0" stroke-width="1" opacity=".25"><path d="M20 30 q30 -8 60 0"/><path d="M180 78 q30 6 60 0"/></g>' +
+          '<g class="ac-cap" stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round"><path d="M226 30 L256 42 L226 54 L196 42Z" fill="#1F1B2E"/>' +
+          '<path d="M208 47 V60 C214 66 238 66 244 60 V47" fill="#1F1B2E"/><path d="M256 42 V60" stroke="#FFC94D" stroke-width="2.5"/><circle cx="256" cy="62" r="3" fill="#FFC94D"/></g>' +
+          star(30, 22, 4, '#FFD93D') + star(44, 76, 3, '#E8F0E0') + '<path d="M14 88 h22" stroke="#fff" stroke-width="3" stroke-linecap="round"/>'
+        );
+      },
+    },
   };
 
   // Loads one Google Font with only the letters it needs.

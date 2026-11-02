@@ -1,0 +1,39 @@
+{
+  "_help": "web3.toys Project Academy course template, in the exact format we use. Send this filled in (or the plain template) with your application. The quiz questions go to us privately; they are never published.",
+  "course": {
+    "id": "your-project",
+    "name": "Your Project",
+    "tagline": "One line, under 12 words.",
+    "logo": "(attach a square SVG or PNG)",
+    "colors": {
+      "primary": "#1B2A6B",
+      "accent": "#FFC94D",
+      "text": "#FFFFFF"
+    },
+    "x": "yourhandle",
+    "website": "https://your-project.example",
+    "chain": "Ethereum",
+    "category": "DeFi",
+    "minutes": 5,
+    "lessons": [
+      {
+        "title": "Under 6 words",
+        "text": "One or two sentences.",
+        "image": "(attach a picture or describe it)"
+      }
+    ]
+  },
+  "questions": [
+    {
+      "question": "A question about what the lessons teach?",
+      "options": [
+        "The right answer",
+        "A wrong answer",
+        "Another wrong answer",
+        "A third wrong answer"
+      ],
+      "answer": "The right answer",
+      "explain": "One line explaining the right answer."
+    }
+  ]
+}

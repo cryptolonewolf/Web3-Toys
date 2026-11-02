@@ -1,0 +1,52 @@
+{
+  "_help": "A Project Academy course (public part). The questions and answers live privately in quizzes/academy/<id>.json. Only courses with vetted true and a sponsored_until date that has not passed are shown. colors: primary (background), accent (highlights), text (on primary). logo and lesson images live in assets/academy/<id>/. x: the project's X handle without @, tagged in Share on X (leave empty to not tag anyone).",
+  "id": "lumen",
+  "name": "Lumen Protocol",
+  "fictional": true,
+  "tagline": "A made up lending app, for testing the Academy.",
+  "logo": "assets/academy/lumen/logo.svg",
+  "colors": {
+    "primary": "#1B2A6B",
+    "accent": "#FFC94D",
+    "text": "#FFFFFF"
+  },
+  "x": "",
+  "website": "https://lumen.example",
+  "chain": "Ethereum",
+  "category": "DeFi",
+  "minutes": 5,
+  "vetted": true,
+  "sponsored_until": "2027-11-01",
+  "lessons": [
+    {
+      "title": "What is Lumen?",
+      "text": "Lumen is a lending app. You can deposit tokens to earn interest, or borrow against tokens you already hold.",
+      "image": "assets/academy/lumen/lesson-1.svg"
+    },
+    {
+      "title": "Supplying",
+      "text": "When you supply tokens to a Lumen pool, borrowers pay interest, and that interest is shared with everyone who supplied.",
+      "image": "assets/academy/lumen/lesson-2.svg"
+    },
+    {
+      "title": "Borrowing",
+      "text": "To borrow, you lock collateral worth more than the loan. For example, lock $150 of tokens to borrow $100.",
+      "image": "assets/academy/lumen/lesson-3.svg"
+    },
+    {
+      "title": "Health factor",
+      "text": "Your health factor shows how safe your loan is. Above 1 is safe. If it drops below 1, your loan can be liquidated.",
+      "image": "assets/academy/lumen/lesson-4.svg"
+    },
+    {
+      "title": "Liquidations",
+      "text": "If your collateral loses value, part of it is sold to repay the loan, plus a penalty. Adding collateral or repaying early avoids it.",
+      "image": "assets/academy/lumen/lesson-5.svg"
+    },
+    {
+      "title": "Staying safe",
+      "text": "Only use the official Lumen site, keep an eye on your health factor, and never share your seed phrase. Rates change all the time.",
+      "image": "assets/academy/lumen/lesson-6.svg"
+    }
+  ]
+}

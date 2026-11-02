@@ -1,4 +1,5 @@
-// The shop panel on toy pages: reports, books and services for that toy.
+// The right sidebar on toy, tool and Academy pages: a small About Aki box,
+// then the shop (reports, books and services for that page).
 // Items come from data/shop.json. The page has <aside id="shop" data-toy="...">.
 
 (function () {
@@ -40,12 +41,24 @@
 
   window.Web3Shop = { cover: cover, button: button, esc: esc };
 
+  // A small "About Aki" box at the top of the sidebar, with the links that
+  // are not in the top menu.
+  function akiBox() {
+    return '<section class="card aki-box"><div class="aki-box-head">' + site.mascotImg('grin', 'aki-box-face', 56, '') +
+      '<div><h2 class="title-sm">Hi, I\'m Aki</h2><p class="small-print">I build web3.toys and help web3 teams grow.</p></div></div>' +
+      '<nav class="aki-box-links" aria-label="About Aki">' +
+      '<a href="' + site.root + 'about/">About Aki</a><a href="' + site.root + 'books/">Books by Aki</a>' +
+      '<a class="btn btn--yellow btn--small" href="' + site.root + 'book-a-call/">' + site.icon('call') + 'Book a Call</a></nav></section>';
+  }
+
+  box.innerHTML = akiBox();
+
   fetch(site.root + 'data/shop.json', { cache: 'no-cache' })
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(function (shop) {
       var items = shop.toys[box.getAttribute('data-toy')] || shop['default'] || [];
       if (!items.length) return;
-      box.innerHTML =
+      box.innerHTML = akiBox() +
         '<div class="shop-head">' + site.icon('bag', 'icon--lg') + '<div><h2 class="section-title">' + esc(shop.heading) + '</h2>' +
         '<p class="small-print">' + esc(shop.line) + '</p></div></div>' +
         '<ul class="shop-list">' + items.map(function (item) {

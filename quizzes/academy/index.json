@@ -1,0 +1,10 @@
+{
+  "_help": "Project Academy courses with a quiz. code: two characters used inside W3P certificate codes, from 0-9 and A-Z except I, L, O and U. Never change or reuse a code once certificates exist.",
+  "courses": [
+    {
+      "id": "lumen",
+      "title": "Lumen Protocol Pro",
+      "code": "M1"
+    }
+  ]
+}

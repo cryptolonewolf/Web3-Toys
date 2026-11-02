@@ -66,6 +66,16 @@
         {"id": "tool-tokenomics", "status": "live", "kind": "tool", "path": "builder/tokenomics/", "title": "Tokenomics Generator", "time": "Tool", "blurb": "Split your supply, add vesting, and see the unlocks and the red flags."},
         {"id": "tool-mcap-fdv", "status": "live", "kind": "tool", "path": "builder/mcap-fdv/", "title": "Market Cap and FDV", "time": "Tool", "blurb": "Market cap, FDV and the gap between them, with what the gap means."}
       ]
+    },
+    {
+      "id": "academy",
+      "title": "Academy",
+      "icon": "🎓",
+      "color": "violet",
+      "blurb": "Short sponsored courses about web3 projects. Earn Pro tags.",
+      "cards": [
+        {"id": "academy", "status": "live", "kind": "academy", "path": "academy/", "title": "Project Academy", "time": "Courses", "blurb": "Short sponsored courses about web3 projects, with a quiz, a Pro tag and a certificate."}
+      ]
     }
   ],
   "tagline": "Little web3 toys that teach you something. Free, five minutes each.",

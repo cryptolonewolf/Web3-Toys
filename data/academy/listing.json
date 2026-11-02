@@ -1,0 +1,32 @@
+{
+  "_help": "The List your project page for the Project Academy. The price and the application form link are set in config.js (academy).",
+  "title": "List your project in the Academy",
+  "intro": "Teach people what your project does with a short, playful course. They learn it, pass a quiz, and share a certificate in your colours.",
+  "benefitsTitle": "What you get",
+  "benefits": [
+    { "icon": "book", "title": "People who actually learn your product", "text": "Tap through lessons and a quiz, not a banner people scroll past." },
+    { "icon": "star", "title": "A Pro tag and a certificate in your colours", "text": "Everyone who passes gets one, with a Share on X button that tags you." },
+    { "icon": "check", "title": "Checkable results", "text": "Every certificate has a code anyone can check at web3.toys/verify." },
+    { "icon": "rocket", "title": "Made with you, in our style", "text": "You send the content, we turn it into a course that fits web3.toys." }
+  ],
+  "checklistTitle": "Vetting checklist",
+  "checklistLine": "We only list projects that meet all of these. We check before a course goes live, and we can remove a course at any time.",
+  "checklist": [
+    "A public team, or well known backers.",
+    "An audit or an independent security review.",
+    "A live product people can use today.",
+    "No promises of returns, anywhere in your course or marketing."
+  ],
+  "rulesTitle": "House rules",
+  "rules": [
+    "Every course says \"Sponsored course by [your project]. web3.toys does not endorse any token. Not financial advice.\"",
+    "No token, money or airdrop rewards for taking the course. The reward is the Pro tag and the certificate.",
+    "Courses run until the date you sponsor them for, then come down."
+  ],
+  "templateTitle": "The course template",
+  "templateLine": "This is exactly what we need from you. Fill it in and send it with your application.",
+  "priceTitle": "Price",
+  "priceEmpty": "Ask us",
+  "applyButton": "Apply to list your project",
+  "applySoon": "Applications open soon. Check back shortly."
+}

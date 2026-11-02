@@ -1,0 +1,6 @@
+{
+  "_help": "The Project Academy courses, by id. Each needs data/academy/<id>.json (public) and quizzes/academy/<id>.json (questions, private), and an entry in quizzes/academy/index.json.",
+  "courses": [
+    "lumen"
+  ]
+}

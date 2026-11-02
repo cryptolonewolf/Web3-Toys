@@ -11,13 +11,18 @@
   var MENU = [
     { label: 'Toys', href: '' },
     { label: 'Tools', href: 'builder/' },
+    { label: 'Academy', href: 'academy/' },
     { label: 'Real Toys', href: 'real-toys/' },
-    { label: 'Books', href: 'books/' },
-    { label: 'About', href: 'about/' },
     { label: 'My Progress', href: 'progress/' },
   ];
   var CALL = { label: 'Book a Call', href: 'book-a-call/' };
-  var FOOTER_EXTRA = [{ label: 'Check a certificate', href: 'verify/' }];
+  // Books and About live in the footer and in the About Aki box on the side.
+  var FOOTER_EXTRA = [
+    { label: 'Books', href: 'books/' },
+    { label: 'About Aki', href: 'about/' },
+    { label: 'List your project', href: 'academy/list-your-project/' },
+    { label: 'Check a certificate', href: 'verify/' },
+  ];
 
   function config() {
     return window.WEB3TOYS_CONFIG || {};

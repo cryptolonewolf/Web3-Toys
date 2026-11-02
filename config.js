@@ -26,6 +26,12 @@ window.WEB3TOYS_CONFIG = {
   // x: tapping Post on X (or Share on X).
   points: { daily: 5, finish: 20, certificate: 50, share: 10, x: 10 },
 
+  // PROJECT ACADEMY. price: what a sponsored course costs (shown on the List
+  // your project page; leave empty to say "Ask us"). formUrl: the form
+  // projects fill in to apply (for example a Tally or Google form). While
+  // formUrl is empty, the button says applications open soon.
+  academy: { price: '', formUrl: '' },
+
   // REDEEMING COINS. Requests come to you and you send the coupon yourself.
   // endpoint: a form address (for example from Formspree or your email tool)
   // that receives the request. email: used instead when endpoint is empty;

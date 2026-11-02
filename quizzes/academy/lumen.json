@@ -1,0 +1,245 @@
+{
+  "_help": "Private question pool for the Lumen Protocol course (15 to 30 questions). answer must match one option exactly. This folder is never shown to visitors; the server marks the answers.",
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is Lumen?",
+      "options": [
+        "A lending app",
+        "A meme coin",
+        "A wallet",
+        "A game"
+      ],
+      "answer": "A lending app",
+      "explain": "Lumen lets you lend tokens or borrow against them."
+    },
+    {
+      "id": "q2",
+      "question": "What do you earn by supplying tokens to a Lumen pool?",
+      "options": [
+        "Interest paid by borrowers",
+        "Free NFTs",
+        "A fixed salary",
+        "Nothing"
+      ],
+      "answer": "Interest paid by borrowers",
+      "explain": "Borrowers pay interest, which is shared with suppliers."
+    },
+    {
+      "id": "q3",
+      "question": "To borrow $100 on Lumen, what do you need to lock first?",
+      "options": [
+        "Collateral worth more than $100",
+        "Nothing at all",
+        "Exactly $50",
+        "Your seed phrase"
+      ],
+      "answer": "Collateral worth more than $100",
+      "explain": "Loans are backed by more collateral than the loan."
+    },
+    {
+      "id": "q4",
+      "question": "In the lesson example, how much collateral backs a $100 loan?",
+      "options": [
+        "$150",
+        "$100",
+        "$50",
+        "$10"
+      ],
+      "answer": "$150",
+      "explain": "Locking $150 to borrow $100 leaves room for prices to move."
+    },
+    {
+      "id": "q5",
+      "question": "What does the health factor show?",
+      "options": [
+        "How safe your loan is",
+        "Your token price",
+        "How fast the app is",
+        "Your wallet balance"
+      ],
+      "answer": "How safe your loan is",
+      "explain": "It measures how close a loan is to being liquidated."
+    },
+    {
+      "id": "q6",
+      "question": "Which health factor is safe?",
+      "options": [
+        "Above 1",
+        "Below 1",
+        "Exactly 0",
+        "Negative"
+      ],
+      "answer": "Above 1",
+      "explain": "Above 1 is safe; below 1 the loan can be liquidated."
+    },
+    {
+      "id": "q7",
+      "question": "What can happen when the health factor drops below 1?",
+      "options": [
+        "The loan can be liquidated",
+        "You get a bonus",
+        "Nothing",
+        "The interest stops"
+      ],
+      "answer": "The loan can be liquidated",
+      "explain": "Below 1, part of the collateral can be sold."
+    },
+    {
+      "id": "q8",
+      "question": "What happens in a liquidation?",
+      "options": [
+        "Part of the collateral is sold to repay the loan, plus a penalty",
+        "The loan is forgiven",
+        "You get more tokens",
+        "The app closes"
+      ],
+      "answer": "Part of the collateral is sold to repay the loan, plus a penalty",
+      "explain": "Liquidations repay the loan from your collateral."
+    },
+    {
+      "id": "q9",
+      "question": "How can you avoid a liquidation?",
+      "options": [
+        "Add collateral or repay early",
+        "Ignore it",
+        "Borrow more",
+        "Share your seed phrase"
+      ],
+      "answer": "Add collateral or repay early",
+      "explain": "Both raise your health factor."
+    },
+    {
+      "id": "q10",
+      "question": "Why might your collateral lose value?",
+      "options": [
+        "Its token price falls",
+        "Lumen deletes it",
+        "Interest is paid",
+        "It never can"
+      ],
+      "answer": "Its token price falls",
+      "explain": "Collateral is worth whatever its token trades at."
+    },
+    {
+      "id": "q11",
+      "question": "Where should you use Lumen?",
+      "options": [
+        "Only on the official Lumen site",
+        "Any link sent in a DM",
+        "A site from an ad",
+        "Whatever search shows first"
+      ],
+      "answer": "Only on the official Lumen site",
+      "explain": "Fake sites copy real apps to steal funds."
+    },
+    {
+      "id": "q12",
+      "question": "Who should you share your seed phrase with?",
+      "options": [
+        "No one",
+        "Lumen support",
+        "A friend helping you",
+        "Anyone who asks nicely"
+      ],
+      "answer": "No one",
+      "explain": "No real app or support team ever needs it."
+    },
+    {
+      "id": "q13",
+      "question": "Are Lumen's interest rates fixed?",
+      "options": [
+        "No, they change all the time",
+        "Yes, forever",
+        "Only on Sundays",
+        "They are always zero"
+      ],
+      "answer": "No, they change all the time",
+      "explain": "Rates move with supply and demand."
+    },
+    {
+      "id": "q14",
+      "question": "What should you keep an eye on while borrowing?",
+      "options": [
+        "Your health factor",
+        "The weather",
+        "Other people's loans",
+        "Nothing"
+      ],
+      "answer": "Your health factor",
+      "explain": "It tells you when your loan is getting risky."
+    },
+    {
+      "id": "q15",
+      "question": "Who pays the interest that suppliers earn?",
+      "options": [
+        "Borrowers",
+        "Lumen's team",
+        "The government",
+        "Nobody"
+      ],
+      "answer": "Borrowers",
+      "explain": "Interest flows from borrowers to suppliers."
+    },
+    {
+      "id": "q16",
+      "question": "Why is collateral worth more than the loan?",
+      "options": [
+        "So the loan stays covered if prices move",
+        "To make borrowing pointless",
+        "Because it is a rule of all apps",
+        "It is not"
+      ],
+      "answer": "So the loan stays covered if prices move",
+      "explain": "The extra gives room before a liquidation."
+    },
+    {
+      "id": "q17",
+      "question": "If prices fall and you do nothing, what can happen to your loan?",
+      "options": [
+        "It can be liquidated",
+        "It gets cheaper",
+        "It turns into savings",
+        "Nothing ever"
+      ],
+      "answer": "It can be liquidated",
+      "explain": "Falling collateral lowers the health factor."
+    },
+    {
+      "id": "q18",
+      "question": "What is a lending pool?",
+      "options": [
+        "Tokens supplied by many people that borrowers can borrow",
+        "A swimming pool",
+        "A single person's wallet",
+        "A type of NFT"
+      ],
+      "answer": "Tokens supplied by many people that borrowers can borrow",
+      "explain": "Pools gather supply from many users."
+    },
+    {
+      "id": "q19",
+      "question": "Does a liquidation cost you extra?",
+      "options": [
+        "Yes, there is a penalty",
+        "No, it is free",
+        "It pays you a bonus",
+        "Only on weekends"
+      ],
+      "answer": "Yes, there is a penalty",
+      "explain": "The penalty is on top of repaying the loan."
+    },
+    {
+      "id": "q20",
+      "question": "What is Lumen in this course?",
+      "options": [
+        "A made up project for testing",
+        "A real token to buy",
+        "Financial advice",
+        "A guaranteed return"
+      ],
+      "answer": "A made up project for testing",
+      "explain": "It is a sample course. Nothing here is advice."
+    }
+  ]
+}
