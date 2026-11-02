@@ -437,6 +437,20 @@
         );
       },
     },
+    'tool-gas-converter': {
+      font: 'Righteous',
+      title: function () { return 'Gas &amp; Unit<br>Converter'; },
+      art: function () {
+        return svg(
+          '<rect width="270" height="100" fill="#FFF0F6"/>' +
+          '<g class="gas-pump"><rect x="182" y="22" width="40" height="64" rx="6" fill="#FF6B6B" stroke="' + INK + '" stroke-width="3"/>' +
+          '<rect x="190" y="30" width="24" height="16" rx="3" fill="#FFFFFF" stroke="' + INK + '" stroke-width="2.5"/>' +
+          '<path d="M222 40 h12 v30 a6 6 0 0 0 12 0 v-34 l-8 -8" fill="none" stroke="' + INK + '" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>' +
+          '<rect x="176" y="84" width="52" height="8" rx="3" fill="' + INK + '"/></g>' +
+          '<text x="160" y="40" text-anchor="end" font-family="Righteous, sans-serif" font-size="16" fill="' + INK + '">⇄</text>'
+        );
+      },
+    },
   };
 
   // Loads one Google Font with only the letters it needs.

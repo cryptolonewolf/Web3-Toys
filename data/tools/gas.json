@@ -1,0 +1,15 @@
+{
+  "_help": "Gas and Unit Converter. Units: decimals of each unit compared with the smallest one. Actions: typical gas used by common EVM actions (rough, they vary by contract and chain: review). Solana: the base fee per signature in lamports. Defaults fill the form the first time.",
+  "review": true,
+  "evm": {"units": [{"id": "wei", "label": "Wei", "decimals": 0}, {"id": "gwei", "label": "Gwei", "decimals": 9}, {"id": "eth", "label": "ETH", "decimals": 18}]},
+  "sol": {"units": [{"id": "lamports", "label": "Lamports", "decimals": 0}, {"id": "sol", "label": "SOL", "decimals": 9}], "baseFeeLamports": 5000},
+  "actions": [
+    {"id": "send", "label": "Send ETH", "gas": 21000, "note": "A plain ETH transfer always uses 21,000 gas."},
+    {"id": "token", "label": "Send a token", "gas": 65000, "note": "A token (ERC-20) transfer is often around 45,000 to 65,000 gas."},
+    {"id": "approve", "label": "Approve a token", "gas": 46000, "note": "Approvals are often around 45,000 gas."},
+    {"id": "swap", "label": "Swap on a DEX", "gas": 150000, "note": "Swaps often use 100,000 to 200,000 gas, more with complex routes."},
+    {"id": "mint", "label": "Mint an NFT", "gas": 120000, "note": "NFT mints vary a lot by contract, often 80,000 to 200,000 gas."}
+  ],
+  "defaults": {"evmBase": "1000000000", "solBase": "1000000000", "gasPrice": 5, "gasUnits": 21000, "action": "send", "ethPrice": 0, "signatures": 1, "priorityLamports": 0, "solPrice": 0},
+  "line": "Fees here are estimates from the numbers you type. Your wallet shows the real fee before you confirm. On many layer 2 chains there is also a small data fee not shown here."
+}

@@ -332,3 +332,26 @@ describe('Official Links Checker', () => {
     assert.equal(od.results.unknown.title, 'Not on our list');
   });
 });
+
+describe('Gas and Unit Converter', () => {
+  const G = require('../js/gas-engine.js');
+  const gc = json('data/tools/gas.json');
+
+  it('converts exactly, with no rounding errors', () => {
+    assert.equal(G.toBase('0.1', 18), 100000000000000000n);
+    assert.equal(G.fromBase(G.toBase('0.1', 18), 9), '100000000');
+    assert.equal(G.fromBase(1n, 18), '0.000000000000000001');
+    assert.equal(G.toBase('1,234.5', 9), 1234500000000n);
+    assert.equal(G.toBase('1e-9', 18), 1000000000n);
+    assert.equal(G.toBase('abc', 9), null);
+    assert.equal(G.group('1234567.891'), '1,234,567.891');
+  });
+
+  it('estimates fees from gas price and signatures', () => {
+    assert.equal(gc.review, true);
+    assert.equal(gc.actions.find((a) => a.id === 'send').gas, 21000);
+    assert.equal(G.fromBase(G.evmFee(21000, 5), 18), '0.000105');
+    assert.equal(G.fromBase(G.evmFee(21000, 0.5), 9), '10500');
+    assert.equal(G.solFee(2, gc.sol.baseFeeLamports, 1000), 11000n);
+  });
+});

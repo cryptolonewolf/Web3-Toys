@@ -101,6 +101,8 @@ window, "Save as PDF"), Download PNG, Copy and Reset.
   (exchanges, wallets, explorers, apps), the three result texts and the
   look-alike reasons are in `data/tools/official_domains.json`. Verify every
   domain before going live; projects change domains.
+- Gas and Unit Converter (`builder/gas-converter/`): units, typical gas per
+  action, the Solana base fee and the defaults are in `data/tools/gas.json`.
 
 ## Project Academy
 

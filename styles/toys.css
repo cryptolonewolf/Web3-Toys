@@ -5320,6 +5320,36 @@ a.xcard:active {
   font: 600 14px / 1.5 var(--font-body);
 }
 
+.xcard--tool-gas-converter {
+  background: #fff0f6;
+  box-shadow: 0 0 0 3px var(--ink), 4px 4px 0 3px #ff6b6b;
+}
+
+.xcard--tool-gas-converter .xtitle {
+  font-size: 11cqi;
+  line-height: 1;
+  color: var(--ink);
+  padding: 0 40cqi 0 4cqi;
+}
+
+.xcard--tool-gas-converter:hover .gas-pump {
+  animation: nudge 0.5s ease;
+}
+
+/* Gas and Unit Converter */
+.gas-num {
+  font-variant-numeric: tabular-nums;
+}
+
+.gas-num.is-bad {
+  border-color: #e23d3d;
+  background: #ffe1e1;
+}
+
+.gas-val {
+  word-break: break-all;
+}
+
 /* The Tools page */
 .tool-list {
   display: grid;
