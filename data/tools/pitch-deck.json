@@ -1,0 +1,46 @@
+{
+  "_help": "Pitch Deck Builder: the steps of the form, one slide each. Every step has a title (shown small on the slide) and fields. headline: the big line on the slide. points: one bullet per line (up to 4 show). stats: big numbers, one per line as label: value (up to 3 show). The visual templates are in data/tools/deck_templates.json.",
+  "steps": [
+    { "id": "cover", "title": "Cover", "fields": [
+      { "id": "name", "label": "Project name", "placeholder": "Lumen Protocol" },
+      { "id": "headline", "label": "One line about it", "placeholder": "Lending that explains itself" },
+      { "id": "points", "label": "Website and contact (one per line)", "type": "area", "placeholder": "lumen.example\nhello@lumen.example" } ] },
+    { "id": "problem", "title": "The problem", "fields": [
+      { "id": "headline", "label": "The problem in one line", "placeholder": "Borrowing in crypto is scary and confusing" },
+      { "id": "points", "label": "Why it matters (one per line)", "type": "area", "placeholder": "Most users don't understand liquidations\nRates jump without warning" } ] },
+    { "id": "solution", "title": "Our solution", "fields": [
+      { "id": "headline", "label": "Your solution in one line", "placeholder": "A lending app with plain English health checks" },
+      { "id": "points", "label": "How it solves the problem (one per line)", "type": "area" } ] },
+    { "id": "product", "title": "Product", "fields": [
+      { "id": "headline", "label": "What people can do today", "placeholder": "Lend, borrow and get alerts before trouble" },
+      { "id": "points", "label": "Key features (one per line)", "type": "area" } ] },
+    { "id": "market", "title": "Market", "fields": [
+      { "id": "headline", "label": "Who you serve", "placeholder": "Everyday crypto holders who want to borrow safely" },
+      { "id": "stats", "label": "Market sizes (label: value, one per line)", "type": "area", "placeholder": "Total market: $10B\nReachable: $1B\nYear 3 goal: $50M" } ] },
+    { "id": "traction", "title": "Traction", "fields": [
+      { "id": "headline", "label": "Your progress in one line", "placeholder": "Growing every week since launch" },
+      { "id": "stats", "label": "Your best numbers (label: value, one per line)", "type": "area", "placeholder": "Users: 12,000\nDeposits: $4M\nMonthly growth: 30%" } ] },
+    { "id": "model", "title": "Business model", "fields": [
+      { "id": "headline", "label": "How you make money", "placeholder": "A small fee on every loan" },
+      { "id": "points", "label": "Details (one per line)", "type": "area" } ] },
+    { "id": "token", "title": "Token", "fields": [
+      { "id": "headline", "label": "What the token does (leave empty if none)", "placeholder": "Governance and fee discounts" },
+      { "id": "points", "label": "Supply, split and vesting (one per line)", "type": "area" } ] },
+    { "id": "team", "title": "Team", "fields": [
+      { "id": "headline", "label": "Why this team wins", "placeholder": "Built lending products for 8 years" },
+      { "id": "points", "label": "People: name, role (one per line)", "type": "area" } ] },
+    { "id": "competition", "title": "Competition", "fields": [
+      { "id": "headline", "label": "Why you are different", "placeholder": "The only one built for beginners" },
+      { "id": "points", "label": "Others and how you compare (one per line)", "type": "area" } ] },
+    { "id": "roadmap", "title": "Roadmap", "fields": [
+      { "id": "headline", "label": "Where you are going", "placeholder": "From one chain to five in 18 months" },
+      { "id": "points", "label": "Milestones with dates (one per line)", "type": "area" } ] },
+    { "id": "ask", "title": "The ask", "fields": [
+      { "id": "headline", "label": "What you are raising", "placeholder": "Raising $1.5M to reach 100,000 users" },
+      { "id": "stats", "label": "The numbers (label: value, one per line)", "type": "area", "placeholder": "Raising: $1.5M\nRunway: 18 months" },
+      { "id": "points", "label": "Use of funds (one per line)", "type": "area" } ] },
+    { "id": "thanks", "title": "Thank you", "fields": [
+      { "id": "headline", "label": "Closing line", "placeholder": "Let's build it together" },
+      { "id": "points", "label": "Contact details (one per line)", "type": "area" } ] }
+  ]
+}

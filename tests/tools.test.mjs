@@ -144,3 +144,28 @@ describe('Launch Budget Planner', () => {
     for (const id of ['noAudit', 'noLegal', 'hype', 'shortRunway', 'outside']) assert.ok(ids.includes(id), id);
   });
 });
+
+describe('Pitch Deck Builder', () => {
+  const D = require('../js/deck-engine.js');
+  const steps = json('data/tools/pitch-deck.json').steps;
+  const templates = json('data/tools/deck_templates.json').templates;
+
+  it('covers every section you asked for, one slide each', () => {
+    const ids = steps.map((s) => s.id);
+    for (const id of ['problem', 'solution', 'product', 'market', 'traction', 'model', 'token', 'team', 'competition', 'roadmap', 'ask']) assert.ok(ids.includes(id), id);
+  });
+
+  it('has 10 templates, each with fonts, colours and a decoration', () => {
+    assert.equal(templates.length, 10);
+    assert.equal(new Set(templates.map((t) => t.id)).size, 10);
+    for (const t of templates) for (const k of ['title', 'body', 'bg', 'fg', 'accent', 'accent2', 'deco']) assert.ok(t[k], `${t.id} ${k}`);
+  });
+
+  it('skips empty slides, keeps the cover, numbers them and reads big numbers', () => {
+    const deck = D.slides(steps, { cover: { name: 'Lumen' }, traction: { headline: 'Growing', stats: 'Users: 12,000\nDeposits: $4M' } });
+    assert.deepEqual(deck.map((s) => s.id), ['cover', 'traction']);
+    assert.equal(deck[1].number, 2);
+    assert.deepEqual(deck[1].stats[0], { label: 'Users', value: '12,000' });
+    assert.equal(D.slides(steps, {})[0].name, 'Your project');
+  });
+});

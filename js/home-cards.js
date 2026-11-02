@@ -340,6 +340,21 @@
         );
       },
     },
+    'tool-pitch-deck': {
+      font: 'Abril Fatface',
+      title: function () { return 'Pitch Deck<br>Builder'; },
+      art: function () {
+        return svg(
+          '<rect width="270" height="100" fill="#FBF6EC"/>' +
+          '<g stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">' +
+          '<path d="M206 86 L222 52 M250 86 L234 52 M228 52 V92" fill="none"/>' +
+          '<g class="pd-slides"><rect x="190" y="14" width="76" height="44" rx="3" fill="#FF6B6B"/><rect x="184" y="10" width="76" height="44" rx="3" fill="#4D9DE0"/>' +
+          '<rect x="178" y="6" width="76" height="44" rx="3" fill="#fff"/><path d="M186 18 H230 M186 28 H220 M186 36 H226" stroke-width="3"/>' +
+          '<path d="M232 42 L240 30 L248 38" fill="none" stroke="#6BCB77" stroke-width="3"/></g></g>' +
+          '<path d="M10 92 H120" stroke="#C0392B" stroke-width="3"/>'
+        );
+      },
+    },
   };
 
   // Loads one Google Font with only the letters it needs.

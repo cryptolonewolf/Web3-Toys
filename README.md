@@ -77,6 +77,9 @@ window, "Save as PDF"), Download PNG, Copy and Reset.
 - Launch Budget Planner (`builder/launch-budget/`): budget lines, their rough
   typical ranges (marked `"review": true` for you to check), templates and
   runway limits are in `data/tools/budget_ranges.json`.
+- Pitch Deck Builder (`builder/pitch-deck/`): the questions (one step per
+  slide) are in `data/tools/pitch-deck.json`; the 10 visual templates (fonts,
+  colours, decoration) in `data/tools/deck_templates.json`.
 
 ## Project Academy
 

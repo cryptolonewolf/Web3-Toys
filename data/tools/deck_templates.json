@@ -1,0 +1,15 @@
+{
+  "_help": "The 10 visual templates for the Pitch Deck Builder. title and body: Google Fonts (loaded only when the template is picked). bg, fg, accent and accent2: colours. deco: the decoration style (blocks, grid, dots, paper, glow, terminal, bold, waves, pixels, sunny), drawn by styles/toys.css.",
+  "templates": [
+    { "id": "sunny", "name": "Sunny", "title": "Fredoka", "titleWeight": 700, "body": "Nunito", "bg": "#FFF8E1", "fg": "#1F1B2E", "accent": "#FFD93D", "accent2": "#FF6B6B", "deco": "sunny" },
+    { "id": "midnight", "name": "Midnight", "title": "Space Grotesk", "titleWeight": 700, "body": "Inter", "bg": "#0E1430", "fg": "#F2F4FF", "accent": "#7CFFB2", "accent2": "#5B6CFF", "deco": "glow" },
+    { "id": "blueprint", "name": "Blueprint", "title": "Rubik", "titleWeight": 800, "body": "Rubik", "bg": "#1E5AA8", "fg": "#FFFFFF", "accent": "#FFD93D", "accent2": "#9CCBF0", "deco": "grid" },
+    { "id": "candy", "name": "Candy", "title": "Chewy", "titleWeight": 400, "body": "Nunito", "bg": "#FFE3F1", "fg": "#3A1D4A", "accent": "#FF8FC8", "accent2": "#6BCB77", "deco": "dots" },
+    { "id": "paper", "name": "Paper", "title": "Playfair Display", "titleWeight": 700, "body": "Lora", "bg": "#FBF6EC", "fg": "#2B2620", "accent": "#C0392B", "accent2": "#E8DCC4", "deco": "paper" },
+    { "id": "terminal", "name": "Terminal", "title": "VT323", "titleWeight": 400, "body": "IBM Plex Mono", "bg": "#06140C", "fg": "#B6FFD0", "accent": "#39FF88", "accent2": "#0F3A20", "deco": "terminal" },
+    { "id": "bold", "name": "Bold", "title": "Archivo Black", "titleWeight": 400, "body": "Archivo", "bg": "#FFFFFF", "fg": "#111111", "accent": "#FF3B30", "accent2": "#111111", "deco": "bold" },
+    { "id": "ocean", "name": "Ocean", "title": "Poppins", "titleWeight": 700, "body": "Poppins", "bg": "#E6F7F7", "fg": "#0B3B44", "accent": "#3CC6C0", "accent2": "#0B7A85", "deco": "waves" },
+    { "id": "pixel", "name": "Pixel", "title": "Press Start 2P", "titleWeight": 400, "body": "Inter", "bg": "#2A1A5E", "fg": "#FFFFFF", "accent": "#FFD93D", "accent2": "#A98BFF", "deco": "pixels" },
+    { "id": "blocks", "name": "Blocks", "title": "Lilita One", "titleWeight": 400, "body": "Nunito", "bg": "#F0F7FF", "fg": "#1F1B2E", "accent": "#4D9DE0", "accent2": "#FF9F43", "deco": "blocks" }
+  ]
+}

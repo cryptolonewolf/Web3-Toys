@@ -4518,6 +4518,238 @@ a.xcard:active {
   margin: 0 auto;
 }
 
+/* Pitch Deck Builder */
+.deck-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.deck-step {
+  width: 34px;
+  height: 34px;
+  font: 800 14px var(--font-body);
+  color: var(--ink);
+  background: var(--white);
+  border: var(--line-thin);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.deck-step.is-done { background: var(--mint-tint); }
+.deck-step.is-now { background: var(--yellow); box-shadow: var(--shadow-sm); }
+
+.deck-styles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.deck-style {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+  padding: 0;
+  font: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.deck-style .slide {
+  border-radius: 10px;
+}
+
+.deck-style.is-on .slide {
+  outline: 4px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.deck-style-name {
+  font-weight: 800;
+}
+
+.deck-list {
+  display: grid;
+  gap: 16px;
+}
+
+.deck-item {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+}
+
+/* A 16:9 slide. Sizes are in cqi (a share of the slide width) so the same
+   slide works as a thumbnail, on a phone and in the PDF. */
+.slide {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2.2cqi;
+  padding: 6cqi 8cqi;
+  color: var(--fg);
+  background: var(--bg);
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  font-family: var(--bf), system-ui, sans-serif;
+  text-align: left;
+}
+
+.slide > * {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+}
+
+.slide-kicker {
+  font-weight: 700;
+  font-size: 2.6cqi;
+  letter-spacing: 0.2cqi;
+  text-transform: uppercase;
+  color: var(--ac);
+}
+
+.slide-title {
+  font-family: var(--tf), system-ui, sans-serif;
+  font-weight: var(--tw);
+  font-size: 5cqi;
+  line-height: 1.1;
+}
+
+.slide--cover .slide-title {
+  font-size: 8cqi;
+}
+
+.slide-sub {
+  font-size: 3.2cqi;
+}
+
+.slide-points {
+  display: grid;
+  gap: 1.2cqi;
+  padding: 0;
+  list-style: none;
+  font-size: 2.7cqi;
+  line-height: 1.3;
+}
+
+.slide-points li {
+  position: relative;
+  padding-left: 3.4cqi;
+}
+
+.slide-points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.9cqi;
+  width: 1.6cqi;
+  height: 1.6cqi;
+  background: var(--ac);
+  border-radius: 0.3cqi;
+}
+
+.slide-stats {
+  display: flex;
+  gap: 5cqi;
+}
+
+.slide-stats div {
+  display: grid;
+}
+
+.slide-stats b {
+  font-family: var(--tf), system-ui, sans-serif;
+  font-weight: var(--tw);
+  font-size: 5.5cqi;
+  color: var(--ac);
+  line-height: 1.05;
+}
+
+.slide-stats span {
+  font-size: 2.2cqi;
+}
+
+.slide-foot {
+  position: absolute !important;
+  left: 8cqi;
+  bottom: 3cqi;
+  font-size: 1.8cqi;
+  opacity: 0.7;
+}
+
+.slide-deco {
+  position: absolute !important;
+  inset: 0;
+  z-index: 0 !important;
+  pointer-events: none;
+}
+
+/* The 10 decorations */
+.deco-sunny .slide-deco { background: radial-gradient(circle at 92% 12%, var(--ac) 0 14cqi, transparent 14.2cqi); }
+.deco-sunny .slide-deco::after { content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 2cqi; background: var(--ac2); }
+.deco-glow .slide-deco { background: radial-gradient(circle at 85% 20%, color-mix(in srgb, var(--ac2) 60%, transparent), transparent 40%), radial-gradient(circle at 10% 90%, color-mix(in srgb, var(--ac) 30%, transparent), transparent 35%); }
+.deco-grid .slide-deco { background-image: linear-gradient(rgba(255,255,255,.18) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.18) 1px, transparent 1px); background-size: 4cqi 4cqi; }
+.deco-dots .slide-deco { background-image: radial-gradient(var(--ac) 0.7cqi, transparent 0.8cqi); background-size: 6cqi 6cqi; opacity: 0.35; }
+.deco-paper .slide-deco { border: 1.2cqi solid var(--ac2); outline: 0.3cqi solid var(--ac); outline-offset: -2.4cqi; }
+.deco-terminal .slide-deco { background: repeating-linear-gradient(0deg, rgba(57,255,136,.07) 0 0.4cqi, transparent 0.4cqi 0.9cqi); }
+.deco-bold .slide-deco { background: linear-gradient(90deg, var(--ac) 0 3cqi, transparent 3cqi); }
+.deco-bold .slide-deco::after { content: ''; position: absolute; right: -6cqi; top: -6cqi; width: 26cqi; height: 26cqi; background: var(--ac2); transform: rotate(18deg); }
+.deco-waves .slide-deco { background: radial-gradient(120% 40% at 50% 115%, var(--ac) 60%, transparent 61%), radial-gradient(120% 40% at 30% 125%, var(--ac2) 60%, transparent 61%); }
+.deco-pixels .slide-deco { background-image: linear-gradient(90deg, var(--ac) 0 2cqi, transparent 2cqi 4cqi, var(--ac2) 4cqi 6cqi, transparent 6cqi); background-size: 8cqi 2cqi; background-repeat: repeat-x; background-position: 0 100%; }
+.deco-blocks .slide-deco { background: linear-gradient(var(--ac), var(--ac)) 88% 14% / 9cqi 9cqi no-repeat, linear-gradient(var(--ac2), var(--ac2)) 96% 30% / 6cqi 6cqi no-repeat; }
+.deco-pixels .slide-title { font-size: 3.6cqi; line-height: 1.5; }
+.deco-pixels.slide--cover .slide-title { font-size: 5.4cqi; }
+
+@media print {
+  body.is-printing-deck #print-sheet h1,
+  body.is-printing-deck .print-foot {
+    display: none;
+  }
+
+  #print-sheet .print-deck .slide {
+    width: 100%;
+    margin: 0 0 6mm;
+    border-radius: 0;
+    break-inside: avoid;
+    page-break-after: always;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+@page deck {
+  size: landscape;
+}
+
+.print-deck {
+  page: deck;
+}
+
+.xcard--tool-pitch-deck {
+  background: #fbf6ec;
+  box-shadow: 0 0 0 3px var(--ink), 4px 4px 0 3px #c0392b;
+}
+
+.xcard--tool-pitch-deck .xtitle {
+  font-size: 9.4cqi;
+  line-height: 1;
+  color: #2b2620;
+  padding: 0 34cqi 0 6cqi;
+}
+
+.xcard--tool-pitch-deck:hover .pd-slides {
+  animation: nudge 0.5s ease;
+}
+
 /* The Tools page */
 .tool-list {
   display: grid;
