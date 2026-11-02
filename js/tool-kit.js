@@ -41,8 +41,9 @@
       notes();
   }
 
-  // handlers: { pdf, png, copy, reset }. Each returns nothing; copy returns
-  // the text to copy.
+  // handlers: { pdf, png, copy, reset } plus any extra buttons. copy returns
+  // the text to copy; others may return a message to show. blocked(), if
+  // given, returns a message while exports are not allowed yet.
   function bind(root, handlers) {
     var msg = root.querySelector('[data-tool-msg]');
     var say = function (t) {
@@ -54,7 +55,11 @@
     root.querySelectorAll('[data-tool]').forEach(function (b) {
       b.addEventListener('click', function () {
         var kind = b.getAttribute('data-tool');
-        if (kind === 'copy') {
+        // handlers.blocked() can stop every export (not Reset) with a message.
+        var blocked = kind !== 'reset' && handlers.blocked && handlers.blocked();
+        if (blocked) {
+          say(blocked);
+        } else if (kind === 'copy') {
           copyText(handlers.copy()).then(function () { say('Copied.'); }, function () { say('Could not copy. Select the text and copy it yourself.'); });
         } else if (kind === 'reset') {
           if (window.confirm('Start again? This clears what you entered.')) {

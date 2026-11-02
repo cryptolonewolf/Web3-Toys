@@ -4932,6 +4932,164 @@ a.xcard:active {
   margin-top: 18px;
 }
 
+.xcard--tool-meme-kit {
+  background: #e8ffe1;
+  box-shadow: 0 0 0 3px var(--ink), 4px 4px 0 3px #6bcb77;
+}
+
+.xcard--tool-meme-kit .xtitle {
+  font-size: 11cqi;
+  line-height: 1;
+  color: #ffd23f;
+  -webkit-text-stroke: 1.2cqi var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 0.8cqi 0.8cqi 0 var(--ink);
+  padding: 0 40cqi 0 4cqi;
+}
+
+.xcard--tool-meme-kit:hover .mk-coin {
+  animation: wobble 0.6s ease;
+  transform-origin: 218px 52px;
+}
+
+/* Meme Coin Launch Kit */
+.mk-names {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+@media (min-width: 700px) {
+  .mk-names {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.mk-name {
+  display: grid;
+  gap: 2px;
+  padding: 10px;
+  text-align: left;
+  font: 800 15px var(--font-body);
+  color: var(--ink);
+  background: var(--white);
+  border: var(--line-thin);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.mk-name span {
+  font-size: 13px;
+  color: var(--ink-soft, #5a5470);
+}
+
+.mk-name.is-on {
+  background: var(--yellow);
+  border: var(--line);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.mk-copy {
+  margin-left: auto;
+}
+
+.mk-logo-wrap {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 700px) {
+  .mk-logo-wrap {
+    grid-template-columns: 220px 1fr;
+    align-items: start;
+  }
+}
+
+.mk-logo {
+  width: min(220px, 60vw);
+  margin: 0 auto;
+}
+
+.mk-logo svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.mk-swatches,
+.mk-emojis {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mk-swatch {
+  width: 36px;
+  height: 36px;
+  background: var(--c);
+  border: var(--line-thin);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.mk-swatch.is-on,
+.mk-emoji.is-on {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.mk-emoji {
+  width: 44px;
+  height: 44px;
+  font-size: 24px;
+  line-height: 1;
+  background: var(--white);
+  border: var(--line-thin);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.mk-check {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font: 700 15px / 1.35 var(--font-body);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.mk-check input {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  accent-color: var(--ink);
+}
+
+.mk-check--big {
+  padding: 10px 12px;
+  background: var(--white);
+  border: var(--line-thin);
+  border-radius: 12px;
+  font-size: 16px;
+}
+
+.mk-respo {
+  background: #fff1a8;
+}
+
+.mk-respo.is-done {
+  background: #dff7e2;
+}
+
+.mk-sheet td {
+  word-break: break-word;
+}
+
+.tool-actions .is-locked {
+  opacity: 0.55;
+}
+
 /* The Tools page */
 .tool-list {
   display: grid;

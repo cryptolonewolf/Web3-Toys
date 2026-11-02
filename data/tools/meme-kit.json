@@ -1,0 +1,55 @@
+{
+  "_help": "Meme Coin Launch Kit. Names come from the visitor's theme words dropped into namePatterns ({W} = a theme word, {W2} = a second one). Tickers are made from the name. Text templates use {name}, {ticker}, {theme} and {word}. Keep all copy free of price or return promises (a test checks for banned words). pumpFields lists what the pump.fun create form asked for when this was written: check it against the site.",
+  "review": true,
+  "examples": ["a frog who loves coffee", "a cat astronaut", "grumpy penguin chef", "a hamster that lifts"],
+  "stopWords": ["a", "an", "the", "who", "that", "which", "with", "and", "or", "of", "to", "in", "on", "for", "loves", "love", "likes", "is", "are", "my", "his", "her", "its", "very", "from", "at", "by", "into"],
+  "namePatterns": ["{W}", "Baby {W}", "Lil {W}", "{W} Inu", "Based {W}", "Sir {W}", "{W}ana", "{W}ster", "Mr {W}", "{W} Coin", "Captain {W}", "{W} Club", "Super {W}", "{W}io", "King {W}", "{W} {W2}", "{W2} {W}", "{W}zilla", "Tiny {W}", "{W} Gang"],
+  "descriptions": [
+    "{name} ({ticker}) is a community meme coin about {theme}. No roadmap promises, just memes and good vibes.",
+    "{ticker} is a fun meme token for fans of {theme}. Made for jokes, art and community.",
+    "Meet {name}, the meme coin inspired by {theme}. It is a community experiment, not an investment."
+  ],
+  "stories": [
+    "Once upon a block, {name} showed up with nothing but {theme} and a lot of memes.",
+    "Every chain needs a hero. This one is {theme}, and its name is {name}.",
+    "{name} was born when someone asked: what if {theme} had its own coin?"
+  ],
+  "bios": [
+    "{name} ({ticker}) · a meme coin about {theme} · community made · not financial advice",
+    "the official {ticker} account · {theme} memes daily · no promises, just fun",
+    "{name} · {theme} · memes, art and community · DYOR"
+  ],
+  "posts": [
+    "Say hi to {name} ({ticker}) 👋 A meme coin about {theme}. No promises, no roadmap hype, just memes. Team wallets and holdings are public in our pinned post. Do your own research.",
+    "{ticker} is live. {name} is a community meme about {theme}. Memes are free, so share yours below 👇 Meme coins are risky: only use money you can afford to lose.",
+    "gm from {name} ☕ Today's mission: the best {word} meme wins a shout out. Reply with yours. ({ticker} is a meme coin, not an investment.)"
+  ],
+  "bannedWords": ["guarantee", "guaranteed", "100x", "1000x", "to the moon", "moon soon", "risk free", "risk-free", "profit", "returns", "get rich", "passive income", "can't lose", "next 100x"],
+  "logo": {
+    "shapes": [
+      {"id": "circle", "label": "Circle"},
+      {"id": "rounded", "label": "Rounded square"},
+      {"id": "hexagon", "label": "Hexagon"},
+      {"id": "badge", "label": "Star badge"},
+      {"id": "shield", "label": "Shield"}
+    ],
+    "colors": ["#FFD23F", "#FF6B6B", "#4D9DE0", "#6BCB77", "#A98BFF", "#FF9F45", "#1F1B2E", "#FFFFFF"],
+    "emojis": ["🐸", "🐶", "🐱", "🐧", "🐹", "🐵", "🦊", "🐻", "🐳", "🦄", "🐲", "🍕", "☕", "🚀", "🔥", "💎", "👑", "🍌", "🌮", "🎩", "🤖", "👽", "🍄", "⭐"]
+  },
+  "pumpFields": [
+    {"key": "name", "label": "Name"},
+    {"key": "ticker", "label": "Ticker"},
+    {"key": "description", "label": "Description"},
+    {"key": "image", "label": "Image", "note": "Upload the logo PNG you downloaded here."},
+    {"key": "website", "label": "Website (optional)"},
+    {"key": "x", "label": "X / Twitter link (optional)"},
+    {"key": "telegram", "label": "Telegram link (optional)"}
+  ],
+  "checklist": [
+    {"id": "wallets", "text": "No hidden team wallets. Every wallet the team controls is known and can be shared."},
+    {"id": "holdings", "text": "I will publicly disclose any team holdings before and after launch."},
+    {"id": "promises", "text": "I will never promise prices, profits or returns."},
+    {"id": "zero", "text": "I understand that most meme coins go to zero, and buyers can lose everything."}
+  ],
+  "checklistLine": "Tick all four to unlock the downloads. Meme coins are pure speculation: launch for fun and community, never to take people's money."
+}

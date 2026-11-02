@@ -68,7 +68,8 @@
         {"id": "tool-launch-budget", "status": "live", "kind": "tool", "path": "builder/launch-budget/", "title": "Launch Budget Planner", "time": "Tool", "blurb": "Split your raise, compare with typical ranges, and see your runway."},
         {"id": "tool-pitch-deck", "status": "live", "kind": "tool", "path": "builder/pitch-deck/", "title": "Pitch Deck Builder", "time": "Tool", "blurb": "Answer short steps, pick one of 10 styles, download your deck."},
         {"id": "tool-cap-table", "status": "live", "kind": "tool", "path": "builder/cap-table/", "title": "Cap Table and Dilution", "time": "Tool", "blurb": "Founders, rounds, and who owns what after each one."},
-        {"id": "tool-agreements", "status": "live", "kind": "tool", "path": "builder/agreements/", "title": "SAFT and Agreement Templates", "time": "Tool", "blurb": "Fill the blanks, download the document, then ask a lawyer."}
+        {"id": "tool-agreements", "status": "live", "kind": "tool", "path": "builder/agreements/", "title": "SAFT and Agreement Templates", "time": "Tool", "blurb": "Fill the blanks, download the document, then ask a lawyer."},
+        {"id": "tool-meme-kit", "status": "live", "kind": "tool", "path": "builder/meme-kit/", "title": "Meme Coin Launch Kit", "time": "Tool", "blurb": "Names, tickers, a logo and launch posts, launched responsibly."}
       ]
     },
     {

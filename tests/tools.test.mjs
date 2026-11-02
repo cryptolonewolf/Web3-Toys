@@ -225,3 +225,33 @@ describe('SAFT and Agreement Templates', () => {
     assert.ok(A.text(tpl, {}, 'WARN').startsWith('WARN'));
   });
 });
+
+describe('Meme Coin Launch Kit', () => {
+  const M = require('../js/meme-engine.js');
+  const kit = json('data/tools/meme-kit.json');
+
+  it('makes 10 different names and tickers from a theme, the same each time', () => {
+    const a = M.names('a frog who loves coffee', kit, 0);
+    assert.equal(a.length, 10);
+    assert.equal(new Set(a.map((x) => x.name)).size, 10);
+    assert.equal(new Set(a.map((x) => x.ticker)).size, 10);
+    a.forEach((x) => assert.match(x.ticker, /^\$[A-Z]{3,5}$/));
+    assert.deepEqual(M.names('a frog who loves coffee', kit, 0), a);
+    assert.notDeepEqual(M.names('a frog who loves coffee', kit, 1), a);
+    assert.equal(M.names('', kit, 0).length, 10);
+  });
+
+  it('never promises returns in its own words', () => {
+    const all = [kit.descriptions, kit.stories, kit.bios, kit.posts].flat().join(' ');
+    assert.deepEqual(M.banned(all, kit), []);
+    assert.deepEqual(M.banned('This will 100x, guaranteed', kit), ['guarantee', 'guaranteed', '100x']);
+  });
+
+  it('has the four required Launch responsibly checks and the pump.fun fields', () => {
+    assert.equal(kit.review, true);
+    const text = kit.checklist.map((c) => c.text).join(' ').toLowerCase();
+    ['hidden team wallets', 'team holdings', 'never promise', 'go to zero'].forEach((w) => assert.ok(text.includes(w), w));
+    assert.deepEqual(kit.pumpFields.slice(0, 4).map((f) => f.key), ['name', 'ticker', 'description', 'image']);
+    assert.ok(M.copy('cats', { name: 'Cat', ticker: '$CAT' }, kit, 0).bio.length <= 160);
+  });
+});

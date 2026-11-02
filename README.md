@@ -87,6 +87,10 @@ window, "Save as PDF"), Download PNG, Copy and Reset.
   and template list are in `data/tools/templates/index.json`; each template's
   form fields and clause text (with `{{blanks}}`) in
   `data/tools/templates/<id>.json`. All marked `"review": true`.
+- Meme Coin Launch Kit (`builder/meme-kit/`): name patterns, launch word
+  templates, banned promise words, logo shapes, colours and emojis, the
+  pump.fun info sheet fields and the required Launch responsibly checklist
+  are in `data/tools/meme-kit.json`.
 
 ## Project Academy
 

@@ -383,6 +383,18 @@
         );
       },
     },
+    'tool-meme-kit': {
+      font: 'Luckiest Guy',
+      title: function () { return 'Meme Coin<br>Launch Kit'; },
+      art: function () {
+        return svg(
+          '<rect width="270" height="100" fill="#E8FFE1"/>' +
+          '<g class="mk-coin"><circle cx="218" cy="52" r="34" fill="#FFD23F" stroke="' + INK + '" stroke-width="3"/><circle cx="218" cy="52" r="25" fill="none" stroke="' + INK + '" stroke-width="2" stroke-dasharray="4 4"/>' +
+          '<text x="218" y="64" text-anchor="middle" font-size="32">🐸</text></g>' +
+          star(176, 20, 7, '#6BCB77') + star(256, 88, 6, '#6BCB77') + star(160, 82, 4, '#FFD23F')
+        );
+      },
+    },
   };
 
   // Loads one Google Font with only the letters it needs.
