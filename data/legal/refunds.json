@@ -1,0 +1,31 @@
+{
+  "_help": "The Refunds and delivery page (Razorpay asks for refund and delivery policies). Plain-English draft: have a lawyer check it.",
+  "review": true,
+  "title": "Refunds and delivery",
+  "updated": "2 November 2026",
+  "intro": "How you get what you paid for, and when you can get your money back.",
+  "sections": [
+    {"title": "Delivery", "list": [
+      "Everything we sell is digital. Nothing is shipped.",
+      "Reports, certificates, exports and books appear in your account under Purchases right after payment, with a download button. We also email you a receipt.",
+      "If your download does not appear within 30 minutes, contact us with your payment reference."
+    ]},
+    {"title": "Digital products (reports, certificates, exports, books)", "list": [
+      "Because they are delivered straight away, digital products are not refundable once downloaded.",
+      "If a file is broken, wrong or never arrived, tell us within 7 days and we will fix it or refund you in full."
+    ]},
+    {"title": "Project listings (Academy courses and custom toys)", "list": [
+      "Payment does not guarantee listing. Every project passes our vetting checklist first, and we refund in full if we decline.",
+      "If you cancel before we start work, we refund in full. Once work has started, we refund the part not yet done.",
+      "No refund once a course or toy is live."
+    ]},
+    {"title": "Calls", "list": [
+      "Cancel or move a call at least 24 hours before it starts for a full refund or a new time.",
+      "Later cancellations and missed calls are not refunded.",
+      "If we have to cancel, you get a full refund or a new time, your choice."
+    ]},
+    {"title": "How refunds are paid", "list": [
+      "Refunds go back to the card, UPI or account you paid with, usually within 5 to 7 working days after we approve them."
+    ]}
+  ]
+}

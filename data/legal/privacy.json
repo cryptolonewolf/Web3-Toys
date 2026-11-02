@@ -1,0 +1,56 @@
+{
+  "_help": "The Privacy page. Plain-English draft: have a lawyer check it before taking payments. Keep it matching what the site really collects. Lines starting with TODO are placeholders.",
+  "review": true,
+  "title": "Privacy policy",
+  "updated": "2 November 2026",
+  "intro": "web3.toys is built so you can play without telling us anything. This page lists exactly what we collect, why, who helps us store it, and how to delete it.",
+  "sections": [
+    {"title": "If you just play", "list": [
+      "Your progress, coins, certificates and tool inputs are saved in your own browser (local storage). They are not sent to us.",
+      "Tools run in your browser. What you type into a tool is not sent anywhere.",
+      "We count simple page events (a toy was opened, finished or shared) without your name, to see which toys people like."
+    ]},
+    {"title": "If you create an account", "list": [
+      "Your login: your email address, or your X or Google account id, plus the name and profile picture that service shares with us. We never get your password.",
+      "When and which version of this policy you agreed to.",
+      "Your progress: toys played, scores, certificates, Pro tags, rank, coins and cosmetic extras, so you can see them on any device and on the leaderboard.",
+      "The leaderboard shows only your display name, rank and coins. You can change your display name."
+    ]},
+    {"title": "If you buy something", "list": [
+      "What you bought, the price, the date and the payment reference, so we can give you your download and a receipt.",
+      "Payments are handled by Razorpay. Your card, UPI or bank details go to Razorpay, not to us. Razorpay's own privacy policy applies to them.",
+      "Calls booked through Cal.com are handled by Cal.com and its payment provider."
+    ]},
+    {"title": "If you join the email list or send a project request", "list": [
+      "Your email address and the page you signed up from, to send you the updates you asked for. Every email has an unsubscribe link.",
+      "For project requests: your name, email, project details and payment status, to review and deliver your request."
+    ]},
+    {"title": "Who helps us", "list": [
+      "Supabase (accounts, database and private file storage).",
+      "Vercel (hosting the website).",
+      "Razorpay (payments and receipts).",
+      "Cal.com (booking calls).",
+      "Our email provider (login links and receipts).",
+      "We do not sell your data and we do not use advertising trackers."
+    ]},
+    {"title": "How long we keep it", "list": [
+      "Account and progress data: until you delete your account.",
+      "Purchase records: as long as the law requires us to keep financial records, even after you delete your account.",
+      "Email list: until you unsubscribe."
+    ]},
+    {"title": "Deleting your data", "list": [
+      "Logged in: open My account and tap \"Delete my account and data\". Your account, progress and coins are deleted straight away and cannot be brought back.",
+      "Browser data: the same button also clears web3.toys data saved in that browser. You can also clear it in your browser settings.",
+      "Anything else, or if you cannot log in: email us from the Contact page and we will delete it."
+    ]},
+    {"title": "Your rights", "list": [
+      "You can ask to see, correct or delete the data we hold about you, and withdraw your consent at any time, by emailing us from the Contact page."
+    ]},
+    {"title": "Age", "list": [
+      "Accounts and purchases are for people aged 18 or over. Anyone younger can play without an account."
+    ]},
+    {"title": "Changes", "list": [
+      "If we change what we collect, we will update this page and the date at the top, and ask for your agreement again when needed."
+    ]}
+  ]
+}

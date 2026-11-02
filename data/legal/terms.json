@@ -1,0 +1,48 @@
+{
+  "_help": "The Terms page. Plain-English draft: have a lawyer check it before taking payments. Lines starting with TODO are placeholders.",
+  "review": true,
+  "title": "Terms of use",
+  "updated": "2 November 2026",
+  "intro": "By using web3.toys you agree to these terms. They are written to be short and readable.",
+  "sections": [
+    {"title": "Education only", "list": [
+      "Everything on web3.toys is for learning. Nothing here is financial, investment, legal or tax advice.",
+      "Crypto is risky. You can lose all the money you put in. Do your own research and talk to a qualified adviser before you invest."
+    ]},
+    {"title": "Your account", "list": [
+      "You must be 18 or over to create an account or buy anything.",
+      "Keep your login safe. You are responsible for what happens in your account.",
+      "We may remove accounts that cheat, spam or abuse the site, including faking scores or coins."
+    ]},
+    {"title": "Coins", "list": [
+      "Coins are points on this site only. They have no cash value.",
+      "Coins can never be withdrawn, sold, transferred or exchanged for money, crypto or tokens.",
+      "Coins unlock small cosmetic extras on this site. We may change how coins are earned or spent."
+    ]},
+    {"title": "Certificates and Pro tags", "list": [
+      "Certificates show you finished a toy or passed a quiz on web3.toys. They are not a professional qualification."
+    ]},
+    {"title": "Purchases", "list": [
+      "Prices are shown before you pay, in Indian rupees or US dollars. Taxes are added where the law requires.",
+      "Digital products (reports, certificates, exports and books) are delivered as downloads in your account straight after payment.",
+      "Refunds follow our Refunds page."
+    ]},
+    {"title": "Project listings and custom toys", "list": [
+      "Payment does not guarantee listing. Every project passes our vetting checklist first, and we refund in full if we decline.",
+      "We may remove a listed course or toy if we later find the project is misleading, unsafe or breaks the law."
+    ]},
+    {"title": "Calls", "list": [
+      "Calls are general guidance for learning, not personal financial advice. See the Refunds page for missed or moved calls."
+    ]},
+    {"title": "Content and templates", "list": [
+      "Agreement templates and tool results are starting points only. Have a qualified lawyer in your country review any agreement before signing."
+    ]},
+    {"title": "Limits of our responsibility", "list": [
+      "We do our best to keep information accurate, but we cannot promise it is complete or up to date.",
+      "To the extent the law allows, we are not responsible for losses from decisions you make using this site."
+    ]},
+    {"title": "Law", "list": [
+      "TODO: These terms are governed by the laws of [your country or state], and disputes go to the courts of [your city]."
+    ]}
+  ]
+}

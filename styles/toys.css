@@ -5962,3 +5962,83 @@ a.ac-card:hover {
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+
+/* ---------- Accounts ---------- */
+.acct-chip {
+  display: inline-flex;
+  text-decoration: none;
+  flex: none;
+  border-radius: 50%;
+  border: var(--line-thin);
+  overflow: hidden;
+}
+
+.acct-avatar {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 50%;
+  background: var(--yellow);
+  font: 800 16px var(--font-body);
+  color: var(--ink);
+}
+
+.acct-avatar--big {
+  width: 56px;
+  height: 56px;
+  font-size: 26px;
+  border: var(--line);
+}
+
+.acct-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.acct-who p {
+  margin: 0;
+}
+
+.acct-settings summary {
+  cursor: pointer;
+}
+
+.acct-settings[open] summary {
+  margin-bottom: 10px;
+}
+
+.acct-danger {
+  color: #b42318;
+  border-color: #b42318;
+}
+
+.acct-consent a {
+  color: inherit;
+}
+
+.acct-way:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.legal ul {
+  margin: 0;
+  padding-left: 20px;
+  font: 600 16px / 1.55 var(--font-body);
+  color: var(--ink);
+}
+
+.legal li + li {
+  margin-top: 6px;
+}
+
+.legal-links a {
+  color: inherit;
+}
+
+.acct-modal {
+  z-index: 60;
+}

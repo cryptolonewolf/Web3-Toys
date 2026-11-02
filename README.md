@@ -268,3 +268,18 @@ complete, and the older Spot the Scam and simulator logic.
 
 The site runs on Vercel and web3.toys points at it. In the Vercel project
 settings, the framework preset is **Other** with no build command.
+
+## Accounts (Part 1)
+
+- Logins use Supabase and stay switched off until `config.js` has
+  `supabase.url` and `supabase.anonKey` (both public). The secret
+  service_role key must never go in the website code.
+- Setup steps for Supabase, Google, X and email: `docs/setup/part-1-accounts.md`.
+  Database tables and rules: `supabase/001_accounts.sql` (paste into the
+  Supabase SQL Editor).
+- `js/auth.js` (the login box, header avatar, `window.Web3Auth`) is loaded
+  by `js/site.js` only when accounts are switched on. The Supabase library
+  is a pinned copy in `js/vendor/`.
+- Legal pages: `privacy/`, `terms/`, `refunds/`, `contact/`. Their words
+  are in `data/legal/*.json` (drafts, marked for review); the contact
+  details come from `config.js` (`contact`).

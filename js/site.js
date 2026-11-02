@@ -22,6 +22,10 @@
     { label: 'About Aki', href: 'about/' },
     { label: 'List your project', href: 'academy/list-your-project/' },
     { label: 'Check a certificate', href: 'verify/' },
+    { label: 'Privacy', href: 'privacy/' },
+    { label: 'Terms', href: 'terms/' },
+    { label: 'Refunds', href: 'refunds/' },
+    { label: 'Contact', href: 'contact/' },
   ];
 
   function config() {
@@ -427,9 +431,24 @@
     coins: { award: award, spend: spend, wallet: wallet, amount: coinAmount, refresh: showCoins, pageKey: pageKey },
   };
 
+  // Accounts load only when config.js has the Supabase settings.
+  function loadAuth() {
+    var sb = config().supabase || {};
+    if (!sb.url || !sb.anonKey || window.Web3Auth) return;
+    var lib = document.createElement('script');
+    lib.src = ROOT + 'js/vendor/supabase-2.117.3.js';
+    lib.onload = function () {
+      var a = document.createElement('script');
+      a.src = ROOT + 'js/auth.js';
+      document.head.appendChild(a);
+    };
+    document.head.appendChild(lib);
+  }
+
   function start() {
     buildTopbar();
     buildFooter();
+    loadAuth();
     showCoins();
     // Toys draw their buttons later, so tag them whenever the page changes.
     tagButtons();

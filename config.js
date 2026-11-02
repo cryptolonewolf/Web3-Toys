@@ -20,6 +20,32 @@ window.WEB3TOYS_CONFIG = {
   // While empty, the button says booking opens soon.
   bookCallUrl: '',
 
+  // Accounts (Supabase). Both values come from Supabase: Project Settings,
+  // API. The anon public key is safe in the browser: the database rules
+  // decide what it can read. NEVER put the service_role key here.
+  // Leave url empty to keep logins switched off.
+  supabase: {
+    url: '',
+    anonKey: '',
+  },
+
+  // Login options shown in the login box. xProvider is 'x' for the newer
+  // "X / Twitter (OAuth 2.0)" login in Supabase; use 'twitter' if your
+  // Supabase only offers the older "Twitter" one.
+  auth: {
+    google: true,
+    x: true,
+    email: true,
+    xProvider: 'x',
+  },
+
+  // Shown on the Contact page (Razorpay asks for these).
+  contact: {
+    email: '',
+    business: '',
+    address: '',
+  },
+
   // COINS. How many coins each action earns. Each one counts once per toy.
   // daily: opening the first toy of the day. finish: finishing a game.
   // certificate: earning a certificate. share: sharing a result card.

@@ -1,0 +1,6 @@
+{
+  "_help": "The Contact page. The email, business name and address come from config.js (contact). Razorpay asks for a contact page with these details.",
+  "title": "Contact us",
+  "intro": "Questions about a purchase, a refund, your data or a project request? Email us and we reply within 2 working days.",
+  "sections": []
+}
