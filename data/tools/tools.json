@@ -9,7 +9,7 @@
     {"id": "launch-budget", "title": "Launch Budget Planner", "blurb": "Split your raise and see your runway.", "status": "live", "path": "launch-budget/"},
     {"id": "pitch-deck", "title": "Pitch Deck Builder", "blurb": "Answer the questions, pick a style, download your deck.", "status": "live", "path": "pitch-deck/"},
     {"id": "cap-table", "title": "Cap Table and Dilution Simulator", "blurb": "Founders, rounds and who owns what after each one.", "status": "live", "path": "cap-table/"},
-    {"id": "agreements", "title": "SAFT and Agreement Templates", "blurb": "Fill in SAFT, advisor and KOL agreement templates.", "status": "soon"},
+    {"id": "agreements", "title": "SAFT and Agreement Templates", "blurb": "Fill in SAFT, advisor and KOL agreement templates.", "status": "live", "path": "agreements/"},
     {"id": "meme-kit", "title": "Meme Coin Launch Kit", "blurb": "Names, tickers, a logo and launch posts, launched responsibly.", "status": "soon"},
     {"id": "kol-scorecard", "title": "KOL Vetting Scorecard", "blurb": "Score a KOL from public numbers before you pay.", "status": "soon"},
     {"id": "airdrop-planner", "title": "Airdrop Campaign Planner", "blurb": "Allocation, eligibility, anti farming and a claim timeline.", "status": "soon"},

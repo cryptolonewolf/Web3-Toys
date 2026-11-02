@@ -370,6 +370,19 @@
         );
       },
     },
+    'tool-agreements': {
+      font: 'Playfair Display',
+      title: function () { return 'SAFT &amp;<br>Agreements'; },
+      art: function () {
+        return svg(
+          '<rect width="270" height="100" fill="#FFF4D6"/>' +
+          '<g class="ag-paper" transform="rotate(6 222 52)"><rect x="190" y="12" width="64" height="80" rx="4" fill="#FFFFFF" stroke="' + INK + '" stroke-width="2.5"/>' +
+          '<g stroke="' + INK + '" stroke-width="2" stroke-linecap="round"><path d="M200 28h44M200 38h44M200 48h30M200 58h40"/></g>' +
+          '<path d="M202 80c6-8 10 4 16-3s8 3 14-2" fill="none" stroke="#4D9DE0" stroke-width="2.5" stroke-linecap="round"/></g>' +
+          '<g class="ag-pen"><path d="M168 86 L186 60 L192 64 L174 90 Z" fill="#FF6B6B" stroke="' + INK + '" stroke-width="2" stroke-linejoin="round"/><path d="M168 86 L166 94 L174 90" fill="' + INK + '"/></g>'
+        );
+      },
+    },
   };
 
   // Loads one Google Font with only the letters it needs.

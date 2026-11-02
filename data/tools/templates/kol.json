@@ -1,0 +1,32 @@
+{
+  "_help": "KOL (creator) promotion agreement template. Fields become the form; {{key}} in the text is replaced with what the visitor types. Blank fields show as [Field label]. Section 3 (clear disclosure of paid posts) must stay in. A plain starting point only: it must be reviewed by a qualified lawyer, and advertising rules differ by country.",
+  "review": true,
+  "title": "KOL Promotion Agreement",
+  "fields": [
+    {"key": "date", "label": "Date of this agreement", "type": "date"},
+    {"key": "company", "label": "Project or company legal name", "placeholder": "Lumen Labs Ltd."},
+    {"key": "kol", "label": "Creator name", "placeholder": "Full legal name"},
+    {"key": "handle", "label": "Creator accounts", "placeholder": "@handle on X, YouTube channel"},
+    {"key": "deliverables", "label": "Posts to make", "type": "textarea", "placeholder": "3 posts on X and 1 thread over 2 weeks"},
+    {"key": "dates", "label": "When the posts go out", "placeholder": "Between 1 and 15 March"},
+    {"key": "fee", "label": "Fee", "placeholder": "USD 2,000 in USDC"},
+    {"key": "paySchedule", "label": "When the fee is paid", "placeholder": "50% before the first post, 50% after the last"},
+    {"key": "disclosure", "label": "Disclosure words on every paid post", "placeholder": "#ad or \"Paid partnership with Lumen\""},
+    {"key": "noSell", "label": "No selling period for any tokens received", "placeholder": "90 days"},
+    {"key": "law", "label": "Governing law", "placeholder": "Laws of your country or state"},
+    {"key": "signerCompany", "label": "Signing for the project (name and title)", "placeholder": "Jane Doe, CEO"}
+  ],
+  "sections": [
+    {"title": "Parties", "text": ["This KOL Promotion Agreement (the \"Agreement\") is made on {{date}} between {{company}} (the \"Project\") and {{kol}}, who posts as {{handle}} (the \"Creator\")."]},
+    {"title": "1. Posts", "text": ["The Creator will make these posts about the Project: {{deliverables}}.", "The posts go out {{dates}}. The Creator writes them in their own voice. The Project may check facts before posting but will not ask for false or misleading claims."]},
+    {"title": "2. Fee", "text": ["The Project will pay the Creator {{fee}}, paid {{paySchedule}}."]},
+    {"title": "3. Clear disclosure of paid posts", "text": ["Every post made under this Agreement must clearly say it is paid, using {{disclosure}}, placed at the start of the post or where viewers see it without clicking \"more\".", "The disclosure must also appear on reposts, threads, videos and live streams under this Agreement, and must follow the advertising and disclosure rules where the Creator and their audience live.", "A post without clear disclosure does not count as delivered, and the Project may ask for it to be fixed or deleted."]},
+    {"title": "4. Honest content", "text": ["The Creator will not promise or hint at prices, returns, profits or listings, and will not say the Project is risk free.", "The Creator will only share facts the Project has confirmed, and will remind viewers to do their own research."]},
+    {"title": "5. Tokens and trading", "text": ["If any part of the fee is paid in tokens, the Creator will say so in the disclosure and will not sell those tokens for {{noSell}} after receiving them.", "The Creator will not trade the Project's token around their posts using non-public information."]},
+    {"title": "6. Ending the agreement", "text": ["Either party may end this Agreement in writing if the other breaks it and does not fix it within 5 days. Fees for posts already delivered with proper disclosure stay payable."]},
+    {"title": "7. Independent creator", "text": ["The Creator is an independent contractor, not an employee or agent of the Project, and pays their own taxes."]},
+    {"title": "8. Governing law", "text": ["This Agreement is governed by the {{law}}."]},
+    {"title": "9. Whole agreement", "text": ["This Agreement is the whole agreement between the parties. Any change must be in writing and signed by both parties."]}
+  ],
+  "signatures": ["{{company}}, signed by {{signerCompany}}", "{{kol}}"]
+}

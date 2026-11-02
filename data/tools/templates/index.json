@@ -1,0 +1,10 @@
+{
+  "_help": "The agreement templates in the SAFT and Agreement Templates tool. Each id has its own file in this folder. The warning is shown in large type at the top and bottom of every template and every download.",
+  "review": true,
+  "warning": "Template only. Have a qualified lawyer in your country review it before signing.",
+  "templates": [
+    {"id": "saft", "title": "SAFT with an investor", "emoji": "🪙", "line": "An investor pays now and gets tokens when the network launches."},
+    {"id": "advisor", "title": "Advisor agreement", "emoji": "🧭", "line": "An advisor helps the project and earns tokens or cash over time."},
+    {"id": "kol", "title": "KOL promotion agreement", "emoji": "📣", "line": "A creator promotes the project for a fee, and clearly says it is paid."}
+  ]
+}

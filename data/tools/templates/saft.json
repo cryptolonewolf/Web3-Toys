@@ -1,0 +1,36 @@
+{
+  "_help": "SAFT (Simple Agreement for Future Tokens) template. Fields become the form; {{key}} in the text is replaced with what the visitor types. Blank fields show as [Field label]. A plain starting point only: it must be reviewed by a qualified lawyer, and in many countries selling a SAFT is a regulated securities offering.",
+  "review": true,
+  "title": "Simple Agreement for Future Tokens (SAFT)",
+  "fields": [
+    {"key": "date", "label": "Date of this agreement", "type": "date"},
+    {"key": "company", "label": "Company legal name", "placeholder": "Lumen Labs Ltd."},
+    {"key": "companyAddress", "label": "Company address", "placeholder": "Registered address"},
+    {"key": "companyJurisdiction", "label": "Company registered in", "placeholder": "Country or state"},
+    {"key": "investor", "label": "Investor legal name", "placeholder": "Name or fund name"},
+    {"key": "investorAddress", "label": "Investor address", "placeholder": "Address"},
+    {"key": "amount", "label": "Purchase amount", "placeholder": "USD 50,000"},
+    {"key": "payment", "label": "Paid in", "placeholder": "USDC to the company wallet, or bank transfer"},
+    {"key": "token", "label": "Token name and ticker", "placeholder": "Lumen (LUM)"},
+    {"key": "price", "label": "Token price or how it is set", "placeholder": "USD 0.02 per token, or a 20% discount to the public price"},
+    {"key": "lockup", "label": "Lockup and vesting of the tokens", "placeholder": "6 month lockup, then monthly over 12 months"},
+    {"key": "deadline", "label": "Network launch deadline", "placeholder": "24 months from the date of this agreement"},
+    {"key": "law", "label": "Governing law", "placeholder": "Laws of your country or state"},
+    {"key": "signerCompany", "label": "Signing for the company (name and title)", "placeholder": "Jane Doe, CEO"},
+    {"key": "signerInvestor", "label": "Signing for the investor (name and title)", "placeholder": "John Roe, Partner"}
+  ],
+  "sections": [
+    {"title": "Parties", "text": ["This Simple Agreement for Future Tokens (the \"Agreement\") is made on {{date}} between {{company}}, registered in {{companyJurisdiction}}, of {{companyAddress}} (the \"Company\"), and {{investor}}, of {{investorAddress}} (the \"Investor\")."]},
+    {"title": "1. Purchase", "text": ["The Investor pays the Company {{amount}} (the \"Purchase Amount\"), {{payment}}, on or before the date of this Agreement.", "In return, the Company will deliver tokens called {{token}} (the \"Tokens\") to the Investor when the network launches, in line with this Agreement."]},
+    {"title": "2. Number of Tokens", "text": ["The number of Tokens is the Purchase Amount divided by the token price, which is {{price}}.", "The Company will tell the Investor the final number of Tokens in writing before delivery."]},
+    {"title": "3. Delivery, lockup and vesting", "text": ["The Company will deliver the Tokens to a wallet address the Investor gives in writing.", "The Tokens are subject to this lockup and vesting: {{lockup}}. The Investor may not sell or transfer locked Tokens."]},
+    {"title": "4. If the network does not launch", "text": ["If the network has not launched within {{deadline}}, or the Company stops the project, the Company will return to the Investor the unused part of the Purchase Amount, as far as it is able to.", "The Investor understands that the Company may not have enough money left to return the full Purchase Amount."]},
+    {"title": "5. Investor statements", "text": ["The Investor confirms that:", "(a) it is allowed to buy the Tokens under the laws that apply to it, including any investor qualification rules;", "(b) it is buying for itself and not to resell to the public;", "(c) it understands that the Tokens may lose all their value, may never be listed or traded, and that it could lose the whole Purchase Amount;", "(d) the money used is not from crime, and it is not on any sanctions list."]},
+    {"title": "6. Company statements", "text": ["The Company confirms that it is properly set up under the laws of {{companyJurisdiction}}, has the authority to sign this Agreement, and will use the Purchase Amount to build the network and the project."]},
+    {"title": "7. No shares, no promises", "text": ["This Agreement does not give the Investor shares, voting rights, profit rights or any other rights in the Company.", "The Company does not promise any price, return, listing or profit from the Tokens."]},
+    {"title": "8. Taxes", "text": ["Each party pays its own taxes that arise from this Agreement."]},
+    {"title": "9. Governing law", "text": ["This Agreement is governed by the {{law}}. Any dispute goes to the courts or arbitration named under that law."]},
+    {"title": "10. Whole agreement", "text": ["This Agreement is the whole agreement between the parties about the Tokens. Any change must be in writing and signed by both parties."]}
+  ],
+  "signatures": ["{{company}}, signed by {{signerCompany}}", "{{investor}}, signed by {{signerInvestor}}"]
+}

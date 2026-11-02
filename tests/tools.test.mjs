@@ -194,3 +194,34 @@ describe('Cap Table and Dilution Simulator', () => {
     assert.deepEqual(r.tokens.map((t) => [t.name, Math.round(t.pct * 100) / 100]), [['SAFT', 2], ['A', 5], ['B', 5]]);
   });
 });
+
+describe('SAFT and Agreement Templates', () => {
+  const A = require('../js/agreement-engine.js');
+  const index = json('data/tools/templates/index.json');
+
+  it('has the lawyer warning and the three templates, all marked for review', () => {
+    assert.equal(index.warning, 'Template only. Have a qualified lawyer in your country review it before signing.');
+    assert.deepEqual(index.templates.map((t) => t.id), ['saft', 'advisor', 'kol']);
+    index.templates.forEach((t) => {
+      const tpl = json(`data/tools/templates/${t.id}.json`);
+      assert.equal(tpl.review, true);
+      const keys = new Set(tpl.fields.map((f) => f.key));
+      const used = JSON.stringify(tpl.sections.concat(tpl.signatures)).match(/\{\{(\w+)\}\}/g).map((m) => m.slice(2, -2));
+      used.forEach((k) => assert.ok(keys.has(k), t.id + ' uses unknown blank ' + k));
+    });
+  });
+
+  it('the KOL agreement requires clear disclosure of paid posts', () => {
+    const kol = json('data/tools/templates/kol.json');
+    const text = JSON.stringify(kol.sections).toLowerCase();
+    assert.ok(text.includes('disclosure of paid posts'));
+    assert.ok(text.includes('clearly say it is paid'));
+  });
+
+  it('fills blanks and leaves empty ones as [Label]', () => {
+    const tpl = { title: 'Deal', fields: [{ key: 'a', label: 'Name' }, { key: 'b', label: 'Fee' }], sections: [{ title: 'T', text: ['{{a}} gets {{b}}'] }], signatures: [] };
+    assert.equal(A.doc(tpl, { a: 'Ann' }).sections[0].text[0], 'Ann gets [Fee]');
+    assert.deepEqual(A.missing(tpl, { a: 'Ann' }), ['Fee']);
+    assert.ok(A.text(tpl, {}, 'WARN').startsWith('WARN'));
+  });
+});

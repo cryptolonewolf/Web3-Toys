@@ -83,6 +83,10 @@ window, "Save as PDF"), Download PNG, Copy and Reset.
 - Cap Table and Dilution Simulator (`builder/cap-table/`): the starting
   founders, rounds, round types and chart colours are in
   `data/tools/cap-table.json`.
+- SAFT and Agreement Templates (`builder/agreements/`): the lawyer warning
+  and template list are in `data/tools/templates/index.json`; each template's
+  form fields and clause text (with `{{blanks}}`) in
+  `data/tools/templates/<id>.json`. All marked `"review": true`.
 
 ## Project Academy
 

@@ -1,0 +1,34 @@
+{
+  "_help": "Advisor agreement template. Fields become the form; {{key}} in the text is replaced with what the visitor types. Blank fields show as [Field label]. A plain starting point only: it must be reviewed by a qualified lawyer.",
+  "review": true,
+  "title": "Advisor Agreement",
+  "fields": [
+    {"key": "date", "label": "Date of this agreement", "type": "date"},
+    {"key": "company", "label": "Company legal name", "placeholder": "Lumen Labs Ltd."},
+    {"key": "companyAddress", "label": "Company address", "placeholder": "Registered address"},
+    {"key": "advisor", "label": "Advisor name", "placeholder": "Full legal name"},
+    {"key": "advisorAddress", "label": "Advisor address", "placeholder": "Address"},
+    {"key": "services", "label": "What the advisor will help with", "type": "textarea", "placeholder": "Tokenomics review, exchange introductions, one call a month"},
+    {"key": "hours", "label": "Time expected", "placeholder": "About 4 hours a month"},
+    {"key": "term", "label": "Length of the agreement", "placeholder": "12 months"},
+    {"key": "pay", "label": "Payment", "placeholder": "0.25% of token supply, or USD 1,000 a month"},
+    {"key": "vesting", "label": "Vesting of the payment", "placeholder": "3 month cliff, then monthly over 12 months"},
+    {"key": "notice", "label": "Notice to end the agreement", "placeholder": "30 days in writing"},
+    {"key": "law", "label": "Governing law", "placeholder": "Laws of your country or state"},
+    {"key": "signerCompany", "label": "Signing for the company (name and title)", "placeholder": "Jane Doe, CEO"}
+  ],
+  "sections": [
+    {"title": "Parties", "text": ["This Advisor Agreement (the \"Agreement\") is made on {{date}} between {{company}}, of {{companyAddress}} (the \"Company\"), and {{advisor}}, of {{advisorAddress}} (the \"Advisor\")."]},
+    {"title": "1. Services", "text": ["The Advisor will help the Company with: {{services}}.", "The Advisor expects to spend {{hours}}. The Advisor is free to choose how to do the work."]},
+    {"title": "2. Length", "text": ["This Agreement starts on the date above and lasts {{term}}, unless it ends earlier under section 6."]},
+    {"title": "3. Payment and vesting", "text": ["For the services, the Company will pay the Advisor: {{pay}}.", "Any tokens or equity vest as follows: {{vesting}}. Anything not vested when this Agreement ends is cancelled.", "The Company will repay reasonable costs the Advisor has agreed in writing beforehand."]},
+    {"title": "4. Independent advisor", "text": ["The Advisor is an independent contractor, not an employee, partner or agent of the Company, and cannot sign anything for the Company.", "The Advisor pays their own taxes."]},
+    {"title": "5. Confidential information and work", "text": ["The Advisor will keep the Company's non-public information secret during and after this Agreement, and use it only for the services.", "Work the Advisor creates for the Company under this Agreement belongs to the Company."]},
+    {"title": "6. Ending the agreement", "text": ["Either party may end this Agreement with {{notice}}. Vesting stops on the end date."]},
+    {"title": "7. Public statements", "text": ["If the Advisor talks about the Company or its token in public, the Advisor will say they are an advisor and are paid by the Company, and will not promise prices or returns."]},
+    {"title": "8. Conflicts", "text": ["The Advisor will tell the Company about any work for a competing project, and will not trade the Company's token using non-public information."]},
+    {"title": "9. Governing law", "text": ["This Agreement is governed by the {{law}}."]},
+    {"title": "10. Whole agreement", "text": ["This Agreement is the whole agreement between the parties. Any change must be in writing and signed by both parties."]}
+  ],
+  "signatures": ["{{company}}, signed by {{signerCompany}}", "{{advisor}}"]
+}
