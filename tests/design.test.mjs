@@ -30,6 +30,21 @@ describe('every page', () => {
   }
 });
 
+describe('the live site', () => {
+  it('keeps only the top level tools, tests and README off the live site, not data/tools', () => {
+    const lines = read('.vercelignore').split('\n').map((l) => l.trim()).filter((l) => l && !l.startsWith('#'));
+    assert.ok(lines.includes('/tools'));
+    assert.ok(!lines.includes('tools') && !lines.includes('data') && !lines.some((l) => l.startsWith('data')));
+  });
+
+  it('has a 404 page with the menu bar and absolute links', () => {
+    const html = read('404.html');
+    assert.match(html, /id="topbar"/);
+    assert.match(html, /src="\/js\/site\.js"/);
+    assert.doesNotMatch(html, /(href|src)="\.\.?\//);
+  });
+});
+
 describe('toy looks', () => {
   const FONTS = ['luckiest', 'bungee', 'bangers', 'chewy'];
   const ACCENTS = ['blue', 'mint', 'coral', 'violet', 'yellow'];

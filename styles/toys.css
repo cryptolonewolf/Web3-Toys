@@ -4562,6 +4562,54 @@ a.tool-item:hover {
   }
 }
 
+/* ---------- 404: this page got rugged ---------- */
+
+.lost {
+  text-align: center;
+}
+
+.lost-art svg {
+  display: block;
+  width: min(100%, 360px);
+  margin: 0 auto;
+  overflow: visible;
+}
+
+.lost-title {
+  font-family: 'Luckiest Guy', var(--font-display);
+  font-weight: 400;
+  font-size: 40px;
+  letter-spacing: 0.5px;
+  line-height: 1.05;
+}
+
+.lost-rug {
+  animation: rug-pull 2.6s ease-in-out infinite;
+}
+
+.lost-hand {
+  animation: rug-pull 2.6s ease-in-out infinite;
+}
+
+.lost-page {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: page-tumble 2.6s ease-in-out infinite;
+}
+
+@keyframes rug-pull {
+  0%, 30% { transform: translateX(0); }
+  45%, 70% { transform: translateX(40px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes page-tumble {
+  0%, 32% { transform: rotate(0); }
+  45% { transform: rotate(-24deg) translateY(6px); }
+  60% { transform: rotate(-18deg) translateY(4px); }
+  100% { transform: rotate(0); }
+}
+
 /* ---------- Wider screens ---------- */
 
 @media (min-width: 700px) {

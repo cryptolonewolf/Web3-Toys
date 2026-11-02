@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>404: this page got rugged · web3.toys</title>
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#FFD93D" />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers&family=Bungee&family=Chewy&family=Fredoka:wght@500;600;700&family=Luckiest+Guy&family=Nunito:wght@600;700;800&display=swap" />
+    <link rel="stylesheet" href="/styles/toys.css" />
+  </head>
+  <body>
+    <header id="topbar" class="topbar">
+      <div class="topbar-inner"><a class="logo" href="/">web3.toys</a></div>
+    </header>
+
+    <div class="page page--narrow">
+      <main class="stack lost">
+        <div class="lost-art" aria-hidden="true">
+          <svg viewBox="0 0 320 200">
+            <ellipse cx="160" cy="186" rx="120" ry="8" fill="#1F1B2E" opacity=".15" />
+            <g class="lost-rug">
+              <path d="M30 160 H250 L262 176 H18Z" fill="#FF6B6B" stroke="#1F1B2E" stroke-width="4" stroke-linejoin="round" />
+              <path d="M40 166 H240 M36 171 H246" stroke="#FFD93D" stroke-width="3" />
+              <path d="M262 176 l6 8 M254 176 l4 8 M246 176 l2 8" stroke="#1F1B2E" stroke-width="3" stroke-linecap="round" />
+            </g>
+            <g class="lost-hand">
+              <path d="M262 150 C276 146 292 150 300 160 L292 176 C282 172 272 172 262 176Z" fill="#FFD93D" stroke="#1F1B2E" stroke-width="4" stroke-linejoin="round" />
+            </g>
+            <g class="lost-page">
+              <path d="M110 40 H170 L196 66 V150 H110Z" fill="#fff" stroke="#1F1B2E" stroke-width="5" stroke-linejoin="round" />
+              <path d="M170 40 V66 H196" fill="#F1E9CF" stroke="#1F1B2E" stroke-width="5" stroke-linejoin="round" />
+              <path d="M128 82 l10 10 M138 82 l-10 10 M166 82 l10 10 M176 82 l-10 10" stroke="#1F1B2E" stroke-width="4" stroke-linecap="round" />
+              <path d="M134 124 C144 112 164 112 174 124" fill="none" stroke="#1F1B2E" stroke-width="4" stroke-linecap="round" />
+              <text x="153" y="146" text-anchor="middle" font-family="'Luckiest Guy', sans-serif" font-size="16" fill="#1F1B2E">404</text>
+            </g>
+            <g fill="#fff" stroke="#1F1B2E" stroke-width="2.5" stroke-linejoin="round">
+              <path d="M60 50 l4 9 9 4 -9 4 -4 9 -4 -9 -9 -4 9 -4z" />
+              <path d="M250 40 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z" />
+            </g>
+          </svg>
+        </div>
+        <section class="card card--hero stack stack--tight lost-card">
+          <p class="label">Error 404</p>
+          <h1 class="lost-title">This page got rugged.</h1>
+          <p class="text text--ink" id="excuse" aria-live="polite">The dev pulled the liquidity on this link and left for Dubai.</p>
+          <button type="button" class="btn btn--block" id="blame">Blame someone else</button>
+        </section>
+        <div class="btn-row">
+          <a class="btn btn--ink" href="/">Back to the toys</a>
+          <a class="btn" href="/scam/">Spot the Scam</a>
+        </div>
+        <p class="small-print center">Typed the address yourself? Check the spelling. Followed a link here? It may be old.</p>
+      </main>
+
+      <footer class="site-footer">
+        <p><strong>Educational only. Not financial advice.</strong></p>
+        <p>web3.toys · by BuildWithAki</p>
+      </footer>
+    </div>
+
+    <script src="/js/site.js"></script>
+    <script src="/config.js"></script>
+    <script>
+      (function () {
+        var excuses = [
+          'The dev pulled the liquidity on this link and left for Dubai.',
+          'This URL went to zero. It was a memecoin all along.',
+          'Not your keys, not your page.',
+          'The roadmap said this page would ship in Q4. It did not say which year.',
+          'This link was airdropped to the wrong wallet.',
+          'A whale bought every copy of this page and burned them.',
+          'This page is still in its cliff. Check back in 12 months.',
+          'Our validators could not agree that this page exists.',
+          'Gas fees were too high to load this page.',
+          'This page staked itself and is locked until further notice.',
+          'The audit said this page was fine. The audit was wrong.',
+          'Wen page? Soon. Very soon. Maybe.'
+        ];
+        var i = 0;
+        var line = document.getElementById('excuse');
+        document.getElementById('blame').addEventListener('click', function () {
+          i = (i + 1) % excuses.length;
+          line.textContent = excuses[i];
+          if (window.WEB3TOYS) {
+            window.WEB3TOYS.fx.wobble(document.querySelector('.lost-card'));
+            window.WEB3TOYS.sound.play('buzz');
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

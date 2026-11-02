@@ -1,3 +1,6 @@
-README.md
-tests
-tools
+# Kept off the live site. A leading / means only the folder at the top level,
+# so data/tools/ (tool settings) still goes live.
+/README.md
+/tests
+/tools
+images/covers/README.md
