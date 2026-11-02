@@ -122,3 +122,25 @@ describe('Market Cap and FDV Calculator', () => {
     for (const p of cfg.presets) assert.ok(M.calc(p.price, p.circulating, p.total).valid, p.label);
   });
 });
+
+describe('Launch Budget Planner', () => {
+  const B = require('../js/budget-engine.js');
+  const cfg = json('data/tools/budget_ranges.json');
+
+  it('works out runway from team and runway reserve', () => {
+    assert.equal(B.runway(1000000, { team: 30, runway: 20 }, 50000), 10);
+    assert.equal(B.runway(1000000, { team: 30 }, 0), null);
+  });
+
+  it('templates add up to 100 and every line has a range', () => {
+    for (const t of cfg.templates) assert.equal(Object.values(t.split).reduce((a, b) => a + b, 0), 100, t.id);
+    for (const l of cfg.lines) assert.ok(l.min < l.max, l.id);
+    assert.equal(cfg.review, true, 'ranges stay marked for review');
+  });
+
+  it('warns about no audit, short runway and hype spending', () => {
+    const split = { legal: 0, audit: 0, mm: 10, listings: 10, marketing: 30, kols: 20, team: 20, runway: 10 };
+    const ids = B.warnings(1000000, split, 100000, cfg).map((w) => w.id);
+    for (const id of ['noAudit', 'noLegal', 'hype', 'shortRunway', 'outside']) assert.ok(ids.includes(id), id);
+  });
+});

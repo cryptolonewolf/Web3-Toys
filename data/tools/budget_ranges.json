@@ -1,0 +1,31 @@
+{
+  "_help": "Launch Budget Planner settings. lines: each budget line with a typical range as a percent of the raise (min and max). These ranges are rough starting points drafted for web3.toys, not quotes or sourced figures: check them with people who have launched (review stays true until you have) and change them freely. templates: starting splits (each adds up to 100) with a raise and a monthly team cost. runway: months counted as short (red) and healthy (green). warnings: the messages, with {placeholders} filled in.",
+  "review": true,
+  "note": "Typical ranges are rough guides, not quotes. Real costs depend on your project, chain and partners.",
+  "lines": [
+    { "id": "legal", "label": "Legal", "color": "#4D9DE0", "min": 2, "max": 6 },
+    { "id": "audit", "label": "Audit", "color": "#FF6B6B", "min": 3, "max": 10 },
+    { "id": "mm", "label": "Market maker", "color": "#A98BFF", "min": 5, "max": 15 },
+    { "id": "listings", "label": "Listings", "color": "#FF9F43", "min": 3, "max": 15 },
+    { "id": "marketing", "label": "Marketing", "color": "#FF8FC8", "min": 8, "max": 20 },
+    { "id": "kols", "label": "KOLs", "color": "#FFD93D", "min": 3, "max": 10 },
+    { "id": "team", "label": "Team", "color": "#6BCB77", "min": 25, "max": 45 },
+    { "id": "runway", "label": "Runway reserve", "color": "#3CC6C0", "min": 10, "max": 25 }
+  ],
+  "templates": [
+    { "id": "small", "label": "Small launch ($250K)", "raise": 250000, "burn": 10000, "split": { "legal": 5, "audit": 8, "mm": 8, "listings": 5, "marketing": 12, "kols": 6, "team": 36, "runway": 20 } },
+    { "id": "seed", "label": "Seed ($1.5M)", "raise": 1500000, "burn": 60000, "split": { "legal": 4, "audit": 5, "mm": 10, "listings": 8, "marketing": 12, "kols": 5, "team": 38, "runway": 18 } },
+    { "id": "big", "label": "Bigger round ($5M)", "raise": 5000000, "burn": 150000, "split": { "legal": 3, "audit": 4, "mm": 12, "listings": 10, "marketing": 12, "kols": 4, "team": 35, "runway": 20 } }
+  ],
+  "runway": { "short": 12, "healthy": 18 },
+  "warnings": {
+    "notHundred": "The lines add up to {total}%, not 100%.",
+    "noAudit": "No money for an audit. Buyers and exchanges look for one.",
+    "noLegal": "No money for legal advice. Token launches have legal risks in most countries.",
+    "hype": "Marketing and KOLs take {pct}% of the raise, more than the team building the product.",
+    "shortRunway": "Only {months} months of runway. Aim for at least {limit}.",
+    "noBurn": "Add a monthly team cost to see your runway.",
+    "outside": "{line} is {state} ({pct}%; typical {min} to {max}%).",
+    "allGood": "No big gaps by these rules. That does not make the plan right for your project."
+  }
+}

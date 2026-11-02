@@ -326,6 +326,20 @@
         );
       },
     },
+    'tool-launch-budget': {
+      font: 'Bowlby One',
+      title: function () { return 'Launch<br>Budget'; },
+      art: function () {
+        return svg(
+          '<rect width="270" height="100" fill="#FF9F43"/>' +
+          range(8, function (i) { return '<rect x="' + (i * 36 - 6) + '" y="0" width="14" height="100" fill="#FFB466" transform="skewX(-20)"/>'; }) +
+          '<g class="bd-rocket" transform="translate(228 50) rotate(35)" stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round">' +
+          '<path class="bd-flame" d="M-6 24 Q0 44 6 24Z" fill="#FFD93D"/><path d="M0 -30 C12 -18 14 4 10 24 H-10 C-14 4 -12 -18 0 -30Z" fill="#fff"/>' +
+          '<circle cy="-8" r="6" fill="#4D9DE0"/><path d="M-10 12 L-18 28 L-9 25Z M10 12 L18 28 L9 25Z" fill="#FF6B6B"/></g>' +
+          '<g stroke="' + INK + '" stroke-width="2"><rect x="14" y="22" width="16" height="60" rx="3" fill="#fff"/><rect x="16" y="54" width="12" height="26" fill="#6BCB77" stroke="none"/><rect x="16" y="40" width="12" height="14" fill="#FFD93D" stroke="none"/><rect x="16" y="26" width="12" height="14" fill="#FF6B6B" stroke="none"/></g>'
+        );
+      },
+    },
   };
 
   // Loads one Google Font with only the letters it needs.

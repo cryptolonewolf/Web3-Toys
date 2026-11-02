@@ -74,6 +74,9 @@ window, "Save as PDF"), Download PNG, Copy and Reset.
   templates and the warning rules are in `data/tools/tokenomics.json`.
 - Market Cap and FDV Calculator (`builder/mcap-fdv/`): example presets and
   the one line explanations are in `data/tools/mcap-fdv.json`.
+- Launch Budget Planner (`builder/launch-budget/`): budget lines, their rough
+  typical ranges (marked `"review": true` for you to check), templates and
+  runway limits are in `data/tools/budget_ranges.json`.
 
 ## Project Academy
 

@@ -4475,6 +4475,49 @@ a.xcard:active {
   animation: bob 1s ease-in-out 2;
 }
 
+.xcard--tool-launch-budget {
+  background: #ff9f43;
+  box-shadow: 0 0 0 3px var(--ink), 4px 4px 0 3px var(--ink);
+}
+
+.xcard--tool-launch-budget .xtitle {
+  font-size: 10cqi;
+  line-height: 1;
+  color: var(--ink);
+  text-shadow: 3px 3px 0 #fff;
+  padding: 0 24cqi 0 12cqi;
+}
+
+.xcard--tool-launch-budget:hover .bd-rocket {
+  animation: launch 0.9s ease-in forwards;
+}
+
+/* Launch Budget Planner */
+.bd-slider {
+  position: relative;
+}
+
+.bd-band {
+  position: absolute;
+  top: 12px;
+  height: 12px;
+  background: rgba(107, 203, 119, 0.45);
+  border: 2px solid #1f8a3a;
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+.bd-slider .tk-slider {
+  position: relative;
+}
+
+.bd-gauge {
+  display: block;
+  width: min(100%, 360px);
+  height: auto;
+  margin: 0 auto;
+}
+
 /* The Tools page */
 .tool-list {
   display: grid;

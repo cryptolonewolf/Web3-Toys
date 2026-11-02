@@ -64,7 +64,8 @@
       "blurb": "Free, private tools for web3 builders.",
       "cards": [
         {"id": "tool-tokenomics", "status": "live", "kind": "tool", "path": "builder/tokenomics/", "title": "Tokenomics Generator", "time": "Tool", "blurb": "Split your supply, add vesting, and see the unlocks and the red flags."},
-        {"id": "tool-mcap-fdv", "status": "live", "kind": "tool", "path": "builder/mcap-fdv/", "title": "Market Cap and FDV", "time": "Tool", "blurb": "Market cap, FDV and the gap between them, with what the gap means."}
+        {"id": "tool-mcap-fdv", "status": "live", "kind": "tool", "path": "builder/mcap-fdv/", "title": "Market Cap and FDV", "time": "Tool", "blurb": "Market cap, FDV and the gap between them, with what the gap means."},
+        {"id": "tool-launch-budget", "status": "live", "kind": "tool", "path": "builder/launch-budget/", "title": "Launch Budget Planner", "time": "Tool", "blurb": "Split your raise, compare with typical ranges, and see your runway."}
       ]
     },
     {
