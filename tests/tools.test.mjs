@@ -255,3 +255,32 @@ describe('Meme Coin Launch Kit', () => {
     assert.ok(M.copy('cats', { name: 'Cat', ticker: '$CAT' }, kit, 0).bio.length <= 160);
   });
 });
+
+describe('KOL Vetting Scorecard', () => {
+  const Kol = require('../js/kol-engine.js');
+  const kc = json('data/tools/kol-scorecard.json');
+  const good = { followers: 50000, likes: 1200, replies: 150, growth: 4, paidShare: 10, disclosure: 'always', promoted: 5, died: 0 };
+
+  it('points add up to 100 and a clean account scores 100', () => {
+    assert.equal(kc.review, true);
+    assert.equal(kc.checks.reduce((a, c) => a + Math.max(...(c.options || c.bands).map((b) => b.points)), 0), 100);
+    const s = Kol.score(good, kc);
+    assert.equal(s.total, 100);
+    assert.equal(s.flags.length, 0);
+    assert.equal(s.grade.label, 'Looks solid');
+  });
+
+  it('flags bought followers and undisclosed promos', () => {
+    const s = Kol.score({ ...good, likes: 40, replies: 0, growth: 120, disclosure: 'never', paidShare: 80, died: 4 }, kc);
+    const ids = s.flags.map((f) => f.id);
+    ['engagement', 'replyRatio', 'growth', 'disclosure', 'paidShare', 'deadShare'].forEach((id) => assert.ok(ids.includes(id), id));
+    assert.ok(s.flags.find((f) => f.id === 'growth').reason.includes('bought followers'));
+    assert.equal(s.grade.label, 'Walk away');
+  });
+
+  it('works out views, clicks, cost per 1,000 views and per click', () => {
+    const r = Kol.roi({ followers: 100000, viewPct: 10, clickPct: 2, cost: 1000 });
+    assert.deepEqual(r, { views: 10000, clicks: 200, cpm: 100, cpc: 5 });
+    assert.equal(Kol.roi({ followers: 0, viewPct: 10, clickPct: 2, cost: 1000 }).cpc, null);
+  });
+});

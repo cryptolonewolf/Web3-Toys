@@ -91,6 +91,9 @@ window, "Save as PDF"), Download PNG, Copy and Reset.
   templates, banned promise words, logo shapes, colours and emojis, the
   pump.fun info sheet fields and the required Launch responsibly checklist
   are in `data/tools/meme-kit.json`.
+- KOL Vetting Scorecard (`builder/kol-scorecard/`): the scoring bands,
+  reasons, red flags, grades and ROI defaults are in
+  `data/tools/kol-scorecard.json` (rules of thumb, marked for review).
 
 ## Project Academy
 

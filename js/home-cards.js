@@ -395,6 +395,19 @@
         );
       },
     },
+    'tool-kol-scorecard': {
+      font: 'Rubik Mono One',
+      title: function () { return 'KOL<br>Score&shy;card'; },
+      art: function () {
+        return svg(
+          '<rect width="270" height="100" fill="#FFEFE6"/>' +
+          '<g class="kol-mag"><circle cx="214" cy="46" r="28" fill="#FFFFFF" stroke="' + INK + '" stroke-width="4"/>' +
+          '<path d="M234 66 L254 88" stroke="' + INK + '" stroke-width="8" stroke-linecap="round"/>' +
+          '<path d="M200 48 l9 9 l17 -20" fill="none" stroke="#6BCB77" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></g>' +
+          '<path d="M168 18 v20 M168 18 h14 l-3 5 l3 5 h-14" fill="#FF6B6B" stroke="' + INK + '" stroke-width="2" stroke-linejoin="round"/>'
+        );
+      },
+    },
   };
 
   // Loads one Google Font with only the letters it needs.

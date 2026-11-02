@@ -5090,6 +5090,104 @@ a.xcard:active {
   opacity: 0.55;
 }
 
+.xcard--tool-kol-scorecard {
+  background: #ffefe6;
+  box-shadow: 0 0 0 3px var(--ink), 4px 4px 0 3px #ff9f45;
+}
+
+.xcard--tool-kol-scorecard .xtitle {
+  font-size: 9cqi;
+  line-height: 1.05;
+  color: var(--ink);
+  padding: 0 38cqi 0 4cqi;
+}
+
+.xcard--tool-kol-scorecard:hover .kol-mag {
+  animation: nudge 0.5s ease;
+}
+
+/* KOL Vetting Scorecard */
+.kol-top {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 16px;
+  align-items: center;
+}
+
+.kol-dial {
+  width: 140px;
+  height: 140px;
+}
+
+.kol-grade {
+  display: inline-block;
+  justify-self: start;
+  margin: 0;
+  padding: 4px 12px;
+  font: 700 22px var(--font-display);
+  color: var(--ink);
+  background: var(--c);
+  border: var(--line);
+  border-radius: 999px;
+}
+
+.kol-flags {
+  background: #ffe1e1;
+}
+
+.kol-list {
+  margin: 0;
+  padding-left: 20px;
+  font: 700 16px / 1.4 var(--font-body);
+  color: var(--ink);
+}
+
+.kol-list li + li {
+  margin-top: 6px;
+}
+
+.kol-reasons {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.kol-reasons li {
+  padding: 10px 12px;
+  background: var(--white);
+  border: var(--line-thin);
+  border-left-width: 8px;
+  border-radius: 12px;
+}
+
+.kol-reasons li.is-good {
+  border-left-color: #6bcb77;
+}
+
+.kol-reasons li.is-bad {
+  border-left-color: #ff6b6b;
+}
+
+.kol-reasons p {
+  margin: 4px 0 0;
+}
+
+.kol-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  align-items: baseline;
+  font: 700 15px var(--font-body);
+  color: var(--ink);
+}
+
+.kol-pts {
+  margin-left: auto;
+  font-weight: 900;
+}
+
 /* The Tools page */
 .tool-list {
   display: grid;

@@ -1,0 +1,48 @@
+{
+  "_help": "KOL Vetting Scorecard. Each check has bands: the first band whose max is at or above the value gives its points and reason; flag: true also lists it as a red flag. Points across checks add up to 100. These bands are rules of thumb, not industry standards: review and tune them. The ROI defaults are guesses the visitor should replace with their own numbers.",
+  "review": true,
+  "defaults": {"followers": 80000, "likes": 900, "replies": 60, "growth": 6, "paidShare": 30, "disclosure": "sometimes", "promoted": 8, "died": 3, "cost": 1500, "viewPct": 12, "clickPct": 1},
+  "checks": [
+    {"id": "engagement", "label": "Engagement rate", "unit": "%", "line": "Average likes plus replies per post, as a share of followers.", "bands": [
+      {"max": 0.2, "points": 0, "flag": true, "reason": "Very few likes and replies for the follower count. A common sign of bought or inactive followers."},
+      {"max": 0.5, "points": 6, "reason": "Low engagement for the follower count."},
+      {"max": 1, "points": 13, "reason": "Fair engagement."},
+      {"max": 6, "points": 20, "reason": "Healthy engagement: people really read and react."},
+      {"max": 1e9, "points": 12, "reason": "Unusually high engagement. Check the replies are real people, not bots or engagement groups."}
+    ]},
+    {"id": "replyRatio", "label": "Replies per 100 likes", "unit": "", "line": "Real audiences talk back. Bought likes rarely come with replies.", "bands": [
+      {"max": 1, "points": 0, "flag": true, "reason": "Almost no replies compared with likes. Can mean bought likes."},
+      {"max": 3, "points": 6, "reason": "Few replies compared with likes."},
+      {"max": 1e9, "points": 10, "reason": "A normal amount of replies for the likes."}
+    ]},
+    {"id": "growth", "label": "Follower growth per month", "unit": "%", "line": "Sudden jumps without a viral post are a warning sign.", "bands": [
+      {"max": -5, "points": 6, "reason": "Losing followers quickly."},
+      {"max": 15, "points": 15, "reason": "Steady, natural growth."},
+      {"max": 40, "points": 8, "reason": "Fast growth. Check it matches a real viral moment."},
+      {"max": 1e9, "points": 0, "flag": true, "reason": "Very fast growth. A common sign of bought followers."}
+    ]},
+    {"id": "paidShare", "label": "Posts that are paid promos", "unit": "%", "line": "An account that is mostly ads has less trust with its audience.", "bands": [
+      {"max": 20, "points": 15, "reason": "Few paid posts, so the audience still trusts the feed."},
+      {"max": 40, "points": 10, "reason": "A fair number of paid posts."},
+      {"max": 60, "points": 4, "reason": "Many paid posts. The audience may ignore promotions."},
+      {"max": 100, "points": 0, "flag": true, "reason": "Mostly paid posts. Reach and trust are likely low."}
+    ]},
+    {"id": "disclosure", "label": "Discloses paid posts", "unit": "", "line": "Paid posts should clearly say they are paid. Hidden ads can break advertising rules and hurt your project too.", "options": [
+      {"id": "always", "label": "Always", "points": 20, "reason": "Clearly marks paid posts."},
+      {"id": "sometimes", "label": "Sometimes", "points": 8, "flag": true, "reason": "Only sometimes marks paid posts. Make clear disclosure part of your deal."},
+      {"id": "never", "label": "Never", "points": 0, "flag": true, "reason": "Does not disclose paid posts. Undisclosed promotion can break advertising rules in many countries."}
+    ]},
+    {"id": "deadShare", "label": "Past promoted tokens that died", "unit": "%", "line": "What happened to the tokens they promoted before.", "noData": {"points": 10, "reason": "No track record of promoted tokens to check."}, "bands": [
+      {"max": 25, "points": 20, "reason": "Most tokens they promoted are still alive."},
+      {"max": 50, "points": 10, "reason": "Many tokens they promoted have died."},
+      {"max": 100, "points": 0, "flag": true, "reason": "Most tokens they promoted have died. Their audience may have been burned before."}
+    ]}
+  ],
+  "grades": [
+    {"min": 80, "label": "Looks solid", "line": "Good signs. Still ask for recent post stats and a clear disclosure clause.", "color": "#6BCB77"},
+    {"min": 60, "label": "Okay, check more", "line": "Mixed signs. Ask for screenshots of real post stats before you pay.", "color": "#FFD23F"},
+    {"min": 40, "label": "Risky", "line": "Several warning signs. Start with one small paid post, or skip.", "color": "#FF9F45"},
+    {"min": 0, "label": "Walk away", "line": "Too many warning signs for your money.", "color": "#FF6B6B"}
+  ],
+  "roiLine": "Views and clicks are your own guesses. Ask the KOL for real views on recent posts, and track clicks with your own link."
+}
