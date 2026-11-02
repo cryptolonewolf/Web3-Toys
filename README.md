@@ -14,6 +14,7 @@ database, no login, nothing to install.
 | `config.js` | Your settings: email signup form address, Book a call with Aki link, mascot pictures, analytics. |
 | `index.html` | The home page with four sections: Games, For Beginners, For Degens and For Pros. |
 | `crypto-in-5/`, `getting-started/`, `dont-lose-money/`, `earn-small/` | The four Getting Started toys: Genesis Block, Not Your Keys, Don't Get Rekt and Stack Sats. |
+| `builder/` | The Tools section for builders, one folder per tool. |
 | `real-toys/`, `books/`, `about/`, `book-a-call/` | Real Toys, Books by Aki, About Aki and Book a Call. |
 | `js/site.js` | The top menu, footer links, logo, icons and fun effects. The menu list is at the top. |
 | `progress/` | My Progress: rank and certificates. |
@@ -58,6 +59,18 @@ verifying.
 - `analytics.scriptUrl` and `analytics.siteId`: from your analytics tool. While
   empty, nothing is tracked. The site sends events like quiz started, quiz
   finished, certificate earned and certificate shared.
+
+## Tools for builders
+
+The Tools section lives at web3.toys/builder/ (the folder is called
+`builder/` because `tools/` holds the private helper scripts). The list of
+tools is in `data/tools/tools.json`; each tool's defaults, templates and
+limits are in `data/tools/`. Every tool runs in the browser only, remembers
+its inputs on the visitor's device, and has Download PDF (the browser's print
+window, "Save as PDF"), Download PNG, Copy and Reset.
+
+- Tokenomics Generator (`builder/tokenomics/`): groups, the three starting
+  templates and the warning rules are in `data/tools/tokenomics.json`.
 
 ## Coins
 

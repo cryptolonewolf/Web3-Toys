@@ -278,6 +278,28 @@
         );
       },
     },
+
+    // Tools
+    'tool-tokenomics': {
+      font: 'Archivo Black',
+      art: function () {
+        var slices = [['#FF6B6B', 0, 70], ['#A98BFF', 70, 130], ['#6BCB77', 130, 250], ['#4D9DE0', 250, 310], ['#FFD93D', 310, 360]];
+        var arc = function (c, a0, a1) {
+          var r = 26;
+          var p = function (a) { return [(232 + r * Math.cos((a - 90) * Math.PI / 180)).toFixed(1), (50 + r * Math.sin((a - 90) * Math.PI / 180)).toFixed(1)]; };
+          var s = p(a0);
+          var e = p(a1);
+          return '<path d="M232 50 L' + s[0] + ' ' + s[1] + ' A' + r + ' ' + r + ' 0 ' + (a1 - a0 > 180 ? 1 : 0) + ' 1 ' + e[0] + ' ' + e[1] + 'Z" fill="' + c + '"/>';
+        };
+        return svg(
+          '<defs><pattern id="gp" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M10 0 H0 V10" fill="none" stroke="#9CCBF0" stroke-width=".6"/></pattern></defs>' +
+          '<rect width="270" height="100" fill="#FFFFFF"/><rect width="270" height="100" fill="url(#gp)"/>' +
+          '<g class="tk-pie-card" stroke="' + INK + '" stroke-width="2" stroke-linejoin="round">' + slices.map(function (x) { return arc(x[0], x[1], x[2]); }).join('') + '</g>' +
+          '<g stroke="' + INK + '" stroke-width="1.6"><rect x="10" y="62" width="12" height="28" fill="#FF6B6B"/><rect x="24" y="50" width="12" height="40" fill="#A98BFF"/><rect x="38" y="70" width="12" height="20" fill="#6BCB77"/></g>' +
+          '<path d="M8 90 H58" stroke="' + INK + '" stroke-width="2"/>'
+        );
+      },
+    },
   };
 
   // Loads one Google Font with only the letters it needs.

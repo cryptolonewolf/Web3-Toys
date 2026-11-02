@@ -1,5 +1,5 @@
 {
-  "_help": "Home page sections (shelves) and cards. Each section has a title, column (true puts it side by side with the other column sections on computers), an icon (an emoji), a color (yellow, mint, coral or violet) and a short blurb. Each card shows only its cover and name. Cover: put a picture in images/covers/ named after the card id with underscores, like crypto_in_5.png; until then a drawn placeholder shows, using color (yellow, blue, coral, mint, violet, orange, pink or teal), pattern (dots, stripes, grid, zigzag, waves, checks, plus, rings or triangles; give every card a different colour and pattern pair), edge (tape, notch, corner, stamp, pin or round: a small detail that makes each card feel different) and object (cube, key, skull, coins, magnifier, lock, briefcase, badge, trophy, moneybag, pie, moon, button, pizza, rod or rocket). blurb is read out to screen reader users. Toy pages also use topic, font (luckiest, bungee, bangers or chewy) and accent. If you rename a toy, also change its name in its own index.html and in quizzes/index.json. status: live or soon, set on each card. Live cards show in their own section; soon cards all show together in the Coming soon section at the bottom (soonSection), and move up into their section by themselves once set to live. A section with no live cards is hidden. Each live card's id must match its toy file in data/toys/ and its quiz in quizzes/, except cards with kind game, like Spot the Scam, which are stand-alone games without a certificate.",
+  "_help": "Home page sections (shelves) and cards. The tools shelf lists the builder tools that are live (see data/tools/tools.json). Each section has a title, column (true puts it side by side with the other column sections on computers), an icon (an emoji), a color (yellow, mint, coral or violet) and a short blurb. Each card shows only its cover and name. Cover: put a picture in images/covers/ named after the card id with underscores, like crypto_in_5.png; until then a drawn placeholder shows, using color (yellow, blue, coral, mint, violet, orange, pink or teal), pattern (dots, stripes, grid, zigzag, waves, checks, plus, rings or triangles; give every card a different colour and pattern pair), edge (tape, notch, corner, stamp, pin or round: a small detail that makes each card feel different) and object (cube, key, skull, coins, magnifier, lock, briefcase, badge, trophy, moneybag, pie, moon, button, pizza, rod or rocket). blurb is read out to screen reader users. Toy pages also use topic, font (luckiest, bungee, bangers or chewy) and accent. If you rename a toy, also change its name in its own index.html and in quizzes/index.json. status: live or soon, set on each card. Live cards show in their own section; soon cards all show together in the Coming soon section at the bottom (soonSection), and move up into their section by themselves once set to live. A section with no live cards is hidden. Each live card's id must match its toy file in data/toys/ and its quiz in quizzes/, except cards with kind game, like Spot the Scam, which are stand-alone games without a certificate.",
   "shelves": [
     {
       "id": "beginners",
@@ -54,6 +54,16 @@
         {"id": "invest-100", "kind": "game", "status": "live", "path": "invest-100/", "title": "What If You Invested $100", "time": "5 min", "color": "orange", "object": "rocket", "blurb": "Pick a token and a date and see what $100 became, and how bumpy the ride was.", "pattern": "dots", "edge": "tape", "font": "luckiest"},
         {"id": "token-simulator", "status": "soon", "title": "Launch a Token Simulator", "time": "5 min", "color": "pink", "object": "button", "blurb": "Launch a token and survive launch week.", "pattern": "grid", "edge": "notch", "font": "bangers"},
         {"id": "token-split", "status": "live", "kind": "game", "path": "token-split/", "title": "Read the Token Split", "time": "4 min", "color": "coral", "object": "pizza", "blurb": "Read a token split like a pro.", "pattern": "plus", "edge": "pin", "font": "chewy"}
+      ]
+    },
+    {
+      "id": "tools",
+      "title": "Tools",
+      "icon": "🛠",
+      "color": "blue",
+      "blurb": "Free, private tools for web3 builders.",
+      "cards": [
+        {"id": "tool-tokenomics", "status": "live", "kind": "tool", "path": "builder/tokenomics/", "title": "Tokenomics Generator", "time": "Tool", "blurb": "Split your supply, add vesting, and see the unlocks and the red flags."}
       ]
     }
   ],

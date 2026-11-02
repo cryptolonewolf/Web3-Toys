@@ -46,20 +46,14 @@ describe('toy looks', () => {
     }
   });
 
-  it('every home card has a colour, a placeholder object and a blurb', () => {
-    const covers = read('js/covers.js');
-    const colors = ['yellow', 'blue', 'coral', 'mint', 'violet', 'orange', 'pink', 'teal'];
+  it('every home card has its own cover design and a blurb', () => {
+    const cards = read('js/home-cards.js');
     const ids = home.shelves.flatMap((s) => s.cards.map((c) => c.id));
     assert.equal(new Set(ids).size, ids.length, 'card ids must be unique');
     for (const c of home.shelves.flatMap((s) => s.cards)) {
-      assert.ok(colors.includes(c.color), `${c.id}: color ${c.color}`);
-      assert.ok(new RegExp(`\\b${c.object}:`).test(covers), `${c.id}: object ${c.object}`);
+      assert.ok(cards.includes(`'${c.id}': {`) || cards.includes(`${c.id}: {`), `${c.id}: cover design in js/home-cards.js`);
       assert.ok(c.blurb, `${c.id}: blurb`);
-      assert.ok(new RegExp(`\\b${c.pattern}:`).test(covers), `${c.id}: pattern ${c.pattern}`);
-      assert.ok(['tape', 'notch', 'corner', 'stamp', 'pin', 'round'].includes(c.edge), `${c.id}: edge ${c.edge}`);
     }
-    const looks = home.shelves.flatMap((s) => s.cards.map((c) => `${c.color} ${c.pattern}`));
-    assert.equal(new Set(looks).size, looks.length, 'every card needs its own colour and pattern pair');
   });
 
   it('the five new toys are on the home page, live once built', () => {

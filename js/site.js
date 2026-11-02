@@ -10,6 +10,7 @@
 
   var MENU = [
     { label: 'Toys', href: '' },
+    { label: 'Tools', href: 'builder/' },
     { label: 'Real Toys', href: 'real-toys/' },
     { label: 'Books', href: 'books/' },
     { label: 'About', href: 'about/' },

@@ -1,0 +1,77 @@
+{
+  "_help": "Tokenomics Generator settings. groups: the supply groups with a colour. Each template sets pct (percent of supply) and vesting: tge (percent unlocked at launch), cliff (months before vesting starts) and vest (months of linear unlocking after the cliff). months: how far the charts look ahead. warnings: each rule has a message; {placeholders} are filled in. Change the numbers in limits to make the warnings stricter or looser.",
+  "defaultSupply": 1000000000,
+  "months": 48,
+  "groups": [
+    { "id": "team", "label": "Team", "color": "#FF6B6B" },
+    { "id": "investors", "label": "Investors", "color": "#A98BFF" },
+    { "id": "advisors", "label": "Advisors", "color": "#FF8FC8" },
+    { "id": "community", "label": "Community", "color": "#6BCB77" },
+    { "id": "treasury", "label": "Treasury", "color": "#4D9DE0" },
+    { "id": "liquidity", "label": "Liquidity", "color": "#FFD93D" },
+    { "id": "airdrop", "label": "Airdrop", "color": "#3CC6C0" }
+  ],
+  "templates": [
+    {
+      "id": "community",
+      "label": "Community first",
+      "groups": {
+        "team": { "pct": 15, "tge": 0, "cliff": 12, "vest": 36 },
+        "investors": { "pct": 10, "tge": 0, "cliff": 12, "vest": 24 },
+        "advisors": { "pct": 3, "tge": 0, "cliff": 6, "vest": 24 },
+        "community": { "pct": 37, "tge": 5, "cliff": 0, "vest": 48 },
+        "treasury": { "pct": 20, "tge": 5, "cliff": 0, "vest": 48 },
+        "liquidity": { "pct": 5, "tge": 100, "cliff": 0, "vest": 0 },
+        "airdrop": { "pct": 10, "tge": 50, "cliff": 0, "vest": 6 }
+      }
+    },
+    {
+      "id": "vc",
+      "label": "VC backed",
+      "groups": {
+        "team": { "pct": 20, "tge": 0, "cliff": 12, "vest": 36 },
+        "investors": { "pct": 25, "tge": 0, "cliff": 12, "vest": 24 },
+        "advisors": { "pct": 5, "tge": 0, "cliff": 6, "vest": 24 },
+        "community": { "pct": 25, "tge": 5, "cliff": 0, "vest": 48 },
+        "treasury": { "pct": 15, "tge": 5, "cliff": 0, "vest": 48 },
+        "liquidity": { "pct": 5, "tge": 100, "cliff": 0, "vest": 0 },
+        "airdrop": { "pct": 5, "tge": 100, "cliff": 0, "vest": 0 }
+      }
+    },
+    {
+      "id": "fair",
+      "label": "Fair launch",
+      "groups": {
+        "team": { "pct": 0, "tge": 0, "cliff": 0, "vest": 0 },
+        "investors": { "pct": 0, "tge": 0, "cliff": 0, "vest": 0 },
+        "advisors": { "pct": 0, "tge": 0, "cliff": 0, "vest": 0 },
+        "community": { "pct": 60, "tge": 10, "cliff": 0, "vest": 36 },
+        "treasury": { "pct": 10, "tge": 0, "cliff": 0, "vest": 24 },
+        "liquidity": { "pct": 20, "tge": 100, "cliff": 0, "vest": 0 },
+        "airdrop": { "pct": 10, "tge": 100, "cliff": 0, "vest": 0 }
+      }
+    }
+  ],
+  "limits": {
+    "teamMax": 20,
+    "insidersMax": 50,
+    "firstYearMax": 25,
+    "monthMax": 5,
+    "liquidityMin": 3,
+    "communityMin": 20,
+    "tgeMax": 50
+  },
+  "warnings": {
+    "notHundred": "The groups add up to {total}%, not 100%.",
+    "teamNoVesting": "Team gets {pct}% with no vesting, so they could sell on day one.",
+    "teamHigh": "Team gets {pct}%, above {limit}%. Buyers may see that as too much.",
+    "insiders": "Insiders (team, investors and advisors) hold {pct}%, above {limit}%.",
+    "firstYear": "{pct}% of the supply unlocks in the first 12 months after launch. Expect selling pressure.",
+    "bigMonth": "Month {month} unlocks {pct}% of the supply at once.",
+    "lowLiquidity": "Liquidity is only {pct}%. Thin liquidity makes the price jumpy.",
+    "lowCommunity": "Community and airdrop get only {pct}%, below {limit}%.",
+    "tgeHigh": "{pct}% is unlocked at launch, above {limit}%.",
+    "noTge": "Almost nothing is unlocked at launch, so there is little to trade.",
+    "allGood": "No big red flags by these rules. That does not make the design good, just not obviously risky."
+  }
+}
