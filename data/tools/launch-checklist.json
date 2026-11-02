@@ -1,0 +1,58 @@
+{
+  "_help": "Launch Readiness Checklist. Each check has a category, a weight (points) and a why line. Yes gives full points, Partly half, No none. reportUrl is the link of the Get the full Launch Readiness Report button: replace the placeholder # with the real page or form. Grades are by score out of 100.",
+  "review": true,
+  "reportUrl": "#",
+  "reportLabel": "Get the full Launch Readiness Report",
+  "reportLine": "A detailed review of your launch plan, with fixes for each gap.",
+  "categories": [
+    {"id": "token", "label": "Token", "emoji": "🪙"},
+    {"id": "legal", "label": "Legal", "emoji": "⚖️"},
+    {"id": "security", "label": "Security", "emoji": "🔐"},
+    {"id": "community", "label": "Community", "emoji": "💬"},
+    {"id": "marketing", "label": "Marketing", "emoji": "📣"},
+    {"id": "liquidity", "label": "Liquidity", "emoji": "💧"}
+  ],
+  "checks": [
+    {"id": "t1", "category": "token", "weight": 4, "text": "Total supply and allocation are final and written down", "why": "Changing the split after launch breaks trust."},
+    {"id": "t2", "category": "token", "weight": 4, "text": "Team and investor tokens have a cliff and vesting", "why": "Unlocked insider tokens are the top worry for buyers."},
+    {"id": "t3", "category": "token", "weight": 3, "text": "The token has a clear use in the product", "why": "A token with no job struggles to hold attention."},
+    {"id": "t4", "category": "token", "weight": 3, "text": "The unlock schedule is public", "why": "People plan around big unlocks. Surprises hurt."},
+    {"id": "t5", "category": "token", "weight": 2, "text": "Circulating supply at launch is known and published", "why": "Exchanges and data sites ask for it on day one."},
+    {"id": "l1", "category": "legal", "weight": 4, "text": "A lawyer has reviewed the token and the sale in your main countries", "why": "Token rules differ a lot between countries."},
+    {"id": "l2", "category": "legal", "weight": 3, "text": "The project has a legal entity", "why": "Exchanges, banks and partners need someone to sign with."},
+    {"id": "l3", "category": "legal", "weight": 3, "text": "Terms of use and a privacy policy are live", "why": "Basic protection for you and your users."},
+    {"id": "l4", "category": "legal", "weight": 3, "text": "Countries you will block are decided and enforced", "why": "Some countries restrict token sales or need licences."},
+    {"id": "l5", "category": "legal", "weight": 2, "text": "Investor, advisor and KOL agreements are signed", "why": "Handshake deals turn into disputes."},
+    {"id": "s1", "category": "security", "weight": 5, "text": "Smart contracts are audited and the report is public", "why": "Unaudited contracts are a common way funds get lost."},
+    {"id": "s2", "category": "security", "weight": 4, "text": "Treasury and admin keys use a multisig", "why": "One stolen key should not drain the project."},
+    {"id": "s3", "category": "security", "weight": 3, "text": "Admin powers (mint, pause, upgrade) are listed publicly", "why": "Hidden powers look like a rug risk."},
+    {"id": "s4", "category": "security", "weight": 3, "text": "There is a bug bounty or a way to report bugs", "why": "Friendly hackers need a way to reach you."},
+    {"id": "s5", "category": "security", "weight": 2, "text": "Team accounts use two-factor login with security keys or an app", "why": "Hacked socials are used to post scam links."},
+    {"id": "c1", "category": "community", "weight": 3, "text": "There is an active community channel with moderators", "why": "Launch day questions need fast, real answers."},
+    {"id": "c2", "category": "community", "weight": 3, "text": "Official links are pinned everywhere", "why": "Scammers copy projects with fake links on launch day."},
+    {"id": "c3", "category": "community", "weight": 3, "text": "Moderators know the team never DMs first", "why": "Fake support DMs are a common scam."},
+    {"id": "c4", "category": "community", "weight": 2, "text": "Docs or an FAQ explain the product and the token", "why": "Saves your team answering the same question 500 times."},
+    {"id": "c5", "category": "community", "weight": 2, "text": "Early users and testers are thanked or rewarded", "why": "Your first fans become your loudest voices."},
+    {"id": "m1", "category": "marketing", "weight": 3, "text": "Launch date and plan are shared in advance", "why": "A surprise launch looks rushed."},
+    {"id": "m2", "category": "marketing", "weight": 3, "text": "Paid promotions are clearly disclosed", "why": "Hidden ads can break advertising rules and trust."},
+    {"id": "m3", "category": "marketing", "weight": 2, "text": "There is a press or media kit (logo, short story, links)", "why": "Makes it easy for others to write about you."},
+    {"id": "m4", "category": "marketing", "weight": 2, "text": "Posts are scheduled for launch week", "why": "Launch week is busy. Prepare posts before."},
+    {"id": "m5", "category": "marketing", "weight": 3, "text": "No messaging promises prices or returns", "why": "Price promises bring legal risk and angry holders."},
+    {"id": "q1", "category": "liquidity", "weight": 4, "text": "The liquidity plan (amount, pairs, venues) is decided", "why": "Thin liquidity means wild price swings."},
+    {"id": "q2", "category": "liquidity", "weight": 4, "text": "Liquidity pool tokens are locked or held by a multisig", "why": "Removable liquidity is the classic rug pull."},
+    {"id": "q3", "category": "liquidity", "weight": 3, "text": "Any market maker deal is written and its terms understood", "why": "Bad market maker deals can drain tokens."},
+    {"id": "q4", "category": "liquidity", "weight": 2, "text": "Data sites (CoinGecko, CoinMarketCap) applications are ready", "why": "Listings on data sites help people find you."},
+    {"id": "q5", "category": "liquidity", "weight": 2, "text": "Treasury has runway outside your own token", "why": "If your token drops, you still need to pay the team."}
+  ],
+  "answers": [
+    {"id": "yes", "label": "Yes", "share": 1},
+    {"id": "partly", "label": "Partly", "share": 0.5},
+    {"id": "no", "label": "No", "share": 0}
+  ],
+  "grades": [
+    {"min": 85, "label": "Ready for launch", "line": "Strong foundations. Close the last gaps and go.", "color": "#6BCB77"},
+    {"min": 65, "label": "Nearly ready", "line": "Good base, but a few gaps could hurt on launch day.", "color": "#FFD23F"},
+    {"min": 40, "label": "Not yet", "line": "Important pieces are missing. Fix the biggest gaps first.", "color": "#FF9F45"},
+    {"min": 0, "label": "Early days", "line": "Lots to do before launch. That is normal: start from the top of the gaps list.", "color": "#FF6B6B"}
+  ]
+}

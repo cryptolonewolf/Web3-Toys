@@ -15,6 +15,6 @@
     {"id": "airdrop-planner", "title": "Airdrop Campaign Planner", "blurb": "Allocation, eligibility, anti farming and a claim timeline.", "status": "live", "path": "airdrop-planner/"},
     {"id": "links-checker", "title": "Official Links Checker", "blurb": "Compare a link with official exchange and wallet domains.", "status": "live", "path": "links-checker/"},
     {"id": "gas-converter", "title": "Gas and Unit Converter", "blurb": "Wei, gwei, ETH, lamports, SOL and a quick fee estimate.", "status": "live", "path": "gas-converter/"},
-    {"id": "launch-checklist", "title": "Launch Readiness Checklist", "blurb": "About 30 checks, a score and your gaps.", "status": "soon"}
+    {"id": "launch-checklist", "title": "Launch Readiness Checklist", "blurb": "About 30 checks, a score and your gaps.", "status": "live", "path": "launch-checklist/"}
   ]
 }

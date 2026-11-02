@@ -4938,7 +4938,7 @@ a.xcard:active {
 }
 
 .xcard--tool-meme-kit .xtitle {
-  font-size: 11cqi;
+  font-size: 9cqi;
   line-height: 1;
   color: #ffd23f;
   -webkit-text-stroke: 1.2cqi var(--ink);
@@ -5348,6 +5348,128 @@ a.xcard:active {
 
 .gas-val {
   word-break: break-all;
+}
+
+.xcard--tool-launch-checklist {
+  background: #eef0ff;
+  box-shadow: 0 0 0 3px var(--ink), 4px 4px 0 3px #a98bff;
+}
+
+.xcard--tool-launch-checklist .xtitle {
+  font-size: 10cqi;
+  line-height: 1;
+  color: var(--ink);
+  padding: 0 40cqi 0 4cqi;
+}
+
+.xcard--tool-launch-checklist:hover .lc-rocket {
+  animation: nudge 0.5s ease;
+}
+
+/* Launch Readiness Checklist */
+.lc-progress {
+  position: sticky;
+  top: 72px;
+  z-index: 5;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 6px 14px;
+  font: 800 15px var(--font-body);
+  color: var(--ink);
+  background: var(--yellow);
+  border: var(--line-thin);
+  border-radius: 999px;
+}
+
+.lc-check {
+  padding: 10px 0 12px;
+  border-top: 2px dashed #e4dcc3;
+}
+
+.lc-check:first-of-type {
+  border-top: 0;
+}
+
+.lc-text {
+  margin: 0;
+  font: 800 16px / 1.35 var(--font-body);
+  color: var(--ink);
+}
+
+.lc-check .small-print {
+  margin: 2px 0 8px;
+}
+
+.lc-seg {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.lc-btn {
+  min-height: 42px;
+  font: 800 15px var(--font-body);
+  color: var(--ink);
+  background: var(--white);
+  border: var(--line-thin);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.lc-btn--yes.is-on {
+  background: #6bcb77;
+}
+
+.lc-btn--partly.is-on {
+  background: #ffd23f;
+}
+
+.lc-btn--no.is-on {
+  background: #ff8a8a;
+}
+
+.lc-btn.is-on {
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.lc-gaps {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lc-gaps li {
+  padding: 10px 12px;
+  background: var(--white);
+  border: var(--line-thin);
+  border-radius: 12px;
+}
+
+.lc-gaps p {
+  margin: 4px 0 0;
+}
+
+.lc-tag {
+  margin-left: auto;
+  padding: 1px 8px;
+  font-size: 13px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: #f1e9cf;
+}
+
+.lc-tag--no {
+  background: #ff8a8a;
+}
+
+.lc-tag--partly {
+  background: #ffd23f;
+}
+
+.lc-cta {
+  background: #eef0ff;
 }
 
 /* The Tools page */

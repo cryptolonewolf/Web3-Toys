@@ -73,7 +73,8 @@
         {"id": "tool-kol-scorecard", "status": "live", "kind": "tool", "path": "builder/kol-scorecard/", "title": "KOL Vetting Scorecard", "time": "Tool", "blurb": "Score a KOL from public numbers before you pay."},
         {"id": "tool-airdrop-planner", "status": "live", "kind": "tool", "path": "builder/airdrop-planner/", "title": "Airdrop Campaign Planner", "time": "Tool", "blurb": "Who gets tokens, how many, and when they can claim."},
         {"id": "tool-links-checker", "status": "live", "kind": "tool", "path": "builder/links-checker/", "title": "Official Links Checker", "time": "Tool", "blurb": "Is that link the real domain, or a look-alike?"},
-        {"id": "tool-gas-converter", "status": "live", "kind": "tool", "path": "builder/gas-converter/", "title": "Gas and Unit Converter", "time": "Tool", "blurb": "Wei, gwei, ETH, lamports, SOL and a quick fee estimate."}
+        {"id": "tool-gas-converter", "status": "live", "kind": "tool", "path": "builder/gas-converter/", "title": "Gas and Unit Converter", "time": "Tool", "blurb": "Wei, gwei, ETH, lamports, SOL and a quick fee estimate."},
+        {"id": "tool-launch-checklist", "status": "live", "kind": "tool", "path": "builder/launch-checklist/", "title": "Launch Readiness Checklist", "time": "Tool", "blurb": "About 30 checks, a score and your gaps."}
       ]
     },
     {

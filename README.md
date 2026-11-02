@@ -103,6 +103,9 @@ window, "Save as PDF"), Download PNG, Copy and Reset.
   domain before going live; projects change domains.
 - Gas and Unit Converter (`builder/gas-converter/`): units, typical gas per
   action, the Solana base fee and the defaults are in `data/tools/gas.json`.
+- Launch Readiness Checklist (`builder/launch-checklist/`): the 30 checks,
+  their weights, the grades and the full report link (`reportUrl`, now a
+  placeholder `#`) are in `data/tools/launch-checklist.json`.
 
 ## Project Academy
 

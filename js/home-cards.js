@@ -376,7 +376,7 @@
       art: function () {
         return svg(
           '<rect width="270" height="100" fill="#FFF4D6"/>' +
-          '<g class="ag-paper" transform="rotate(6 222 52)"><rect x="190" y="12" width="64" height="80" rx="4" fill="#FFFFFF" stroke="' + INK + '" stroke-width="2.5"/>' +
+          '<g class="ag-paper" transform="rotate(6 222 52)"><rect x="190" y="20" width="62" height="68" rx="4" fill="#FFFFFF" stroke="' + INK + '" stroke-width="2.5"/>' +
           '<g stroke="' + INK + '" stroke-width="2" stroke-linecap="round"><path d="M200 28h44M200 38h44M200 48h30M200 58h40"/></g>' +
           '<path d="M202 80c6-8 10 4 16-3s8 3 14-2" fill="none" stroke="#4D9DE0" stroke-width="2.5" stroke-linecap="round"/></g>' +
           '<g class="ag-pen"><path d="M168 86 L186 60 L192 64 L174 90 Z" fill="#FF6B6B" stroke="' + INK + '" stroke-width="2" stroke-linejoin="round"/><path d="M168 86 L166 94 L174 90" fill="' + INK + '"/></g>'
@@ -446,8 +446,21 @@
           '<g class="gas-pump"><rect x="182" y="22" width="40" height="64" rx="6" fill="#FF6B6B" stroke="' + INK + '" stroke-width="3"/>' +
           '<rect x="190" y="30" width="24" height="16" rx="3" fill="#FFFFFF" stroke="' + INK + '" stroke-width="2.5"/>' +
           '<path d="M222 40 h12 v30 a6 6 0 0 0 12 0 v-34 l-8 -8" fill="none" stroke="' + INK + '" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>' +
-          '<rect x="176" y="84" width="52" height="8" rx="3" fill="' + INK + '"/></g>' +
-          '<text x="160" y="40" text-anchor="end" font-family="Righteous, sans-serif" font-size="16" fill="' + INK + '">⇄</text>'
+          '<rect x="176" y="84" width="52" height="8" rx="3" fill="' + INK + '"/></g>'
+        );
+      },
+    },
+    'tool-launch-checklist': {
+      font: 'Black Ops One',
+      title: function () { return 'Launch<br>Readiness'; },
+      art: function () {
+        return svg(
+          '<rect width="270" height="100" fill="#EEF0FF"/>' +
+          '<g class="lc-rocket"><path d="M222 14 c14 10 18 30 12 50 h-24 c-6 -20 -2 -40 12 -50z" fill="#FFFFFF" stroke="' + INK + '" stroke-width="3" stroke-linejoin="round"/>' +
+          '<circle cx="222" cy="36" r="6" fill="#4D9DE0" stroke="' + INK + '" stroke-width="2.5"/>' +
+          '<path d="M210 54 l-10 12 h10 M234 54 l10 12 h-10" fill="#FF6B6B" stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round"/>' +
+          '<path d="M214 66 q8 20 16 0" fill="#FFD23F" stroke="' + INK + '" stroke-width="2.5"/></g>' +
+          star(186, 24, 6, '#FFD23F') + star(254, 80, 5, '#A98BFF') + star(194, 84, 4, '#6BCB77')
         );
       },
     },

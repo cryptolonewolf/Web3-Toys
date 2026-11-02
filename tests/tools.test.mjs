@@ -355,3 +355,29 @@ describe('Gas and Unit Converter', () => {
     assert.equal(G.solFee(2, gc.sol.baseFeeLamports, 1000), 11000n);
   });
 });
+
+describe('Launch Readiness Checklist', () => {
+  const LE = require('../js/launch-engine.js');
+  const lc = json('data/tools/launch-checklist.json');
+
+  it('has about 30 checks across the six areas, and a report link to fill in', () => {
+    assert.equal(lc.review, true);
+    assert.ok(lc.checks.length >= 28 && lc.checks.length <= 32);
+    assert.deepEqual(lc.categories.map((c) => c.id), ['token', 'legal', 'security', 'community', 'marketing', 'liquidity']);
+    lc.categories.forEach((c) => assert.ok(lc.checks.some((x) => x.category === c.id), c.id));
+    assert.equal(new Set(lc.checks.map((c) => c.id)).size, lc.checks.length);
+    assert.equal(lc.reportLabel, 'Get the full Launch Readiness Report');
+    assert.ok('reportUrl' in lc);
+  });
+
+  it('scores yes, partly and no, and lists gaps biggest first', () => {
+    const all = (a) => Object.fromEntries(lc.checks.map((c) => [c.id, a]));
+    assert.equal(LE.score(all('yes'), lc).score, 100);
+    assert.equal(LE.score(all('yes'), lc).gaps.length, 0);
+    assert.equal(LE.score(all('partly'), lc).score, 50);
+    assert.equal(LE.score({}, lc).score, 0);
+    const r = LE.score({ ...all('yes'), s1: 'no', t5: 'partly' }, lc);
+    assert.deepEqual(r.gaps.map((g) => g.id), ['s1', 't5']);
+    assert.equal(r.categories.find((c) => c.id === 'security').pct, Math.round(12 / 17 * 100));
+  });
+});
