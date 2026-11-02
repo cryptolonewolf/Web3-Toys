@@ -408,6 +408,22 @@
         );
       },
     },
+    'tool-airdrop-planner': {
+      font: 'Chewy',
+      title: function () { return 'Airdrop<br>Planner'; },
+      art: function () {
+        var chute = function (x, y, c) {
+          return '<path d="M' + (x - 18) + ' ' + y + ' a18 14 0 0 1 36 0 z" fill="' + c + '" stroke="' + INK + '" stroke-width="2.5"/>' +
+            '<path d="M' + (x - 17) + ' ' + y + ' L' + x + ' ' + (y + 22) + ' L' + (x + 17) + ' ' + y + '" fill="none" stroke="' + INK + '" stroke-width="1.5"/>' +
+            '<circle cx="' + x + '" cy="' + (y + 28) + '" r="7" fill="#FFD23F" stroke="' + INK + '" stroke-width="2.5"/>';
+        };
+        return svg(
+          '<rect width="270" height="100" fill="#E6F4FF"/>' +
+          '<g class="ad-chute">' + chute(210, 22, '#FF6B6B') + '</g><g class="ad-chute ad-chute--2">' + chute(244, 48, '#A98BFF') + '</g>' +
+          '<path d="M150 92 h120" stroke="' + INK + '" stroke-width="3"/>'
+        );
+      },
+    },
   };
 
   // Loads one Google Font with only the letters it needs.

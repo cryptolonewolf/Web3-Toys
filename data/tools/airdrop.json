@@ -1,0 +1,56 @@
+{
+  "_help": "Airdrop Campaign Planner. Eligibility rules and anti-farming ideas are lists the visitor ticks; {n} in a rule is a number they can change. Tiers split the airdrop between wallet groups (walletPct of eligible wallets get tokenPct of the airdrop). Timeline steps are days after the snapshot. Warnings are rules of thumb, not standards.",
+  "review": true,
+  "defaults": {
+    "token": "LUM", "supply": 1000000000, "airdropPct": 5, "wallets": 20000, "price": 0,
+    "method": "tiered", "snapshot": "", "claimDays": 60, "atClaimPct": 50, "vestMonths": 3, "unclaimed": "treasury",
+    "rules": {"activity": 1, "hold": 0, "early": 1, "community": 1, "testnet": 0},
+    "anti": {"minActivity": 1, "age": 1, "sybil": 1, "cap": 1, "quests": 0, "proof": 0}
+  },
+  "rules": [
+    {"id": "activity", "text": "Used the app at least {n} times before the snapshot", "n": 3},
+    {"id": "hold", "text": "Held at least {n} of a partner or project token at the snapshot", "n": 100},
+    {"id": "early", "text": "Joined during the first {n} months (testnet, beta or waitlist)", "n": 6},
+    {"id": "community", "text": "Has a community role earned by helping (moderator, builder, artist)"},
+    {"id": "testnet", "text": "Finished at least {n} testnet tasks", "n": 5},
+    {"id": "volume", "text": "Made at least {n} dollars of real volume over 30 days or more", "n": 100}
+  ],
+  "anti": [
+    {"id": "minActivity", "text": "Count activity over weeks, not one busy day", "why": "Farmers spin up activity just before a snapshot. Rewarding steady use over time is harder to fake."},
+    {"id": "age", "text": "Require a minimum wallet age and history", "why": "Fresh wallets made just for the airdrop are a common farming sign."},
+    {"id": "sybil", "text": "Run a sybil check and publish how it works", "why": "Look for clusters of wallets funded from the same source that act the same way, and remove them before the claim."},
+    {"id": "cap", "text": "Cap the tokens any one wallet can get", "why": "A cap stops one farmer with many actions taking a big slice."},
+    {"id": "quests", "text": "Avoid simple tasks that bots can repeat", "why": "Follow, like and retweet quests are easy to farm with bot accounts."},
+    {"id": "proof", "text": "Offer an optional proof of personhood for a bonus", "why": "A bonus for verified humans, not a requirement, keeps it open while making farming less rewarding."},
+    {"id": "appeal", "text": "Run a short appeal window for wrongly flagged users", "why": "Sybil filters make mistakes. An appeal keeps real users on your side."}
+  ],
+  "methods": [
+    {"id": "equal", "label": "Equal", "line": "Every eligible wallet gets the same amount."},
+    {"id": "tiered", "label": "Tiered", "line": "More active wallets get more, in three tiers."},
+    {"id": "points", "label": "By activity points", "line": "Tokens shared in proportion to points. Exact amounts depend on each wallet's points."}
+  ],
+  "tiers": [
+    {"label": "Tier 1 (most active)", "walletPct": 10, "tokenPct": 40},
+    {"label": "Tier 2", "walletPct": 30, "tokenPct": 35},
+    {"label": "Tier 3", "walletPct": 60, "tokenPct": 25}
+  ],
+  "unclaimed": [
+    {"id": "treasury", "label": "Back to the community treasury"},
+    {"id": "next", "label": "Into the next airdrop season"},
+    {"id": "burn", "label": "Burned"}
+  ],
+  "timeline": [
+    {"id": "snapshot", "label": "Snapshot", "day": 0},
+    {"id": "checker", "label": "Eligibility checker live", "day": 7},
+    {"id": "appeals", "label": "Appeals close", "day": 14},
+    {"id": "open", "label": "Claim opens", "day": 21}
+  ],
+  "limits": {"bigAirdropPct": 15, "shortClaimDays": 30, "minAnti": 2},
+  "warnings": {
+    "big": "Over {n}% of supply in one airdrop is a lot. Many projects keep each season smaller and run more than one.",
+    "short": "A claim window under {n} days leaves out people who are away. Many projects give 60 to 90 days.",
+    "anti": "Pick at least {n} anti-farming ideas, or farmers may take most of the airdrop.",
+    "noRules": "Pick at least one eligibility rule.",
+    "allAtClaim": "Everything unlocks at claim. Expect many people to sell on day one; some projects unlock part at claim and the rest over a few months."
+  }
+}

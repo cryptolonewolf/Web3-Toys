@@ -284,3 +284,25 @@ describe('KOL Vetting Scorecard', () => {
     assert.equal(Kol.roi({ followers: 0, viewPct: 10, clickPct: 2, cost: 1000 }).cpc, null);
   });
 });
+
+describe('Airdrop Campaign Planner', () => {
+  const A = require('../js/airdrop-engine.js');
+  const ac = json('data/tools/airdrop.json');
+
+  it('tiers share the whole airdrop and the timeline follows the snapshot', () => {
+    assert.equal(ac.review, true);
+    assert.equal(ac.tiers.reduce((s, t) => s + t.walletPct, 0), 100);
+    assert.equal(ac.tiers.reduce((s, t) => s + t.tokenPct, 0), 100);
+    const p = A.plan({ ...ac.defaults, snapshot: '2026-12-01' }, ac);
+    assert.equal(p.tokens, 50e6);
+    assert.ok(Math.abs(p.shares.reduce((s, x) => s + x.tokens, 0) - 50e6) < 1e-6);
+    assert.equal(p.steps[0].date, '2026-12-01');
+    assert.equal(p.steps.find((s) => s.label === 'Claim closes').date, A.addDays('2026-12-01', 21 + 60));
+  });
+
+  it('warns about a huge airdrop, a short claim window and no anti-farming', () => {
+    const p = A.plan({ ...ac.defaults, airdropPct: 30, claimDays: 7, anti: {}, atClaimPct: 100 }, ac);
+    assert.equal(p.warnings.length, 4);
+    assert.equal(A.plan({ ...ac.defaults, snapshot: '2026-12-01' }, ac).warnings.length, 0);
+  });
+});

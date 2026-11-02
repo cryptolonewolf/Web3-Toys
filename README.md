@@ -94,6 +94,9 @@ window, "Save as PDF"), Download PNG, Copy and Reset.
 - KOL Vetting Scorecard (`builder/kol-scorecard/`): the scoring bands,
   reasons, red flags, grades and ROI defaults are in
   `data/tools/kol-scorecard.json` (rules of thumb, marked for review).
+- Airdrop Campaign Planner (`builder/airdrop-planner/`): eligibility rules,
+  anti-farming ideas, sharing methods and tiers, timeline steps and warnings
+  are in `data/tools/airdrop.json`.
 
 ## Project Academy
 

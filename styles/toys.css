@@ -5188,6 +5188,47 @@ a.xcard:active {
   font-weight: 900;
 }
 
+.xcard--tool-airdrop-planner {
+  background: #e6f4ff;
+  box-shadow: 0 0 0 3px var(--ink), 4px 4px 0 3px #4d9de0;
+}
+
+.xcard--tool-airdrop-planner .xtitle {
+  font-size: 13cqi;
+  line-height: 0.95;
+  color: #1d6fd6;
+  padding: 0 40cqi 0 4cqi;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .xcard--tool-airdrop-planner .ad-chute {
+    animation: ad-float 3s ease-in-out infinite;
+  }
+
+  .xcard--tool-airdrop-planner .ad-chute--2 {
+    animation-delay: -1.5s;
+  }
+}
+
+@keyframes ad-float {
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+/* Airdrop Campaign Planner */
+.ad-rule {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ad-n {
+  flex: none;
+  width: 84px;
+}
+
 /* The Tools page */
 .tool-list {
   display: grid;
