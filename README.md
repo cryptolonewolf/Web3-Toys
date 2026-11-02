@@ -71,6 +71,8 @@ window, "Save as PDF"), Download PNG, Copy and Reset.
 
 - Tokenomics Generator (`builder/tokenomics/`): groups, the three starting
   templates and the warning rules are in `data/tools/tokenomics.json`.
+- Market Cap and FDV Calculator (`builder/mcap-fdv/`): example presets and
+  the one line explanations are in `data/tools/mcap-fdv.json`.
 
 ## Coins
 

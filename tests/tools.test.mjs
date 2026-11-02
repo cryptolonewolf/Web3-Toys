@@ -91,3 +91,34 @@ describe('Tools list', () => {
     }
   });
 });
+
+describe('Market Cap and FDV Calculator', () => {
+  const M = require('../js/mcap-engine.js');
+  const cfg = json('data/tools/mcap-fdv.json');
+
+  it('works out market cap, FDV and the gap', () => {
+    const r = M.calc(0.5, 200e6, 1e9);
+    assert.equal(r.mcap, 100e6);
+    assert.equal(r.fdv, 500e6);
+    assert.equal(r.gap, 400e6);
+    assert.equal(r.circulatingPct, 20);
+    assert.ok(r.valid);
+    assert.ok(!M.calc(1, 2e9, 1e9).valid, 'circulating above total is not valid');
+  });
+
+  it('picks the plain explanation by the share circulating', () => {
+    assert.match(M.band(10, cfg.bands).line, /selling pressure/);
+    assert.match(M.band(98, cfg.bands).line, /little left to unlock/);
+    for (let p = 0; p <= 100; p += 5) assert.ok(M.band(p, cfg.bands).line.includes('{pct}'));
+  });
+
+  it('writes money short and readable', () => {
+    assert.equal(M.money(100e6), '$100M');
+    assert.equal(M.money(2.5e9), '$2.5B');
+    assert.equal(M.money(0.42), '$0.42');
+  });
+
+  it('example presets are valid', () => {
+    for (const p of cfg.presets) assert.ok(M.calc(p.price, p.circulating, p.total).valid, p.label);
+  });
+});

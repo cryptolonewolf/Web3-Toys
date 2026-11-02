@@ -300,6 +300,20 @@
         );
       },
     },
+    'tool-mcap-fdv': {
+      font: 'Titan One',
+      title: function () { return 'Market Cap<br>&amp; FDV'; },
+      art: function () {
+        return svg(
+          '<rect width="270" height="100" fill="#DFF3FF"/>' +
+          '<rect y="52" width="270" height="48" fill="#4D9DE0"/>' +
+          '<g class="mc-berg-card"><path d="M230 18 L242 30 L250 44 L258 62 L248 92 L200 92 L194 64 L206 40 L218 28Z" fill="#fff" stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round"/>' +
+          '<rect x="190" y="52" width="72" height="44" fill="#1D6FD6" opacity=".45"/></g>' +
+          '<path d="M0 52 q10 -4 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" fill="none" stroke="' + INK + '" stroke-width="2"/>' +
+          '<g fill="#fff" opacity=".7"><circle cx="30" cy="20" r="8"/><circle cx="44" cy="18" r="10"/><circle cx="58" cy="22" r="7"/></g>'
+        );
+      },
+    },
   };
 
   // Loads one Google Font with only the letters it needs.

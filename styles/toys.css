@@ -4419,6 +4419,62 @@ a.xcard:active {
   border-bottom: 1px solid #ddd;
 }
 
+/* Market Cap and FDV Calculator */
+.mc-results {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 560px) {
+  .mc-results { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.mc-big {
+  display: grid;
+  gap: 2px;
+}
+
+.mc-big.is-mint { background: var(--mint-tint); }
+.mc-big.is-blue { background: #e2effb; }
+.mc-big.is-coral { background: var(--coral-tint); }
+
+.mc-value {
+  font-family: 'Luckiest Guy', var(--font-display);
+  font-size: 36px;
+  line-height: 1;
+}
+
+.mc-meaning {
+  background: #fff1b8;
+}
+
+.mc-berg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: var(--line-thin);
+  border-radius: 12px;
+}
+
+.xcard--tool-mcap-fdv {
+  background: #dff3ff;
+  box-shadow: 0 0 0 3px var(--ink), 4px 4px 0 3px #1d6fd6;
+}
+
+.xcard--tool-mcap-fdv .xtitle {
+  font-size: 8.6cqi;
+  line-height: 1;
+  color: #fff;
+  text-shadow: -2px -2px 0 var(--ink), 2px -2px 0 var(--ink), -2px 2px 0 var(--ink), 2px 2px 0 var(--ink), 4px 4px 0 var(--ink);
+  padding: 0 30cqi 0 4cqi;
+  white-space: nowrap;
+}
+
+.xcard--tool-mcap-fdv:hover .mc-berg-card {
+  animation: bob 1s ease-in-out 2;
+}
+
 /* The Tools page */
 .tool-list {
   display: grid;

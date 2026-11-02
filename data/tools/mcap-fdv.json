@@ -1,0 +1,18 @@
+{
+  "_help": "Market Cap and FDV Calculator settings. presets: example tokens (made up) the visitor can load. bands: the one line explanation, picked by the percent of total supply already circulating (the first band whose maxCirculating is at or above it). {pct} is filled in.",
+  "defaults": { "price": 0.5, "circulating": 200000000, "total": 1000000000 },
+  "presets": [
+    { "label": "Low float launch", "price": 2, "circulating": 80000000, "total": 1000000000 },
+    { "label": "Halfway unlocked", "price": 0.75, "circulating": 500000000, "total": 1000000000 },
+    { "label": "Fully circulating", "price": 0.1, "circulating": 9800000000, "total": 10000000000 }
+  ],
+  "marketCapLine": "Market cap is what the tokens trading today are worth: price times circulating supply.",
+  "fdvLine": "FDV (fully diluted value) is what every token would be worth at today's price once all are unlocked: price times total supply.",
+  "bands": [
+    { "maxCirculating": 25, "line": "Only {pct}% of tokens are out. Future unlocks could add a lot of selling pressure." },
+    { "maxCirculating": 50, "line": "{pct}% of tokens are out. More than half are still to come, so watch the unlock dates." },
+    { "maxCirculating": 80, "line": "{pct}% of tokens are out. Some unlocks remain, but most supply is already trading." },
+    { "maxCirculating": 100, "line": "{pct}% of tokens are out. Almost everything already circulates, so there is little left to unlock." }
+  ],
+  "tooMuch": "Circulating supply can't be bigger than total supply. Check the numbers."
+}

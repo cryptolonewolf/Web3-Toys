@@ -4,7 +4,7 @@
   "line": "Free, fast and private. Everything runs in your browser.",
   "tools": [
     { "id": "tokenomics", "title": "Tokenomics Generator", "blurb": "Split your supply, add vesting, see the unlocks and the red flags.", "status": "live", "path": "tokenomics/" },
-    { "id": "mcap-fdv", "title": "Market Cap and FDV Calculator", "blurb": "Market cap, FDV and the gap between them.", "status": "soon" },
+    { "id": "mcap-fdv", "title": "Market Cap and FDV Calculator", "blurb": "Market cap, FDV and the gap between them.", "status": "live", "path": "mcap-fdv/" },
     { "id": "unlock-calendar", "title": "Vesting and Unlock Calendar", "blurb": "Month by month unlocks and the biggest unlock months.", "status": "soon" },
     { "id": "launch-budget", "title": "Launch Budget Planner", "blurb": "Split your raise and see your runway.", "status": "soon" },
     { "id": "pitch-deck", "title": "Pitch Deck Builder", "blurb": "Answer the questions, pick a style, download your deck.", "status": "soon" },
