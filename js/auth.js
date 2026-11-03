@@ -56,7 +56,8 @@
     }
     var chip = bar.querySelector('[data-acct-chip]');
     if (current) {
-      if (link) { link.href = ROOT + 'progress/'; link.textContent = 'My account'; link.onclick = null; }
+      // Logged in: the avatar opens the account, and My Progress is in the menu.
+      if (link) link.hidden = true;
       if (!chip) {
         chip = document.createElement('a');
         chip.className = 'acct-chip';
@@ -69,6 +70,7 @@
     } else {
       if (chip) chip.remove();
       if (link) {
+        link.hidden = false;
         link.href = '#login';
         link.textContent = 'Log in';
         link.onclick = function (e) {

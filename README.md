@@ -295,3 +295,11 @@ settings, the framework preset is **Other** with no build command.
   logo and the hexagon 3 icon (footer, loading screen, certificates) are set
   in `js/site.js` (`logoImg`, `iconSrc`). Every page links the favicons and
   sets `og:image` and `twitter:image` to the 1200x630 share image.
+
+## My Progress (compact profile)
+
+`progress/` is drawn by `js/profile.js`: picture, name, rank and coins on
+top, then stats (toys done, certificates, Pro tags, streak), a Continue
+playing row and tabs for Certificates, Extras (coins and cosmetic extras),
+Purchases (filled in by payments) and Settings (name, picture, log out,
+delete account, sound). Old links to `progress/#coins` open the Extras tab.

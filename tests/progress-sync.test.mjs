@@ -95,6 +95,6 @@ describe('Coins and extras rules', () => {
     assert.ok(json('data/cosmetics.json').noCash.includes('no cash value'));
     assert.ok(!existsSync(new URL('../data/rewards.json', import.meta.url)));
     assert.ok(!/"coins":/.test(read('data/shop.json') + read('data/books.json')));
-    assert.ok(!/redeem/.test(read('config.js') + read('js/coins-page.js')));
+    assert.ok(!/redeem/.test(read('config.js') + read('js/profile.js')));
   });
 });

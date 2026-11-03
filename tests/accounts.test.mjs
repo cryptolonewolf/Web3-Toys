@@ -72,3 +72,15 @@ describe('Random profile pictures and names', async () => {
     assert.ok(!/raw_user_meta_data/.test(sql));
   });
 });
+
+describe('Compact profile page', () => {
+  it('uses one profile script with the four tabs, and old #coins links still work', () => {
+    const html = read('progress/index.html');
+    assert.ok(html.includes('js/profile.js') && !html.includes('progress-page.js') && !html.includes('account-box.js'));
+    const js = read('js/profile.js');
+    ['certs', 'extras', 'purchases', 'settings'].forEach((t) => assert.ok(js.includes(`['${t}',`), t));
+    assert.ok(js.includes("if (h === 'coins') return 'extras'"));
+    assert.ok(js.includes('Delete my account and data'));
+    assert.ok(js.includes('role="tablist"') && js.includes('aria-selected'));
+  });
+});
