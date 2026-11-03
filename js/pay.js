@@ -81,16 +81,22 @@
       m.innerHTML = '<div class="card stack stack--tight" role="dialog" aria-modal="true" aria-labelledby="pay-title">' +
         '<div class="cap-row"><h2 class="title-md" id="pay-title">' + esc(p.title) + '</h2><button type="button" class="cap-x" data-close aria-label="Close">×</button></div>' +
         (p.line ? '<p class="text">' + esc(p.line) + '</p>' : '') +
-        '<p class="pay-price">' + price(p, cur) + '</p>' +
-        '<p class="small-print">' + (cur === 'INR' ? 'Pay with UPI or card, in rupees.' : 'Pay by card, in US dollars.') +
-        ' <button type="button" class="text-button" data-cur>' + (cur === 'INR' ? 'Pay in US dollars instead' : 'In India? Pay in rupees') + '</button></p>' +
-        '<button type="button" class="btn btn--ink btn--block" data-pay>Pay ' + price(p, cur) + '</button>' +
+        '<p class="pay-price">' + price(p, CFG.enabled ? cur : 'USD') + '</p>' +
+        (CFG.enabled ? '<p class="small-print">' + (cur === 'INR' ? 'Pay with UPI or card, in rupees.' : 'Pay by card, in US dollars.') +
+        ' <button type="button" class="text-button" data-cur>' + (cur === 'INR' ? 'Pay in US dollars instead' : 'In India? Pay in rupees') + '</button></p>' : '') +
+        (CFG.enabled ? '<button type="button" class="btn btn--ink btn--block" data-pay>Pay ' + price(p, cur) + '</button>' : '') +
+        (CFG.crypto ? '<button type="button" class="btn btn--block" data-crypto>Pay with crypto · ' + price(p, 'USD') + '</button>' +
+          '<p class="small-print">Crypto (like USDT or USDC) through Paymento, paid in US dollars\' worth. Send only from a wallet you control, on the network shown.</p>' : '') +
         '<p class="small-print" data-pay-msg aria-live="polite">' + esc(msg || '') + '</p>' +
-        '<p class="small-print">Secure payment by Razorpay. By paying you agree to the <a href="' + site.root + 'terms/" target="_blank" rel="noopener">Terms</a> and <a href="' + site.root + 'refunds/" target="_blank" rel="noopener">Refunds</a> rules. Educational products, not financial advice.</p></div>';
+        '<p class="small-print">' + (CFG.enabled && CFG.crypto ? 'Card and UPI payments by Razorpay, crypto by Paymento.' : CFG.crypto ? 'Crypto payments by Paymento.' : 'Secure payment by Razorpay.') + ' By paying you agree to the <a href="' + site.root + 'terms/" target="_blank" rel="noopener">Terms</a> and <a href="' + site.root + 'refunds/" target="_blank" rel="noopener">Refunds</a> rules. Educational products, not financial advice.</p></div>';
       m.querySelector('[data-close]').addEventListener('click', close);
-      m.querySelector('[data-cur]').addEventListener('click', function () { cur = cur === 'INR' ? 'USD' : 'INR'; setCurrency(cur); draw(); });
-      m.querySelector('[data-pay]').addEventListener('click', pay);
-      m.querySelector('[data-pay]').focus();
+      var sw = m.querySelector('[data-cur]');
+      if (sw) sw.addEventListener('click', function () { cur = cur === 'INR' ? 'USD' : 'INR'; setCurrency(cur); draw(); });
+      var pb = m.querySelector('[data-pay]');
+      if (pb) pb.addEventListener('click', pay);
+      var c = m.querySelector('[data-crypto]');
+      if (c) c.addEventListener('click', payCrypto);
+      (m.querySelector('[data-pay]') || m.querySelector('[data-crypto]')).focus();
     }
 
     function busy(on, msg) {
@@ -135,6 +141,18 @@
       }).catch(function (err) { busy(false, err.message); });
     }
 
+    // Crypto: Paymento's own page takes the payment, then sends the buyer
+    // back to My Progress, Purchases, where the order is checked.
+    function payCrypto() {
+      busy(true, 'Opening the crypto checkout…');
+      var c = m.querySelector('[data-crypto]');
+      if (c) c.disabled = true;
+      call('crypto-order', { action: 'create', product: p.id, item: item || null }).then(function (r) {
+        try { localStorage.setItem('web3toys.cryptoOrder.v1', r.orderId); } catch (e) { /* private mode */ }
+        location.href = r.url;
+      }, function (err) { busy(false, err.message); if (c) c.disabled = false; });
+    }
+
     function done(order) {
       m.classList.remove('is-busy');
       site.fx.confetti();
@@ -159,7 +177,7 @@
   // ---------- What pages call ----------
 
   function buy(productId, item, onPaid) {
-    if (!CFG.enabled) return Promise.reject(new Error('Payments open soon.'));
+    if (!CFG.enabled && !CFG.crypto) return Promise.reject(new Error('Payments open soon.'));
     return products().then(function (ps) {
       var p = ps.filter(function (x) { return x.id === productId; })[0];
       if (!p) throw new Error('Unknown product.');
@@ -196,8 +214,20 @@
     });
   }
 
+  // Back from Paymento: ask the server whether it is paid yet.
+  function checkCrypto(orderId) {
+    return call('crypto-order', { action: 'check', orderId: orderId }).then(function (r) {
+      if (r.status === 'paid') {
+        bought = null;
+        try { localStorage.removeItem('web3toys.cryptoOrder.v1'); } catch (e) { /* private mode */ }
+        document.dispatchEvent(new CustomEvent('web3toys:purchased', { detail: { id: orderId } }));
+      }
+      return r;
+    });
+  }
+
   A.onChange(function () { bought = null; });
 
-  window.Web3Pay = { enabled: !!CFG.enabled, products: products, price: price, currency: guessCurrency, buy: buy, download: download, purchases: purchases, owns: owns };
+  window.Web3Pay = { enabled: !!(CFG.enabled || CFG.crypto), crypto: !!CFG.crypto, checkCrypto: checkCrypto, products: products, price: price, currency: guessCurrency, buy: buy, download: download, purchases: purchases, owns: owns };
   document.dispatchEvent(new CustomEvent('web3pay:ready'));
 })();

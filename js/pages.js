@@ -117,7 +117,8 @@
   }
 
   function sells(b) {
-    return b.product && (CONFIG.payments || {}).enabled;
+    var pay = CONFIG.payments || {};
+    return b.product && (pay.enabled || pay.crypto);
   }
 
   function books(data) {

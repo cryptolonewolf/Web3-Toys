@@ -18,7 +18,7 @@
     ]},
     {"title": "If you buy something", "list": [
       "What you bought, the price, the date and the payment reference, so we can give you your download and a receipt.",
-      "Payments are handled by Razorpay. Your card, UPI or bank details go to Razorpay, not to us. Razorpay's own privacy policy applies to them.",
+      "Card and UPI payments are handled by Razorpay. Your card, UPI or bank details go to Razorpay, not to us. Razorpay's own privacy policy applies to them.", "Crypto payments are handled by Paymento. You pay from your own wallet; we see the order and its status, and like every blockchain payment, the transaction is public on the blockchain.",
       "Calls booked through Cal.com are handled by Cal.com and its payment provider."
     ]},
     {"title": "If you join the email list or send a project request", "list": [
@@ -28,7 +28,7 @@
     {"title": "Who helps us", "list": [
       "Supabase (accounts, database and private file storage).",
       "Vercel (hosting the website).",
-      "Razorpay (payments and receipts).",
+      "Razorpay (card and UPI payments, and receipts).", "Paymento (crypto payments).",
       "Cal.com (booking calls).",
       "Our email provider (login links and receipts).",
       "We do not sell your data and we do not use advertising trackers."

@@ -210,19 +210,42 @@
     return o.currency === 'INR' ? '₹' + n.toLocaleString('en-IN') : '$' + n.toFixed(2);
   }
 
+  // Back from the crypto checkout: check the order, then every 20 seconds
+  // for a few minutes while the blockchain confirms it.
+  var cryptoNote = '';
+  var cryptoTries = 0;
+
+  function watchCrypto() {
+    var id = new URLSearchParams(location.search).get('order');
+    try { id = id || localStorage.getItem('web3toys.cryptoOrder.v1'); } catch (e) { /* private mode */ }
+    var P = window.Web3Pay;
+    if (!id || !P || !P.crypto || !/^[0-9a-f-]{36}$/i.test(id) || !window.Web3Auth.user()) return;
+    P.checkCrypto(id).then(function (r) {
+      if (r.status === 'paid') { cryptoNote = 'Crypto payment confirmed. Thank you!'; site.fx.confetti(); }
+      else if (r.status === 'failed') { cryptoNote = 'That crypto payment did not complete. You were not charged unless funds were sent; if they were, contact us.'; try { localStorage.removeItem('web3toys.cryptoOrder.v1'); } catch (e) { /* ok */ } }
+      else {
+        cryptoNote = r.waiting ? 'Payment seen. Waiting for blockchain confirmations… this page updates by itself.' : 'Waiting for your crypto payment… this page updates by itself.';
+        if (++cryptoTries < 30) setTimeout(watchCrypto, 20000);
+      }
+      if (home && tab === 'purchases') render();
+    }, function () { /* try again on the next visit */ });
+  }
+  document.addEventListener('web3pay:ready', function () { window.Web3Auth.onChange(function (u) { if (u) watchCrypto(); }); });
+
   function purchasesPanel(s) {
     if (!s.user) {
       return '<div class="pf-empty-box"><p class="text">Log in to buy and keep your reports, HD certificates and books, with a download button here.</p>' +
         (s.A ? '<button type="button" class="btn btn--small" data-login>Log in</button>' : '') + '</div>';
     }
-    if (!orders) { loadPurchases(); return '<p class="small-print">Loading your purchases…</p>'; }
+    var note = cryptoNote ? '<p class="tk-warn' + (/confirmed/.test(cryptoNote) ? ' is-good' : '') + '">' + esc(cryptoNote) + '</p>' : '';
+    if (!orders) { loadPurchases(); return note + '<p class="small-print">Loading your purchases…</p>'; }
     if (!orders.length) {
-      return '<div class="pf-empty-box"><p class="text">No purchases yet. Reports, HD certificates and books you buy will show here, with a download button.</p>' +
+      return note + '<div class="pf-empty-box"><p class="text">No purchases yet. Reports, HD certificates and books you buy will show here, with a download button.</p>' +
         '<a class="btn btn--small" href="../books/">See the books</a></div>';
     }
     var byId = {};
     (catalog || []).forEach(function (p) { byId[p.id] = p; });
-    return '<ul class="pf-buys">' + orders.map(function (o) {
+    return note + '<ul class="pf-buys">' + orders.map(function (o) {
       var p = byId[o.product_id] || {};
       var action = o.status === 'refunded' ? '<span class="chip is-white">Refunded</span>'
         : p.file ? '<button type="button" class="btn btn--small btn--yellow" data-dl="' + esc(o.id) + '">Download</button>'

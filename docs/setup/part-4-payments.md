@@ -99,3 +99,54 @@ each PDF with exactly the name in `data/products.json`, for example
   `RECEIPT_FROM` (for example `web3.toys <hi@web3.toys>`) to the Supabase
   secrets after setting up Resend (Part 1, step 7). Razorpay also sends its
   own receipt.
+
+---
+
+# Crypto payments with Paymento (next to Razorpay)
+
+About 20 minutes. Paymento is non-custodial: buyers pay from their wallet
+straight to yours. Prices are the US dollar prices in `data/products.json`.
+
+## Step A. Paymento account and store
+
+1. Go to **paymento.io**, sign up, and create a **store** for web3.toys.
+2. Connect the wallet(s) you want to be paid in, following Paymento's
+   steps. It asks for public details only (like an XPUB or an address).
+   **Never give anyone your seed phrase or private key.**
+3. Choose the coins and networks you accept (stablecoins like USDT and USDC
+   are the easiest for buyers; pick the networks you can receive on).
+
+## Step B. Keys
+
+In your Paymento store settings, find:
+- the **API key** (sent with every request), and
+- the **secret key** for payment notifications (IPN). Paymento uses it to
+  sign each notice.
+
+Do not send either to me. They go into Supabase only.
+
+## Step C. Database and functions
+
+1. Supabase **SQL Editor**: run `supabase/005_crypto.sql` (after 004).
+2. **Edge Functions**: deploy two more, the same way as before, and switch
+   OFF "Verify JWT" on both: `crypto-order` and `paymento-ipn`.
+3. **Edge Functions, Secrets**: add
+   - `PAYMENTO_API_KEY` = the API key
+   - `PAYMENTO_IPN_SECRET` = the secret key
+   (`SERVICE_KEY` and `SITE_URL` are already there from the Razorpay steps.)
+
+## Step D. Tell Paymento where to send payment notices
+
+In the Paymento dashboard's store or payment settings, set the **IPN /
+callback URL** to
+
+`https://zdufxggiffinqcstoquq.supabase.co/functions/v1/paymento-ipn`
+
+with method **POST**. If you cannot find this setting, tell me: Paymento also
+has an API for it and I will walk you through it.
+
+## Testing
+
+Paymento has no pretend money mode, so test with one small real payment
+(a stablecoin is easiest). Tell me when you are ready and I can add a
+hidden $1 test product for it.

@@ -42,8 +42,11 @@ window.WEB3TOYS_CONFIG = {
   // Payments (Razorpay). Turn enabled on after the Part 4 setup
   // (docs/setup/part-4-payments.md). Prices live in data/products.json; the
   // Razorpay keys live only in Supabase, never here.
+  // crypto: also offer "Pay with crypto" through Paymento (prices in US
+  // dollars, paid straight to your wallet). Needs the Paymento setup too.
   payments: {
     enabled: false,
+    crypto: false,
   },
 
   // Shown on the Contact page (Razorpay asks for these).

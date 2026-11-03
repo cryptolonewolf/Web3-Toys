@@ -312,7 +312,11 @@ delete account, sound). Old links to `progress/#coins` open the Extras tab.
   `create-order`, `verify-payment` (checks Razorpay's signature),
   `razorpay-webhook` (backup confirmation) and `download` (5 minute links to
   files in the private `paid-files` bucket). Tests:
-  `WEB3TOYS_TEST=1 deno test --allow-env --allow-read --allow-net supabase/functions/payments_test.ts`.
+  `WEB3TOYS_TEST=1 deno test --allow-env --allow-read --allow-net supabase/functions/`.
+- Crypto: `crypto-order` and `paymento-ipn` take crypto payments through
+  Paymento (US dollar prices, paid straight to your wallet); a signed notice
+  is always double-checked with Paymento's verify API. Switched on with
+  `payments.crypto` in `config.js`.
 - Website: `js/pay.js` (`Web3Pay.buy(productId, item)`), the Purchases tab
   on My Progress, and Buy buttons on the Books page. Switched on with
   `payments.enabled` in `config.js`. Razorpay keys live only in Supabase.

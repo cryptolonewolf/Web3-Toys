@@ -25,7 +25,7 @@
       "If we have to cancel, you get a full refund or a new time, your choice."
     ]},
     {"title": "How refunds are paid", "list": [
-      "Refunds go back to the card, UPI or account you paid with, usually within 5 to 7 working days after we approve them."
+      "Refunds go back to the card, UPI or account you paid with, usually within 5 to 7 working days after we approve them.", "Crypto payments are refunded in the same coin and network, to a wallet address you send us, for the US dollar value you paid, minus the network fee. Crypto sent to a wrong address or on a wrong network cannot be recovered."
     ]}
   ]
 }
