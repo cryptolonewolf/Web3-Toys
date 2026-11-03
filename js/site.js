@@ -86,26 +86,16 @@
   }
 
   // ---------- Logo ----------
-  // "web3 toys" in Luckiest Guy, a coin for the dot, and floating blocks.
-  // The same drawing is saved as assets/logo.svg for use elsewhere.
-  function cube(x, y, s, top, side, cls) {
-    var h = s / 2;
-    return '<g class="logo-block ' + cls + '" stroke="#1F1B2E" stroke-width="1.6" stroke-linejoin="round">' +
-      '<path d="M' + x + ' ' + (y - s) + 'l' + s + ' ' + h + 'l-' + s + ' ' + h + 'l-' + s + ' -' + h + 'z" fill="' + top + '"/>' +
-      '<path d="M' + (x - s) + ' ' + (y - h) + 'l' + s + ' ' + h + 'v' + (s + 1) + 'l-' + s + ' -' + h + 'z" fill="' + side + '"/>' +
-      '<path d="M' + (x + s) + ' ' + (y - h) + 'l-' + s + ' ' + h + 'v' + (s + 1) + 'l' + s + ' -' + h + 'z" fill="' + side + '" style="filter:brightness(.8)"/></g>';
+  // The brand files live in images/brand/.
+  var BRAND = 'images/brand/';
+
+  function logoImg() {
+    return '<img class="logo-img" src="' + ROOT + BRAND + 'web3toys-logo.svg" alt="web3.toys" width="347" height="112" />';
   }
 
-  function logoSvg() {
-    return '<svg class="logo-svg" viewBox="0 0 224 58" role="img" aria-label="web3.toys">' +
-      cube(30, 14, 7, '#BFE0FA', '#4D9DE0', 'b1') +
-      cube(122, 10, 6, '#FFE3DF', '#FF6B6B', 'b2') +
-      cube(212, 22, 7, '#DDF3DF', '#6BCB77', 'b3') +
-      '<g font-family="\'Luckiest Guy\', \'Fredoka\', sans-serif" font-size="34" stroke-linejoin="round">' +
-      '<text x="2" y="52" textLength="92" lengthAdjust="spacingAndGlyphs" fill="#1F1B2E">web3</text>' +
-      '<text x="120" y="52" textLength="84" lengthAdjust="spacingAndGlyphs" fill="#FFD93D" stroke="#1F1B2E" stroke-width="2.6" paint-order="stroke">toys</text></g>' +
-      '<g class="logo-coin" stroke="#1F1B2E"><circle cx="107" cy="41" r="8.5" fill="#FFD93D" stroke-width="2.4"/>' +
-      '<circle cx="107" cy="41" r="4.6" fill="none" stroke-width="1.6"/></g></svg>';
+  // The hexagon 3 icon (certificates, loading screen, footer).
+  function iconSrc(png) {
+    return ROOT + BRAND + (png ? 'web3toys-icon-512.png' : 'web3toys-icon.svg');
   }
 
   // ---------- Top menu and footer ----------
@@ -126,7 +116,7 @@
     if (!bar) return;
     bar.innerHTML =
       '<div class="topbar-inner">' +
-      '<a class="logo" href="' + ROOT + '">' + logoSvg() + '</a>' +
+      '<a class="logo" href="' + ROOT + '">' + logoImg() + '</a>' +
       '<nav class="topnav" id="topnav" aria-label="Main">' + menuLinks('topnav-link') +
       '<a class="topnav-link menu-coins" href="' + ROOT + 'progress/#coins" hidden>' + icon('coin') + '&nbsp;<span data-coin-count>0</span>&nbsp;coins</a></nav>' +
       '<a class="coin-count" href="' + ROOT + 'progress/#coins" hidden title="Your coins">' + icon('coin') + '<span data-coin-count>0</span><span class="sr-only"> coins</span></a>' +
@@ -153,10 +143,15 @@
     var nav = document.createElement('nav');
     nav.className = 'footer-nav';
     nav.setAttribute('aria-label', 'Footer');
+    var mark = document.createElement('a');
+    mark.className = 'footer-mark';
+    mark.href = ROOT;
+    mark.innerHTML = '<img src="' + iconSrc() + '" alt="web3.toys" width="44" height="44" loading="lazy" />';
+    foot.insertBefore(mark, foot.firstChild);
     nav.innerHTML = menuLinks('footer-link') +
       '<a class="footer-link" href="' + ROOT + CALL.href + '">' + CALL.label + '</a>' +
       FOOTER_EXTRA.map(function (m) { return '<a class="footer-link" href="' + ROOT + m.href + '">' + m.label + '</a>'; }).join('');
-    foot.insertBefore(nav, foot.firstChild);
+    foot.insertBefore(nav, mark.nextSibling);
   }
 
   // ---------- Fun effects ----------
@@ -425,7 +420,7 @@
     mascotImg: mascotImg,
     face: face,
     icon: icon,
-    logoSvg: logoSvg,
+    iconSrc: iconSrc,
     fx: { confetti: confetti, coins: coins, wobble: wobble, calm: calm },
     sound: { play: play, on: soundOn, button: soundButton },
     coins: { award: award, spend: spend, wallet: wallet, amount: coinAmount, refresh: showCoins, pageKey: pageKey },
@@ -445,7 +440,20 @@
     load(window.Web3Avatar ? ['js/vendor/supabase-2.117.3.js', 'js/auth.js'] : ['js/avatar.js', 'js/vendor/supabase-2.117.3.js', 'js/auth.js']);
   }
 
+  // Loading screen: the hexagon icon until the page draws its content
+  // (pages replace everything inside #app when they are ready).
+  function showLoader() {
+    var app = document.getElementById('app');
+    if (!app || app.querySelector(':scope > :not(noscript)')) return;
+    var box = document.createElement('div');
+    box.className = 'page-loader';
+    box.setAttribute('role', 'status');
+    box.innerHTML = '<img src="' + iconSrc() + '" alt="" width="72" height="72" /><span>Loading…</span>';
+    app.appendChild(box);
+  }
+
   function start() {
+    showLoader();
     buildTopbar();
     buildFooter();
     loadAuth();

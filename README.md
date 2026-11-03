@@ -286,3 +286,10 @@ settings, the framework preset is **Other** with no build command.
 - Profile pictures and names: every account gets a random cartoon picture
   and a fun name (like SleepyFrog42) from `js/avatar.js`. Only a short seed is
   stored (`profiles.avatar_seed`, added by `supabase/002_avatars.sql`).
+
+## Brand
+
+- Logo, icon, favicons and the share image are in `images/brand/`. The header
+  logo and the hexagon 3 icon (footer, loading screen, certificates) are set
+  in `js/site.js` (`logoImg`, `iconSrc`). Every page links the favicons and
+  sets `og:image` and `twitter:image` to the 1200x630 share image.

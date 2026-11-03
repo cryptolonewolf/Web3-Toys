@@ -41,9 +41,9 @@ window.WEB3TOYS_CONFIG = {
 
   // Shown on the Contact page (Razorpay asks for these).
   contact: {
-    email: '',
-    business: '',
-    address: '',
+    email: 'hi@web3.toys',
+    business: 'Build With Aki',
+    address: 'Dehradun, Uttarakhand, India',
   },
 
   // COINS. How many coins each action earns. Each one counts once per toy.

@@ -333,8 +333,15 @@
       img.onerror = function () { resolve(null); };
       img.src = '../../' + course.logo;
     });
-    return Promise.all([fonts, logo]).then(function (r) {
+    var mark = new Promise(function (resolve) {
+      var m = new Image();
+      m.onload = function () { resolve(m); };
+      m.onerror = function () { resolve(null); };
+      m.src = window.WEB3TOYS.iconSrc(true);
+    });
+    return Promise.all([fonts, logo, mark]).then(function (r) {
       var img = r[1];
+      var icon = r[2];
       var ctx = canvas.getContext('2d');
       ctx.fillStyle = course.colors.primary;
       ctx.fillRect(0, 0, W, H);
@@ -350,7 +357,9 @@
       ctx.textBaseline = 'top';
       ctx.fillStyle = INK;
       ctx.font = '700 52px ' + DISPLAY;
-      ctx.fillText('web3.toys · Project Academy', 120, 110);
+      // The hexagon 3 icon, then the site name.
+      if (icon) ctx.drawImage(icon, 110, 94, 84, 84);
+      ctx.fillText('web3.toys · Project Academy', icon ? 204 : 120, 110);
       ctx.font = '800 32px ' + BODY;
       ctx.fillText('CERTIFICATE OF COMPLETION', 120, 210);
       fit(ctx, cert.name, '700', 108, DISPLAY, 900);

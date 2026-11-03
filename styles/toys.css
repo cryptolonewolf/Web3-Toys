@@ -1584,25 +1584,10 @@ a.toy-card:active {
   gap: 10px;
 }
 
-.logo-svg {
+.logo-img {
   display: block;
-  width: 124px;
-  height: auto;
-  overflow: visible;
-}
-
-.logo-block {
-  transform-box: fill-box;
-  animation: float 3.2s ease-in-out infinite;
-}
-
-.logo-block.b2 { animation-delay: -1.1s; }
-.logo-block.b3 { animation-delay: -2.2s; }
-
-.logo:hover .logo-coin {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: spin 0.8s ease;
+  width: auto;
+  height: 42px;
 }
 
 @keyframes float {
@@ -1719,13 +1704,13 @@ a.toy-card:active {
 }
 
 @media (max-width: 370px) {
-  .logo-svg { width: 104px; }
+  .logo-img { height: 36px; }
   .btn--call .icon { display: none; }
   .btn--call { padding: 6px 10px; font-size: 15px; }
 }
 
 @media (min-width: 880px) {
-  .logo-svg { width: 150px; }
+  .logo-img { height: 48px; }
 
   .topnav,
   .topbar.is-open .topnav {
@@ -6041,4 +6026,43 @@ a.ac-card:hover {
 
 .acct-modal {
   z-index: 60;
+}
+
+/* Brand: footer icon and loading screen */
+.footer-mark {
+  align-self: center;
+  display: inline-flex;
+}
+
+.footer-mark img {
+  display: block;
+  width: 44px;
+  height: 44px;
+}
+
+.page-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 50vh;
+  font: 800 16px var(--font-body);
+  color: var(--ink-soft, #5a5470);
+}
+
+.page-loader img {
+  width: 72px;
+  height: 72px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .page-loader img {
+    animation: loader-hop 0.9s ease-in-out infinite;
+  }
+}
+
+@keyframes loader-hop {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-10px) rotate(8deg); }
 }

@@ -287,8 +287,15 @@
       img.onerror = function () { resolve(null); };
       img.src = CELEBRATE;
     });
-    return Promise.all([fonts, mascot]).then(function (r) {
+    var mark = new Promise(function (resolve) {
+      var m = new Image();
+      m.onload = function () { resolve(m); };
+      m.onerror = function () { resolve(null); };
+      m.src = window.WEB3TOYS.iconSrc(true);
+    });
+    return Promise.all([fonts, mascot, mark]).then(function (r) {
       var img = r[1];
+      var icon = r[2];
       var ctx = canvas.getContext('2d');
       ctx.fillStyle = '#FFF8E1';
       ctx.fillRect(0, 0, W, H);
@@ -305,7 +312,9 @@
       ctx.textBaseline = 'top';
       ctx.fillStyle = INK;
       ctx.font = '700 60px ' + DISPLAY;
-      ctx.fillText('web3.toys', 120, 110);
+      // The hexagon 3 icon, then the site name.
+      if (icon) ctx.drawImage(icon, 108, 90, 100, 100);
+      ctx.fillText('web3.toys', icon ? 218 : 120, 110);
       ctx.font = '800 32px ' + BODY;
       var by = 'by BuildWithAki';
       var bw = ctx.measureText(by).width + 56;
