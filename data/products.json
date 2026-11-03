@@ -1,0 +1,15 @@
+{
+  "_help": "Everything that can be bought. id: short, no spaces. type: book, report, certificate, export (what it is). usd and inr: the price in dollars and rupees (whole rupees). file: for downloads, the file's path inside the private Supabase Storage bucket paid-files (upload it there; leave out for things made on the page). perItem: true when the purchase is for one toy, quiz or tool (for example the full report of one toy); the page sends which one. The payment server reads this file from the live site, so the price here is the price charged. Check every price before going live.",
+  "review": true,
+  "currencyNote": "Visitors in India pay in rupees (UPI or card). Everyone else pays in US dollars (card).",
+  "products": [
+    {"id": "report-full", "type": "report", "title": "Full report PDF", "line": "Your result with every answer explained, plus a checklist.", "usd": 4.99, "inr": 399, "perItem": true},
+    {"id": "cert-hd", "type": "certificate", "title": "HD certificate", "line": "A print-quality version of your certificate.", "usd": 2.99, "inr": 249, "perItem": true},
+    {"id": "cert-premium", "type": "certificate", "title": "Premium certificate design", "line": "Your certificate in a special frame-ready design.", "usd": 4.99, "inr": 399, "perItem": true},
+    {"id": "export-branded", "type": "export", "title": "Branded export", "line": "Your tool result with your logo and no web3.toys footer.", "usd": 9, "inr": 699, "perItem": true},
+    {"id": "launch-report", "type": "report", "title": "Full Launch Readiness Report", "line": "A detailed launch review with a fix for every gap.", "usd": 19, "inr": 1499, "perItem": true},
+    {"id": "book-first-30-days", "type": "book", "title": "Your First 30 Days in Crypto", "line": "Day by day steps from your first wallet to your first safe swap.", "usd": 12, "inr": 999, "file": "books/your-first-30-days-in-crypto.pdf"},
+    {"id": "book-dont-get-rekt", "type": "book", "title": "Don't Get Rekt", "line": "Risk rules for beginners, with real stories of what went wrong and why.", "usd": 15, "inr": 1249, "file": "books/dont-get-rekt.pdf"},
+    {"id": "book-launch-week", "type": "book", "title": "Launch Week Playbook", "line": "For web3 teams: how to plan and run a token or product launch week.", "usd": 29, "inr": 2399, "file": "books/launch-week-playbook.pdf"}
+  ]
+}

@@ -116,14 +116,37 @@
     return '<div class="book-cover" style="--c:' + (COLORS[b.color] || COLORS.yellow) + '">' + site.icon(b.icon || 'book') + '<b>' + esc(b.title) + '</b></div>';
   }
 
+  function sells(b) {
+    return b.product && (CONFIG.payments || {}).enabled;
+  }
+
   function books(data) {
     app.innerHTML = hero(data, 'grin') +
       '<ul class="book-grid">' + data.books.map(function (b) {
         return '<li><article class="card book-card">' + bookCover(b) +
           '<div class="shop-info"><h2 class="title-sm">' + esc(b.title) + '</h2>' +
-          '<p class="text">' + esc(b.line) + '</p><p class="price">' + esc(b.price) +
-          '</p>' + buyButton(b) + '</div></article></li>';
-      }).join('') + '</ul>';
+          '<p class="text">' + esc(b.line) + '</p><p class="price"' + (sells(b) ? ' data-price-for="' + esc(b.product) + '"' : '') + '>' + esc(b.price) +
+          '</p>' + (sells(b) ? '<button type="button" class="btn btn--yellow btn--small" data-buy="' + esc(b.product) + '">' + esc(b.button || 'Buy') + '</button>' : buyButton(b)) + '</div></article></li>';
+      }).join('') + '</ul><p class="small-print" data-buy-msg aria-live="polite"></p>';
+    // Paid books go through the site's checkout (js/pay.js).
+    var showPrices = function () {
+      window.Web3Pay.products().then(function (ps) {
+        app.querySelectorAll('[data-price-for]').forEach(function (el) {
+          var p = ps.filter(function (x) { return x.id === el.getAttribute('data-price-for'); })[0];
+          if (p) el.textContent = window.Web3Pay.price(p, window.Web3Pay.currency());
+        });
+      });
+    };
+    if (window.Web3Pay) showPrices();
+    else document.addEventListener('web3pay:ready', showPrices);
+    app.querySelectorAll('[data-buy]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var msg = app.querySelector('[data-buy-msg]');
+        C.track('book_buy_clicked', { book: b.getAttribute('data-buy') });
+        if (!window.Web3Pay) { msg.textContent = 'Buying opens soon.'; return; }
+        window.Web3Pay.buy(b.getAttribute('data-buy')).catch(function (err) { if (err.message !== 'login') msg.textContent = err.message; });
+      });
+    });
     app.querySelectorAll('[data-item]').forEach(function (a) {
       a.addEventListener('click', function () { C.track('book_clicked', { book: a.getAttribute('data-item') }); });
     });

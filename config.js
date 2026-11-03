@@ -39,6 +39,13 @@ window.WEB3TOYS_CONFIG = {
     xProvider: 'x',
   },
 
+  // Payments (Razorpay). Turn enabled on after the Part 4 setup
+  // (docs/setup/part-4-payments.md). Prices live in data/products.json; the
+  // Razorpay keys live only in Supabase, never here.
+  payments: {
+    enabled: false,
+  },
+
   // Shown on the Contact page (Razorpay asks for these).
   contact: {
     email: 'hi@web3.toys',

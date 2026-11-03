@@ -303,3 +303,17 @@ top, then stats (toys done, certificates, Pro tags, streak), a Continue
 playing row and tabs for Certificates, Extras (coins and cosmetic extras),
 Purchases (filled in by payments) and Settings (name, picture, log out,
 delete account, sound). Old links to `progress/#coins` open the Extras tab.
+
+## Payments (Part 4)
+
+- Prices: `data/products.json` (USD and INR). The payment server reads this
+  file from the live site, so the price there is the price charged.
+- Server functions (Supabase Edge Functions, in `supabase/functions/`):
+  `create-order`, `verify-payment` (checks Razorpay's signature),
+  `razorpay-webhook` (backup confirmation) and `download` (5 minute links to
+  files in the private `paid-files` bucket). Tests:
+  `WEB3TOYS_TEST=1 deno test --allow-env --allow-read --allow-net supabase/functions/payments_test.ts`.
+- Website: `js/pay.js` (`Web3Pay.buy(productId, item)`), the Purchases tab
+  on My Progress, and Buy buttons on the Books page. Switched on with
+  `payments.enabled` in `config.js`. Razorpay keys live only in Supabase.
+- Setup: `docs/setup/part-4-payments.md`.

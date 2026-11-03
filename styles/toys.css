@@ -6420,3 +6420,46 @@ body[data-theme='theme-night'] .pf-panel a { color: #ffd93d; }
   margin-top: -10px;
 }
 body[data-theme='theme-night'] .pf-h .small-print { color: #d9d4f0; }
+
+/* Payments */
+.pay-modal {
+  z-index: 60;
+}
+
+.pay-price {
+  margin: 0;
+  font: 700 34px var(--font-display);
+  color: var(--ink);
+}
+
+.pay-modal.is-busy [data-close] {
+  visibility: hidden;
+}
+
+.pf-buys {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pf-buys li {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: var(--white);
+  border: var(--line-thin);
+  border-radius: 12px;
+}
+
+.pf-buys li div {
+  display: grid;
+  min-width: 0;
+}
+
+.pf-buys .small-print {
+  margin: 0;
+}

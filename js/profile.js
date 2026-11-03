@@ -27,6 +27,9 @@
   // Re-draw when the account loads, logs out or finishes syncing.
   document.addEventListener('web3auth:ready', function () { window.Web3Auth.onChange(function () { if (home) render(); }); });
   document.addEventListener('web3toys:synced', function () { if (home) render(); });
+  document.addEventListener('web3toys:purchased', function () { orders = null; if (home) render(); });
+  document.addEventListener('web3pay:ready', function () { if (home && tab === 'purchases') render(); });
+  document.addEventListener('web3auth:ready', function () { window.Web3Auth.onChange(function () { orders = null; }); });
   window.addEventListener('hashchange', function () { tab = tabFromHash(); if (home) render(); });
 
   function tabFromHash() {
@@ -186,11 +189,46 @@
       '<p class="small-print">' + (s.user ? 'Saved to your account, on every device.' : 'Saved in this browser only.') + ' <a href="../leaderboard/">See the leaderboard</a></p>';
   }
 
-  // ---------- Purchases (filled in by Part 4) ----------
+  // ---------- Purchases ----------
+  // Paid orders come from the account (js/pay.js); drawn once they load.
 
-  function purchasesPanel() {
-    return '<div class="pf-empty-box"><p class="text">Reports, HD certificates and books you buy will show here, with a download button.</p>' +
-      '<a class="btn btn--small" href="../books/">See the books</a></div>';
+  var orders = null;
+  var catalog = null;
+
+  function loadPurchases() {
+    var P = window.Web3Pay;
+    if (!P) return;
+    Promise.all([P.purchases(), P.products()]).then(function (r) {
+      orders = r[0];
+      catalog = r[1];
+      if (tab === 'purchases') render();
+    }, function () { orders = []; if (tab === 'purchases') render(); });
+  }
+
+  function money(o) {
+    var n = o.amount / 100;
+    return o.currency === 'INR' ? '₹' + n.toLocaleString('en-IN') : '$' + n.toFixed(2);
+  }
+
+  function purchasesPanel(s) {
+    if (!s.user) {
+      return '<div class="pf-empty-box"><p class="text">Log in to buy and keep your reports, HD certificates and books, with a download button here.</p>' +
+        (s.A ? '<button type="button" class="btn btn--small" data-login>Log in</button>' : '') + '</div>';
+    }
+    if (!orders) { loadPurchases(); return '<p class="small-print">Loading your purchases…</p>'; }
+    if (!orders.length) {
+      return '<div class="pf-empty-box"><p class="text">No purchases yet. Reports, HD certificates and books you buy will show here, with a download button.</p>' +
+        '<a class="btn btn--small" href="../books/">See the books</a></div>';
+    }
+    var byId = {};
+    (catalog || []).forEach(function (p) { byId[p.id] = p; });
+    return '<ul class="pf-buys">' + orders.map(function (o) {
+      var p = byId[o.product_id] || {};
+      var action = o.status === 'refunded' ? '<span class="chip is-white">Refunded</span>'
+        : p.file ? '<button type="button" class="btn btn--small btn--yellow" data-dl="' + esc(o.id) + '">Download</button>'
+        : '<span class="chip is-mint">Unlocked</span>';
+      return '<li><div><b>' + esc(o.title) + '</b><span class="small-print">' + esc(String(o.paid_at || '').slice(0, 10)) + ' · ' + money(o) + '</span></div>' + action + '</li>';
+    }).join('') + '</ul><p class="small-print">Download links work for 5 minutes; tap Download again any time for a fresh one. <a href="../refunds/">Refunds and delivery</a></p>';
   }
 
   // ---------- Settings ----------
@@ -270,6 +308,13 @@
       if (typed !== 'DELETE') return msg('Nothing was deleted.');
       msg('Deleting…');
       A.deleteAccount().then(function () { location.reload(); }, function (err) { msg('Could not delete: ' + err.message + '. Email us from the Contact page and we will do it.'); });
+    });
+    app.querySelectorAll('[data-dl]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        b.disabled = true;
+        window.Web3Pay.download(b.getAttribute('data-dl')).then(function () { b.disabled = false; },
+          function (err) { b.disabled = false; msg(err.message); });
+      });
     });
     var clear = app.querySelector('[data-clear]');
     if (clear) clear.addEventListener('click', function () {
