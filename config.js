@@ -16,9 +16,16 @@ window.WEB3TOYS_CONFIG = {
     hidden: {},
   },
 
-  // "BOOK A CALL WITH AKI" button. Paste your booking page link.
-  // While empty, the button says booking opens soon.
-  bookCallUrl: '',
+  // BOOK A CALL. mode 'calcom': every Book a Call button opens your Cal.com
+  // link (calUrl) and Cal.com takes payment with its PayPal app.
+  // mode 'razorpay': the Book a Call page takes payment first (Razorpay, or
+  // crypto if switched on) for the product below, then shows a Pick your
+  // time button that opens calUrl. Leave calUrl empty to show "opens soon".
+  call: {
+    mode: 'calcom',
+    calUrl: '',
+    product: 'call-30',
+  },
 
   // Accounts (Supabase). Both values come from Supabase: Project Settings,
   // API. The anon public key is safe in the browser: the database rules
@@ -104,6 +111,7 @@ window.WEB3TOYS_SITE = {
     hidden: window.WEB3TOYS_CONFIG.signup.hidden,
   },
   reportUrl: window.WEB3TOYS_CONFIG.reportUrl,
-  callUrl: window.WEB3TOYS_CONFIG.bookCallUrl,
+  // Where the small Book a Call links in toys go.
+  callUrl: (function (c) { return !c.calUrl ? '' : c.mode === 'razorpay' ? '/book-a-call/' : c.calUrl; })(window.WEB3TOYS_CONFIG.call || {}),
   bookUrl: window.WEB3TOYS_CONFIG.bookUrl,
 };

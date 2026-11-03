@@ -1,5 +1,5 @@
 {
-  "_help": "The Book a Call page. The booking button uses bookCallUrl in config.js. Change price to your real price.",
+  "_help": "The Book a Call page. The booking link and mode are under call in config.js; the price shown comes from the call product in data/products.json (price here is only shown until that loads). payButton and payNote are used when call.mode is razorpay (pay here first, then pick a time).",
   "label": "Book a Call",
   "title": "Marketing and growth calls for web3 teams.",
   "text": "One focused call with Aki to find out what is holding your growth back, and what to do next.",
@@ -16,8 +16,10 @@
     "Projects whose community went quiet and want it back"
   ],
   "priceTitle": "Price",
-  "price": "TODO: price per call",
-  "priceNote": "Payment details are shared when you book.",
+  "price": "$49",
+  "priceNote": "You pay when you book, on the booking page.",
+  "payButton": "Pay and pick a time",
+  "payNote": "Pay here (UPI or card), then pick a time that suits you.",
   "button": "Book your call",
   "soon": "Booking opens soon. Check back shortly."
 }

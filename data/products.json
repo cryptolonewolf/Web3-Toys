@@ -1,5 +1,5 @@
 {
-  "_help": "Everything that can be bought. id: short, no spaces. type: book, report, certificate, export (what it is). usd and inr: the price in dollars and rupees (whole rupees). file: for downloads, the file's path inside the private Supabase Storage bucket paid-files (upload it there; leave out for things made on the page). perItem: true when the purchase is for one toy, quiz or tool (for example the full report of one toy); the page sends which one. The payment server reads this file from the live site, so the price here is the price charged. Check every price before going live.",
+  "_help": "Everything that can be bought. id: short, no spaces. type: book, report, certificate, export or call (what it is). usd and inr: the price in dollars and rupees (whole rupees). file: for downloads, the file's path inside the private Supabase Storage bucket paid-files (upload it there; leave out for things made on the page). perItem: true when the purchase is for one toy, quiz or tool (for example the full report of one toy); the page sends which one. The payment server reads this file from the live site, so the price here is the price charged. Check every price before going live.",
   "review": true,
   "currencyNote": "Visitors in India pay in rupees (UPI or card). Everyone else pays in US dollars (card).",
   "products": [
@@ -10,6 +10,7 @@
     {"id": "launch-report", "type": "report", "title": "Full Launch Readiness Report", "line": "A detailed launch review with a fix for every gap.", "usd": 19, "inr": 1499, "perItem": true},
     {"id": "book-first-30-days", "type": "book", "title": "Your First 30 Days in Crypto", "line": "Day by day steps from your first wallet to your first safe swap.", "usd": 12, "inr": 999, "file": "books/your-first-30-days-in-crypto.pdf"},
     {"id": "book-dont-get-rekt", "type": "book", "title": "Don't Get Rekt", "line": "Risk rules for beginners, with real stories of what went wrong and why.", "usd": 15, "inr": 1249, "file": "books/dont-get-rekt.pdf"},
-    {"id": "book-launch-week", "type": "book", "title": "Launch Week Playbook", "line": "For web3 teams: how to plan and run a token or product launch week.", "usd": 29, "inr": 2399, "file": "books/launch-week-playbook.pdf"}
+    {"id": "book-launch-week", "type": "book", "title": "Launch Week Playbook", "line": "For web3 teams: how to plan and run a token or product launch week.", "usd": 29, "inr": 2399, "file": "books/launch-week-playbook.pdf"},
+    {"id": "call-30", "type": "call", "title": "30 minute call with Aki", "line": "A focused marketing and growth call for your web3 project, with a written summary afterwards.", "usd": 49, "inr": 3999}
   ]
 }

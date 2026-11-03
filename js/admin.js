@@ -180,14 +180,29 @@
   }
 
   function bookings(panel) {
-    return Promise.all([events(), load('orders', function () { return db().from('orders').select('*').order('created_at', { ascending: false }).limit(5000).then(must); })]).then(function (r) {
+    return Promise.all([
+      events(),
+      load('orders', function () { return db().from('orders').select('*').order('created_at', { ascending: false }).limit(5000).then(must); }),
+      load('bookings', function () { return db().from('bookings').select('*').order('start_time', { ascending: false }).limit(2000).then(must).catch(function () { return []; }); }),
+    ]).then(function (r) {
       var clicks = {};
       r[0].filter(function (e) { return e.name === 'call_click'; }).forEach(function (e) { clicks[e.item || e.page] = (clicks[e.item || e.page] || 0) + Number(e.total); });
-      var paidCalls = r[1].filter(function (o) { return o.status === 'paid' && /call/.test(o.product_id); });
-      var rows = Object.keys(clicks).sort(function (a, b) { return clicks[b] - clicks[a]; }).map(function (k) { return [k, clicks[k]]; });
-      show(panel, tiles([['Book a Call clicks', rows.reduce(function (s, x) { return s + x[1]; }, 0)], ['Paid bookings', paidCalls.length]]) +
-        '<p class="small-print">Clicks in the last ' + days + ' days, by the page they came from. Paid bookings show here once Book a Call payments are set up (Part 6).</p>' +
-        grid('bookings', ['Page', 'Book a Call clicks'], rows));
+      var paidOrders = r[1].filter(function (o) { return o.status === 'paid' && /^call/.test(o.product_id); });
+      var cal = r[2];
+      var upcoming = cal.filter(function (b) { return b.status !== 'cancelled' && Date.parse(b.start_time) > Date.now(); });
+      var clickRows = Object.keys(clicks).sort(function (a, b) { return clicks[b] - clicks[a]; }).map(function (k) { return [k, clicks[k]]; });
+      var rows = cal.map(function (b) {
+        return [date(b.start_time) + ' ' + String(b.start_time || '').slice(11, 16), b.name, b.email, b.title, b.status, b.paid ? 'yes' : 'no', b.price != null ? (b.price / 100) + ' ' + (b.currency || '') : '', 'Cal.com'];
+      }).concat(paidOrders.map(function (o) {
+        return [date(o.paid_at), '', o.email, o.title, 'paid, time not picked yet?', 'yes', money(o.amount, o.currency), (o.provider || 'razorpay') + ' (pay first)'];
+      }));
+      show(panel, tiles([['Book a Call clicks', clickRows.reduce(function (s, x) { return s + x[1]; }, 0)], ['Upcoming calls', upcoming.length],
+        ['Paid calls', cal.filter(function (b) { return b.paid; }).length + paidOrders.length], ['Cancelled', cal.filter(function (b) { return b.status === 'cancelled'; }).length]]) +
+        '<p class="small-print">Calls come from Cal.com (booked, paid, rescheduled, cancelled) and from calls paid on the site first. Clicks are for the last ' + days + ' days.</p>' +
+        grid('bookings', ['When', 'Name', 'Email', 'Call', 'Status', 'Paid', 'Price', 'Source'], rows) +
+        '<h3 class="pf-h">Book a Call clicks by page</h3>' +
+        '<div class="adm-scroll"><table class="tk-table adm-table"><thead><tr><th>Page</th><th>Clicks</th></tr></thead><tbody>' +
+        clickRows.map(function (c) { return '<tr><td>' + esc(c[0]) + '</td><td>' + c[1] + '</td></tr>'; }).join('') + '</tbody></table></div>');
     });
   }
 

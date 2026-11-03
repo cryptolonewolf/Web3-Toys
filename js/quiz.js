@@ -69,8 +69,9 @@
   // ---------- Finish screen extras: Book a call and email signup ----------
 
   function funnelHtml() {
-    var call = CONFIG.bookCallUrl
-      ? '<a class="btn btn--yellow btn--block" href="' + esc(CONFIG.bookCallUrl) + '" target="_blank" rel="noopener">' + esc(funnel.call.button) + '</a>'
+    var callUrl = (window.WEB3TOYS_SITE || {}).callUrl;
+    var call = callUrl
+      ? '<a class="btn btn--yellow btn--block" href="' + esc(callUrl) + '" target="_blank" rel="noopener">' + esc(funnel.call.button) + '</a>'
       : '<button type="button" class="btn btn--yellow btn--block" data-soon="call">' + esc(funnel.call.button) + '</button>';
     return '<section class="card stack stack--tight"><h2 class="title-md">' + esc(funnel.call.heading) + '</h2>' +
       '<p class="text">' + esc(funnel.call.line) + '</p>' + call +
@@ -80,7 +81,7 @@
 
   function bindFunnel() {
     ToyKit.bind(ui.app, ui.app.querySelector('[data-soon-msg]'));
-    var call = ui.app.querySelector('a[href="' + CONFIG.bookCallUrl + '"]');
+    var call = ui.app.querySelector('a[href="' + (window.WEB3TOYS_SITE || {}).callUrl + '"]');
     if (call) call.addEventListener('click', function () { C.track('book_call_clicked'); });
     var form = ui.app.querySelector('[data-signup]');
     if (form) form.addEventListener('submit', function () { C.track('signup_submitted'); });

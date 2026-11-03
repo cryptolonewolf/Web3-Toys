@@ -163,8 +163,9 @@
       site.fx.confetti();
       site.sound.play('cash');
       m.innerHTML = '<div class="card stack stack--tight" role="dialog" aria-modal="true" aria-labelledby="pay-title">' +
-        '<h2 class="title-md" id="pay-title">Paid ✓</h2><p class="text">' + esc(order.title) + ' is yours. A receipt is on its way to your email.</p>' +
+        '<h2 class="title-md" id="pay-title">Paid ✓</h2><p class="text">' + esc(item ? order.title || p.title : p.title) + ' is yours. A receipt is on its way to your email.</p>' +
         '<div class="btn-row">' + (p.file ? '<button type="button" class="btn btn--yellow" data-dl>Download</button>' : '') +
+        (p.type === 'call' && callUrl() ? '<a class="btn btn--yellow" href="' + esc(callUrl(order.id)) + '" target="_blank" rel="noopener">Pick your time</a>' : '') +
         '<a class="btn" href="' + site.root + 'progress/#purchases">My purchases</a><button type="button" class="btn" data-close>Close</button></div>' +
         '<p class="small-print" data-pay-msg aria-live="polite"></p></div>';
       m.querySelector('[data-close]').addEventListener('click', close);
@@ -178,6 +179,17 @@
     }
 
     draw();
+  }
+
+  // The booking link for a paid call, with the buyer's email filled in.
+  function callUrl(orderId) {
+    var url = ((window.WEB3TOYS_CONFIG || {}).call || {}).calUrl || '';
+    if (!url) return '';
+    var u = A.user();
+    var q = [];
+    if (u && u.email) q.push('email=' + encodeURIComponent(u.email));
+    if (orderId) q.push('notes=' + encodeURIComponent('Paid on web3.toys, order ' + orderId));
+    return url + (q.length ? (url.indexOf('?') < 0 ? '?' : '&') + q.join('&') : '');
   }
 
   // ---------- What pages call ----------
@@ -235,6 +247,6 @@
 
   A.onChange(function () { bought = null; });
 
-  window.Web3Pay = { enabled: !!(CFG.enabled || CFG.crypto), crypto: !!CFG.crypto, checkCrypto: checkCrypto, products: products, price: price, currency: guessCurrency, buy: buy, download: download, purchases: purchases, owns: owns };
+  window.Web3Pay = { callUrl: callUrl, enabled: !!(CFG.enabled || CFG.crypto), crypto: !!CFG.crypto, checkCrypto: checkCrypto, products: products, price: price, currency: guessCurrency, buy: buy, download: download, purchases: purchases, owns: owns };
   document.dispatchEvent(new CustomEvent('web3pay:ready'));
 })();

@@ -333,3 +333,12 @@ and Toy stats (plays, finishes, shares, buy clicks, purchases). Export CSV on
 every tab. The site logs anonymous counts and signups through `js/log.js`
 (database functions `log_event` and `add_lead`). Setup:
 `docs/setup/part-8-admin.md`, database: `supabase/006_admin.sql`.
+
+## Book a Call (Part 6)
+
+Settings under `call` in `config.js`: `mode` (`calcom`: buttons open the
+Cal.com link and Cal.com takes payment with its PayPal app; `razorpay`: the
+Book a Call page takes payment first, then shows Pick your time), `calUrl`
+and `product` (`call-30` in `data/products.json`). Cal.com bookings reach
+the admin Bookings tab through `supabase/functions/cal-webhook`
+(`supabase/007_bookings.sql`). Setup: `docs/setup/part-6-calls.md`.

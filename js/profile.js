@@ -249,6 +249,7 @@
       var p = byId[o.product_id] || {};
       var action = o.status === 'refunded' ? '<span class="chip is-white">Refunded</span>'
         : p.file ? '<button type="button" class="btn btn--small btn--yellow" data-dl="' + esc(o.id) + '">Download</button>'
+        : p.type === 'call' && window.Web3Pay.callUrl() ? '<a class="btn btn--small btn--yellow" href="' + esc(window.Web3Pay.callUrl(o.id)) + '" target="_blank" rel="noopener">Pick your time</a>'
         : '<span class="chip is-mint">Unlocked</span>';
       return '<li><div><b>' + esc(o.title) + '</b><span class="small-print">' + esc(String(o.paid_at || '').slice(0, 10)) + ' · ' + money(o) + '</span></div>' + action + '</li>';
     }).join('') + '</ul><p class="small-print">Download links work for 5 minutes; tap Download again any time for a fresh one. <a href="../refunds/">Refunds and delivery</a></p>';

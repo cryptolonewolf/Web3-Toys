@@ -172,11 +172,27 @@
 
   // ---------- Book a Call ----------
 
+  // Book a Call: settings under call in config.js. Cal.com mode links to
+  // the booking page (Cal.com takes payment). Razorpay mode takes payment
+  // here first, then offers Pick your time.
+  function calLink(email, orderId) {
+    var url = (CONFIG.call || {}).calUrl || '';
+    if (!url) return '';
+    var q = [];
+    if (email) q.push('email=' + encodeURIComponent(email));
+    if (orderId) q.push('notes=' + encodeURIComponent('Paid on web3.toys, order ' + orderId));
+    return url + (q.length ? (url.indexOf('?') < 0 ? '?' : '&') + q.join('&') : '');
+  }
+
   function bookCall(data) {
-    var url = CONFIG.bookCallUrl;
-    var button = url
-      ? '<a class="btn btn--ink btn--block" href="' + esc(url) + '" target="_blank" rel="noopener" data-book>' + site.icon('call') + esc(data.button) + '</a>'
-      : '<button type="button" class="btn btn--ink btn--block" data-book>' + site.icon('call') + esc(data.button) + '</button>';
+    var call = CONFIG.call || {};
+    var payFirst = call.mode === 'razorpay';
+    var ready = Boolean(call.calUrl) && (!payFirst || ((CONFIG.payments || {}).enabled || (CONFIG.payments || {}).crypto));
+    var button = !ready
+      ? '<button type="button" class="btn btn--ink btn--block" data-book>' + site.icon('call') + esc(data.button) + '</button>'
+      : payFirst
+        ? '<button type="button" class="btn btn--ink btn--block" data-pay-call>' + site.icon('call') + esc(data.payButton || 'Pay and pick a time') + '</button>'
+        : '<a class="btn btn--ink btn--block" href="' + esc(call.calUrl) + '" target="_blank" rel="noopener" data-book>' + site.icon('call') + esc(data.button) + '</a>';
     app.innerHTML = hero(data, 'grin') +
       '<h2 class="section-title">' + esc(data.getTitle) + '</h2>' +
       '<ul class="perk-grid">' + data.get.map(function (g) {
@@ -185,12 +201,55 @@
       }).join('') + '</ul>' +
       '<section class="card stack stack--tight"><h2 class="title-md">' + esc(data.forTitle) + '</h2>' +
       '<ul class="lesson-points">' + data['for'].map(function (f) { return '<li>' + esc(f) + '</li>'; }).join('') + '</ul></section>' +
-      '<section class="card card--yellow stack stack--tight"><h2 class="title-md">' + esc(data.priceTitle) + '</h2>' +
-      '<p class="price">' + words(data.price) + '</p><p class="small-print">' + esc(data.priceNote) + '</p>' + button +
+      '<section class="card card--yellow stack stack--tight" id="pay"><h2 class="title-md">' + esc(data.priceTitle) + '</h2>' +
+      '<p class="price" data-call-price>' + words(data.price) + '</p><p class="small-print">' + esc(payFirst ? data.payNote || data.priceNote : data.priceNote) + '</p>' +
+      '<div class="stack stack--tight" data-call-actions>' + button + '</div>' +
       '<p class="small-print" data-msg aria-live="polite"></p></section>';
-    app.querySelector('[data-book]').addEventListener('click', function () {
+
+    var msg = app.querySelector('[data-msg]');
+    var actions = app.querySelector('[data-call-actions]');
+    var book = app.querySelector('[data-book]');
+    if (book) book.addEventListener('click', function () {
       C.track('book_call_clicked', { from: 'book-a-call' });
-      if (!url) app.querySelector('[data-msg]').textContent = data.soon;
+      if (!ready) msg.textContent = data.soon;
+    });
+
+    // The real price, in the visitor's currency, from data/products.json.
+    var withPay = function (fn) {
+      if (window.Web3Pay) fn(window.Web3Pay);
+      else document.addEventListener('web3pay:ready', function () { fn(window.Web3Pay); }, { once: true });
+    };
+    if (call.product) withPay(function (P) {
+      P.products().then(function (ps) {
+        var p = ps.filter(function (x) { return x.id === call.product; })[0];
+        if (p) app.querySelector('[data-call-price]').textContent = P.price(p, payFirst ? P.currency() : 'USD');
+      });
+    });
+
+    if (!payFirst || !ready) return;
+    var showPick = function (orderId) {
+      var A = window.Web3Auth;
+      var u = A && A.user();
+      actions.innerHTML = '<a class="btn btn--ink btn--block" href="' + esc(calLink(u && u.email, orderId)) + '" target="_blank" rel="noopener">' + site.icon('call') + 'Pick your time</a>' +
+        '<p class="small-print">Your call is paid. Pick a time that suits you; the link also stays in My Progress, Purchases.</p>';
+    };
+    var pay = app.querySelector('[data-pay-call]');
+    pay.addEventListener('click', function () {
+      if (!window.Web3Pay) { msg.textContent = data.soon; return; }
+      window.Web3Pay.buy(call.product, null, function (order) { showPick(order.id); })
+        .catch(function (err) { if (err.message !== 'login') msg.textContent = err.message; });
+    });
+    // Already paid for a call and not booked yet: offer the time picker.
+    withPay(function (P) {
+      P.purchases().then(function (rows) {
+        var paid = rows.filter(function (o) { return o.status === 'paid' && o.product_id === call.product; })[0];
+        if (paid) {
+          actions.insertAdjacentHTML('afterbegin', '<a class="btn btn--yellow btn--block" href="' + esc(calLink((window.Web3Auth.user() || {}).email, paid.id)) + '" target="_blank" rel="noopener">You have a paid call: pick your time</a>');
+        }
+      }).catch(function () {});
     });
   }
+
+  window.Web3CallLink = calLink;
+
 })();

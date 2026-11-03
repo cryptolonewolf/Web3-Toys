@@ -15,7 +15,7 @@ describe('Payments', () => {
     assert.equal(new Set(products.map((p) => p.id)).size, products.length);
     products.forEach((p) => {
       assert.match(p.id, /^[a-z0-9-]+$/);
-      assert.ok(['book', 'report', 'certificate', 'export'].includes(p.type), p.id);
+      assert.ok(['book', 'report', 'certificate', 'export', 'call'].includes(p.type), p.id);
       assert.ok(p.usd > 0 && p.inr > 0 && Number.isInteger(p.inr), p.id);
       if (p.file) assert.match(p.file, /^[a-z0-9/-]+\.pdf$/);
     });
@@ -43,5 +43,23 @@ describe('Payments', () => {
     assert.ok(!/for (insert|update|delete|all)/i.test(sql));
     assert.ok(sql.includes("values ('paid-files', 'paid-files', false)"));
     assert.ok(sql.includes('on delete set null'), 'purchase records stay after an account is deleted');
+  });
+});
+
+describe('Book a Call', () => {
+  const cfg = read('config.js');
+
+  it('has one call setting with a mode, the booking link and a call product', () => {
+    assert.match(cfg, /call: \{\s*mode: '(calcom|razorpay)',\s*calUrl: '[^']*',\s*product: 'call-30',/);
+    assert.ok(!/bookCallUrl/.test(cfg + read('js/quiz.js') + read('js/pages.js')));
+    const call = JSON.parse(read('data/products.json')).products.find((p) => p.id === 'call-30');
+    assert.equal(call.type, 'call');
+  });
+
+  it('saves Cal.com bookings only through the signed webhook', () => {
+    const sql = read('supabase/007_bookings.sql');
+    assert.ok(sql.includes('alter table public.bookings enable row level security'));
+    assert.ok(!/for (insert|update|delete|all)/i.test(sql));
+    assert.ok(read('supabase/functions/cal-webhook/index.ts').includes("req.headers.get('x-cal-signature-256')"));
   });
 });

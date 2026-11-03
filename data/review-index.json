@@ -887,8 +887,8 @@
    "file": "data/products.json",
    "item": "(whole file)",
    "label": "data/products.json",
-   "note": "Everything that can be bought. id: short, no spaces. type: book, report, certificate, export (what it is). usd and inr: the price in dollars and rupees (whole rupees). file: for downloads, the file's ",
-   "hash": "1f75fcac7c61"
+   "note": "Everything that can be bought. id: short, no spaces. type: book, report, certificate, export or call (what it is). usd and inr: the price in dollars and rupees (whole rupees). file: for downloads, the",
+   "hash": "082fab7afd78"
   },
   {
    "file": "data/tools/airdrop.json",
