@@ -45,7 +45,7 @@ window.WEB3TOYS_CONFIG = {
   // crypto: also offer "Pay with crypto" through Paymento (prices in US
   // dollars, paid straight to your wallet). Needs the Paymento setup too.
   payments: {
-    enabled: false,
+    enabled: true,
     crypto: false,
   },
 

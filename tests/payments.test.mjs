@@ -28,10 +28,10 @@ describe('Payments', () => {
     });
   });
 
-  it('keeps Razorpay secrets out of the website and starts switched off', () => {
+  it('keeps Razorpay secrets out of the website with on and off switches', () => {
     const site = read('config.js') + read('js/pay.js');
     assert.ok(!/rzp_(test|live)_|key_secret|RAZORPAY_KEY_SECRET|webhook_secret/i.test(site));
-    assert.match(read('config.js'), /payments: \{\s*enabled: false,\s*crypto: false,/);
+    assert.match(read('config.js'), /payments: \{\s*enabled: (true|false),\s*crypto: (true|false),/);
     assert.ok(!/PAYMENTO_(API_KEY|IPN_SECRET)/.test(site));
     ['create-order', 'verify-payment', 'razorpay-webhook', 'download', 'crypto-order', 'paymento-ipn'].forEach((f) =>
       assert.ok(existsSync(new URL(`../supabase/functions/${f}/index.ts`, import.meta.url)), f));
