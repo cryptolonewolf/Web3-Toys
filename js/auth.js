@@ -36,12 +36,10 @@
 
   // ---------- Header: "Log in" in the menu, or the avatar when logged in ----------
 
-  function avatarHtml(size) {
-    var name = (profile && profile.display_name) || 'You';
-    var pic = profile && profile.avatar_url;
-    return pic
-      ? '<img class="acct-avatar" src="' + esc(pic) + '" alt="" width="' + size + '" height="' + size + '" referrerpolicy="no-referrer" />'
-      : '<span class="acct-avatar acct-avatar--letter" aria-hidden="true">' + esc(name.charAt(0).toUpperCase()) + '</span>';
+  // Everyone gets a random cartoon picture (js/avatar.js) from their seed.
+  function avatarHtml(size, cls) {
+    var seed = (profile && profile.avatar_seed) || (current && current.id) || 'visitor';
+    return '<img class="acct-avatar' + (cls ? ' ' + cls : '') + '" src="' + window.Web3Avatar.dataUri(seed) + '" alt="" width="' + size + '" height="' + size + '" />';
   }
 
   function paintHeader() {
@@ -153,6 +151,13 @@
     return client.from('profiles').select('*').eq('id', current.id).maybeSingle().then(function (r) {
       profile = r.data || null;
       var patch = { last_seen_at: new Date().toISOString() };
+      // First login: a random cartoon picture and fun name, pump.fun style.
+      if (profile && !profile.avatar_seed) {
+        patch.avatar_seed = window.Web3Avatar.newSeed();
+        patch.display_name = window.Web3Avatar.name(patch.avatar_seed);
+        profile.avatar_seed = patch.avatar_seed;
+        profile.display_name = patch.display_name;
+      }
       // The consent was ticked in the login box before signing up.
       if (profile && !profile.consent_at && consentGiven()) {
         patch.consent_at = new Date().toISOString();
@@ -203,7 +208,22 @@
     });
   }
 
+  // New random picture, or new random name. Returns the new value.
+  function shuffle(what) {
+    if (!current) return Promise.reject(new Error('Not logged in'));
+    var seed = window.Web3Avatar.newSeed();
+    var patch = what === 'name' ? { display_name: window.Web3Avatar.name(seed) } : { avatar_seed: seed };
+    return client.from('profiles').update(patch).eq('id', current.id).then(function (r) {
+      if (r.error) throw r.error;
+      Object.keys(patch).forEach(function (k) { profile[k] = patch[k]; });
+      paintHeader();
+      return patch.display_name || patch.avatar_seed;
+    });
+  }
+
   window.Web3Auth = {
+    shuffle: shuffle,
+    avatarHtml: avatarHtml,
     client: client,
     user: function () { return current; },
     profile: function () { return profile; },

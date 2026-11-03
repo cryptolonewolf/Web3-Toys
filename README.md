@@ -283,3 +283,6 @@ settings, the framework preset is **Other** with no build command.
 - Legal pages: `privacy/`, `terms/`, `refunds/`, `contact/`. Their words
   are in `data/legal/*.json` (drafts, marked for review); the contact
   details come from `config.js` (`contact`).
+- Profile pictures and names: every account gets a random cartoon picture
+  and a fun name (like SleepyFrog42) from `js/avatar.js`. Only a short seed is
+  stored (`profiles.avatar_seed`, added by `supabase/002_avatars.sql`).

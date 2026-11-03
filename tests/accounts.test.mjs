@@ -50,3 +50,25 @@ describe('Accounts setup', () => {
     assert.ok(ignore.includes('/supabase') && ignore.includes('/docs'));
   });
 });
+
+describe('Random profile pictures and names', async () => {
+  const { createRequire } = await import('node:module');
+  const A = createRequire(import.meta.url)('../js/avatar.js');
+
+  it('gives the same picture and name for the same seed, and variety across seeds', () => {
+    assert.equal(A.svg('abc'), A.svg('abc'));
+    assert.equal(A.name('abc'), A.name('abc'));
+    assert.match(A.name('abc'), /^[A-Z][a-z]+[A-Z][a-z]+\d{2}$/);
+    const names = new Set(Array.from({ length: 200 }, (_, i) => A.name('s' + i)));
+    const faces = new Set(Array.from({ length: 200 }, (_, i) => A.svg('s' + i)));
+    assert.ok(names.size > 190 && faces.size > 190);
+    assert.ok(A.dataUri('x').startsWith('data:image/svg+xml'));
+    assert.notEqual(A.newSeed(), A.newSeed());
+  });
+
+  it('stores only the seed, and new accounts do not copy real names', () => {
+    const sql = read('supabase/002_avatars.sql');
+    assert.ok(sql.includes('add column if not exists avatar_seed text'));
+    assert.ok(!/raw_user_meta_data/.test(sql));
+  });
+});

@@ -435,14 +435,14 @@
   function loadAuth() {
     var sb = config().supabase || {};
     if (!sb.url || !sb.anonKey || window.Web3Auth) return;
-    var lib = document.createElement('script');
-    lib.src = ROOT + 'js/vendor/supabase-2.117.3.js';
-    lib.onload = function () {
-      var a = document.createElement('script');
-      a.src = ROOT + 'js/auth.js';
-      document.head.appendChild(a);
+    var load = function (srcs) {
+      if (!srcs.length) return;
+      var el = document.createElement('script');
+      el.src = ROOT + srcs[0];
+      el.onload = function () { load(srcs.slice(1)); };
+      document.head.appendChild(el);
     };
-    document.head.appendChild(lib);
+    load(window.Web3Avatar ? ['js/vendor/supabase-2.117.3.js', 'js/auth.js'] : ['js/avatar.js', 'js/vendor/supabase-2.117.3.js', 'js/auth.js']);
   }
 
   function start() {

@@ -22,14 +22,12 @@
       return;
     }
     var name = (profile && profile.display_name) || 'Player';
-    var pic = profile && profile.avatar_url;
-    box.innerHTML = '<section class="card acct-box stack stack--tight"><div class="acct-row">' +
-      (pic ? '<img class="acct-avatar acct-avatar--big" src="' + esc(pic) + '" alt="" width="56" height="56" referrerpolicy="no-referrer" />'
-        : '<span class="acct-avatar acct-avatar--big acct-avatar--letter" aria-hidden="true">' + esc(name.charAt(0).toUpperCase()) + '</span>') +
+    box.innerHTML = '<section class="card acct-box stack stack--tight"><div class="acct-row">' + A.avatarHtml(56, 'acct-avatar--big') +
       '<div class="stack stack--tight acct-who"><p class="title-sm">' + esc(name) + '</p><p class="small-print">Logged in with ' + esc(provider(profile)) + '</p></div></div>' +
       '<details class="acct-settings"><summary class="small-print">Account settings</summary><div class="stack stack--tight">' +
       '<form class="stack stack--tight" data-name><label class="label" for="acct-name">Display name (shown on the leaderboard)</label>' +
       '<div class="lk-row"><input id="acct-name" class="field" maxlength="40" value="' + esc(name) + '" /><button type="submit" class="btn btn--small">Save</button></div></form>' +
+      '<div class="btn-row"><button type="button" class="btn btn--small" data-shuffle="avatar">🎲 New picture</button><button type="button" class="btn btn--small" data-shuffle="name">🎲 New name</button></div>' +
       '<div class="btn-row"><button type="button" class="btn btn--small" data-logout>Log out</button>' +
       '<button type="button" class="btn btn--small acct-danger" data-delete>Delete my account and data</button></div>' +
       '<p class="small-print" data-acct-say aria-live="polite"></p></div></details></section>';
@@ -37,6 +35,15 @@
     box.querySelector('[data-name]').addEventListener('submit', function (e) {
       e.preventDefault();
       A.setName(box.querySelector('#acct-name').value).then(function () { say.textContent = 'Saved.'; }, function (err) { say.textContent = 'Could not save: ' + err.message; });
+    });
+    box.querySelectorAll('[data-shuffle]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        A.shuffle(b.getAttribute('data-shuffle')).then(function () {
+          paint(A, A.user(), A.profile());
+          box.querySelector('.acct-settings').open = true;
+          window.WEB3TOYS.sound.play('pop');
+        }, function (err) { say.textContent = 'Could not change it: ' + err.message; });
+      });
     });
     box.querySelector('[data-logout]').addEventListener('click', function () { A.signOut(); });
     box.querySelector('[data-delete]').addEventListener('click', function () {
