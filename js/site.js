@@ -21,6 +21,7 @@
     { label: 'Books', href: 'books/' },
     { label: 'About Aki', href: 'about/' },
     { label: 'List your project', href: 'academy/list-your-project/' },
+    { label: 'Leaderboard', href: 'leaderboard/' },
     { label: 'Check a certificate', href: 'verify/' },
     { label: 'Privacy', href: 'privacy/' },
     { label: 'Terms', href: 'terms/' },
@@ -310,25 +311,16 @@
     if (!n || w.claimed[id]) return 0;
     w.claimed[id] = Date.now();
     w.balance += n;
-    w.history.unshift({ at: new Date().toISOString().slice(0, 10), label: label, coins: n });
+    w.history.unshift({ id: id, at: new Date().toISOString().slice(0, 10), label: label, coins: n });
     w.history = w.history.slice(0, 50);
     saveWallet(w);
     showCoins();
     queueTags();
     popCoins(n, el);
+    // Logged-in players: js/sync.js saves it to their account.
+    document.dispatchEvent(new CustomEvent('web3toys:changed', { detail: { kind: kind, key: key } }));
     play('cash');
     return n;
-  }
-
-  // Taking coins away, when a visitor asks to redeem a reward.
-  function spend(n, label) {
-    var w = wallet();
-    if (n > w.balance) return false;
-    w.balance -= n;
-    w.history.unshift({ at: new Date().toISOString().slice(0, 10), label: label, coins: -n });
-    saveWallet(w);
-    showCoins();
-    return true;
   }
 
   // "+10" floating up from the button that earned it.
@@ -423,7 +415,7 @@
     iconSrc: iconSrc,
     fx: { confetti: confetti, coins: coins, wobble: wobble, calm: calm },
     sound: { play: play, on: soundOn, button: soundButton },
-    coins: { award: award, spend: spend, wallet: wallet, amount: coinAmount, refresh: showCoins, pageKey: pageKey },
+    coins: { award: award, wallet: wallet, amount: coinAmount, refresh: showCoins, pageKey: pageKey },
   };
 
   // Accounts load only when config.js has the Supabase settings.
@@ -437,7 +429,9 @@
       el.onload = function () { load(srcs.slice(1)); };
       document.head.appendChild(el);
     };
-    load(window.Web3Avatar ? ['js/vendor/supabase-2.117.3.js', 'js/auth.js'] : ['js/avatar.js', 'js/vendor/supabase-2.117.3.js', 'js/auth.js']);
+    var need = window.Web3Progress ? [] : ['js/progress.js'];
+    if (!window.Web3Avatar) need.push('js/avatar.js');
+    load(need.concat(['js/vendor/supabase-2.117.3.js', 'js/auth.js', 'js/sync.js']));
   }
 
   // Loading screen: the hexagon icon until the page draws its content

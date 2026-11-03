@@ -132,19 +132,21 @@ Short sponsored courses about web3 projects, at web3.toys/academy/.
 
 ## Coins
 
-Visitors earn coins for playing and sharing: opening the first toy of the
-day, finishing a game, earning a certificate, sharing a result card and
-posting on X. Each counts once per toy. The amounts are under `points` in
-`config.js`. Rewards and their coin prices are in `data/rewards.json`; shop
-items and books with a `coins` field show a second, coin price.
+Players earn coins for opening the first toy of the day, finishing a game,
+earning a certificate, sharing a result card and posting on X (amounts under
+`points` in `config.js`, and the same in `coin_rules` in
+`supabase/003_progress.sql`). Coins are site points only: no cash value, never
+withdrawn, sold or swapped. They unlock cosmetic extras (certificate styles,
+badge frames, profile themes), listed in `data/cosmetics.json` with the same
+ids and prices as `cosmetic_items` in the database file.
 
-Coins live in the visitor's browser, so they are a fun bonus, not money:
-clearing the browser or switching phones starts at zero, and the site cannot
-check that someone really posted on X. Redeeming is by request: set
-`redeem.endpoint` (a form address, for example from Formspree) or
-`redeem.email` in `config.js`. Each request arrives with the reward, the
-visitor's email, their balance and coin history, and an optional link to
-their post. Check it and send the coupon from your shop tool yourself.
+Visitors' coins live in their browser. Logged-in players' coins, certificates
+and extras are saved to their account by `js/sync.js`: the database gives
+coins (once each, with daily limits), and certificates are only saved by
+`api/save-cert.js` after it checks the secret code. On first login the
+browser's earlier coins move into the account once, capped at 1,000.
+The leaderboard (`leaderboard/`) shows display names, pictures, ranks and
+coins only. Setup: `docs/setup/part-2-progress.md`.
 
 ## Edit the content
 

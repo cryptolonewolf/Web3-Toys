@@ -29,11 +29,7 @@
     return '<a class="btn btn--yellow ' + cls + '" href="' + esc(item.url) + '" target="_blank" rel="noopener" data-item="' + esc(item.title) + '">' + esc(item.button || 'Get it') + '</a>';
   }
 
-  // "or 1,500 coins", linking to the rewards on My Progress.
-  function coinPrice(item) {
-    if (!item.coins) return '';
-    return ' <a class="coin-price" href="' + site.root + 'progress/?redeem=free-small#coins">or ' + site.icon('coin') + item.coins.toLocaleString('en-US') + '</a>';
-  }
+
 
   function track(item) {
     if (window.Web3Common) window.Web3Common.track('shop_clicked', { item: item, toy: box.getAttribute('data-toy') });
@@ -65,7 +61,7 @@
           return '<li class="card shop-item">' + cover(item, 'shop-cover') +
             '<div class="shop-info"><h3 class="shop-title">' + esc(item.title) + '</h3>' +
             (item.blurb ? '<p class="small-print">' + esc(item.blurb) + '</p>' : '') +
-            '<p class="price">' + esc(item.price) + coinPrice(item) + '</p>' + button(item, 'btn--small') + '</div></li>';
+            '<p class="price">' + esc(item.price) + '</p>' + button(item, 'btn--small') + '</div></li>';
         }).join('') + '</ul>';
       box.querySelectorAll('[data-item]').forEach(function (a) {
         a.addEventListener('click', function () { track(a.getAttribute('data-item')); });

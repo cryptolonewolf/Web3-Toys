@@ -49,7 +49,9 @@ window.WEB3TOYS_CONFIG = {
   // COINS. How many coins each action earns. Each one counts once per toy.
   // daily: opening the first toy of the day. finish: finishing a game.
   // certificate: earning a certificate. share: sharing a result card.
-  // x: tapping Post on X (or Share on X).
+  // x: tapping Post on X (or Share on X). For logged-in players the
+  // database decides (coin_rules in supabase/003_progress.sql): keep the two
+  // the same. Coins are site points only, with no cash value.
   points: { daily: 5, finish: 20, certificate: 50, share: 10, x: 10 },
 
   // PROJECT ACADEMY. price: what a sponsored course costs (shown on the List
@@ -57,15 +59,6 @@ window.WEB3TOYS_CONFIG = {
   // projects fill in to apply (for example a Tally or Google form). While
   // formUrl is empty, the button says applications open soon.
   academy: { price: '', formUrl: '' },
-
-  // REDEEMING COINS. Requests come to you and you send the coupon yourself.
-  // endpoint: a form address (for example from Formspree or your email tool)
-  // that receives the request. email: used instead when endpoint is empty;
-  // the visitor's email app opens with the request filled in. While both
-  // are empty, the button says redeeming opens soon.
-  // shopTool: the tool you sell through (for example Gumroad), shown to
-  // visitors so they know where the coupon works.
-  redeem: { endpoint: '', email: '', shopTool: '' },
 
   // MASCOT pictures, all in the assets/mascot folder. To use a new drawing
   // for a mood, save it in that folder and put its file name here. If a

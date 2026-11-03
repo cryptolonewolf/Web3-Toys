@@ -1,0 +1,27 @@
+{
+  "_help": "Cosmetic extras bought with coins. Coins are site points only, with no cash value: they can never be withdrawn, sold or swapped for money, crypto or tokens. Ids and coin prices must match the cosmetic_items list in supabase/003_progress.sql (the database checks the price). slot: cert (certificate style), frame (badge frame around your picture), theme (My Progress colours).",
+  "noCash": "Coins are site points only. They have no cash value and can never be withdrawn, sold or swapped for money, crypto or tokens.",
+  "how": [
+    "Open your first toy of the day: +5",
+    "Finish a game: +20",
+    "Earn a certificate: +50",
+    "Share a result card: +10",
+    "Post on X: +10"
+  ],
+  "slots": [
+    {"id": "cert", "title": "Certificate styles", "line": "The colour of your new toy certificates."},
+    {"id": "frame", "title": "Badge frames", "line": "A frame around your picture, also on the leaderboard."},
+    {"id": "theme", "title": "Profile themes", "line": "The colours of your My Progress page."}
+  ],
+  "items": [
+    {"id": "cert-mint", "slot": "cert", "title": "Mint", "coins": 150, "color": "#A8F0C6"},
+    {"id": "cert-sky", "slot": "cert", "title": "Sky", "coins": 300, "color": "#BFE0FA"},
+    {"id": "cert-gold", "slot": "cert", "title": "Gold foil", "coins": 600, "color": "#E8B84A", "color2": "#FFE7A3"},
+    {"id": "frame-blue", "slot": "frame", "title": "Blue ring", "coins": 100, "color": "#4D9DE0"},
+    {"id": "frame-rainbow", "slot": "frame", "title": "Rainbow", "coins": 250, "color": "conic-gradient(#FF6B6B, #FFD93D, #6BCB77, #4D9DE0, #A98BFF, #FF6B6B)"},
+    {"id": "frame-gold", "slot": "frame", "title": "Gold", "coins": 500, "color": "linear-gradient(135deg, #B8860B, #FFE7A3, #E8B84A)"},
+    {"id": "theme-mint", "slot": "theme", "title": "Mint", "coins": 120, "color": "#E8FFF1"},
+    {"id": "theme-sky", "slot": "theme", "title": "Sky", "coins": 120, "color": "#E6F4FF"},
+    {"id": "theme-night", "slot": "theme", "title": "Night", "coins": 400, "color": "#2B2550"}
+  ]
+}

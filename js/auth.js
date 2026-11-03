@@ -39,7 +39,8 @@
   // Everyone gets a random cartoon picture (js/avatar.js) from their seed.
   function avatarHtml(size, cls) {
     var seed = (profile && profile.avatar_seed) || (current && current.id) || 'visitor';
-    return '<img class="acct-avatar' + (cls ? ' ' + cls : '') + '" src="' + window.Web3Avatar.dataUri(seed) + '" alt="" width="' + size + '" height="' + size + '" />';
+    var frame = profile && profile.badge_frame ? ' ' + profile.badge_frame : '';
+    return '<img class="acct-avatar' + frame + (cls ? ' ' + cls : '') + '" src="' + window.Web3Avatar.dataUri(seed) + '" alt="" width="' + size + '" height="' + size + '" />';
   }
 
   function paintHeader() {
@@ -220,6 +221,8 @@
       return patch.display_name || patch.avatar_seed;
     });
   }
+
+  document.addEventListener('web3toys:synced', paintHeader);
 
   window.Web3Auth = {
     shuffle: shuffle,

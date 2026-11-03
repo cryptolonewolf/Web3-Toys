@@ -22,6 +22,8 @@
   function save(storage, data) {
     try {
       storage.setItem(KEY, JSON.stringify(data));
+      // Logged-in players: js/sync.js saves new certificates to their account.
+      if (typeof document !== 'undefined' && typeof CustomEvent !== 'undefined') document.dispatchEvent(new CustomEvent('web3toys:changed', { detail: { kind: 'progress' } }));
       return true;
     } catch (e) {
       return false;

@@ -270,6 +270,23 @@
     } while (ctx.measureText(text).width > maxWidth && size > 30);
   }
 
+  // Certificate colour: yellow, or the style unlocked with coins and worn
+  // (set on My Progress, see data/cosmetics.json).
+  function certFill(ctx, W, H) {
+    var style = null;
+    try { style = (JSON.parse(localStorage.getItem('web3toys.cosmetics.v1')) || {}).cert; } catch (e) { /* none */ }
+    if (style === 'cert-mint') return '#A8F0C6';
+    if (style === 'cert-sky') return '#BFE0FA';
+    if (style === 'cert-gold') {
+      var g = ctx.createLinearGradient(0, 0, W, H);
+      g.addColorStop(0, '#E8B84A');
+      g.addColorStop(0.5, '#FFE7A3');
+      g.addColorStop(1, '#D9A33A');
+      return g;
+    }
+    return '#FFD93D';
+  }
+
   function drawCertificate(canvas, cert, rankName) {
     var W = 1600;
     var H = 1000;
@@ -302,7 +319,7 @@
       ctx.fillStyle = INK;
       roundRect(ctx, 64, 64, W - 108, H - 108, 60);
       ctx.fill();
-      ctx.fillStyle = '#FFD93D';
+      ctx.fillStyle = certFill(ctx, W, H);
       roundRect(ctx, 44, 44, W - 108, H - 108, 60);
       ctx.fill();
       ctx.lineWidth = 12;

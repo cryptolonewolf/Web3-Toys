@@ -3648,21 +3648,7 @@ a.xcard:active {
   to { opacity: 0; }
 }
 
-.coin-price {
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-  margin-left: 4px;
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--ink-soft);
-}
 
-.coin-price .icon {
-  width: 16px;
-  height: 16px;
-}
 
 .coins-head {
   display: flex;
@@ -3694,36 +3680,10 @@ a.xcard:active {
 .coins-history b { color: #1f8a3a; }
 .coins-history b.is-spent { color: #c2273a; }
 
-.reward-list {
-  display: grid;
-  gap: 12px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
 
-.reward {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 6px 12px;
-  align-items: center;
-}
 
-.reward .meter {
-  grid-column: 1 / -1;
-}
 
-.reward.is-ready {
-  background: var(--mint-tint);
-}
 
-.reward-price {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-family: 'Luckiest Guy', var(--font-display);
-  font-size: 22px;
-}
 
 .coins-choices {
   margin: 0;
@@ -6065,4 +6025,129 @@ a.ac-card:hover {
 @keyframes loader-hop {
   0%, 100% { transform: translateY(0) rotate(0); }
   50% { transform: translateY(-10px) rotate(8deg); }
+}
+
+/* Coins: extras */
+.cx-nocash {
+  margin: 0;
+  padding: 10px 12px;
+  font: 800 15px / 1.4 var(--font-body);
+  color: var(--ink);
+  background: #fff1a8;
+  border: var(--line-thin);
+  border-radius: 12px;
+}
+
+.cx-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cx-item {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 10px 6px;
+  text-align: center;
+  font: 800 14px var(--font-body);
+  color: var(--ink);
+  background: var(--white);
+  border: var(--line-thin);
+  border-radius: 12px;
+}
+
+.cx-item.is-on {
+  border: var(--line);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.cx-item .btn {
+  padding: 4px 10px;
+  font-size: 13px;
+}
+
+.cx-swatch {
+  display: block;
+  width: 44px;
+  height: 44px;
+  background: var(--sw);
+  border: var(--line-thin);
+  border-radius: 10px;
+}
+
+.cx-swatch--frame {
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--white) 0 52%, transparent 54%), var(--sw);
+}
+
+/* Badge frames around the cartoon picture */
+.acct-avatar.frame-blue { padding: 3px; background: #4d9de0; }
+.acct-avatar.frame-rainbow { padding: 3px; background: conic-gradient(#ff6b6b, #ffd93d, #6bcb77, #4d9de0, #a98bff, #ff6b6b); }
+.acct-avatar.frame-gold { padding: 3px; background: linear-gradient(135deg, #b8860b, #ffe7a3, #e8b84a); }
+
+/* Profile themes on My Progress */
+body[data-theme='theme-mint'] { background: #e8fff1; }
+body[data-theme='theme-sky'] { background: #e6f4ff; }
+body[data-theme='theme-night'] { background: #2b2550; }
+body[data-theme='theme-night'] .section-title,
+body[data-theme='theme-night'] .site-footer,
+body[data-theme='theme-night'] .site-footer a,
+body[data-theme='theme-night'] #coins > .small-print,
+body[data-theme='theme-night'] #coins > .text { color: #fff; }
+
+/* Leaderboard */
+.lb-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lb-row {
+  display: grid;
+  grid-template-columns: 28px 40px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--white);
+  border: var(--line-thin);
+  border-radius: 14px;
+}
+
+.lb-row.is-me {
+  background: #fff1a8;
+  border: var(--line);
+}
+
+.lb-row .acct-avatar {
+  width: 40px;
+  height: 40px;
+}
+
+.lb-pos {
+  font: 700 18px var(--font-display);
+  text-align: center;
+}
+
+.lb-who {
+  display: grid;
+  min-width: 0;
+}
+
+.lb-who b {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lb-coins {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  font-weight: 800;
 }

@@ -5,7 +5,7 @@
   "text": "Short, plain books for people who want to understand crypto without the jargon.",
   "books": [
     { "title": "Crypto for Busy People", "line": "The whole Getting Started series as one short read. Perfect for a commute.", "price": "Free", "url": "", "button": "Get it free", "color": "yellow", "icon": "book" },
-    { "title": "Your First 30 Days in Crypto", "line": "Day by day steps from your first wallet to your first safe swap.", "price": "$12", "coins": 1500, "url": "", "button": "Get the book", "color": "mint", "icon": "key" },
+    { "title": "Your First 30 Days in Crypto", "line": "Day by day steps from your first wallet to your first safe swap.", "price": "$12", "url": "", "button": "Get the book", "color": "mint", "icon": "key" },
     { "title": "Don't Get Rekt", "line": "Risk rules for beginners, with real stories of what went wrong and why.", "price": "$15", "url": "", "button": "Get the book", "color": "coral", "icon": "shield" },
     { "title": "Launch Week Playbook", "line": "For web3 teams: how to plan and run a token or product launch week.", "price": "$29", "url": "", "button": "Get the book", "color": "blue", "icon": "rocket" }
   ]
