@@ -23,8 +23,9 @@ globalThis.fetch = async (input: string | URL | Request, init: RequestInit = {})
   const ok = (body: unknown) => new Response(JSON.stringify(body), { status: 200 });
   const h = (init.headers || {}) as Record<string, string>;
   if (url === 'https://db.test/auth/v1/user') {
-    if (h.Authorization === 'Bearer alice') return ok({ id: 'u-alice', email: 'alice@x.com' });
-    if (h.Authorization === 'Bearer bob') return ok({ id: 'u-bob', email: 'bob@x.com' });
+    if (h.apikey === 'bad-key') return new Response('{"message":"Invalid API key"}', { status: 401 });
+    if (h.Authorization === 'Bearer eyJalice') return ok({ id: 'u-alice', email: 'alice@x.com' });
+    if (h.Authorization === 'Bearer eyJbob') return ok({ id: 'u-bob', email: 'bob@x.com' });
     return new Response('{}', { status: 401 });
   }
   if (url === 'https://site.test/data/products.json') return ok(products);
@@ -44,7 +45,7 @@ globalThis.fetch = async (input: string | URL | Request, init: RequestInit = {})
 };
 
 const post = (h: (r: Request) => Promise<Response>, body: unknown, who?: string, headers: Record<string, string> = {}) =>
-  h(new Request('https://fn.test', { method: 'POST', headers: { 'Content-Type': 'application/json', ...(who ? { Authorization: 'Bearer ' + who } : {}), ...headers }, body: typeof body === 'string' ? body : JSON.stringify(body) }));
+  h(new Request('https://fn.test', { method: 'POST', headers: { 'Content-Type': 'application/json', ...(who ? { Authorization: 'Bearer eyJ' + who } : {}), ...headers }, body: typeof body === 'string' ? body : JSON.stringify(body) }));
 
 async function sign(text: string) {
   const key = await crypto.subtle.importKey('raw', new TextEncoder().encode('ipn_secret'), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);

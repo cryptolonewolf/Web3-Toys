@@ -50,8 +50,13 @@
     return read.then(function (b) { throw new Error((b && b.error) || 'Something went wrong. Please try again.'); });
   }
 
+  // Every request carries the player's login explicitly.
   function call(name, body) {
-    return db.functions.invoke(name, { body: body }).then(fnError);
+    return db.auth.getSession().then(function (r) {
+      var session = r.data && r.data.session;
+      if (!session) throw new Error('Your login has expired. Log out, log in again, then retry.');
+      return db.functions.invoke(name, { body: body, headers: { Authorization: 'Bearer ' + session.access_token } });
+    }).then(fnError);
   }
 
   function loadCheckout() {

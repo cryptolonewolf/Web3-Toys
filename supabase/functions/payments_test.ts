@@ -23,10 +23,12 @@ let razorpayCalls: Row[] = [];
 globalThis.fetch = async (input: string | URL | Request, init: RequestInit = {}) => {
   const url = String(input);
   const ok = (body: unknown) => new Response(JSON.stringify(body), { status: 200 });
+  const h = (init.headers || {}) as Record<string, string>;
   if (url === 'https://db.test/auth/v1/user') {
-    const auth = (init.headers as Record<string, string>).Authorization;
-    if (auth === 'Bearer alice') return ok({ id: 'u-alice', email: 'alice@x.com' });
-    if (auth === 'Bearer bob') return ok({ id: 'u-bob', email: 'bob@x.com' });
+    if (h.apikey === 'bad-key') return new Response('{"message":"Invalid API key"}', { status: 401 });
+    const auth = h.Authorization;
+    if (auth === 'Bearer eyJalice') return ok({ id: 'u-alice', email: 'alice@x.com' });
+    if (auth === 'Bearer eyJbob') return ok({ id: 'u-bob', email: 'bob@x.com' });
     return new Response('{}', { status: 401 });
   }
   if (url === 'https://site.test/data/products.json') return ok(products);
@@ -50,7 +52,7 @@ globalThis.fetch = async (input: string | URL | Request, init: RequestInit = {})
 };
 
 const post = (handler: (r: Request) => Promise<Response>, body: unknown, who?: string, headers: Record<string, string> = {}) =>
-  handler(new Request('https://fn.test', { method: 'POST', headers: { 'Content-Type': 'application/json', ...(who ? { Authorization: 'Bearer ' + who } : {}), ...headers }, body: typeof body === 'string' ? body : JSON.stringify(body) }));
+  handler(new Request('https://fn.test', { method: 'POST', headers: { 'Content-Type': 'application/json', ...(who ? { Authorization: 'Bearer eyJ' + who } : {}), ...headers }, body: typeof body === 'string' ? body : JSON.stringify(body) }));
 
 async function hmac(secret: string, text: string) {
   const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
@@ -115,4 +117,16 @@ Deno.test('the webhook marks orders paid, failed or refunded, only with a correc
   const refund = JSON.stringify({ event: 'refund.processed', payload: { payment: { entity: { id: 'pay_9', order_id: 'order_9' } } } });
   await post(webhook, refund, undefined, { 'x-razorpay-signature': await hmac('hook_secret', refund) });
   assertEquals(orders[0].status, 'refunded');
+});
+
+Deno.test('a wrong SERVICE_KEY gives a clear setup message, not "log in"', async () => {
+  Deno.env.set('SERVICE_KEY', 'bad-key');
+  const r = await post(createOrder, { product: 'book-first-30-days', currency: 'INR' }, 'alice');
+  assertEquals(r.status, 503);
+  assertEquals((await r.json()).error.includes('SERVICE_KEY'), true);
+  Deno.env.set('SUPABASE_ANON_KEY', 'anon-ok');
+  const ok = await post(createOrder, { product: 'book-first-30-days', currency: 'INR' }, 'alice');
+  assertEquals(ok.status === 401 || ok.status === 503, false);
+  Deno.env.set('SERVICE_KEY', 'sb_secret_test');
+  Deno.env.delete('SUPABASE_ANON_KEY');
 });
