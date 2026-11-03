@@ -1,0 +1,14 @@
+{
+  "_help": "Settings for the admin dashboard (admin/). vetting: the checklist shown on each project request before you approve it. statusNames: the words shown for each request status.",
+  "vetting": [
+    {"id": "team", "text": "Team is public or verifiably known"},
+    {"id": "product", "text": "Product or testnet is live and works"},
+    {"id": "audit", "text": "Contracts audited, or no token contracts yet"},
+    {"id": "tokenomics", "text": "Tokenomics and unlocks are public"},
+    {"id": "noPromises", "text": "No promises of prices or returns in their materials"},
+    {"id": "links", "text": "Official links checked (site, X, docs)"},
+    {"id": "noScamHistory", "text": "No history of rugs, hacks left unpaid or fake claims"},
+    {"id": "content", "text": "Course or toy content is accurate and educational"}
+  ],
+  "statusNames": {"submitted": "Submitted", "paid": "Paid", "in_review": "In review", "approved": "Approved", "live": "Live", "declined": "Declined"}
+}

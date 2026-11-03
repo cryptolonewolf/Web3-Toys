@@ -295,7 +295,10 @@
       form.addEventListener('submit', function (e) {
         if (!(SITE.signup && SITE.signup.action)) {
           e.preventDefault();
-          form.querySelector('[data-signup-msg]').textContent = 'Signups open soon. Thanks for your patience.';
+          // With accounts switched on, js/site.js saves the email as a lead.
+          var saved = ((window.WEB3TOYS_CONFIG || {}).supabase || {}).url;
+          form.querySelector('[data-signup-msg]').textContent = saved ? 'Thanks! You are on the list.' : 'Signups open soon. Thanks for your patience.';
+          if (saved) form.querySelector('button[type="submit"]').disabled = true;
         }
       });
     }

@@ -6463,3 +6463,172 @@ body[data-theme='theme-night'] .pf-h .small-print { color: #d9d4f0; }
 .pf-buys .small-print {
   margin: 0;
 }
+
+/* ---------- Admin dashboard ---------- */
+.page--wide {
+  max-width: 1200px;
+}
+
+.adm-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.adm-days {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font: 700 14px var(--font-body);
+}
+
+.adm-days .field {
+  width: auto;
+  padding: 6px 10px;
+}
+
+.adm-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  overflow-x: auto;
+  background: var(--white);
+  border: var(--line-thin);
+  border-radius: 999px;
+}
+
+.adm-tabs .pf-tab {
+  flex: none;
+  padding: 4px 14px;
+}
+
+.adm-panel {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.adm-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.adm-tiles li {
+  display: grid;
+  padding: 10px 12px;
+  background: var(--white);
+  border: var(--line-thin);
+  border-radius: 12px;
+}
+
+.adm-tiles b {
+  font: 700 22px var(--font-display);
+  color: var(--ink);
+}
+
+.adm-tiles span {
+  font: 700 12px var(--font-body);
+  color: var(--ink-soft);
+}
+
+.adm-scroll {
+  overflow-x: auto;
+  background: var(--white);
+  border: var(--line-thin);
+  border-radius: 12px;
+}
+
+.adm-table {
+  min-width: 720px;
+  font-size: 13px;
+}
+
+.adm-table td,
+.adm-table th {
+  white-space: nowrap;
+}
+
+.adm-pre {
+  max-height: 240px;
+  overflow: auto;
+  padding: 8px;
+  font-size: 12px;
+  background: #fff8e1;
+  border-radius: 8px;
+  white-space: pre-wrap;
+}
+
+.adm-check {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.adm-req .field[data-status] {
+  width: auto;
+}
+
+.adm-review {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.adm-review li {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--white);
+  border: var(--line-thin);
+  border-left-width: 8px;
+  border-radius: 12px;
+}
+
+.adm-review li div {
+  display: grid;
+  min-width: 0;
+}
+
+.adm-review li.is-approved {
+  border-left-color: #6bcb77;
+}
+
+.adm-review li.is-changed {
+  border-left-color: #ff9f45;
+}
+
+.adm-review .small-print {
+  margin: 0;
+}
+
+.adm-note {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adm-panel .btn-row,
+.adm-req .btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.adm-panel .btn-row .btn,
+.adm-panel .btn-row .field {
+  flex: none;
+  width: auto;
+}

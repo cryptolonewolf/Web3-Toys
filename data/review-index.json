@@ -1,0 +1,971 @@
+{
+ "_help": "Made by tools/review-index.mjs from every \"review\": true in data/. Do not edit by hand.",
+ "items": [
+  {
+   "file": "data/dead_projects.json",
+   "item": "luna",
+   "label": "Terra (LUNA)",
+   "note": "",
+   "hash": "24f4cdb696fa"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "ust",
+   "label": "TerraUSD (UST)",
+   "note": "",
+   "hash": "cb04cb58b31c"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "ftt",
+   "label": "FTX Token (FTT)",
+   "note": "",
+   "hash": "f87fcc8ce9bf"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "celsius",
+   "label": "Celsius (CEL)",
+   "note": "",
+   "hash": "e15aefd2ab8b"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "onecoin",
+   "label": "OneCoin",
+   "note": "",
+   "hash": "53a64d91e4ad"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "diem",
+   "label": "Diem (Libra)",
+   "note": "",
+   "hash": "6b05ddc776f4"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "bitconnect",
+   "label": "BitConnect (BCC)",
+   "note": "",
+   "hash": "6d6fe3089969"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "safemoon",
+   "label": "SafeMoon",
+   "note": "",
+   "hash": "e9d2769e0791"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "titan",
+   "label": "Iron Finance (TITAN)",
+   "note": "",
+   "hash": "ec52ef987d64"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "wonderland",
+   "label": "Wonderland (TIME)",
+   "note": "",
+   "hash": "d9a0caff0d16"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "quadriga",
+   "label": "QuadrigaCX",
+   "note": "",
+   "hash": "7ebdae9199f0"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "dao",
+   "label": "The DAO",
+   "note": "",
+   "hash": "0d0cb9e07102"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "fei",
+   "label": "Fei Protocol",
+   "note": "",
+   "hash": "2f3ea900857c"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "basis",
+   "label": "Basis",
+   "note": "",
+   "hash": "53aab3389b15"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "squid",
+   "label": "Squid Game token",
+   "note": "",
+   "hash": "a3e08c5aa71b"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "anubis",
+   "label": "AnubisDAO",
+   "note": "",
+   "hash": "bf5056209a5e"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "frosties",
+   "label": "Frosties NFT",
+   "note": "",
+   "hash": "034623e21135"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "plexcoin",
+   "label": "PlexCoin",
+   "note": "",
+   "hash": "bcd219bab4db"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "centra",
+   "label": "Centra Tech",
+   "note": "",
+   "hash": "cea2722fd7f1"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "bst",
+   "label": "Bitcoin Savings and Trust",
+   "note": "",
+   "hash": "4a7a9c74bf3e"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-blur",
+   "label": "Blur",
+   "note": "",
+   "hash": "440919a4f31b"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-abstract",
+   "label": "Abstract",
+   "note": "",
+   "hash": "6dc0cc967eba"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-blast",
+   "label": "Blast",
+   "note": "",
+   "hash": "5ad4b4fff471"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-neon-evm",
+   "label": "Neon EVM",
+   "note": "",
+   "hash": "bf295fb2a3ad"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-oneswap",
+   "label": "OneSwap",
+   "note": "",
+   "hash": "f1ab8c40b46a"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-coinex-smart-chain",
+   "label": "CoinEx Smart Chain",
+   "note": "",
+   "hash": "61818f7ac755"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-coinex",
+   "label": "CoinEx",
+   "note": "",
+   "hash": "4a45091ba913"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-balancer",
+   "label": "Balancer",
+   "note": "",
+   "hash": "116f28a1e65f"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-router-protocol",
+   "label": "Router Protocol",
+   "note": "",
+   "hash": "98a9d3e04e5f"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-full-sail",
+   "label": "Full Sail",
+   "note": "",
+   "hash": "3f14b1554e69"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-lisk-chain",
+   "label": "Lisk Chain",
+   "note": "",
+   "hash": "e21277172fa6"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-shipyard-ipfs",
+   "label": "Shipyard (IPFS)",
+   "note": "",
+   "hash": "fe0602850469"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-paystream",
+   "label": "Paystream",
+   "note": "",
+   "hash": "73bb54cc83d2"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-trepa",
+   "label": "Trepa",
+   "note": "",
+   "hash": "91098f0cab19"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-fireplace",
+   "label": "Fireplace",
+   "note": "",
+   "hash": "fd90b9e8a062"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-step-app",
+   "label": "Step App",
+   "note": "",
+   "hash": "16051b837cd8"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-proof-of-play",
+   "label": "Proof of Play",
+   "note": "",
+   "hash": "b6983fb18ed9"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-poap",
+   "label": "POAP",
+   "note": "",
+   "hash": "8c47ab3dbfa6"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-bitmart",
+   "label": "BitMart",
+   "note": "",
+   "hash": "e6d28948b257"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-dango",
+   "label": "Dango",
+   "note": "",
+   "hash": "2abec41bba03"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-bitmex",
+   "label": "BitMEX",
+   "note": "",
+   "hash": "11bb48a0b502"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-odos",
+   "label": "ODOS",
+   "note": "",
+   "hash": "9f15c4026406"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-secondfi",
+   "label": "SecondFi",
+   "note": "",
+   "hash": "f7a61de5ba90"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-zapper",
+   "label": "Zapper",
+   "note": "",
+   "hash": "cb00668da93a"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-xenea",
+   "label": "Xenea",
+   "note": "",
+   "hash": "3b0570822620"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-ctrl-wallet",
+   "label": "Ctrl Wallet",
+   "note": "",
+   "hash": "79152ccc688a"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-ascendex",
+   "label": "AscendEX",
+   "note": "",
+   "hash": "9e7dff119910"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-polygon-zkevm",
+   "label": "Polygon zkEVM",
+   "note": "",
+   "hash": "596aa05b07e1"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-loopring",
+   "label": "Loopring",
+   "note": "",
+   "hash": "bcda5d5e05a4"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-sophon",
+   "label": "Sophon",
+   "note": "",
+   "hash": "98374ce37943"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-ionic",
+   "label": "Ionic",
+   "note": "",
+   "hash": "d0de73080a00"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-soundness",
+   "label": "Soundness",
+   "note": "",
+   "hash": "965a3a0bc077"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-powerloom",
+   "label": "Powerloom",
+   "note": "",
+   "hash": "81669d3fa90f"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-satori",
+   "label": "Satori",
+   "note": "",
+   "hash": "5b1c9a1be415"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-swell",
+   "label": "Swell",
+   "note": "",
+   "hash": "b43a7103bdbc"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-ventuals",
+   "label": "Ventuals",
+   "note": "",
+   "hash": "2deb9944e19d"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-fishing-frenzy",
+   "label": "Fishing Frenzy",
+   "note": "",
+   "hash": "c9fe6940ce71"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-pudgy-party",
+   "label": "Pudgy Party",
+   "note": "",
+   "hash": "7a92506e67c5"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-botanix",
+   "label": "Botanix",
+   "note": "",
+   "hash": "92fa7a972aea"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-hyli",
+   "label": "Hyli",
+   "note": "",
+   "hash": "7b638a25a49b"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-radiant-capital",
+   "label": "Radiant Capital",
+   "note": "",
+   "hash": "fea4b84e7710"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-zero-network",
+   "label": "Zero Network",
+   "note": "",
+   "hash": "2ec0b9872be1"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-everclear",
+   "label": "Everclear",
+   "note": "",
+   "hash": "d11fd836693d"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-syndicate",
+   "label": "Syndicate",
+   "note": "",
+   "hash": "302dea54c13a"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-fantasy",
+   "label": "Fantasy",
+   "note": "",
+   "hash": "c26d98dfeaef"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-legend",
+   "label": "Legend",
+   "note": "",
+   "hash": "502450928640"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-phi",
+   "label": "Phi",
+   "note": "",
+   "hash": "eaefa0d7a0ed"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-carrot",
+   "label": "Carrot",
+   "note": "",
+   "hash": "3f7657d23412"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-genso-online",
+   "label": "Genso Online",
+   "note": "",
+   "hash": "c968e8e0b847"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-luckio",
+   "label": "Luckio",
+   "note": "",
+   "hash": "9e32b6c06132"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-mint-blockchain",
+   "label": "Mint Blockchain",
+   "note": "",
+   "hash": "f48d266fb477"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-xociety",
+   "label": "XOCIETY",
+   "note": "",
+   "hash": "3cf83e7495d0"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-77-bit",
+   "label": "77-Bit",
+   "note": "",
+   "hash": "16a2717c452c"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-opulous",
+   "label": "Opulous",
+   "note": "",
+   "hash": "ef45a651df56"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-foundation",
+   "label": "Foundation",
+   "note": "",
+   "hash": "d70eeeed5306"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-pixel-heroes-adventure",
+   "label": "Pixel Heroes Adventure",
+   "note": "",
+   "hash": "b187482f029f"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-megaphone",
+   "label": "Megaphone",
+   "note": "",
+   "hash": "9d8fccadd162"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-seamless-protocol",
+   "label": "Seamless Protocol",
+   "note": "",
+   "hash": "e6eddb36be8a"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-dmail",
+   "label": "Dmail",
+   "note": "",
+   "hash": "ab996b360344"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-leap-wallet",
+   "label": "Leap Wallet",
+   "note": "",
+   "hash": "c121d2f5ccc9"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-intergaze",
+   "label": "Intergaze",
+   "note": "",
+   "hash": "cd1ee6de67b0"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-magic-eden-wallet",
+   "label": "Magic Eden Wallet",
+   "note": "",
+   "hash": "7f48675e3ac4"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-yupp-ai",
+   "label": "Yupp AI",
+   "note": "",
+   "hash": "0a1b1c50a208"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-milkyway",
+   "label": "MilkyWay",
+   "note": "",
+   "hash": "8ac07a2b0d5d"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-tally",
+   "label": "Tally",
+   "note": "",
+   "hash": "fa6b994e6c30"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-blockfills",
+   "label": "BlockFills",
+   "note": "",
+   "hash": "d5140de68ec1"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-datahaven",
+   "label": "DataHaven",
+   "note": "",
+   "hash": "e35aca15a9e1"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-angle-protocol",
+   "label": "Angle Protocol",
+   "note": "",
+   "hash": "504e2e632e36"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-step-finance",
+   "label": "Step Finance",
+   "note": "",
+   "hash": "b9014fecf4b9"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-remora-markets",
+   "label": "Remora Markets",
+   "note": "",
+   "hash": "468431688245"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-parsec",
+   "label": "Parsec",
+   "note": "",
+   "hash": "732525442472"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-zerolend",
+   "label": "ZeroLend",
+   "note": "",
+   "hash": "b7795ff58e8f"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-polynomial",
+   "label": "Polynomial",
+   "note": "",
+   "hash": "a4545b4fb4a8"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-entropy",
+   "label": "Entropy",
+   "note": "",
+   "hash": "5f0429615ecd"
+  },
+  {
+   "file": "data/dead_projects.json",
+   "item": "2026-slingshot",
+   "label": "Slingshot",
+   "note": "",
+   "hash": "090e0deae8da"
+  },
+  {
+   "file": "data/hacks.json",
+   "item": "nomad",
+   "label": "Nomad Bridge",
+   "note": "",
+   "hash": "22cfa50c89aa"
+  },
+  {
+   "file": "data/hacks.json",
+   "item": "euler",
+   "label": "Euler Finance",
+   "note": "",
+   "hash": "dd8e5b121492"
+  },
+  {
+   "file": "data/hacks.json",
+   "item": "wazirx",
+   "label": "WazirX",
+   "note": "",
+   "hash": "4a7896f11c87"
+  },
+  {
+   "file": "data/hacks.json",
+   "item": "dmm",
+   "label": "DMM Bitcoin",
+   "note": "",
+   "hash": "4ba373238719"
+  },
+  {
+   "file": "data/hacks.json",
+   "item": "wormhole",
+   "label": "Wormhole",
+   "note": "",
+   "hash": "1f1f817d34c7"
+  },
+  {
+   "file": "data/hacks.json",
+   "item": "mtgox",
+   "label": "Mt. Gox",
+   "note": "",
+   "hash": "529379fb15ab"
+  },
+  {
+   "file": "data/hacks.json",
+   "item": "ftx",
+   "label": "FTX",
+   "note": "",
+   "hash": "e93dcc59b691"
+  },
+  {
+   "file": "data/hacks.json",
+   "item": "coincheck",
+   "label": "Coincheck",
+   "note": "",
+   "hash": "e33faf891e1c"
+  },
+  {
+   "file": "data/hacks.json",
+   "item": "bnb-bridge",
+   "label": "BNB Chain bridge",
+   "note": "",
+   "hash": "9dab148a1129"
+  },
+  {
+   "file": "data/hacks.json",
+   "item": "poly",
+   "label": "Poly Network",
+   "note": "",
+   "hash": "6632934dfc09"
+  },
+  {
+   "file": "data/hacks.json",
+   "item": "ronin",
+   "label": "Ronin Network",
+   "note": "",
+   "hash": "ff8ff9843996"
+  },
+  {
+   "file": "data/hacks.json",
+   "item": "bybit",
+   "label": "Bybit",
+   "note": "",
+   "hash": "e8376d0f0ff2"
+  },
+  {
+   "file": "data/legal/privacy.json",
+   "item": "(whole file)",
+   "label": "Privacy policy",
+   "note": "The Privacy page. Plain-English draft: have a lawyer check it before taking payments. Keep it matching what the site really collects. Lines starting with TODO are placeholders.",
+   "hash": "204a82bd0c98"
+  },
+  {
+   "file": "data/legal/refunds.json",
+   "item": "(whole file)",
+   "label": "Refunds and delivery",
+   "note": "The Refunds and delivery page (Razorpay asks for refund and delivery policies). Plain-English draft: have a lawyer check it.",
+   "hash": "f26ca4683805"
+  },
+  {
+   "file": "data/legal/terms.json",
+   "item": "(whole file)",
+   "label": "Terms of use",
+   "note": "The Terms page. Plain-English draft: have a lawyer check it before taking payments. Lines starting with TODO are placeholders.",
+   "hash": "2526b072c45f"
+  },
+  {
+   "file": "data/prices/ADA.json",
+   "item": "(whole file)",
+   "label": "Cardano",
+   "note": "CryptoCompare (CoinDesk Data), daily close in USD, last day of each month",
+   "hash": "01b08fd51434"
+  },
+  {
+   "file": "data/prices/AVAX.json",
+   "item": "(whole file)",
+   "label": "Avalanche",
+   "note": "CryptoCompare (CoinDesk Data), daily close in USD, last day of each month",
+   "hash": "7d0876d7a3a0"
+  },
+  {
+   "file": "data/prices/BNB.json",
+   "item": "(whole file)",
+   "label": "BNB",
+   "note": "CryptoCompare (CoinDesk Data), daily close in USD, last day of each month",
+   "hash": "2c7452518cb6"
+  },
+  {
+   "file": "data/prices/BTC.json",
+   "item": "(whole file)",
+   "label": "Bitcoin",
+   "note": "CryptoCompare (CoinDesk Data), daily close in USD, last day of each month",
+   "hash": "191735a3f9cb"
+  },
+  {
+   "file": "data/prices/DOGE.json",
+   "item": "(whole file)",
+   "label": "Dogecoin",
+   "note": "CryptoCompare (CoinDesk Data), daily close in USD, last day of each month",
+   "hash": "b4fa11c5488f"
+  },
+  {
+   "file": "data/prices/DOT.json",
+   "item": "(whole file)",
+   "label": "Polkadot",
+   "note": "CryptoCompare (CoinDesk Data), daily close in USD, last day of each month",
+   "hash": "e826f3d87b7e"
+  },
+  {
+   "file": "data/prices/ETH.json",
+   "item": "(whole file)",
+   "label": "Ethereum",
+   "note": "CryptoCompare (CoinDesk Data), daily close in USD, last day of each month",
+   "hash": "493f92c8bfe1"
+  },
+  {
+   "file": "data/prices/LINK.json",
+   "item": "(whole file)",
+   "label": "Chainlink",
+   "note": "CryptoCompare (CoinDesk Data), daily close in USD, last day of each month",
+   "hash": "b8af5a19becb"
+  },
+  {
+   "file": "data/prices/LTC.json",
+   "item": "(whole file)",
+   "label": "Litecoin",
+   "note": "CryptoCompare (CoinDesk Data), daily close in USD, last day of each month",
+   "hash": "d8797fd6b198"
+  },
+  {
+   "file": "data/prices/POL.json",
+   "item": "(whole file)",
+   "label": "Polygon (MATIC, now POL)",
+   "note": "CryptoCompare (CoinDesk Data), daily close in USD, last day of each month",
+   "hash": "9e025dd36b98"
+  },
+  {
+   "file": "data/prices/SHIB.json",
+   "item": "(whole file)",
+   "label": "Shiba Inu",
+   "note": "CryptoCompare (CoinDesk Data), daily close in USD, last day of each month",
+   "hash": "9f15f2235497"
+  },
+  {
+   "file": "data/prices/SOL.json",
+   "item": "(whole file)",
+   "label": "Solana",
+   "note": "CryptoCompare (CoinDesk Data), daily close in USD, last day of each month",
+   "hash": "8d5f74baa5bb"
+  },
+  {
+   "file": "data/prices/TRX.json",
+   "item": "(whole file)",
+   "label": "TRON",
+   "note": "CryptoCompare (CoinDesk Data), daily close in USD, last day of each month",
+   "hash": "8515cac8e440"
+  },
+  {
+   "file": "data/prices/UNI.json",
+   "item": "(whole file)",
+   "label": "Uniswap",
+   "note": "CryptoCompare (CoinDesk Data), daily close in USD, last day of each month",
+   "hash": "13179455f71d"
+  },
+  {
+   "file": "data/prices/XRP.json",
+   "item": "(whole file)",
+   "label": "XRP",
+   "note": "CryptoCompare (CoinDesk Data), daily close in USD, last day of each month",
+   "hash": "02c3d25a677f"
+  },
+  {
+   "file": "data/prices/index.json",
+   "item": "(whole file)",
+   "label": "data/prices/index.json",
+   "note": "CryptoCompare (CoinDesk Data), daily close in USD, last day of each month",
+   "hash": "e36f2d4ad04a"
+  },
+  {
+   "file": "data/products.json",
+   "item": "(whole file)",
+   "label": "data/products.json",
+   "note": "Everything that can be bought. id: short, no spaces. type: book, report, certificate, export (what it is). usd and inr: the price in dollars and rupees (whole rupees). file: for downloads, the file's ",
+   "hash": "1f75fcac7c61"
+  },
+  {
+   "file": "data/tools/airdrop.json",
+   "item": "(whole file)",
+   "label": "data/tools/airdrop.json",
+   "note": "Airdrop Campaign Planner. Eligibility rules and anti-farming ideas are lists the visitor ticks; {n} in a rule is a number they can change. Tiers split the airdrop between wallet groups (walletPct of e",
+   "hash": "c72353d35417"
+  },
+  {
+   "file": "data/tools/budget_ranges.json",
+   "item": "(whole file)",
+   "label": "data/tools/budget_ranges.json",
+   "note": "Launch Budget Planner settings. lines: each budget line with a typical range as a percent of the raise (min and max). These ranges are rough starting points drafted for web3.toys, not quotes or source",
+   "hash": "0c2af1a46f34"
+  },
+  {
+   "file": "data/tools/gas.json",
+   "item": "(whole file)",
+   "label": "data/tools/gas.json",
+   "note": "Gas and Unit Converter. Units: decimals of each unit compared with the smallest one. Actions: typical gas used by common EVM actions (rough, they vary by contract and chain: review). Solana: the base ",
+   "hash": "6c7172b55bf0"
+  },
+  {
+   "file": "data/tools/kol-scorecard.json",
+   "item": "(whole file)",
+   "label": "data/tools/kol-scorecard.json",
+   "note": "KOL Vetting Scorecard. Each check has bands: the first band whose max is at or above the value gives its points and reason; flag: true also lists it as a red flag. Points across checks add up to 100. ",
+   "hash": "4bd19ca4fd57"
+  },
+  {
+   "file": "data/tools/launch-checklist.json",
+   "item": "(whole file)",
+   "label": "data/tools/launch-checklist.json",
+   "note": "Launch Readiness Checklist. Each check has a category, a weight (points) and a why line. Yes gives full points, Partly half, No none. reportUrl is the link of the Get the full Launch Readiness Report ",
+   "hash": "8c84eba01ff2"
+  },
+  {
+   "file": "data/tools/meme-kit.json",
+   "item": "(whole file)",
+   "label": "data/tools/meme-kit.json",
+   "note": "Meme Coin Launch Kit. Names come from the visitor's theme words dropped into namePatterns ({W} = a theme word, {W2} = a second one). Tickers are made from the name. Text templates use {name}, {ticker}",
+   "hash": "40d477cb1b6a"
+  },
+  {
+   "file": "data/tools/official_domains.json",
+   "item": "(whole file)",
+   "label": "data/tools/official_domains.json",
+   "note": "Each project's own website, checked by hand. Verify before publishing.",
+   "hash": "84af003c81b2"
+  },
+  {
+   "file": "data/tools/templates/advisor.json",
+   "item": "(whole file)",
+   "label": "Advisor Agreement",
+   "note": "Advisor agreement template. Fields become the form; {{key}} in the text is replaced with what the visitor types. Blank fields show as [Field label]. A plain starting point only: it must be reviewed by",
+   "hash": "e3f82b5d9495"
+  },
+  {
+   "file": "data/tools/templates/index.json",
+   "item": "(whole file)",
+   "label": "data/tools/templates/index.json",
+   "note": "The agreement templates in the SAFT and Agreement Templates tool. Each id has its own file in this folder. The warning is shown in large type at the top and bottom of every template and every download",
+   "hash": "54552314841d"
+  },
+  {
+   "file": "data/tools/templates/kol.json",
+   "item": "(whole file)",
+   "label": "KOL Promotion Agreement",
+   "note": "KOL (creator) promotion agreement template. Fields become the form; {{key}} in the text is replaced with what the visitor types. Blank fields show as [Field label]. Section 3 (clear disclosure of paid",
+   "hash": "f116394fda57"
+  },
+  {
+   "file": "data/tools/templates/saft.json",
+   "item": "(whole file)",
+   "label": "Simple Agreement for Future Tokens (SAFT)",
+   "note": "SAFT (Simple Agreement for Future Tokens) template. Fields become the form; {{key}} in the text is replaced with what the visitor types. Blank fields show as [Field label]. A plain starting point only",
+   "hash": "b3c64941acda"
+  }
+ ]
+}

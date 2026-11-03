@@ -278,6 +278,37 @@
     play('pop');
   });
 
+  // ---------- Counting (admin dashboard) ----------
+  // Anonymous counts only: what happened and on which page, never who.
+  // Waits in a queue until js/log.js (loaded with accounts) sends it.
+  var logQueue = window.__w3log = window.__w3log || [];
+
+  function logEvent(name, item) {
+    logQueue.push({ type: 'event', name: name, page: location.pathname, item: item == null ? null : String(item) });
+    if (window.Web3Log) window.Web3Log.flush();
+  }
+
+  function logLead(email, source) {
+    logQueue.push({ type: 'lead', email: email, source: source, page: location.pathname });
+    if (window.Web3Log) window.Web3Log.flush();
+  }
+
+  // Every email signup form on the site, whichever toy it is in.
+  document.addEventListener('submit', function (e) {
+    var form = e.target;
+    if (!form.matches || !form.matches('[data-signup], [data-notify]')) return;
+    var email = form.querySelector('input[type="email"]');
+    if (!email || !email.value) return;
+    logLead(email.value, form.hasAttribute('data-notify') ? 'real-toys' : pageKey());
+    logEvent('signup', pageKey());
+  }, true);
+
+  // Book a Call clicks, wherever the button is.
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href*="book-a-call"], a[href*="cal.com"], [data-soon="call"]');
+    if (a) logEvent('call_click', pageKey());
+  }, true);
+
   // ---------- Coins ----------
   // Visitors earn coins for playing, finishing and sharing. Each reward counts
   // once per toy, so tapping a button again earns nothing. Coins live in this
@@ -319,6 +350,8 @@
     popCoins(n, el);
     // Logged-in players: js/sync.js saves it to their account.
     document.dispatchEvent(new CustomEvent('web3toys:changed', { detail: { kind: kind, key: key } }));
+    if (kind === 'finish' || kind === 'certificate') logEvent('finish', key);
+    else if (kind === 'share' || kind === 'x') logEvent('share', key);
     play('cash');
     return n;
   }
@@ -415,6 +448,7 @@
     iconSrc: iconSrc,
     fx: { confetti: confetti, coins: coins, wobble: wobble, calm: calm },
     sound: { play: play, on: soundOn, button: soundButton },
+    log: logEvent,
     coins: { award: award, wallet: wallet, amount: coinAmount, refresh: showCoins, pageKey: pageKey },
   };
 
@@ -431,7 +465,7 @@
     };
     var need = window.Web3Progress ? [] : ['js/progress.js'];
     if (!window.Web3Avatar) need.push('js/avatar.js');
-    load(need.concat(['js/vendor/supabase-2.117.3.js', 'js/auth.js', 'js/sync.js', 'js/pay.js']));
+    load(need.concat(['js/vendor/supabase-2.117.3.js', 'js/auth.js', 'js/log.js', 'js/sync.js', 'js/pay.js']));
   }
 
   // Loading screen: the hexagon icon until the page draws its content
@@ -447,6 +481,7 @@
   }
 
   function start() {
+    logEvent('page_view', null);
     showLoader();
     buildTopbar();
     buildFooter();

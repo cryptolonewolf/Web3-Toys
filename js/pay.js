@@ -173,6 +173,7 @@
         download(order.id).catch(function (err) { m.querySelector('[data-pay-msg]').textContent = err.message; });
       });
       document.dispatchEvent(new CustomEvent('web3toys:purchased', { detail: order }));
+      site.log('purchase', p.id + (item ? ':' + item : ''));
       if (onPaid) onPaid(order);
     }
 
@@ -190,6 +191,7 @@
         A.open('Log in to buy, so your purchase is saved to your account and you can download it again any time.');
         throw new Error('login');
       }
+      site.log('buy_click', p.id + (item ? ':' + item : ''));
       box(p, item, onPaid);
     });
   }

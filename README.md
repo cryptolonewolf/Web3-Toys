@@ -321,3 +321,15 @@ delete account, sound). Old links to `progress/#coins` open the Extras tab.
   on My Progress, and Buy buttons on the Books page. Switched on with
   `payments.enabled` in `config.js`. Razorpay keys live only in Supabase.
 - Setup: `docs/setup/part-4-payments.md`.
+
+## Admin dashboard (Part 8)
+
+`admin/` (`js/admin.js`), for accounts in the `admins` table only. Tabs:
+Users, Leads (email signups and where they came from), Purchases, Bookings
+(Book a Call clicks and paid calls), Project requests (vetting checklist from
+`data/admin.json`, approve or decline), Review queue (every `"review": true`
+item, from `data/review-index.json`, built by `node tools/review-index.mjs`)
+and Toy stats (plays, finishes, shares, buy clicks, purchases). Export CSV on
+every tab. The site logs anonymous counts and signups through `js/log.js`
+(database functions `log_event` and `add_lead`). Setup:
+`docs/setup/part-8-admin.md`, database: `supabase/006_admin.sql`.

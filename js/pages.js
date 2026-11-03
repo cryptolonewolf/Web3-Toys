@@ -101,7 +101,7 @@
       var msg = form.querySelector('[data-msg]');
       if (!signup.endpoint) {
         e.preventDefault();
-        msg.textContent = data.form.soon;
+        msg.textContent = (CONFIG.supabase || {}).url ? data.form.thanks : data.form.soon;
       } else {
         msg.textContent = data.form.thanks;
       }
