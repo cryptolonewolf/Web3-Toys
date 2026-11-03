@@ -25,8 +25,8 @@ window.WEB3TOYS_CONFIG = {
   // decide what it can read. NEVER put the service_role key here.
   // Leave url empty to keep logins switched off.
   supabase: {
-    url: '',
-    anonKey: '',
+    url: 'https://zdufxggiffinqcstoquq.supabase.co',
+    anonKey: 'sb_publishable_xfsY4B0dsqJM9TB3f5X5Og_bJcIirOI',
   },
 
   // Login options shown in the login box. xProvider is 'x' for the newer
