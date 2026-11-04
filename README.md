@@ -369,3 +369,13 @@ the admin Bookings tab through `supabase/functions/cal-webhook`
   private `paid-files` bucket.
 - Offers never block play. Views are counted as `offer_view` in the admin
   Toy stats (re-run `supabase/006_admin.sql` once).
+
+## Work with us (Part 7)
+
+`work-with-us/` (`js/work-app.js`, words in `data/work.json`): projects pick a
+custom toy ($999) or an Academy course ($199, $349 or $499), fill in the
+request form (saved by `submit_request`), then pay with `Web3Pay`. A database
+trigger marks the request Paid when its order is paid; the admin Project
+requests tab moves it to In review, Approved, Live or Declined (refund in
+full when declining). The visitor follows every step on the same page.
+Database: `supabase/009_work_with_us.sql`. Setup: `docs/setup/part-7-work-with-us.md`.

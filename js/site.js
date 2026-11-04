@@ -20,6 +20,7 @@
   var FOOTER_EXTRA = [
     { label: 'Books', href: 'books/' },
     { label: 'About Aki', href: 'about/' },
+    { label: 'Work with us', href: 'work-with-us/' },
     { label: 'List your project', href: 'academy/list-your-project/' },
     { label: 'Leaderboard', href: 'leaderboard/' },
     { label: 'Check a certificate', href: 'verify/' },

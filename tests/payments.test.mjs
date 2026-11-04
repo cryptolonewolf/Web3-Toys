@@ -15,7 +15,7 @@ describe('Payments', () => {
     assert.equal(new Set(products.map((p) => p.id)).size, products.length);
     products.forEach((p) => {
       assert.match(p.id, /^[a-z0-9-]+$/);
-      assert.ok(['book', 'report', 'certificate', 'export', 'call'].includes(p.type), p.id);
+      assert.ok(['book', 'report', 'certificate', 'export', 'call', 'project'].includes(p.type), p.id);
       assert.ok(p.usd > 0 && p.inr > 0 && Number.isInteger(p.inr), p.id);
       if (p.file) assert.match(p.file, /^[a-z0-9/-]+\.pdf$/);
     });
@@ -61,5 +61,38 @@ describe('Book a Call', () => {
     assert.ok(sql.includes('alter table public.bookings enable row level security'));
     assert.ok(!/for (insert|update|delete|all)/i.test(sql));
     assert.ok(read('supabase/functions/cal-webhook/index.ts').includes("req.headers.get('x-cal-signature-256')"));
+  });
+});
+
+describe('Work with us (Part 7)', () => {
+  const products = json('data/products.json').products;
+  const work = json('data/work.json');
+  const sql = read('supabase/009_work_with_us.sql');
+  const projects = products.filter((p) => p.type === 'project');
+
+  it('has the agreed prices', () => {
+    const usd = Object.fromEntries(projects.map((p) => [p.id, p.usd]));
+    assert.deepEqual(usd, { 'project-toy': 999, 'course-4': 199, 'course-6': 349, 'course-8': 499 });
+    projects.forEach((p) => { assert.ok(p.perItem, p.id); assert.ok(!p.coins, p.id); });
+  });
+
+  it('every package is a project product, and the database knows each one', () => {
+    work.packages.forEach((k) => {
+      assert.ok(projects.find((p) => p.id === k.product), k.id);
+      assert.ok(work.fields[k.kind], k.kind);
+    });
+    projects.forEach((p) => assert.ok(sql.includes(`'${p.id}'`), p.id));
+  });
+
+  it('shows the listing promise word for word', () => {
+    const line = 'Payment does not guarantee listing. Every project passes our vetting checklist first, and we refund in full if we decline.';
+    assert.equal(work.guarantee, line);
+    assert.ok(json('data/legal/refunds.json').sections.some((s) => (s.list || []).includes(line)) || read('data/legal/refunds.json').includes(line));
+  });
+
+  it('requests are only written through submit_request', () => {
+    assert.ok(sql.includes('auth.uid() is null'));
+    assert.ok(sql.includes('from public, anon'));
+    assert.ok(!/create policy[^;]*for (insert|update|delete|all)/i.test(sql));
   });
 });

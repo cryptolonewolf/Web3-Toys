@@ -1,0 +1,60 @@
+{
+  "_help": "The Work with us page (work-with-us/, js/work-app.js). packages: what people can pay for; product is the id in data/products.json, where the real price lives. fields: the questions on the request form for each kind (key, label, type text, url or area, required true or false). statuses: the words and short explanations people see for their requests. guarantee must stay word for word.",
+  "label": "Work with us",
+  "title": "Put your project in front of curious people.",
+  "intro": "We turn your project into a short course or a playful toy, in the web3.toys style. People learn what you do, pass a quiz and share a certificate in your colours.",
+  "packagesTitle": "Pick a package",
+  "packages": [
+    { "id": "course-4", "kind": "course", "product": "course-4", "name": "Academy course: Starter", "points": ["4 lessons", "15 quiz questions", "A certificate in your colours"] },
+    { "id": "course-6", "kind": "course", "product": "course-6", "name": "Academy course: Standard", "points": ["6 lessons", "25 quiz questions", "A certificate in your colours"] },
+    { "id": "course-8", "kind": "course", "product": "course-8", "name": "Academy course: Featured", "points": ["8 lessons", "30 quiz questions", "30 days featured on the Academy page"] },
+    { "id": "project-toy", "kind": "toy", "product": "project-toy", "name": "Custom toy", "points": ["A game or interactive toy about your project", "Made with you, in our style", "A share card people want to post"] }
+  ],
+  "guarantee": "Payment does not guarantee listing. Every project passes our vetting checklist first, and we refund in full if we decline.",
+  "checklistLink": "See the vetting checklist",
+  "stepsTitle": "How it works",
+  "steps": [
+    "Send the form below and pay for your package.",
+    "We check your project against our vetting checklist, usually within 5 working days.",
+    "If we approve it, we build your course or toy with you. If we decline, we refund you in full.",
+    "It goes live, and you can follow every step here."
+  ],
+  "formTitle": "Tell us about your project",
+  "common": [
+    { "key": "project", "label": "Project name", "type": "text", "required": true },
+    { "key": "email", "label": "Email we can reply to", "type": "email", "required": true },
+    { "key": "website", "label": "Website", "type": "url", "required": true },
+    { "key": "x", "label": "X (Twitter) handle", "type": "text", "required": false, "placeholder": "@yourproject" },
+    { "key": "name", "label": "Your name and role", "type": "text", "required": true }
+  ],
+  "fields": {
+    "course": [
+      { "key": "what", "label": "What does your project do, in two sentences?", "type": "area", "required": true },
+      { "key": "audit", "label": "Audit or security review link", "type": "url", "required": false, "placeholder": "Leave empty if you have no token contracts yet" },
+      { "key": "team", "label": "Where we can see your team (page or profiles)", "type": "url", "required": false },
+      { "key": "content", "label": "Your filled course template (link to a doc), or leave empty and send it later", "type": "url", "required": false }
+    ],
+    "toy": [
+      { "key": "what", "label": "What does your project do, in two sentences?", "type": "area", "required": true },
+      { "key": "learn", "label": "What should players understand after playing?", "type": "area", "required": true },
+      { "key": "idea", "label": "Any game idea? (optional)", "type": "area", "required": false },
+      { "key": "deadline", "label": "Any date it should be ready by? (optional)", "type": "text", "required": false },
+      { "key": "audit", "label": "Audit or security review link", "type": "url", "required": false, "placeholder": "Leave empty if you have no token contracts yet" },
+      { "key": "team", "label": "Where we can see your team (page or profiles)", "type": "url", "required": false }
+    ]
+  },
+  "agree": "I understand that payment does not guarantee listing, and that web3.toys never promises returns and does not endorse any token.",
+  "submit": "Send request and pay",
+  "loginNote": "You need to log in first, so you can follow your request here. Your answers stay on this page.",
+  "noPay": "Requests open soon. Email hi@web3.toys in the meantime.",
+  "mineTitle": "Your requests",
+  "payNow": "Pay now",
+  "statuses": {
+    "submitted": { "name": "Submitted", "line": "Waiting for payment. We start reviewing once it is paid." },
+    "paid": { "name": "Paid", "line": "Thank you. Your project is in the queue for review." },
+    "in_review": { "name": "In review", "line": "We are checking your project against the vetting checklist." },
+    "approved": { "name": "Approved", "line": "You passed. We will email you to start building." },
+    "live": { "name": "Live", "line": "Your course or toy is live on web3.toys." },
+    "declined": { "name": "Declined", "line": "We could not list this project. Your full refund is on its way." }
+  }
+}

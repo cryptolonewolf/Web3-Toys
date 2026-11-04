@@ -9,9 +9,7 @@
   var app = document.getElementById('app');
 
   C.loadJson('../../data/academy/listing.json').then(function (L) {
-    var apply = CONFIG.formUrl
-      ? '<a class="btn btn--ink btn--block" href="' + esc(CONFIG.formUrl) + '" target="_blank" rel="noopener" data-apply>' + esc(L.applyButton) + '</a>'
-      : '<button type="button" class="btn btn--ink btn--block" data-apply>' + esc(L.applyButton) + '</button>';
+    var apply = '<a class="btn btn--ink btn--block" href="../../work-with-us/?kind=course" data-apply>' + esc(L.applyButton) + '</a>';
     app.innerHTML =
       '<section class="tool-head stack stack--tight"><p class="label">Project Academy</p><h1 class="tool-title">' + esc(L.title) + '</h1>' +
       '<p class="text text--ink">' + esc(L.intro) + '</p></section>' +
@@ -26,11 +24,10 @@
       '<div class="btn-row"><a class="btn" href="../../assets/academy/course-template.md" download>Template (text)</a>' +
       '<a class="btn" href="../../assets/academy/course-template.json" download>Template (JSON)</a></div></section>' +
       '<section class="card card--yellow stack stack--tight"><h2 class="title-md">' + esc(L.priceTitle) + '</h2>' +
-      '<p class="price">' + esc(CONFIG.price || L.priceEmpty) + '</p>' + apply + '<p class="small-print" data-msg aria-live="polite"></p></section>' +
+      '<p class="price">' + esc(CONFIG.price || L.priceEmpty) + '</p><p class="small-print">' + esc(L.priceLine) + '</p>' + apply + '<p class="small-print" data-msg aria-live="polite"></p></section>' +
       '<p class="tool-disclaimer">web3.toys does not endorse any token. Not financial advice.</p>';
     app.querySelector('[data-apply]').addEventListener('click', function () {
       C.track('academy_apply_clicked');
-      if (!CONFIG.formUrl) app.querySelector('[data-msg]').textContent = L.applySoon;
     });
   }).catch(function (err) { app.innerHTML = C.loadError(err); });
 })();

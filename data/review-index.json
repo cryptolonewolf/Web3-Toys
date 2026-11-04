@@ -887,8 +887,8 @@
    "file": "data/products.json",
    "item": "(whole file)",
    "label": "data/products.json",
-   "note": "Everything that can be bought. id: short, no spaces. type: book, report, certificate, export or call (what it is). usd and inr: the price in dollars and rupees (whole rupees). file: for downloads, the",
-   "hash": "695987a6f8b9"
+   "note": "Everything that can be bought. id: short, no spaces. type: book, report, certificate, export, call or project (what it is; project is a Work with us request, paid after the request form). usd and inr:",
+   "hash": "145fb60d571b"
   },
   {
    "file": "data/reports.json",

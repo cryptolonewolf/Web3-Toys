@@ -6849,3 +6849,19 @@ body[data-theme='theme-night'] .pf-h .small-print { color: #d9d4f0; }
     grid-column: auto;
   }
 }
+
+/* ---------- Work with us (js/work-app.js) ---------- */
+.wk-packs { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.wk-pack { width: 100%; text-align: left; display: grid; gap: 6px; font: inherit; color: inherit; cursor: pointer; }
+.wk-pack.is-on { background: var(--yellow); }
+.wk-pack:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.wk-name { font-family: var(--font-display, inherit); font-weight: 800; font-size: 18px; }
+.wk-price { font-weight: 800; font-size: 22px; }
+.wk-points { display: grid; gap: 4px; font-size: 14px; }
+.wk-points span { display: flex; gap: 6px; align-items: flex-start; }
+.wk-points svg { flex: none; width: 16px; height: 16px; margin-top: 2px; }
+.wk-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px; }
+.wk-steps li { font-size: 12px; font-weight: 800; border: var(--line-thin); border-radius: 999px; padding: 1px 8px; background: var(--white); opacity: .55; }
+.wk-steps li.is-done { background: var(--mint); opacity: 1; }
+@media (min-width: 600px) { .wk-packs { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 960px) { .wk-packs { grid-template-columns: repeat(4, 1fr); } }
