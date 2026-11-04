@@ -23,7 +23,7 @@ window.WEB3TOYS_CONFIG = {
   // time button that opens calUrl. Leave calUrl empty to show "opens soon".
   call: {
     mode: 'calcom',
-    calUrl: '',
+    calUrl: 'https://cal.com/buildwithaki/web3-consultation',
     product: 'call-30',
   },
 
