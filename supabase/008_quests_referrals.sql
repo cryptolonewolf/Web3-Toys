@@ -1,6 +1,6 @@
 -- web3.toys: coin tasks (quests), unlocking paid items with coins, and referrals.
 -- Paste into Supabase: SQL Editor, New query, Run. Safe to run again.
--- Run 001 to 007 first.
+-- Run 001, 002, 003 and 004 first (005 to 007 are optional for this file).
 --
 -- Coins are site points. They can unlock extras and paid items on the site,
 -- but have no cash value and can never be withdrawn, sold or swapped.
@@ -111,6 +111,12 @@ drop policy if exists "coin prices are public" on public.coin_products;
 create policy "coin prices are public" on public.coin_products for select using (true);
 
 -- Orders paid with coins: provider 'coins', currency 'COINS', amount = coins.
+-- (These columns also come from 005_crypto.sql; adding them here means this
+-- file works even if the crypto setup has not been run yet.)
+alter table public.orders add column if not exists provider text not null default 'razorpay';
+alter table public.orders add column if not exists provider_token text unique;
+alter table public.orders add column if not exists provider_status int;
+alter table public.orders alter column razorpay_order_id drop not null;
 alter table public.orders drop constraint if exists orders_currency_check;
 alter table public.orders add constraint orders_currency_check check (currency in ('INR', 'USD', 'COINS'));
 alter table public.orders drop constraint if exists orders_provider_check;
