@@ -26,7 +26,7 @@
         {"id": "earn-small", "title": "Stack Sats", "topic": "Ways to Earn Small", "font": "chewy", "accent": "violet", "time": "5 min", "path": "earn-small/", "blurb": "Content, airdrops, writing, videos and internships.", "color": "violet", "object": "coins", "pattern": "dots", "edge": "stamp", "status": "live"},
         {"id": "first-job", "title": "Land Your First Web3 Job", "time": "5 min", "color": "teal", "object": "briefcase", "blurb": "How to land your first job in web3.", "pattern": "checks", "edge": "round", "font": "bungee", "status": "soon"},
         {"id": "web3-roles", "title": "Roles in Web3, Explained", "time": "5 min", "color": "pink", "object": "badge", "blurb": "The roles in a web3 team, explained.", "pattern": "plus", "edge": "tape", "font": "chewy", "status": "soon"},
-        {"id": "hall-of-fame", "kind": "game", "path": "hall-of-fame/", "title": "Web3 Builders Hall of Fame", "time": "5 min", "color": "yellow", "object": "trophy", "blurb": "Thirty people who built web3, what they made and why it matters.", "pattern": "triangles", "edge": "stamp", "font": "luckiest", "status": "soon"}
+        {"id": "hall-of-fame", "kind": "game", "path": "hall-of-fame/", "title": "Web3 Builders Hall of Fame", "time": "5 min", "color": "yellow", "object": "trophy", "blurb": "Thirty people who built web3, what they made and why it matters.", "pattern": "triangles", "edge": "stamp", "font": "luckiest", "status": "live"}
       ]
     },
     {

@@ -410,6 +410,6 @@ in `data/hall-of-fame.json`). Right answers fill your Hall of Fame wall
 (this browser). Ends with the quiz (`quizzes/hall-of-fame.json`, letter F)
 and a certificate. Portraits: `images/people/ID.webp` plus `"photo": true`;
 until then a pencil sketch with initials shows. Brief:
-`docs/setup/hall-of-fame-portraits.md`. Scheduled for Tue 1 Dec in
-`data/releases.json`; preview it before then by setting `PREVIEW_KEY` in
-Vercel and opening `/hall-of-fame/?preview=YOUR_KEY` once.
+`docs/setup/hall-of-fame-portraits.md`. Live now, part of launch day.
+Preview any locked toy before its date by setting `PREVIEW_KEY` in Vercel
+and opening `/TOY/?preview=YOUR_KEY` once.

@@ -28,7 +28,7 @@ describe('Release schedule', () => {
 
   it('launch day toys stay playable and are live on the home page', () => {
     const live = rel.toys.filter((t) => t.playableNow);
-    assert.equal(live.length, 10);
+    assert.equal(live.length, 11);
     live.forEach((t) => {
       assert.equal(t.date, rel.launch, t.id);
       assert.ok(t.ready && cards[t.id].path, t.id);

@@ -11,7 +11,6 @@ export const config = {
   matcher: [
     '/web3-roles/:path*',
     '/tokenomics-basics/:path*',
-    '/hall-of-fame/:path*',
     '/ways-to-moon/:path*',
     '/first-job/:path*',
     '/raise-first-round/:path*',

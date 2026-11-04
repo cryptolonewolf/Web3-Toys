@@ -902,7 +902,7 @@
    "item": "(whole file)",
    "label": "data/releases.json",
    "note": "The release schedule for toys (js/releases.js, the soon/ teaser page, middleware.js). Times are India time (+05:30). date: when the toy unlocks; change it here any time, no code needed. playableNow: t",
-   "hash": "feb1a1a382fd"
+   "hash": "7bce3dd5b1d2"
   },
   {
    "file": "data/reports.json",
