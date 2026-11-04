@@ -186,7 +186,7 @@
         '<div class="btn-row"><button type="button" class="btn btn--ink" data-share>Share</button>' +
         '<a class="btn" target="_blank" rel="noopener" href="https://x.com/intent/tweet?text=' + encodeURIComponent(text) + '">Post on X</a></div>' +
         '<div class="btn-row"><button type="button" class="btn" data-again>Dive again</button><button type="button" class="btn" data-fishing>Go fishing</button></div>' +
-        ToyKit.offersSlot('game', 'dead-projects') +
+        (window.GameQuiz ? GameQuiz.cta('dead-projects') : '') + ToyKit.offersSlot('game', 'dead-projects') +
         ToyKit.signupHtml(T.signup) +
         '<p class="small-print center" data-soon-msg aria-live="polite"></p>';
       btn.parentNode.hidden = true;

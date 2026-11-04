@@ -32,6 +32,7 @@
   // Re-draw when the account loads, logs out or finishes syncing.
   document.addEventListener('web3auth:ready', function () { window.Web3Auth.onChange(function () { if (home) render(); }); });
   document.addEventListener('web3toys:synced', function () { if (home) render(); });
+  document.addEventListener('web3earlybird:change', function () { if (home && tab === 'certs') render(); });
   document.addEventListener('web3toys:purchased', function () { orders = null; if (home) render(); });
   document.addEventListener('web3pay:ready', function () { if (home && tab === 'purchases') render(); });
   document.addEventListener('web3auth:ready', function () { window.Web3Auth.onChange(function () { orders = null; }); });
@@ -131,8 +132,10 @@
 
   function certCard(c, pro) {
     var path = pro ? 'academy/course/?id=' + encodeURIComponent(c.toy.slice(8)) : (toyPath(c.toy) || '');
+    var eb = !pro && window.Web3EarlyBird ? window.Web3EarlyBird.spot(c.toy) : null;
     return '<li class="pf-cert' + (pro ? ' pf-cert--pro' : '') + '"><span class="pf-cert-score">' + c.score + '%</span>' +
       '<b>' + esc(c.title || c.toy) + '</b><span class="small-print">' + esc(c.date) + '</span>' +
+      (eb ? '<span class="chip is-yellow pf-eb">🐣 Early Bird #' + eb + '</span>' : '') +
       '<span class="pf-cert-links"><a href="../' + esc(path) + '#certificate">View</a> · <a href="../verify/?code=' + encodeURIComponent(c.code) + '&name=' + encodeURIComponent(c.name) + '">Verify</a></span></li>';
   }
 

@@ -417,6 +417,9 @@
       ctx.fillText('Code ' + cert.code, 120, 820);
       ctx.fillText('Check it at web3.toys/verify', 120, 864);
 
+      // Early Bird: a round stamp with the spot number.
+      if (opts.earlyBird) earlyStamp(ctx, W - 300, 330, opts.earlyBird);
+
       // Fit the mascot inside a 380 by 380 box, keeping its shape.
       if (img) {
         var k = Math.min(380 / img.width, 380 / img.height);
@@ -426,6 +429,33 @@
       }
       return canvas;
     });
+  }
+
+  function earlyStamp(ctx, x, y, spot) {
+    var INK = '#1F1B2E';
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(-0.12);
+    ctx.fillStyle = '#FFD93D';
+    ctx.beginPath(); ctx.arc(0, 0, 118, 0, Math.PI * 2); ctx.fill();
+    ctx.lineWidth = 8; ctx.strokeStyle = INK; ctx.stroke();
+    ctx.setLineDash([10, 8]); ctx.lineWidth = 4;
+    ctx.beginPath(); ctx.arc(0, 0, 98, 0, Math.PI * 2); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = INK;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = "800 26px 'Nunito', sans-serif";
+    ctx.fillText('EARLY BIRD', 0, -42);
+    ctx.font = "700 64px 'Fredoka', sans-serif";
+    ctx.fillText('#' + spot, 0, 12);
+    ctx.font = "800 22px 'Nunito', sans-serif";
+    ctx.fillText('2x COINS', 0, 62);
+    ctx.restore();
+  }
+
+  function earlyBird(toy) {
+    return window.Web3EarlyBird ? window.Web3EarlyBird.spot(toy) : null;
   }
 
   function showCertificate(cert, rank, rankUp) {
@@ -457,12 +487,25 @@
     });
     ui.app.querySelector('[data-share]').addEventListener('click', function () { C.track('certificate_shared_x', { toy: cert.toy }); });
 
-    drawCertificate(canvas, cert, rank.name).then(function () {
-      ui.app.querySelector('[data-preview]').src = canvas.toDataURL('image/png');
-      canvas.toBlob(function (blob) {
-        if (blob) download.setAttribute('href', URL.createObjectURL(blob));
-      }, 'image/png');
-    });
+    var drawn = null;
+    var paint = function () {
+      drawn = earlyBird(cert.toy);
+      return drawCertificate(canvas, cert, rank.name, { earlyBird: drawn }).then(function () {
+        var img = ui.app.querySelector('[data-preview]');
+        if (!img) return;
+        img.src = canvas.toDataURL('image/png');
+        canvas.toBlob(function (blob) {
+          if (blob) download.setAttribute('href', URL.createObjectURL(blob));
+        }, 'image/png');
+      });
+    };
+    paint();
+    // A spot can arrive a moment later, once the certificate reaches the account.
+    var again = function () {
+      if (!document.body.contains(download)) { document.removeEventListener('web3earlybird:change', again); return; }
+      if (earlyBird(cert.toy) && earlyBird(cert.toy) !== drawn) paint();
+    };
+    document.addEventListener('web3earlybird:change', again);
   }
 
   // From My Progress: "View certificate" opens the toy page with #certificate.
@@ -529,6 +572,7 @@
     var canvas = document.createElement('canvas');
     var progress = Web3Progress.load(window.localStorage);
     return (ranks ? Promise.resolve() : extras()).then(function () {
+      opts.earlyBird = earlyBird(id);
       return drawCertificate(canvas, cert, Web3Progress.rankFor(Web3Progress.count(progress), ranks).name, opts);
     }).then(function () {
       canvas.toBlob(function (blob) {

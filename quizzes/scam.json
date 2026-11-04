@@ -1,0 +1,78 @@
+{
+  "_help": "Quiz for Spot the Scam. 5 to 8 questions. answer must match one of the options exactly. explain is shown after the quiz. This folder is never shown to visitors.",
+  "review": true,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "Someone asks for your seed phrase to \"verify\" your wallet. What is it?",
+      "options": [
+        "A scam: nobody real ever needs your seed phrase",
+        "A normal security check",
+        "Fine if they are from support",
+        "Fine if they have a blue tick"
+      ],
+      "answer": "A scam: nobody real ever needs your seed phrase",
+      "explain": "Your seed phrase is the key to all your crypto. Real support never asks for it."
+    },
+    {
+      "id": "q2",
+      "question": "A message says you won an airdrop, but you must pay a small fee to unlock it. What is that?",
+      "options": [
+        "A classic pay-to-unlock scam",
+        "A normal gas fee",
+        "A lucky break",
+        "A tax you have to pay"
+      ],
+      "answer": "A classic pay-to-unlock scam",
+      "explain": "Real airdrops do not ask you to send money first."
+    },
+    {
+      "id": "q3",
+      "question": "A link looks like a famous exchange, but one letter is different. What should you do?",
+      "options": [
+        "Do not click it; type the address yourself or use your bookmark",
+        "Click it quickly before the offer ends",
+        "Enter your password to check",
+        "Forward it to friends"
+      ],
+      "answer": "Do not click it; type the address yourself or use your bookmark",
+      "explain": "Look-alike addresses are one of the most common ways to steal logins."
+    },
+    {
+      "id": "q4",
+      "question": "\"Guaranteed 5% a day, no risk.\" What does this promise tell you?",
+      "options": [
+        "It is almost certainly a scam",
+        "It is a safe savings account",
+        "It is how staking works",
+        "It is normal in crypto"
+      ],
+      "answer": "It is almost certainly a scam",
+      "explain": "No real investment can promise high returns with no risk."
+    },
+    {
+      "id": "q5",
+      "question": "A stranger asks you to move the chat to Telegram and open a file for a job. What is the safe move?",
+      "options": [
+        "Do not open the file on a computer that holds your crypto",
+        "Open it to see the job",
+        "Send your wallet address first",
+        "Install whatever they ask"
+      ],
+      "answer": "Do not open the file on a computer that holds your crypto",
+      "explain": "Fake job offers are a common way to plant software that steals wallets."
+    },
+    {
+      "id": "q6",
+      "question": "Which one is a red flag in any crypto message?",
+      "options": [
+        "Pressure to act right now",
+        "A link to the official website you already know",
+        "A message you asked for",
+        "Plain language with no promises"
+      ],
+      "answer": "Pressure to act right now",
+      "explain": "\"Act now\" and \"last chance\" are there to stop you from thinking."
+    }
+  ]
+}

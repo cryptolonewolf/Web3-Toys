@@ -1,0 +1,78 @@
+{
+  "_help": "Quiz for Fish the Dead Projects. 5 to 8 questions. answer must match one of the options exactly. explain is shown after the quiz. This folder is never shown to visitors.",
+  "review": true,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is a rug pull?",
+      "options": [
+        "When the team takes the money and disappears",
+        "When a token price goes up fast",
+        "A new kind of wallet",
+        "When a chain upgrades"
+      ],
+      "answer": "When the team takes the money and disappears",
+      "explain": "In a rug pull the people behind a project drain the funds or sell everything and vanish."
+    },
+    {
+      "id": "q2",
+      "question": "Which sign suggests a project may be dying?",
+      "options": [
+        "The team stops updating and the community goes quiet",
+        "The website is updated every week",
+        "The code keeps getting new releases",
+        "More people use the app every month"
+      ],
+      "answer": "The team stops updating and the community goes quiet",
+      "explain": "Abandoned projects often keep a token trading long after the work has stopped."
+    },
+    {
+      "id": "q3",
+      "question": "Why do many tokens end up close to zero?",
+      "options": [
+        "Most projects fail, like most startups",
+        "Every token always comes back",
+        "Prices are fixed by law",
+        "Only scams ever fail"
+      ],
+      "answer": "Most projects fail, like most startups",
+      "explain": "Failure is normal. That is why you never put in more than you can afford to lose."
+    },
+    {
+      "id": "q4",
+      "question": "An algorithmic stablecoin loses its dollar peg. What can happen?",
+      "options": [
+        "It can collapse, as Terra's UST did in 2022",
+        "Nothing, stablecoins cannot fall",
+        "The bank refunds everyone",
+        "It always comes back within a day"
+      ],
+      "answer": "It can collapse, as Terra's UST did in 2022",
+      "explain": "Some stablecoins are only stable while people trust them."
+    },
+    {
+      "id": "q5",
+      "question": "What is a good habit before buying a token?",
+      "options": [
+        "Check whether the product is used and the team is still building",
+        "Buy it because the price is rising",
+        "Trust the most excited posts",
+        "Buy it because it is cheap per token"
+      ],
+      "answer": "Check whether the product is used and the team is still building",
+      "explain": "Real use and active builders matter more than hype."
+    },
+    {
+      "id": "q6",
+      "question": "Which of these is the safest lesson from dead projects?",
+      "options": [
+        "Spread your risk and only use money you can afford to lose",
+        "Put everything into one coin",
+        "Borrow money to buy more",
+        "Never sell, no matter what"
+      ],
+      "answer": "Spread your risk and only use money you can afford to lose",
+      "explain": "Even good projects can die. Keep each bet small."
+    }
+  ]
+}

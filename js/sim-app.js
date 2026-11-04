@@ -601,7 +601,7 @@
       '<img class="share-preview" data-preview alt="Share card: ' + esc(score.rank.label) + ', ' + score.total + ' out of 100" />' +
       '<div class="btn-row"><button type="button" class="btn btn--ink" data-share>Share</button>' +
       '<button type="button" class="btn" data-again>Play again with a different route</button></div>' +
-      ToyKit.offersSlot('game', 'token-simulator') +
+      (window.GameQuiz ? GameQuiz.cta('token-simulator') : '') + ToyKit.offersSlot('game', 'token-simulator') +
       ToyKit.signupHtml(C.signup) +
       book,
       { pill: 'Launch complete', pillColor: 'mint' }

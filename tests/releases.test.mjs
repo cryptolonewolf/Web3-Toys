@@ -135,4 +135,20 @@ describe('Release schedule', () => {
     assert.ok(sql.includes("raise exception 'Log in to vote.'"));
     assert.ok(!/create policy[^;]*for (insert|update|delete|all)/i.test(sql));
   });
+
+  it('Early Bird starts match the release dates, and every scheduled toy ends with a certificate', () => {
+    const sql = read('supabase/012_early_bird.sql');
+    const quizIds = json('quizzes/index.json').toys.map((t) => t.id);
+    rel.toys.forEach((t) => {
+      assert.ok(sql.includes(`('${t.id}', '${t.date.replace('T', ' ')}', 1000,`), t.id + ': Early Bird start in 012_early_bird.sql must match releases.json');
+      if (t.ready) {
+        assert.ok(quizIds.includes(t.id), t.id + ' needs a quiz and certificate (quizzes/index.json)');
+        const q = json(`quizzes/${t.id}.json`).questions;
+        assert.ok(q.length >= 5 && q.length <= 8, t.id);
+        q.forEach((x) => assert.equal(x.options.filter((o) => o === x.answer).length, 1, t.id + ' ' + x.id));
+      }
+    });
+    assert.ok(sql.includes('for update'), 'spots are handed out one at a time');
+    assert.ok(sql.includes('unique (toy, user_id)'));
+  });
 });

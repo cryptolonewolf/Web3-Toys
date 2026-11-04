@@ -1,0 +1,78 @@
+{
+  "_help": "Quiz for Launch a Token Simulator. 5 to 8 questions. answer must match one of the options exactly. explain is shown after the quiz. This folder is never shown to visitors.",
+  "review": true,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "Why do teams add liquidity when a token launches?",
+      "options": [
+        "So people can buy and sell without huge price jumps",
+        "To print more tokens",
+        "To hide the team",
+        "To avoid audits"
+      ],
+      "answer": "So people can buy and sell without huge price jumps",
+      "explain": "Thin liquidity makes the price swing wildly on small trades."
+    },
+    {
+      "id": "q2",
+      "question": "What does an audit check?",
+      "options": [
+        "The smart contract code for security problems",
+        "The token's future price",
+        "The team's salaries",
+        "How many followers they have"
+      ],
+      "answer": "The smart contract code for security problems",
+      "explain": "An audit lowers the risk of bugs, but does not remove it."
+    },
+    {
+      "id": "q3",
+      "question": "Why lock the team's tokens with vesting?",
+      "options": [
+        "To show the team will not dump on buyers",
+        "To make the price go up forever",
+        "To avoid paying fees",
+        "To hide the supply"
+      ],
+      "answer": "To show the team will not dump on buyers",
+      "explain": "Vesting builds trust that insiders are in it for the long run."
+    },
+    {
+      "id": "q4",
+      "question": "What is a sign of a healthy launch week?",
+      "options": [
+        "Real users using the product, not only price talk",
+        "Only paid influencers posting",
+        "Promises of guaranteed returns",
+        "Hiding the token split"
+      ],
+      "answer": "Real users using the product, not only price talk",
+      "explain": "Use and community last longer than hype."
+    },
+    {
+      "id": "q5",
+      "question": "Paying influencers to promise price pumps is...",
+      "options": [
+        "Risky and can mislead buyers",
+        "The best way to build trust",
+        "Required by law",
+        "Always safe"
+      ],
+      "answer": "Risky and can mislead buyers",
+      "explain": "Honest marketing explains the product. Promising returns misleads people."
+    },
+    {
+      "id": "q6",
+      "question": "What should a team share openly at launch?",
+      "options": [
+        "The token split, unlock dates and the audit",
+        "Only the price target",
+        "Nothing, to keep it exciting",
+        "Their private keys"
+      ],
+      "answer": "The token split, unlock dates and the audit",
+      "explain": "Being open about tokenomics helps buyers make informed choices."
+    }
+  ]
+}

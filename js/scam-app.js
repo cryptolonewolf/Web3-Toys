@@ -52,7 +52,7 @@
   // Signup, report and call buttons, used on both end screens.
   function endExtras() {
     return (
-      ToyKit.offersSlot('game', 'scam') +
+      (window.GameQuiz ? GameQuiz.cta('scam') : '') + ToyKit.offersSlot('game', 'scam') +
       ToyKit.signupHtml(SETTINGS.signup) +
       '<p class="small-print center" data-soon-msg aria-live="polite"></p>'
     );
@@ -482,7 +482,7 @@
       '</div>' +
       '<p class="small-print center" data-soon-msg aria-live="polite"></p>' +
       '<p class="text center">' + esc(SETTINGS.notes.secondOpinion) + ' ' + ToyKit.callLink('Book a call') + '.</p>' +
-      ToyKit.offersSlot('game', 'scam') +
+      (window.GameQuiz ? GameQuiz.cta('scam') : '') + ToyKit.offersSlot('game', 'scam') +
       ToyKit.signupHtml(SETTINGS.signup) +
       '<button type="button" class="text-button center" data-play>Play the game</button>',
       { text: 'Message checker', color: 'yellow' }

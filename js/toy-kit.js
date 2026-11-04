@@ -170,6 +170,23 @@
   // data: { title, big, bigLabel, rank, line, cta, mascotSrc, stats }
   // stats (optional): up to 3 pairs like [['Price', 118], ['Trust', 66]].
   // Draws the square card. Pasted text never goes on it; only these fields.
+  function earlyBadge(ctx, x, y, spot) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(0.14);
+    ctx.fillStyle = '#FFD93D';
+    ctx.beginPath(); ctx.arc(0, 0, 96, 0, Math.PI * 2); ctx.fill();
+    ctx.lineWidth = 7; ctx.strokeStyle = '#1F1B2E'; ctx.stroke();
+    ctx.fillStyle = '#1F1B2E';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = "800 22px 'Nunito', sans-serif";
+    ctx.fillText('EARLY BIRD', 0, -32);
+    ctx.font = "700 52px 'Fredoka', sans-serif";
+    ctx.fillText('#' + spot, 0, 14);
+    ctx.restore();
+  }
+
   function drawShareCard(canvas, data) {
     var fonts = document.fonts
       ? Promise.all([
@@ -178,6 +195,10 @@
           document.fonts.load('800 40px Nunito'),
         ]).catch(function () {})
       : Promise.resolve();
+    // Early Bird winners get their spot on the card (js/earlybird.js).
+    var EB = window.Web3EarlyBird;
+    var toy = document.body.getAttribute('data-toy');
+    var spot = data.earlyBird || (EB && toy ? EB.spot(toy) : null);
     return fonts.then(function () { return loadImage(data.mascotSrc); }).then(function (mascot) {
       paintCard(canvas, data, mascot);
       // Opened straight from the computer, browsers block saving a canvas that
@@ -187,6 +208,7 @@
       } catch (e) {
         paintCard(canvas, data, null);
       }
+      if (spot) earlyBadge(canvas.getContext('2d'), canvas.width - 190, 190, spot);
       return canvas;
     });
   }

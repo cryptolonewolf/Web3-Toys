@@ -427,3 +427,16 @@ and opening `/TOY/?preview=YOUR_KEY` once.
 - Numbers: `supabase/011_hall_of_fame.sql` counts how many players named
   each person (shown from 20 answers) and one favourite-builder vote per
   logged-in player (Most loved builders).
+
+## Early Bird 2x and certificates for every toy
+
+- `supabase/012_early_bird.sql`: the first 1,000 logged-in players to earn
+  each toy's certificate get a numbered spot (handed out one at a time in the
+  database) and 2x coins on that toy. Starts match `data/releases.json`.
+- `js/earlybird.js` (every page): counters under toy cards, a pill on toy
+  pages, a line above the finish-screen offers, a note when you win, the
+  badge on certificates (`js/quiz.js`), share cards (`js/toy-kit.js`) and My
+  Progress. Setup: `docs/setup/early-bird.md`.
+- The five games that ended with a score now end with a short quiz and a
+  certificate (`js/game-quiz.js`, `quizzes/scam.json`, `dead-projects`,
+  `invest-100`, `token-split`, `token-simulator`; letters G, H, J, K, M).

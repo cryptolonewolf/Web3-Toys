@@ -1,0 +1,78 @@
+{
+  "_help": "Quiz for Rug or Real: Read the Token Split. 5 to 8 questions. answer must match one of the options exactly. explain is shown after the quiz. This folder is never shown to visitors.",
+  "review": true,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is a token split (tokenomics)?",
+      "options": [
+        "Who gets the tokens, and when they can sell",
+        "The price of the token",
+        "The number of exchanges",
+        "The colour of the logo"
+      ],
+      "answer": "Who gets the tokens, and when they can sell",
+      "explain": "Tokenomics shows how the supply is shared between the team, investors and the community."
+    },
+    {
+      "id": "q2",
+      "question": "The team holds 60% of the supply with no lock. What does that suggest?",
+      "options": [
+        "A big red flag: they could sell at any time",
+        "A sign of a fair launch",
+        "A normal community split",
+        "Nothing at all"
+      ],
+      "answer": "A big red flag: they could sell at any time",
+      "explain": "Large, unlocked insider holdings are a classic rug risk."
+    },
+    {
+      "id": "q3",
+      "question": "What does vesting mean?",
+      "options": [
+        "Tokens unlock bit by bit over time instead of all at once",
+        "Tokens are burned",
+        "Tokens are given away for free",
+        "Tokens are moved to an exchange"
+      ],
+      "answer": "Tokens unlock bit by bit over time instead of all at once",
+      "explain": "Vesting stops insiders from selling everything on day one."
+    },
+    {
+      "id": "q4",
+      "question": "Why can a big unlock date move the price?",
+      "options": [
+        "Many tokens can be sold at once",
+        "Unlocks always raise the price",
+        "Unlocks remove tokens",
+        "Nothing happens on unlock days"
+      ],
+      "answer": "Many tokens can be sold at once",
+      "explain": "When a lot of supply unlocks, selling pressure can grow."
+    },
+    {
+      "id": "q5",
+      "question": "Liquidity is locked for a long time. What does that help prevent?",
+      "options": [
+        "The team pulling the trading money out (a rug)",
+        "The price going down",
+        "Hackers forever",
+        "Any loss at all"
+      ],
+      "answer": "The team pulling the trading money out (a rug)",
+      "explain": "Locked liquidity cannot be removed by the team, but it does not make the token safe."
+    },
+    {
+      "id": "q6",
+      "question": "A fair-looking split means the token is...",
+      "options": [
+        "Not obviously rigged, but still risky",
+        "Guaranteed to go up",
+        "Safe to put all your money in",
+        "Approved by regulators"
+      ],
+      "answer": "Not obviously rigged, but still risky",
+      "explain": "A good split removes one risk, not all of them."
+    }
+  ]
+}

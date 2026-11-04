@@ -1,0 +1,78 @@
+{
+  "_help": "Quiz for What If You Invested $100. 5 to 8 questions. answer must match one of the options exactly. explain is shown after the quiz. This folder is never shown to visitors.",
+  "review": true,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "Why can $100 in crypto turn into $20 before it turns into $500?",
+      "options": [
+        "Crypto prices swing a lot, up and down",
+        "Prices only go up",
+        "Exchanges take most of it",
+        "It cannot happen"
+      ],
+      "answer": "Crypto prices swing a lot, up and down",
+      "explain": "Big gains in hindsight usually came with big drops along the way."
+    },
+    {
+      "id": "q2",
+      "question": "What does a drawdown measure?",
+      "options": [
+        "How far the price fell from its highest point",
+        "Your total profit",
+        "The trading fee",
+        "How many coins exist"
+      ],
+      "answer": "How far the price fell from its highest point",
+      "explain": "A 70% drawdown means the price fell to 30% of its peak."
+    },
+    {
+      "id": "q3",
+      "question": "What is the danger of looking only at the start and end price?",
+      "options": [
+        "You miss how hard the ride was in between",
+        "Nothing, only the end matters",
+        "You pay more tax",
+        "The chart is wrong"
+      ],
+      "answer": "You miss how hard the ride was in between",
+      "explain": "Most people sell in the scary drops, so they never get the end result."
+    },
+    {
+      "id": "q4",
+      "question": "What is dollar cost averaging?",
+      "options": [
+        "Buying a small fixed amount on a regular schedule",
+        "Buying everything at once at the top",
+        "Selling every day",
+        "Borrowing to buy more"
+      ],
+      "answer": "Buying a small fixed amount on a regular schedule",
+      "explain": "It spreads your buys over time, so one bad day matters less."
+    },
+    {
+      "id": "q5",
+      "question": "Past returns tell you...",
+      "options": [
+        "What happened, not what will happen",
+        "Exactly what will happen next",
+        "That the price will double again",
+        "That there is no risk"
+      ],
+      "answer": "What happened, not what will happen",
+      "explain": "A coin that went up 100 times may never do it again."
+    },
+    {
+      "id": "q6",
+      "question": "What is a sensible amount to put into a risky asset?",
+      "options": [
+        "Only what you can afford to lose",
+        "Your emergency savings",
+        "Money you borrowed",
+        "Everything you have"
+      ],
+      "answer": "Only what you can afford to lose",
+      "explain": "Keep your safety money safe, then take small risks with the rest."
+    }
+  ]
+}

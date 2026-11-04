@@ -508,9 +508,18 @@
     document.head.appendChild(el);
   }
 
+  // Early Bird counters and badges (js/earlybird.js), on every page.
+  function loadEarlyBird() {
+    if (window.Web3EarlyBird || !(config().supabase || {}).url) return;
+    var el = document.createElement('script');
+    el.src = ROOT + 'js/earlybird.js';
+    document.head.appendChild(el);
+  }
+
   function start() {
     keepReferral();
     loadOffers();
+    loadEarlyBird();
     logEvent('page_view', null);
     showLoader();
     buildTopbar();
