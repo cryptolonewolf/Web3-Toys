@@ -105,7 +105,7 @@
   function word() {
     var html = '<html><head><meta charset="utf-8"><title>' + esc(tpls[state.id].title) + '</title>' +
       '<style>body{font-family:Calibri,Arial,sans-serif;font-size:11pt;line-height:1.4}h1{font-size:18pt}h2{font-size:13pt;margin-top:14pt}.ag-doc-warn{border:2pt solid #000;padding:8pt;font-size:13pt}</style></head><body>' +
-      docHtml(false) + '<p><em>' + esc(K.DISCLAIMER) + ' Made with web3.toys.</em></p></body></html>';
+      docHtml(false) + '<p><em>' + esc(K.footLine()) + '</em></p></body></html>';
     var blob = new Blob(['﻿', html], { type: 'application/msword' });
     var a = document.createElement('a');
     a.href = URL.createObjectURL(blob);

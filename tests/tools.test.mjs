@@ -360,14 +360,14 @@ describe('Launch Readiness Checklist', () => {
   const LE = require('../js/launch-engine.js');
   const lc = json('data/tools/launch-checklist.json');
 
-  it('has about 30 checks across the six areas, and a report link to fill in', () => {
+  it('has about 30 checks across the six areas, and a fix for the paid full report', () => {
     assert.equal(lc.review, true);
     assert.ok(lc.checks.length >= 28 && lc.checks.length <= 32);
     assert.deepEqual(lc.categories.map((c) => c.id), ['token', 'legal', 'security', 'community', 'marketing', 'liquidity']);
     lc.categories.forEach((c) => assert.ok(lc.checks.some((x) => x.category === c.id), c.id));
     assert.equal(new Set(lc.checks.map((c) => c.id)).size, lc.checks.length);
     assert.equal(lc.reportLabel, 'Get the full Launch Readiness Report');
-    assert.ok('reportUrl' in lc);
+    lc.checks.forEach((c) => assert.ok(c.fix && c.fix.length > 20, 'fix for ' + c.id));
   });
 
   it('scores yes, partly and no, and lists gaps biggest first', () => {

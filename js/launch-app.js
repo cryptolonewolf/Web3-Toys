@@ -35,9 +35,6 @@
           }).join('') + '</section>';
       }).join('') +
       '<div data-out class="stack"></div>' +
-      '<section class="card lc-cta stack stack--tight"><h2 class="title-md">Want the full picture?</h2><p class="text">' + esc(cfg.reportLine) + '</p>' +
-      '<div class="btn-row"><a class="btn btn--ink" href="' + esc(cfg.reportUrl) + '" data-report>' + esc(cfg.reportLabel) + '</a>' + ToyKit.callButton('btn--yellow') + '</div>' +
-      '<p class="small-print" data-report-msg aria-live="polite"></p></section>' +
       K.actions() + K.footer();
 
     app.querySelectorAll('[data-q]').forEach(function (b) {
@@ -53,16 +50,34 @@
         update();
       });
     });
-    app.querySelector('[data-report]').addEventListener('click', function (e) {
-      C.track('launch_report_click', {});
-      if (cfg.reportUrl === '#') {
-        e.preventDefault();
-        app.querySelector('[data-report-msg]').textContent = 'The full report is coming soon. Book a call in the meantime.';
-      }
-    });
     K.bind(app, K.sheetHandlers(model, 'launch-readiness.png', { reset: function () { saved.clear(); state = { answers: {} }; render(); } }));
     update();
   }
+
+  // The paid Full Launch Readiness Report: every check, its status, why it
+  // matters and how to fix it, gaps first (sold through js/offers.js).
+  function fullReport() {
+    var r = E.score(state.answers, cfg);
+    var cats = {};
+    cfg.categories.forEach(function (c) { cats[c.id] = c; });
+    var ans = function (c) { return { yes: 'Yes', partly: 'Partly', no: 'No' }[state.answers[c.id]] || 'Not answered'; };
+    var gapIds = r.gaps.map(function (g) { return g.id; });
+    K.printSheet(
+      '<h1>Full Launch Readiness Report</h1>' +
+      '<p><b>Score ' + r.score + ' / 100: ' + esc(r.grade.label) + '.</b> ' + esc(r.grade.line) + '</p>' +
+      areaBars(r.categories) +
+      '<h2>Your plan: fix these first</h2><ol>' + r.gaps.map(function (g) {
+        var c = cfg.checks.filter(function (x) { return x.id === g.id; })[0];
+        return '<li><p><b>' + esc(cats[g.category].label) + ': ' + esc(c.text) + '</b> (' + ans(c) + ', worth ' + c.weight + ' points)</p><p>Why: ' + esc(c.why) + '</p><p>How to fix: ' + esc(c.fix || '') + '</p></li>';
+      }).join('') + '</ol>' +
+      '<h2>Already in place</h2><ul>' + cfg.checks.filter(function (c) { return gapIds.indexOf(c.id) < 0; }).map(function (c) {
+        return '<li>' + esc(cats[c.category].label) + ': ' + esc(c.text) + '</li>';
+      }).join('') + '</ul>' +
+      '<p>Go through the plan from the top: the first items are worth the most points.</p>'
+    );
+    C.track('tool_export', { tool: 'launch-checklist', format: 'full-report' });
+  }
+  window.WEB3TOYS.deliver('launch-report', fullReport);
 
   function dial(total, color) {
     var r = 70;

@@ -1,0 +1,43 @@
+{
+  "_help": "Paid offers on finish screens (js/offers.js). Each screen shows at most 3, never blocking play. slots: which products a kind of screen offers, in order of priority; 'book' means the book listed for that toy under books, 'call' means Book a Call. books: the related book for each toy or game. Products and prices come from data/products.json; free play always stays free.",
+  "title": "Take it further",
+  "line": "Optional extras. Playing stays free.",
+  "slots": {
+    "quiz-passed": ["report-full", "book", "call"],
+    "quiz-failed": ["report-full", "book", "call"],
+    "certificate": ["cert-hd", "cert-premium", "report-full"],
+    "game": ["book", "call"],
+    "tool": ["export-branded", "call"],
+    "launch": ["launch-report", "export-branded", "call"]
+  },
+  "books": {
+    "crypto-in-5": "book-first-30-days",
+    "getting-started": "book-first-30-days",
+    "earn-small": "book-first-30-days",
+    "dont-lose-money": "book-dont-get-rekt",
+    "web3-hacks": "book-dont-get-rekt",
+    "scam": "book-dont-get-rekt",
+    "dead-projects": "book-dont-get-rekt",
+    "invest-100": "book-dont-get-rekt",
+    "token-split": "book-launch-week",
+    "token-simulator": "book-launch-week"
+  },
+  "buttons": {
+    "report-full": "Get the full report",
+    "cert-hd": "Get it in HD",
+    "cert-premium": "Get the premium design",
+    "export-branded": "Brand my exports",
+    "launch-report": "Get the full report",
+    "book": "Get the book",
+    "call": "Book a call"
+  },
+  "owned": {
+    "report-full": "Download report",
+    "cert-hd": "Download HD",
+    "cert-premium": "Download premium",
+    "export-branded": "Edit my branding",
+    "launch-report": "Download report",
+    "book": "Download book"
+  },
+  "call": {"title": "Talk it through with Aki", "line": "A focused call about your questions or your project."}
+}

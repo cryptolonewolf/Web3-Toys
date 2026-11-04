@@ -171,7 +171,7 @@
     K.bind(app, {
       pdf: function () { pdf(deck, t); },
       png: function () { pngOf(deck, t, deck.length, (deck[0].name || 'deck').toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-deck.png'); },
-      copy: function () { return D.outline(deck) + '\n\nMade with web3.toys.'; },
+      copy: function () { return D.outline(deck) + '\n\n' + (K.branded() ? 'Prepared by ' + JSON.parse(localStorage.getItem('web3toys.brand.v1') || '{}').name + '.' : 'Made with web3.toys.'); },
       reset: function () {
         saved.clear();
         state = { answers: {}, step: 0, template: '', view: 'form' };

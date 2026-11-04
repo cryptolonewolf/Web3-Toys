@@ -128,7 +128,7 @@
     return 'Market cap and FDV\n' +
       'Price: $' + full(state.price) + '\nCirculating supply: ' + full(state.circulating) + '\nTotal supply: ' + full(state.total) + '\n\n' +
       'Market cap: ' + M.money(r.mcap) + '\nFDV: ' + M.money(r.fdv) + '\nGap: ' + M.money(r.gap) + ' (' + (Math.round(r.circulatingPct * 10) / 10) + '% circulating)\n' +
-      meaning(r) + '\n\n' + K.DISCLAIMER + ' Made with web3.toys.';
+      meaning(r) + '\n\n' + K.footLine();
   }
 
   function pdf() {
@@ -169,7 +169,7 @@
       wrapText(ctx, meaning(r), 60, 1120, 960, 38);
       ctx.font = '700 20px Nunito, sans-serif';
       ctx.fillStyle = '#5A5470';
-      ctx.fillText(K.DISCLAIMER + ' Made with web3.toys.', 60, 1300);
+      ctx.fillText(K.footLine(), 60, 1300);
       K.downloadCanvas(canvas, 'market-cap-fdv.png');
       C.track('tool_export', { tool: 'mcap-fdv', format: 'png' });
     });

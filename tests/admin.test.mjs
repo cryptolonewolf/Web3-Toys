@@ -20,7 +20,7 @@ describe('Admin dashboard', () => {
   });
 
   it('only counts a fixed list of anonymous events', () => {
-    assert.ok(sql.includes("if p_name not in ('page_view', 'finish', 'share', 'call_click', 'buy_click', 'purchase', 'signup') then return;"));
+    assert.ok(sql.includes("if p_name not in ('page_view', 'finish', 'share', 'call_click', 'buy_click', 'purchase', 'signup', 'offer_view') then return;"));
     assert.ok(!/user_id/.test(sql.slice(sql.indexOf('create table if not exists public.events'), sql.indexOf('create index if not exists events_name_time'))));
   });
 

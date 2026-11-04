@@ -10,6 +10,30 @@
     });
   };
 
+  // ---------- Branded exports (bought per tool, see js/offers.js) ----------
+  // When on, exports show the buyer's logo and "Prepared by <name>" instead
+  // of "Made with web3.toys". The disclaimer always stays.
+  var BRAND_KEY = 'web3toys.brand.v1';
+  var brandOn = false;
+
+  function brand() {
+    try { return JSON.parse(localStorage.getItem(BRAND_KEY)) || {}; } catch (e) { return {}; }
+  }
+
+  function branded() {
+    return brandOn && !!brand().name;
+  }
+
+  function footLine() {
+    return branded() ? 'Prepared by ' + brand().name + '. ' + DISCLAIMER : DISCLAIMER + ' Made with web3.toys.';
+  }
+
+  function brandHeader() {
+    if (!branded()) return '';
+    var b = brand();
+    return '<div class="print-brand">' + (b.logo ? '<img src="' + b.logo + '" alt="" />' : '') + '<b>' + esc(b.name) + '</b></div>';
+  }
+
   var PRIVACY = 'Your data stays in your browser.';
   var DISCLAIMER = 'Educational tool, not financial, legal or tax advice.';
 
@@ -33,10 +57,9 @@
 
   // Email signup and Book a Call at the end of every tool.
   function footer() {
-    return '<section class="card stack stack--tight"><h2 class="title-md">Want a second pair of eyes?</h2>' +
-      '<p class="text">Book a call with Aki to go through your launch plan together.</p>' +
-      '<div class="btn-row">' + ToyKit.callButton('btn--yellow') + '</div>' +
-      '<p class="small-print" data-soon-msg aria-live="polite"></p></section>' +
+    var tool = document.body.getAttribute('data-tool-page') || '';
+    return ToyKit.offersSlot(tool === 'launch-checklist' ? 'launch' : 'tool', tool) +
+      '<p class="small-print" data-soon-msg aria-live="polite"></p>' +
       ToyKit.signupHtml({ heading: 'Get new tools first', line: 'One email when a new builder tool goes live. No spam.', button: 'Keep me posted' }) +
       notes();
   }
@@ -114,7 +137,7 @@
       sheet.id = 'print-sheet';
       document.body.appendChild(sheet);
     }
-    sheet.innerHTML = html + '<p class="print-foot">' + DISCLAIMER + ' Made with web3.toys.</p>';
+    sheet.innerHTML = brandHeader() + html + '<p class="print-foot">' + esc(footLine()) + '</p>';
     document.body.classList.add('is-printing');
     var done = function () {
       document.body.classList.remove('is-printing');
@@ -178,7 +201,7 @@
       (m.facts || []).map(function (f) { return f[0] + ': ' + f[1]; }).join('\n') +
       (m.table ? '\n\n' + [m.table.head].concat(m.table.rows).map(function (r) { return r.join(' | '); }).join('\n') : '') +
       (m.sections || []).map(function (s) { return '\n\n' + s.title + ':\n' + s.lines.map(function (l) { return '- ' + l; }).join('\n'); }).join('') +
-      '\n\n' + DISCLAIMER + ' Made with web3.toys.';
+      '\n\n' + footLine();
   }
 
   function wrapLines(ctx, text, max) {
@@ -207,9 +230,21 @@
     big.height = 9000;
     var ctx = big.getContext('2d');
     var INK = '#1F1B2E';
-    return Promise.all((m.charts || []).map(svgImage)).then(function (imgs) {
+    var logo = branded() && brand().logo ? new Promise(function (resolve) {
+      var im = new Image();
+      im.onload = function () { resolve(im); };
+      im.onerror = function () { resolve(null); };
+      im.src = brand().logo;
+    }) : Promise.resolve(null);
+    return Promise.all([Promise.all((m.charts || []).map(svgImage)), logo]).then(function (both) {
+      var imgs = both[0];
       ctx.fillStyle = '#FFF8E1';
       ctx.fillRect(0, 0, W, big.height);
+      if (both[1]) {
+        var lh = 90;
+        var lw = Math.min(260, both[1].width * (lh / both[1].height));
+        ctx.drawImage(both[1], W - X - lw, 30, lw, lh * (lw / (both[1].width * (lh / both[1].height))));
+      }
       ctx.fillStyle = INK;
       ctx.textBaseline = 'alphabetic';
       var y = 100;
@@ -278,7 +313,7 @@
       y += 50;
       ctx.font = '700 20px Nunito, sans-serif';
       ctx.fillStyle = '#5A5470';
-      ctx.fillText(DISCLAIMER + ' Made with web3.toys.', X, y);
+      ctx.fillText(footLine(), X, y);
       var out = document.createElement('canvas');
       out.width = W;
       out.height = y + 50;
@@ -326,7 +361,76 @@
     }).join('') + '</ul>';
   }
 
+  // The branding box: project name and logo, kept in this browser.
+  function brandBox() {
+    var b = brand();
+    var m = document.createElement('div');
+    m.className = 'modal';
+    m.innerHTML = '<form class="card stack stack--tight" role="dialog" aria-modal="true" aria-labelledby="brand-title">' +
+      '<div class="cap-row"><h2 class="title-md" id="brand-title">Brand my exports</h2><button type="button" class="cap-x" data-close aria-label="Close">×</button></div>' +
+      '<p class="small-print">Your exports from this tool show your logo and name instead of "Made with web3.toys". Saved in this browser.</p>' +
+      '<label class="label" for="brand-name">Project or company name</label><input id="brand-name" class="field" maxlength="60" required value="' + esc(b.name || '') + '" />' +
+      '<label class="label" for="brand-logo">Logo (PNG or JPG)</label><input id="brand-logo" type="file" accept="image/png,image/jpeg,image/webp" />' +
+      (b.logo ? '<img class="brand-preview" src="' + b.logo + '" alt="Your logo" />' : '') +
+      '<button type="submit" class="btn btn--ink btn--block">Save branding</button><p class="small-print" data-brand-msg aria-live="polite"></p></form>';
+    document.body.appendChild(m);
+    var close = function () { m.remove(); };
+    m.querySelector('[data-close]').addEventListener('click', close);
+    var logo = b.logo || '';
+    m.querySelector('#brand-logo').addEventListener('change', function (e) {
+      var f = e.target.files[0];
+      if (!f) return;
+      var img = new Image();
+      img.onload = function () {
+        var k = Math.min(1, 400 / Math.max(img.width, img.height));
+        var c = document.createElement('canvas');
+        c.width = Math.round(img.width * k);
+        c.height = Math.round(img.height * k);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        logo = c.toDataURL('image/png');
+        URL.revokeObjectURL(img.src);
+      };
+      img.src = URL.createObjectURL(f);
+    });
+    m.querySelector('form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      try {
+        localStorage.setItem(BRAND_KEY, JSON.stringify({ name: m.querySelector('#brand-name').value.trim(), logo: logo }));
+      } catch (err) {
+        m.querySelector('[data-brand-msg]').textContent = 'Could not save (the logo may be too large). Try a smaller image.';
+        return;
+      }
+      brandOn = true;
+      markBranded();
+      close();
+    });
+  }
+
+  function markBranded() {
+    var bar = document.querySelector('.tool-actions');
+    if (!bar) return;
+    var tag = bar.querySelector('.brand-on');
+    if (branded() && !tag) {
+      tag = document.createElement('p');
+      tag.className = 'small-print brand-on';
+      bar.appendChild(tag);
+    }
+    if (tag) tag.textContent = branded() ? '🎨 Branded exports on: ' + brand().name : '';
+  }
+
+  // Bought for this tool? Then exports are branded.
+  var toolId = document.body.getAttribute('data-tool-page');
+  if (toolId && window.WEB3TOYS) {
+    window.WEB3TOYS.deliver('export-branded', function () { brandOn = true; brandBox(); });
+    document.addEventListener('web3offers:owned', function () {
+      brandOn = !!(window.Web3Offers && window.Web3Offers.owns('export-branded', toolId));
+      markBranded();
+    });
+  }
+
   window.ToolKit = {
+    footLine: footLine,
+    branded: branded,
     esc: esc,
     notes: notes,
     actions: actions,

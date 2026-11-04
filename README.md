@@ -354,3 +354,18 @@ the admin Bookings tab through `supabase/functions/cal-webhook`
   certificate and 3 finished toys, up to 20 a month per inviter.
 - Coins are site points with no cash value; they unlock extras and items with
   a `coins` price. Setup: `docs/setup/coins-tasks-referrals.md`.
+
+## Paid offers on finish screens (Part 5)
+
+- `js/offers.js` fills every `[data-offers]` box on quiz results, certificates,
+  game finish screens and tool footers with 1 to 3 optional extras. Which
+  products each screen offers, and the related book per toy, live in
+  `data/offers.json`; prices come from `data/products.json` (money or coins).
+- What each product delivers: `report-full` (printable report from
+  `data/reports.json`), `cert-hd` (double size PNG), `cert-premium` (gold
+  frame and seal), `export-branded` (your name and logo on tool exports,
+  `js/tool-kit.js`), `launch-report` (Launch Readiness Report with a fix for
+  every gap, from `data/tools/launch-checklist.json`). Books download from the
+  private `paid-files` bucket.
+- Offers never block play. Views are counted as `offer_view` in the admin
+  Toy stats (re-run `supabase/006_admin.sql` once).

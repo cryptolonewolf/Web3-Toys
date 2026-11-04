@@ -428,8 +428,8 @@
       '<div class="btn-row"><button type="button" class="btn btn--ink" data-share>Share</button>' +
       '<a class="btn" target="_blank" rel="noopener" href="https://x.com/intent/tweet?text=' + encodeURIComponent(shareText) + '">Post on X</a></div>' +
       '<button type="button" class="btn btn--block" data-again>Fish again</button>' +
+      ToyKit.offersSlot('game', 'dead-projects') +
       ToyKit.signupHtml(T.signup) +
-      '<div class="btn-row">' + ToyKit.callButton() + '</div>' +
       '<p class="small-print center" data-soon-msg aria-live="polite"></p>';
     pill.textContent = 'Done';
     window.scrollTo(0, 0);

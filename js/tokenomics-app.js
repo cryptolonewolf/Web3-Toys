@@ -250,7 +250,7 @@
       groups.map(function (g) { return g.label + ': ' + g.pct + '% (' + tokens(g.pct) + ' tokens). ' + vestLine(g) + '.'; }).join('\n') +
       '\n\nCirculating: ' + round(sched.total[0]) + '% at launch, ' + round(sched.circulating[12]) + '% after 1 year, ' + round(sched.circulating[24]) + '% after 2 years.' +
       '\n\nWarnings:\n' + E.warnings(groups, sched, cfg).map(function (w) { return '- ' + w.text; }).join('\n') +
-      '\n\n' + K.DISCLAIMER + ' Made with web3.toys.';
+      '\n\n' + K.footLine();
   }
 
   function sheetTable(groups) {
@@ -321,7 +321,7 @@
       warns.forEach(function (w, i) { ctx.fillText('• ' + w.text, 60, y + 44 + i * 40); });
       ctx.font = '700 20px Nunito, sans-serif';
       ctx.fillStyle = '#5A5470';
-      ctx.fillText(K.DISCLAIMER + ' Made with web3.toys.', 60, H - 40);
+      ctx.fillText(K.footLine(), 60, H - 40);
       K.downloadCanvas(canvas, (state.ticker || 'token').toLowerCase() + '-tokenomics.png');
       C.track('tool_export', { tool: 'tokenomics', format: 'png' });
     });

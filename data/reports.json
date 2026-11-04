@@ -1,0 +1,60 @@
+{
+  "_help": "Extra content for the paid Full report PDF of each quiz toy (bought from its finish screen). The report also lists every question with the player's answer, the right answer and the explanation. checklist: practical steps to take next. next: toys to try after this one (ids from data/home.json). Educational only: no prices, no promises.",
+  "review": true,
+  "intro": "This report explains every question from your quiz, then gives you a short checklist to put it into practice.",
+  "toys": {
+    "crypto-in-5": {
+      "checklist": [
+        "Explain in one sentence what a blockchain is, to a friend.",
+        "Learn the difference between a coin (its own blockchain) and a token (built on another one).",
+        "Remember that nobody controls Bitcoin's rules alone: changes need wide agreement.",
+        "Before buying anything, check what problem the project solves and who uses it.",
+        "Start with an amount you can afford to lose completely."
+      ],
+      "next": ["getting-started", "dont-lose-money", "scam"]
+    },
+    "getting-started": {
+      "checklist": [
+        "Write your seed phrase on paper, in order, and store it somewhere safe and private.",
+        "Never type your seed phrase into a website, a form or a chat. No real support team will ask for it.",
+        "Send a small test amount before any large transfer.",
+        "Double check the full address and the network before you send.",
+        "Bookmark official sites and open them from your bookmarks, not from links in messages.",
+        "Turn on two-factor login (an app, not SMS) on every exchange account."
+      ],
+      "next": ["dont-lose-money", "scam", "web3-hacks"]
+    },
+    "dont-lose-money": {
+      "checklist": [
+        "Set a monthly limit for crypto that you could lose without trouble.",
+        "Write down why you buy something before you buy it, and when you would sell.",
+        "Ignore anyone who promises guaranteed or fast returns.",
+        "Check token unlocks and team holdings before buying a new token.",
+        "Never borrow money to buy crypto.",
+        "Revoke old token approvals you no longer need, using a trusted tool."
+      ],
+      "next": ["scam", "invest-100", "dead-projects"]
+    },
+    "earn-small": {
+      "checklist": [
+        "List the skills you already have that web3 teams pay for (writing, design, community, code).",
+        "Start with one small, real task and finish it well.",
+        "Never pay to get a job, a task or a reward.",
+        "Keep records of what you earn: crypto earnings can be taxable where you live.",
+        "Prefer projects with a public team and a working product."
+      ],
+      "next": ["getting-started", "scam", "dont-lose-money"]
+    },
+    "web3-hacks": {
+      "checklist": [
+        "Keep large amounts in a hardware wallet that you set up yourself.",
+        "Read what a wallet asks you to sign. If you do not understand it, do not sign.",
+        "Use separate wallets: one for daily use, one for savings.",
+        "Check a project's audits and how it handled past problems before trusting it with money.",
+        "Revoke token approvals you no longer use."
+      ],
+      "next": ["scam", "dont-lose-money", "dead-projects"]
+    }
+  },
+  "close": "Educational only. Not financial, legal or tax advice. Do your own research."
+}

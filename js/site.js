@@ -449,6 +449,7 @@
     fx: { confetti: confetti, coins: coins, wobble: wobble, calm: calm },
     sound: { play: play, on: soundOn, button: soundButton },
     log: logEvent,
+    deliver: deliver,
     coins: { award: award, wallet: wallet, amount: coinAmount, refresh: showCoins, pageKey: pageKey },
   };
 
@@ -488,8 +489,26 @@
     try { if (!localStorage.getItem('web3toys.ref.v1')) localStorage.setItem('web3toys.ref.v1', m[1].toLowerCase()); } catch (e) { /* private mode */ }
   }
 
+  // Paid offers on finish screens (js/offers.js), on every page. Pages say
+  // how to deliver what was bought with WEB3TOYS.deliver(productId, fn);
+  // handlers wait in a queue until js/offers.js has loaded.
+  var deliverQueue = window.__w3deliver = window.__w3deliver || [];
+
+  function deliver(id, fn) {
+    if (window.Web3Offers) window.Web3Offers.deliver(id, fn);
+    else deliverQueue.push([id, fn]);
+  }
+
+  function loadOffers() {
+    if (window.Web3Offers) return;
+    var el = document.createElement('script');
+    el.src = ROOT + 'js/offers.js';
+    document.head.appendChild(el);
+  }
+
   function start() {
     keepReferral();
+    loadOffers();
     logEvent('page_view', null);
     showLoader();
     buildTopbar();

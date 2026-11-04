@@ -367,8 +367,8 @@
       '<div class="btn-row"><button type="button" class="btn btn--ink" data-share>Share</button>' +
       '<a class="btn" data-x target="_blank" rel="noopener" href="' + esc(xLink(sum)) + '">Post on X</a></div>' +
       '<div class="btn-row"><button type="button" class="btn" data-again>Ride it again</button><button type="button" class="btn" data-other>Another token</button></div>' +
+      ToyKit.offersSlot('game', 'invest-100') +
       ToyKit.signupHtml(T.signup) +
-      '<div class="btn-row">' + ToyKit.callButton() + '</div>' +
       '<p class="small-print center" data-soon-msg aria-live="polite"></p>',
       'Done'
     );

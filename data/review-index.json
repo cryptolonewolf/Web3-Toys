@@ -891,6 +891,13 @@
    "hash": "695987a6f8b9"
   },
   {
+   "file": "data/reports.json",
+   "item": "(whole file)",
+   "label": "data/reports.json",
+   "note": "Extra content for the paid Full report PDF of each quiz toy (bought from its finish screen). The report also lists every question with the player's answer, the right answer and the explanation. checkl",
+   "hash": "00d677a76cd7"
+  },
+  {
    "file": "data/tools/airdrop.json",
    "item": "(whole file)",
    "label": "data/tools/airdrop.json",
@@ -922,8 +929,8 @@
    "file": "data/tools/launch-checklist.json",
    "item": "(whole file)",
    "label": "data/tools/launch-checklist.json",
-   "note": "Launch Readiness Checklist. Each check has a category, a weight (points) and a why line. Yes gives full points, Partly half, No none. reportUrl is the link of the Get the full Launch Readiness Report ",
-   "hash": "8c84eba01ff2"
+   "note": "Launch Readiness Checklist. Each check has a category, a weight (points), a why line and a fix (shown in the paid full report). Yes gives full points, Partly half, No none. reportUrl is the link of th",
+   "hash": "957e9d76b5bf"
   },
   {
    "file": "data/tools/meme-kit.json",

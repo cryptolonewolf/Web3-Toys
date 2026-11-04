@@ -309,7 +309,13 @@
     });
   }
 
+  // A spot for paid offers on a finish screen; js/offers.js fills it.
+  function offersSlot(kind, item) {
+    return '<section class="card offers stack stack--tight" data-offers="' + esc(kind) + '" data-item="' + esc(item || '') + '"></section>';
+  }
+
   window.ToyKit = {
+    offersSlot: offersSlot,
     esc: esc,
     drawShareCard: drawShareCard,
     share: share,

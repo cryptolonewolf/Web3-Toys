@@ -6746,3 +6746,106 @@ body[data-theme='theme-night'] .pf-h .small-print { color: #d9d4f0; }
   border: var(--line-thin);
   border-radius: 12px;
 }
+
+/* Paid offers on finish screens */
+.offers {
+  background: #fffdf3;
+}
+
+.offers .small-print {
+  margin: 0;
+}
+
+.offer-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.offer {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 10px;
+  align-items: center;
+  padding: 10px 12px;
+  background: var(--white);
+  border: var(--line-thin);
+  border-radius: 12px;
+}
+
+.offer div {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.offer-icon {
+  font-size: 24px;
+}
+
+.offer-price {
+  font: 800 14px var(--font-body);
+  color: var(--ink);
+}
+
+.offer.is-owned {
+  background: #e8fff1;
+}
+
+#print-sheet .report-qs li {
+  margin-bottom: 10px;
+  break-inside: avoid;
+}
+
+#print-sheet .report-qs p,
+#print-sheet .report-check li {
+  margin: 2px 0;
+}
+
+#print-sheet .report-check {
+  list-style: none;
+  padding-left: 0;
+}
+
+#print-sheet .print-brand {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+#print-sheet .print-brand img {
+  max-height: 48px;
+  max-width: 180px;
+}
+
+.brand-preview {
+  max-height: 80px;
+  max-width: 220px;
+  object-fit: contain;
+}
+
+.brand-on {
+  flex-basis: 100%;
+  margin: 0;
+  font-weight: 800;
+}
+
+.offer > .btn {
+  grid-column: 1 / -1;
+  justify-self: stretch;
+}
+
+@media (min-width: 600px) {
+  .offer {
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .offer > .btn {
+    grid-column: auto;
+  }
+}

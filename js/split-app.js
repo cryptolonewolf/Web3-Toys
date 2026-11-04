@@ -268,8 +268,8 @@
       '<div class="btn-row"><button type="button" class="btn btn--ink" data-share>Share</button>' +
       '<a class="btn" target="_blank" rel="noopener" href="https://x.com/intent/tweet?text=' + encodeURIComponent(shareText) + '">Post on X</a></div>' +
       '<button type="button" class="btn btn--block" data-again>Play again</button>' +
+      ToyKit.offersSlot('game', 'token-split') +
       ToyKit.signupHtml(T.signup) +
-      '<div class="btn-row">' + ToyKit.callButton() + '</div>' +
       '<p class="small-print center" data-soon-msg aria-live="polite"></p>' +
       '<p class="small-print center">' + esc(T.note) + ' All tokens here are made up.</p>',
       'Done'

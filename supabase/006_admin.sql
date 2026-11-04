@@ -49,7 +49,7 @@ create policy "admins read events" on public.events for select using (public.is_
 create or replace function public.log_event(p_name text, p_page text, p_item text)
 returns void language plpgsql security definer set search_path = '' as $$
 begin
-  if p_name not in ('page_view', 'finish', 'share', 'call_click', 'buy_click', 'purchase', 'signup') then return; end if;
+  if p_name not in ('page_view', 'finish', 'share', 'call_click', 'buy_click', 'purchase', 'signup', 'offer_view') then return; end if;
   insert into public.events (name, page, item) values (p_name, left(p_page, 120), left(p_item, 80));
 end; $$;
 grant execute on function public.log_event(text, text, text) to anon, authenticated;

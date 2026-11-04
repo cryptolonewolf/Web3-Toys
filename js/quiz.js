@@ -68,14 +68,10 @@
 
   // ---------- Finish screen extras: Book a call and email signup ----------
 
-  function funnelHtml() {
-    var callUrl = (window.WEB3TOYS_SITE || {}).callUrl;
-    var call = callUrl
-      ? '<a class="btn btn--yellow btn--block" href="' + esc(callUrl) + '" target="_blank" rel="noopener">' + esc(funnel.call.button) + '</a>'
-      : '<button type="button" class="btn btn--yellow btn--block" data-soon="call">' + esc(funnel.call.button) + '</button>';
-    return '<section class="card stack stack--tight"><h2 class="title-md">' + esc(funnel.call.heading) + '</h2>' +
-      '<p class="text">' + esc(funnel.call.line) + '</p>' + call +
-      '<p class="small-print" data-soon-msg aria-live="polite"></p></section>' +
+  // Paid offers (js/offers.js, never blocking) and the email signup.
+  function funnelHtml(kind, toyId) {
+    return ToyKit.offersSlot(kind, toyId) +
+      '<p class="small-print" data-soon-msg aria-live="polite"></p>' +
       ToyKit.signupHtml(funnel.signup);
   }
 
@@ -182,6 +178,7 @@
   }
 
   function showResult(toy, answers, result) {
+    saveResult(toy, result);
     var progress = Web3Progress.load(window.localStorage);
     if (result.passed) {
       render(
@@ -194,7 +191,7 @@
         '<p class="small-print">' + esc(funnel.nameNote) + '</p>' +
         '<button class="btn btn--ink btn--block" type="submit">Get my certificate</button>' +
         '<p class="small-print" data-name-error aria-live="polite"></p></form>' +
-        reviewHtml(result) + funnelHtml(),
+        reviewHtml(result) + funnelHtml('quiz-passed', toy.id),
         'Passed', 'mint'
       );
       bindFunnel();
@@ -233,7 +230,7 @@
         '<p class="text text--ink">' + result.correct + ' of ' + result.total + ' right. You need ' + result.passMark + ' percent to pass. Have another go, the questions come in a new order.</p></section>' +
         '<button type="button" class="btn btn--ink btn--block" data-retry>Retry the quiz</button>' +
         '<button type="button" class="btn btn--block" data-cards>Back to the cards</button>' +
-        reviewHtml(result) + funnelHtml(),
+        reviewHtml(result) + funnelHtml('quiz-failed', toy.id),
         'Try again', 'coral'
       );
       on('[data-retry]', function () { run(toy); });
@@ -288,14 +285,59 @@
     return '#FFD93D';
   }
 
-  function drawCertificate(canvas, cert, rankName) {
+  // opts.scale: 2 for the HD version. opts.premium: the premium design
+  // (ivory paper, gold frame and seal), both sold from the finish screen.
+  function premiumFrame(ctx, W, H) {
+    var gold = ctx.createLinearGradient(0, 0, W, H);
+    gold.addColorStop(0, '#B8860B');
+    gold.addColorStop(0.35, '#FFE7A3');
+    gold.addColorStop(0.65, '#E8B84A');
+    gold.addColorStop(1, '#9C6F12');
+    ctx.save();
+    ctx.strokeStyle = gold;
+    ctx.lineWidth = 16;
+    roundRect(ctx, 70, 70, W - 160, H - 160, 44);
+    ctx.stroke();
+    ctx.lineWidth = 3;
+    roundRect(ctx, 92, 92, W - 204, H - 204, 34);
+    ctx.stroke();
+    // A gold seal at the top right.
+    var cx = W - 250;
+    var cy = 250;
+    ctx.fillStyle = gold;
+    ctx.beginPath();
+    for (var i = 0; i < 32; i++) {
+      var a = (i / 32) * Math.PI * 2;
+      var r = i % 2 ? 84 : 96;
+      ctx.lineTo(cx + r * Math.cos(a), cy + r * Math.sin(a));
+    }
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = '#7A560E';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(cx, cy, 66, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.fillStyle = '#5A3F08';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = "700 26px 'Fredoka', 'Nunito', sans-serif";
+    ctx.fillText('PREMIUM', cx, cy - 14);
+    ctx.font = "700 20px 'Nunito', sans-serif";
+    ctx.fillText('★ web3.toys ★', cx, cy + 20);
+    ctx.restore();
+  }
+
+  function drawCertificate(canvas, cert, rankName, opts) {
+    opts = opts || {};
+    var S = opts.scale || 1;
     var W = 1600;
     var H = 1000;
     var INK = '#1F1B2E';
     var DISPLAY = "'Fredoka', 'Nunito', sans-serif";
     var BODY = "'Nunito', sans-serif";
-    canvas.width = W;
-    canvas.height = H;
+    canvas.width = W * S;
+    canvas.height = H * S;
     var fonts = document.fonts
       ? Promise.all([document.fonts.load('700 60px Fredoka'), document.fonts.load('800 40px Nunito')]).catch(function () {})
       : Promise.resolve();
@@ -315,17 +357,19 @@
       var img = r[1];
       var icon = r[2];
       var ctx = canvas.getContext('2d');
+      ctx.setTransform(S, 0, 0, S, 0, 0);
       ctx.fillStyle = '#FFF8E1';
       ctx.fillRect(0, 0, W, H);
       ctx.fillStyle = INK;
       roundRect(ctx, 64, 64, W - 108, H - 108, 60);
       ctx.fill();
-      ctx.fillStyle = certFill(ctx, W, H);
+      ctx.fillStyle = opts.premium ? '#FFFBF0' : certFill(ctx, W, H);
       roundRect(ctx, 44, 44, W - 108, H - 108, 60);
       ctx.fill();
       ctx.lineWidth = 12;
       ctx.strokeStyle = INK;
       ctx.stroke();
+      if (opts.premium) premiumFrame(ctx, W, H);
 
       ctx.textBaseline = 'top';
       ctx.fillStyle = INK;
@@ -334,15 +378,17 @@
       if (icon) ctx.drawImage(icon, 108, 90, 100, 100);
       ctx.fillText('web3.toys', icon ? 218 : 120, 110);
       ctx.font = '800 32px ' + BODY;
-      var by = 'by BuildWithAki';
-      var bw = ctx.measureText(by).width + 56;
-      ctx.fillStyle = '#FFFFFF';
-      roundRect(ctx, W - 120 - bw, 112, bw, 60, 30);
-      ctx.fill();
-      ctx.lineWidth = 6;
-      ctx.stroke();
-      ctx.fillStyle = INK;
-      ctx.fillText(by, W - 120 - bw + 28, 124);
+      var by = opts.premium ? '' : 'by BuildWithAki';
+      if (by) {
+        var bw = ctx.measureText(by).width + 56;
+        ctx.fillStyle = '#FFFFFF';
+        roundRect(ctx, W - 120 - bw, 112, bw, 60, 30);
+        ctx.fill();
+        ctx.lineWidth = 6;
+        ctx.stroke();
+        ctx.fillStyle = INK;
+        ctx.fillText(by, W - 120 - bw + 28, 124);
+      }
 
       ctx.font = '800 34px ' + BODY;
       ctx.fillText('CERTIFICATE OF COMPLETION', 120, 230);
@@ -400,7 +446,7 @@
       '<p class="tip"><strong>Tip:</strong> ' + esc(funnel.shareTip) + '</p>' +
       '<p class="small-print center">Code ' + esc(cert.code) + ' · <a href="' + esc(link) + '">Anyone can check it here</a></p>' +
       '<div class="btn-row"><a class="btn" href="../">All toys</a><a class="btn" href="../progress/">My Progress</a></div>' +
-      funnelHtml(),
+      funnelHtml('certificate', cert.toy),
       'Certificate', 'mint'
     );
     bindFunnel();
@@ -434,6 +480,71 @@
     }).catch(function (err) { ui.app.innerHTML = C.loadError(err); });
     return true;
   }
+
+  // ---------- What the finish screen sells (see js/offers.js) ----------
+
+  var RESULTS_KEY = 'web3toys.quizResults.v1';
+
+  function saveResult(toy, result) {
+    try {
+      var all = JSON.parse(localStorage.getItem(RESULTS_KEY)) || {};
+      all[toy.id] = { title: toy.title, score: result.score, correct: result.correct, total: result.total, passed: result.passed, date: new Date().toISOString().slice(0, 10), review: result.review };
+      localStorage.setItem(RESULTS_KEY, JSON.stringify(all));
+    } catch (e) { /* private mode */ }
+  }
+
+  function savedResult(id) {
+    try { return (JSON.parse(localStorage.getItem(RESULTS_KEY)) || {})[id] || null; } catch (e) { return null; }
+  }
+
+  // The full report: every answer explained, then a checklist.
+  function report(id) {
+    var r = savedResult(id);
+    if (!r) return Promise.reject(new Error('Take the quiz on this device first, then download your report here.'));
+    return C.loadJson('../data/reports.json').then(function (R) {
+      var extra = R.toys[id] || { checklist: [], next: [] };
+      window.Web3Offers.print(
+        '<h1>' + esc(r.title) + ': your full report</h1>' +
+        '<p><b>Score ' + r.score + '%</b> · ' + r.correct + ' of ' + r.total + ' right · ' + esc(r.date) + (r.passed ? ' · Passed' : '') + '</p>' +
+        '<p>' + esc(R.intro) + '</p>' +
+        '<h2>Every question explained</h2><ol class="report-qs">' + r.review.map(function (q) {
+          return '<li><p><b>' + (q.correct ? '✓ ' : '✗ ') + esc(q.question) + '</b></p>' +
+            (q.correct ? '' : '<p>Your answer: ' + esc(q.chosen == null ? 'no answer' : q.chosen) + '</p>') +
+            '<p>Right answer: <b>' + esc(q.answer) + '</b></p><p>' + esc(q.explain) + '</p></li>';
+        }).join('') + '</ol>' +
+        (extra.checklist.length ? '<h2>Your checklist</h2><ul class="report-check">' + extra.checklist.map(function (c) { return '<li>☐ ' + esc(c) + '</li>'; }).join('') + '</ul>' : '') +
+        (extra.next.length ? '<h2>Try next</h2><p>' + extra.next.map(function (n) { return 'web3.toys/' + esc(n) + '/'; }).join(' · ') + '</p>' : '') +
+        '<p class="print-foot">' + esc(R.close) + ' Made with web3.toys.</p>'
+      );
+    });
+  }
+
+  function savedCert(id) {
+    return Web3Progress.load(window.localStorage).certificates[id] || null;
+  }
+
+  function downloadCert(id, opts, suffix) {
+    var cert = savedCert(id);
+    if (!cert) return Promise.reject(new Error('Earn the certificate on this device first, then download it here.'));
+    var canvas = document.createElement('canvas');
+    var progress = Web3Progress.load(window.localStorage);
+    return (ranks ? Promise.resolve() : extras()).then(function () {
+      return drawCertificate(canvas, cert, Web3Progress.rankFor(Web3Progress.count(progress), ranks).name, opts);
+    }).then(function () {
+      canvas.toBlob(function (blob) {
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = String(cert.title || id).toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + suffix + '.png';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }, 'image/png');
+    });
+  }
+
+  site.deliver('report-full', report);
+  site.deliver('cert-hd', function (id) { return downloadCert(id, { scale: 2 }, 'hd'); });
+  site.deliver('cert-premium', function (id) { return downloadCert(id, { scale: 2, premium: true }, 'premium'); });
 
   window.ToyQuiz = { start: start, showSaved: showSaved, drawCertificate: drawCertificate };
 })();
