@@ -56,8 +56,30 @@ async function override(id) {
   }
 }
 
+// Your private preview: open a locked toy once with ?preview=YOUR_KEY (the
+// PREVIEW_KEY setting in Vercel) and this browser can play locked toys for
+// 30 days. Without PREVIEW_KEY set, there is no preview.
+function previewOk(request, url) {
+  const key = process.env.PREVIEW_KEY || '';
+  if (key.length < 12) return { ok: false };
+  if (url.searchParams.get('preview') === key) {
+    const clean = new URL(url);
+    clean.searchParams.delete('preview');
+    return { ok: true, response: new Response(null, { status: 307, headers: {
+      Location: clean.toString(),
+      'Set-Cookie': `w3preview=${encodeURIComponent(key)}; Path=/; Max-Age=2592000; HttpOnly; Secure; SameSite=Lax`,
+      'Cache-Control': 'no-store',
+    } }) };
+  }
+  const cookie = request.headers.get('cookie') || '';
+  return { ok: cookie.split(/;\s*/).includes(`w3preview=${encodeURIComponent(key)}`) };
+}
+
 export default async function middleware(request) {
   const url = new URL(request.url);
+  const preview = previewOk(request, url);
+  if (preview.response) return preview.response;
+  if (preview.ok) return;
   const folder = url.pathname.split('/')[1] || '';
   let id = folder;
   try {

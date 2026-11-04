@@ -751,6 +751,13 @@
    "hash": "e8376d0f0ff2"
   },
   {
+   "file": "data/hall-of-fame-people.json",
+   "item": "(whole file)",
+   "label": "data/hall-of-fame-people.json",
+   "note": "Who Built It? (Web3 Builders Hall of Fame): the 50 people, from web3_people_game_list.xlsx. Facts are public information as of 5 Nov 2026 and need checking before launch (entries with check say what t",
+   "hash": "050f13d95f26"
+  },
+  {
    "file": "data/legal/privacy.json",
    "item": "(whole file)",
    "label": "Privacy policy",
@@ -895,7 +902,7 @@
    "item": "(whole file)",
    "label": "data/releases.json",
    "note": "The release schedule for toys (js/releases.js, the soon/ teaser page, middleware.js). Times are India time (+05:30). date: when the toy unlocks; change it here any time, no code needed. playableNow: t",
-   "hash": "3da1100d844a"
+   "hash": "feb1a1a382fd"
   },
   {
    "file": "data/reports.json",

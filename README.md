@@ -400,3 +400,16 @@ panel (bottom sheet on phones, side panel on computers), can be hidden for a
 day with ×, and hides while a toy is being played, coming back on the finish
 screen. The task list itself (`js/earn-tasks.js`, `data/quests.json`) is
 shared with the Coins tab on My Progress.
+
+## Who Built It? (Web3 Builders Hall of Fame)
+
+`hall-of-fame/` (`js/hof-app.js`): read a clue, pick the person from three
+portraits, and their card flips over. 10 rounds (3 easy, 4 medium, 3 hard)
+from 50 people (`data/hall-of-fame-people.json`, from the spreadsheet; words
+in `data/hall-of-fame.json`). Right answers fill your Hall of Fame wall
+(this browser). Ends with the quiz (`quizzes/hall-of-fame.json`, letter F)
+and a certificate. Portraits: `images/people/ID.webp` plus `"photo": true`;
+until then a pencil sketch with initials shows. Brief:
+`docs/setup/hall-of-fame-portraits.md`. Scheduled for Tue 1 Dec in
+`data/releases.json`; preview it before then by setting `PREVIEW_KEY` in
+Vercel and opening `/hall-of-fame/?preview=YOUR_KEY` once.

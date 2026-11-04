@@ -1,0 +1,48 @@
+{
+  "_help": "Quiz for Who Built It? (Web3 Builders Hall of Fame). 5 to 8 questions. answer must match one of the options exactly. explain is shown after the quiz. This folder is never shown to visitors.",
+  "review": true,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "Who published the Bitcoin whitepaper in 2008?",
+      "options": ["Satoshi Nakamoto", "Vitalik Buterin", "Hal Finney", "Brian Armstrong"],
+      "answer": "Satoshi Nakamoto",
+      "explain": "Satoshi published it in 2008 and launched Bitcoin in January 2009. Their real identity has never been confirmed."
+    },
+    {
+      "id": "q2",
+      "question": "What was new about Ethereum, proposed by Vitalik Buterin?",
+      "options": ["A blockchain that runs programs (smart contracts), not just payments", "The first stablecoin", "A faster way to mine Bitcoin", "A bank account for crypto"],
+      "answer": "A blockchain that runs programs (smart contracts), not just payments",
+      "explain": "Vitalik was 19 when he published the Ethereum whitepaper in 2013."
+    },
+    {
+      "id": "q3",
+      "question": "What did Hayden Adams build with Uniswap?",
+      "options": ["A way to swap tokens without an order book", "A crypto bank card", "A Bitcoin mining pool", "A wallet app"],
+      "answer": "A way to swap tokens without an order book",
+      "explain": "Uniswap is an automated market maker: you swap against a pool of tokens instead of waiting for a buyer or seller."
+    },
+    {
+      "id": "q4",
+      "question": "USDT and USDC are both...",
+      "options": ["Dollar stablecoins", "Bitcoin forks", "Exchanges", "Layer 2 chains"],
+      "answer": "Dollar stablecoins",
+      "explain": "Tether (run by Paolo Ardoino) issues USDT; Circle (run by Jeremy Allaire) issues USDC."
+    },
+    {
+      "id": "q5",
+      "question": "What does an onchain investigator like ZachXBT do?",
+      "options": ["Traces stolen funds and exposes scams", "Prints new tokens", "Runs a crypto exchange", "Sets token prices"],
+      "answer": "Traces stolen funds and exposes scams",
+      "explain": "Every transaction on a public blockchain can be followed, which is how investigators track hacks and rug pulls."
+    },
+    {
+      "id": "q6",
+      "question": "What is the lesson of FTX (2022) and Terra (2022)?",
+      "options": ["Famous founders and big promises do not remove risk", "Big projects can never fail", "Stablecoins always stay at one dollar", "Exchanges always keep your money safe"],
+      "answer": "Famous founders and big promises do not remove risk",
+      "explain": "FTX collapsed in November 2022 and Terra and Luna in May 2022. Never put in more than you can afford to lose."
+    }
+  ]
+}

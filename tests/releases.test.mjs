@@ -1,7 +1,7 @@
 // Scheduled releases: data/releases.json, the rule in js/releases.js and
 // the server lock in middleware.js.
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { describe, it } from 'node:test';
 
@@ -82,6 +82,15 @@ describe('Release schedule', () => {
       const data = await mw.default(new Request('https://web3.toys/web3-roles/data.json'));
       assert.equal(data.status, 307);
       assert.equal(await mw.default(new Request('https://web3.toys/hall-of-fame/')), undefined);
+      process.env.PREVIEW_KEY = 'preview-key-123456';
+      const set = await mw.default(new Request('https://web3.toys/web3-roles/?preview=preview-key-123456'));
+      assert.equal(set.status, 307);
+      assert.equal(set.headers.get('location'), 'https://web3.toys/web3-roles/');
+      assert.match(set.headers.get('set-cookie'), /^w3preview=preview-key-123456;.*HttpOnly/);
+      assert.equal(await mw.default(new Request('https://web3.toys/web3-roles/', { headers: { cookie: 'a=1; w3preview=preview-key-123456' } })), undefined);
+      assert.equal((await mw.default(new Request('https://web3.toys/web3-roles/?preview=wrong'))).status, 307);
+      assert.equal((await mw.default(new Request('https://web3.toys/web3-roles/', { headers: { cookie: 'w3preview=wrong' } }))).headers.get('location'), 'https://web3.toys/soon/?toy=web3-roles');
+      delete process.env.PREVIEW_KEY;
       globalThis.fetch = async () => { throw new Error('offline'); };
       assert.equal((await mw.default(new Request('https://web3.toys/hall-of-fame/'))).status, 307);
     } finally {
@@ -94,5 +103,22 @@ describe('Release schedule', () => {
     assert.ok(sql.includes("if not public.is_admin() then raise exception 'Admins only'"));
     assert.ok(sql.includes('p_consent is not true'));
     assert.ok(!/create policy[^;]*for (insert|update|delete|all)/i.test(sql));
+  });
+
+  it('Who Built It? has 50 people with every field', () => {
+    const d = json('data/hall-of-fame-people.json');
+    const cats = new Set(d.categories.map((c) => c.id));
+    const words = json('data/hall-of-fame.json');
+    assert.equal(d.people.length, 50);
+    assert.equal(new Set(d.people.map((p) => p.id)).size, 50);
+    d.people.forEach((p) => {
+      assert.match(p.id, /^[a-z0-9-]+$/);
+      assert.ok(p.name && p.role && p.why && p.fun, p.id);
+      assert.ok(cats.has(p.cat), p.id);
+      assert.ok(['easy', 'medium', 'hard'].includes(p.level), p.id);
+      if (p.photo) assert.ok(existsSync(new URL(`../images/people/${p.id}.webp`, import.meta.url)), p.id + ' photo missing');
+    });
+    Object.entries(words.rounds).forEach(([lv, n]) => assert.ok(d.people.filter((p) => p.level === lv).length >= n, lv));
+    assert.ok(json('quizzes/index.json').toys.some((t) => t.id === 'hall-of-fame'));
   });
 });

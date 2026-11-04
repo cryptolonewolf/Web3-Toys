@@ -6903,3 +6903,30 @@ body[data-theme='theme-night'] .pf-h .small-print { color: #d9d4f0; }
   @keyframes earn-up { from { translate: 0 24px; opacity: 0; } to { translate: 0 0; opacity: 1; } }
 }
 @media print { .earn-fab, .earn-panel { display: none !important; } }
+
+/* ---------- Who Built It? (js/hof-app.js) ---------- */
+.hof-face { position: relative; display: inline-grid; place-items: center; width: 88px; aspect-ratio: 1; border-radius: 50%; overflow: hidden; flex: none; }
+.hof-face img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+.hof-face .hof-sketch { width: 100%; height: 100%; }
+.hof-face--sm { width: 56px; }
+.hof-face--lg { width: 112px; }
+.hof-face--empty { background: var(--white); border: 2px dashed rgba(31, 27, 46, .35); font-weight: 800; font-size: 20px; color: rgba(31, 27, 46, .4); }
+.hof-row { display: flex; justify-content: center; }
+.hof-row .hof-face { margin: 0 -6px; }
+.hof-quote { margin: 0; padding: 14px 16px; font-size: 19px; font-weight: 700; line-height: 1.4; background: var(--white); border: var(--line-thin); border-radius: 16px; }
+.hof-choices { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.hof-choice { display: grid; justify-items: center; gap: 6px; padding: 10px 4px; font: inherit; font-weight: 800; font-size: 13px; line-height: 1.2; color: var(--ink); text-align: center; background: var(--white); border: var(--line-thin); border-radius: 16px; cursor: pointer; }
+.hof-choice .hof-face { width: min(72px, 100%); }
+.hof-choice:disabled { cursor: default; opacity: .55; }
+.hof-choice.is-right { background: var(--mint); opacity: 1; }
+.hof-choice.is-wrong { background: var(--coral-tint); opacity: 1; }
+.hof-result { margin: 0; font-weight: 800; font-size: 18px; }
+.hof-result.is-good { color: #1d7a35; }
+.hof-result.is-bad { color: #b3261e; }
+.hof-card-top { display: flex; gap: 14px; align-items: center; }
+.hof-card.is-caution { background: var(--coral-tint); }
+.hof-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }
+.hof-wall { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: 10px 6px; }
+.hof-tile { display: grid; justify-items: center; gap: 4px; width: 100%; padding: 0; font: inherit; font-size: 11px; font-weight: 700; line-height: 1.2; text-align: center; color: var(--ink); background: none; border: 0; cursor: pointer; }
+.hof-tile.is-empty { cursor: default; color: rgba(31, 27, 46, .45); }
+@media (min-width: 600px) { .hof-choice { font-size: 15px; } .hof-quote { font-size: 21px; } }
