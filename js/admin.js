@@ -7,7 +7,7 @@
   var C = window.Web3Common;
   var esc = C.esc;
   var app = document.getElementById('app');
-  var TABS = [['users', 'Users'], ['leads', 'Leads'], ['purchases', 'Purchases'], ['bookings', 'Bookings'], ['requests', 'Project requests'], ['review', 'Review queue'], ['stats', 'Toy stats']];
+  var TABS = [['users', 'Users'], ['leads', 'Leads'], ['purchases', 'Purchases'], ['bookings', 'Bookings'], ['requests', 'Project requests'], ['review', 'Review queue'], ['growth', 'Referrals & posts'], ['stats', 'Toy stats']];
   var tab = (location.hash.replace('#', '') || 'users');
   var days = 30;
   var settings = null;
@@ -78,7 +78,7 @@
       render();
     });
     var panel = app.querySelector('[data-panel]');
-    ({ users: users, leads: leads, purchases: purchases, bookings: bookings, requests: requests, review: review, stats: stats })[tab](panel)
+    ({ users: users, leads: leads, purchases: purchases, bookings: bookings, requests: requests, review: review, growth: growth, stats: stats })[tab](panel)
       .catch(function (err) { panel.innerHTML = '<p class="tk-warn is-bad">Could not load: ' + esc(err.message) + '</p>'; });
   }
 
@@ -90,6 +90,7 @@
   function date(t) { return t ? String(t).slice(0, 10) : ''; }
 
   function money(cents, cur) {
+    if (cur === 'COINS') return cents.toLocaleString('en-US') + ' coins';
     var n = cents / 100;
     return cur === 'INR' ? '₹' + n.toLocaleString('en-IN', { maximumFractionDigits: 2 }) : '$' + n.toFixed(2);
   }
@@ -161,11 +162,12 @@
 
   function purchases(panel) {
     return load('orders', function () { return db().from('orders').select('*').order('created_at', { ascending: false }).limit(5000).then(must); }).then(function (rows) {
-      var paid = rows.filter(function (o) { return o.status === 'paid'; });
+      var withCoins = rows.filter(function (o) { return o.status === 'paid' && o.currency === 'COINS'; });
+      var paid = rows.filter(function (o) { return o.status === 'paid' && o.currency !== 'COINS'; });
       var sum = function (cur) { return paid.filter(function (o) { return o.currency === cur; }).reduce(function (s, o) { return s + o.amount; }, 0); };
       var month = paid.filter(function (o) { return Date.parse(o.paid_at) > Date.now() - days * 86400000; });
       show(panel, tiles([['Paid orders', paid.length], ['Revenue in rupees', money(sum('INR'), 'INR')], ['Revenue in dollars', money(sum('USD'), 'USD')],
-        ['Paid in last ' + days + ' days', month.length], ['Unfinished or failed', rows.length - paid.length]]) +
+        ['Paid in last ' + days + ' days', month.length], ['Unlocked with coins', withCoins.length], ['Unfinished or failed', rows.filter(function (o) { return o.status !== 'paid'; }).length]]) +
         '<p class="small-print">Totals are before Razorpay and Paymento fees and taxes. Test-mode payments count here too until you go live.</p>' +
         grid('purchases', ['Date', 'What', 'Amount', 'Paid with', 'Status', 'Buyer email', 'Payment ref'], rows.map(function (o) {
           return [date(o.paid_at || o.created_at), o.title, money(o.amount, o.currency), o.provider || 'razorpay', o.status, o.email, o.razorpay_payment_id || o.provider_token || ''];
@@ -203,6 +205,28 @@
         '<h3 class="pf-h">Book a Call clicks by page</h3>' +
         '<div class="adm-scroll"><table class="tk-table adm-table"><thead><tr><th>Page</th><th>Clicks</th></tr></thead><tbody>' +
         clickRows.map(function (c) { return '<tr><td>' + esc(c[0]) + '</td><td>' + c[1] + '</td></tr>'; }).join('') + '</tbody></table></div>');
+    });
+  }
+
+  // ---------- Referrals and X posts (spot checks) ----------
+
+  function growth(panel) {
+    return Promise.all([
+      load('referrals', function () { return db().rpc('admin_referrals').then(must); }),
+      load('proofs', function () { return db().rpc('admin_proofs').then(must); }),
+    ]).then(function (r) {
+      var refs = r[0];
+      var proofs = r[1];
+      var by = {};
+      refs.forEach(function (x) { by[x.referrer_name || '?'] = (by[x.referrer_name || '?'] || 0) + 1; });
+      var top = Object.keys(by).sort(function (a, b) { return by[b] - by[a]; }).slice(0, 5);
+      show(panel, tiles([['Invites', refs.length], ['Qualified (paid)', refs.filter(function (x) { return x.status === 'paid'; }).length],
+        ['Still playing', refs.filter(function (x) { return x.status === 'pending'; }).length], ['Over the monthly cap', refs.filter(function (x) { return x.status === 'capped'; }).length], ['X posts claimed', proofs.length]]) +
+        '<p class="small-print">Top inviters: ' + (top.length ? top.map(function (k) { return esc(k) + ' (' + by[k] + ')'; }).join(', ') : 'none yet') + '. Spot-check the posts below; if one is fake, tell me and I will show you how to remove the coins.</p>' +
+        '<h3 class="pf-h">X posts for the post task</h3><div class="adm-scroll"><table class="tk-table adm-table"><thead><tr><th>Player</th><th>Post</th><th>Date</th></tr></thead><tbody>' +
+        proofs.map(function (p) { return '<tr><td>' + esc(p.display_name || '') + '</td><td><a href="' + esc(p.proof) + '" target="_blank" rel="noopener">' + esc(p.proof) + '</a></td><td>' + esc(date(p.created_at)) + '</td></tr>'; }).join('') +
+        '</tbody></table></div><h3 class="pf-h">Invites</h3>' +
+        grid('referrals', ['Inviter', 'New player', 'Status', 'Joined', 'Qualified'], refs.map(function (x) { return [x.referrer_name, x.referee_name, x.status, date(x.created_at), date(x.qualified_at)]; })));
     });
   }
 

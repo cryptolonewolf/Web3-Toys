@@ -72,6 +72,13 @@
 
   // ---------- The pay box ----------
 
+  function coinsButton(p) {
+    var have = site.coins.wallet().balance;
+    var enough = have >= p.coins;
+    return '<button type="button" class="btn btn--block btn--yellow" data-coins' + (enough ? '' : ' disabled') + '>' + site.icon('coin') + ' Unlock with ' + p.coins.toLocaleString('en-US') + ' coins</button>' +
+      '<p class="small-print">You have ' + have.toLocaleString('en-US') + ' coins.' + (enough ? '' : ' <a href="' + site.root + 'progress/#coins">Earn more coins</a>') + '</p>';
+  }
+
   function box(p, item, onPaid) {
     var cur = guessCurrency();
     var m = document.createElement('div');
@@ -90,6 +97,7 @@
         (CFG.enabled ? '<p class="small-print">' + (cur === 'INR' ? 'Pay with UPI or card, in rupees.' : 'Pay by card, in US dollars.') +
         ' <button type="button" class="text-button" data-cur>' + (cur === 'INR' ? 'Pay in US dollars instead' : 'In India? Pay in rupees') + '</button></p>' : '') +
         (CFG.enabled ? '<button type="button" class="btn btn--ink btn--block" data-pay>Pay ' + price(p, cur) + '</button>' : '') +
+        (p.coins ? coinsButton(p) : '') +
         (CFG.crypto ? '<button type="button" class="btn btn--block" data-crypto>Pay with crypto · ' + price(p, 'USD') + '</button>' +
           '<p class="small-print">Crypto (like USDT or USDC) through Paymento, paid in US dollars\' worth. Send only from a wallet you control, on the network shown.</p>' : '') +
         '<p class="small-print" data-pay-msg aria-live="polite">' + esc(msg || '') + '</p>' +
@@ -101,7 +109,9 @@
       if (pb) pb.addEventListener('click', pay);
       var c = m.querySelector('[data-crypto]');
       if (c) c.addEventListener('click', payCrypto);
-      (m.querySelector('[data-pay]') || m.querySelector('[data-crypto]')).focus();
+      var cb = m.querySelector('[data-coins]');
+      if (cb) cb.addEventListener('click', payCoins);
+      (m.querySelector('[data-pay]') || m.querySelector('[data-coins]') || m.querySelector('[data-crypto]')).focus();
     }
 
     function busy(on, msg) {
@@ -146,6 +156,18 @@
       }).catch(function (err) { busy(false, err.message); });
     }
 
+    // Coins: the database checks the coin price and the balance.
+    function payCoins() {
+      if (!window.confirm('Unlock ' + p.title + ' for ' + p.coins.toLocaleString('en-US') + ' coins?')) return;
+      busy(true, 'Unlocking…');
+      var cb = m.querySelector('[data-coins]');
+      if (cb) cb.disabled = true;
+      window.Web3Sync.redeem(p.id, item).then(function (id) {
+        bought = null;
+        done({ id: id, title: p.title + (item ? ' (' + item + ')' : '') }, true);
+      }, function (err) { busy(false, err.message); if (cb) cb.disabled = false; });
+    }
+
     // Crypto: Paymento's own page takes the payment, then sends the buyer
     // back to My Progress, Purchases, where the order is checked.
     function payCrypto() {
@@ -158,12 +180,12 @@
       }, function (err) { busy(false, err.message); if (c) c.disabled = false; });
     }
 
-    function done(order) {
+    function done(order, withCoins) {
       m.classList.remove('is-busy');
       site.fx.confetti();
       site.sound.play('cash');
       m.innerHTML = '<div class="card stack stack--tight" role="dialog" aria-modal="true" aria-labelledby="pay-title">' +
-        '<h2 class="title-md" id="pay-title">Paid ✓</h2><p class="text">' + esc(item ? order.title || p.title : p.title) + ' is yours. A receipt is on its way to your email.</p>' +
+        '<h2 class="title-md" id="pay-title">Paid ✓</h2><p class="text">' + esc(item ? order.title || p.title : p.title) + ' is yours.' + (withCoins ? ' Paid with coins.' : ' A receipt is on its way to your email.') + '</p>' +
         '<div class="btn-row">' + (p.file ? '<button type="button" class="btn btn--yellow" data-dl>Download</button>' : '') +
         (p.type === 'call' && callUrl() ? '<a class="btn btn--yellow" href="' + esc(callUrl(order.id)) + '" target="_blank" rel="noopener">Pick your time</a>' : '') +
         '<a class="btn" href="' + site.root + 'progress/#purchases">My purchases</a><button type="button" class="btn" data-close>Close</button></div>' +
@@ -174,7 +196,7 @@
         download(order.id).catch(function (err) { m.querySelector('[data-pay-msg]').textContent = err.message; });
       });
       document.dispatchEvent(new CustomEvent('web3toys:purchased', { detail: order }));
-      site.log('purchase', p.id + (item ? ':' + item : ''));
+      site.log('purchase', (withCoins ? 'coins:' : '') + p.id + (item ? ':' + item : ''));
       if (onPaid) onPaid(order);
     }
 
@@ -195,10 +217,10 @@
   // ---------- What pages call ----------
 
   function buy(productId, item, onPaid) {
-    if (!CFG.enabled && !CFG.crypto) return Promise.reject(new Error('Payments open soon.'));
     return products().then(function (ps) {
       var p = ps.filter(function (x) { return x.id === productId; })[0];
       if (!p) throw new Error('Unknown product.');
+      if (!CFG.enabled && !CFG.crypto && !p.coins) throw new Error('Payments open soon.');
       if (!A.user()) {
         A.open('Log in to buy, so your purchase is saved to your account and you can download it again any time.');
         throw new Error('login');
@@ -247,6 +269,6 @@
 
   A.onChange(function () { bought = null; });
 
-  window.Web3Pay = { callUrl: callUrl, enabled: !!(CFG.enabled || CFG.crypto), crypto: !!CFG.crypto, checkCrypto: checkCrypto, products: products, price: price, currency: guessCurrency, buy: buy, download: download, purchases: purchases, owns: owns };
+  window.Web3Pay = { callUrl: callUrl, money: !!(CFG.enabled || CFG.crypto), enabled: true, crypto: !!CFG.crypto, checkCrypto: checkCrypto, products: products, price: price, currency: guessCurrency, buy: buy, download: download, purchases: purchases, owns: owns };
   document.dispatchEvent(new CustomEvent('web3pay:ready'));
 })();

@@ -35,3 +35,33 @@ describe('Admin dashboard', () => {
     assert.ok(read('admin/index.html').includes('noindex'));
   });
 });
+
+describe('Coin tasks, coin unlocks and referrals', () => {
+  const sql = read('supabase/008_quests_referrals.sql');
+  const quests = JSON.parse(read('data/quests.json')).quests;
+  const products = JSON.parse(read('data/products.json')).products;
+
+  it('task coins match the database', () => {
+    const db = Object.fromEntries([...sql.matchAll(/\('([a-z0-9-]+)', (\d+), '(auto|post|honor)'\)/g)].map((m) => [m[1], [Number(m[2]), m[3]]]));
+    assert.deepEqual(Object.fromEntries(quests.map((q) => [q.id, [q.coins, q.type]])), db);
+  });
+
+  it('coin prices match the database, and calls cannot be unlocked with coins', () => {
+    const db = Object.fromEntries([...sql.matchAll(/\('([a-z0-9-]+)', '(?:[^']|'')+', (\d+), (true|false)\)/g)].map((m) => [m[1], [Number(m[2]), m[3] === 'true']]));
+    assert.deepEqual(Object.fromEntries(products.filter((p) => p.coins).map((p) => [p.id, [p.coins, !!p.perItem]])), db);
+    assert.ok(!products.find((p) => p.type === 'call').coins);
+  });
+
+  it('referrals pay only after a certificate and 3 finished toys, with a monthly cap', () => {
+    const body = sql.slice(sql.indexOf('function public.check_referral'));
+    assert.ok(body.includes('from public.certificates where user_id = uid'));
+    assert.ok(body.includes("kind = 'finish') < 3"));
+    assert.ok(body.includes('recent >= 20'));
+    assert.ok(sql.includes("if ref is null or ref = uid then return false"));
+  });
+
+  it('says coins have no cash value wherever they are spent', () => {
+    for (const f of ['data/quests.json', 'data/cosmetics.json']) assert.ok(read(f).includes('no cash value'), f);
+    assert.ok(read('data/legal/terms.json').includes('never be withdrawn'));
+  });
+});

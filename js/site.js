@@ -480,7 +480,16 @@
     app.appendChild(box);
   }
 
+  // Invite links (?ref=CODE): remember the first one; js/sync.js links the
+  // new player to their inviter after they log in.
+  function keepReferral() {
+    var m = /[?&]ref=([a-z0-9]{6,12})\b/i.exec(location.search);
+    if (!m) return;
+    try { if (!localStorage.getItem('web3toys.ref.v1')) localStorage.setItem('web3toys.ref.v1', m[1].toLowerCase()); } catch (e) { /* private mode */ }
+  }
+
   function start() {
+    keepReferral();
     logEvent('page_view', null);
     showLoader();
     buildTopbar();

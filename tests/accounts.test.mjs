@@ -78,8 +78,8 @@ describe('Compact profile page', () => {
     const html = read('progress/index.html');
     assert.ok(html.includes('js/profile.js') && !html.includes('progress-page.js') && !html.includes('account-box.js'));
     const js = read('js/profile.js');
-    ['certs', 'extras', 'purchases', 'settings'].forEach((t) => assert.ok(js.includes(`['${t}',`), t));
-    assert.ok(js.includes("if (h === 'coins') return 'extras'"));
+    ['certs', 'coins', 'purchases', 'settings'].forEach((t) => assert.ok(js.includes(`['${t}',`), t));
+    assert.ok(js.includes("if (h === 'extras' || h === 'earn') return 'coins'"));
     assert.ok(js.includes('Delete my account and data'));
     assert.ok(js.includes('role="tablist"') && js.includes('aria-selected'));
   });

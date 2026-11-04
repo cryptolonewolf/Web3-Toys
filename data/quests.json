@@ -1,0 +1,23 @@
+{
+  "_help": "The Earn coins tasks on My Progress (Coins tab). id and coins must match the quests list in supabase/008_quests_referrals.sql (a test checks). type: auto (checked by the database), post (the player pastes the link to their X post), honor (trusted, small, once). link: social for the honor tasks, read from social in config.js; a task whose link is empty is hidden. need: what the button waits for in this browser before it can be claimed.",
+  "title": "Earn coins",
+  "line": "Quick tasks. Each one pays once.",
+  "quests": [
+    {"id": "account", "type": "auto", "coins": 50, "title": "Create your account", "need": "login"},
+    {"id": "first-toy", "type": "auto", "coins": 20, "title": "Finish your first toy", "need": "finish", "go": "./#shelf-beginners"},
+    {"id": "first-cert", "type": "auto", "coins": 50, "title": "Earn your first certificate", "need": "certificate", "go": "crypto-in-5/"},
+    {"id": "streak-3", "type": "auto", "coins": 30, "title": "Play 3 days in a row", "need": "streak", "days": 3},
+    {"id": "streak-7", "type": "auto", "coins": 75, "title": "Play 7 days in a row", "need": "streak", "days": 7},
+    {"id": "post-x", "type": "post", "coins": 50, "title": "Post about web3.toys on X", "line": "Share your invite link or a result in your own words, then paste the link to your post."},
+    {"id": "join-telegram", "type": "honor", "coins": 20, "title": "Join our Telegram", "link": "telegram"},
+    {"id": "follow-x", "type": "honor", "coins": 20, "title": "Follow web3.toys on X", "link": "x"}
+  ],
+  "invite": {
+    "title": "Invite friends",
+    "line": "You get 200 coins and your friend gets 50 when they earn a certificate and finish 3 toys.",
+    "post": "I'm learning web3 with little 5 minute toys on web3.toys. Free, fun, and you earn certificates. Try it:"
+  },
+  "spendTitle": "Unlock paid items with coins",
+  "spendLine": "Reports, HD certificates and books can be unlocked with coins instead of money.",
+  "noCash": "Coins are site points. They unlock extras and paid items on web3.toys, but have no cash value and can never be withdrawn, sold or swapped for money, crypto or tokens."
+}

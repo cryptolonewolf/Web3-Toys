@@ -755,7 +755,7 @@
    "item": "(whole file)",
    "label": "Privacy policy",
    "note": "The Privacy page. Plain-English draft: have a lawyer check it before taking payments. Keep it matching what the site really collects. Lines starting with TODO are placeholders.",
-   "hash": "204a82bd0c98"
+   "hash": "d0e83a4f2316"
   },
   {
    "file": "data/legal/refunds.json",
@@ -769,7 +769,7 @@
    "item": "(whole file)",
    "label": "Terms of use",
    "note": "The Terms page. Plain-English draft: have a lawyer check it before taking payments. Lines starting with TODO are placeholders.",
-   "hash": "2526b072c45f"
+   "hash": "35a323977f7c"
   },
   {
    "file": "data/prices/ADA.json",
@@ -888,7 +888,7 @@
    "item": "(whole file)",
    "label": "data/products.json",
    "note": "Everything that can be bought. id: short, no spaces. type: book, report, certificate, export or call (what it is). usd and inr: the price in dollars and rupees (whole rupees). file: for downloads, the",
-   "hash": "082fab7afd78"
+   "hash": "695987a6f8b9"
   },
   {
    "file": "data/tools/airdrop.json",

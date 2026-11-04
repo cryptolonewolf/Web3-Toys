@@ -124,7 +124,27 @@
     return first
       .then(fetchCertificates).then(pushCertificates)
       .then(fetchLedger).then(pushCoins)
+      .then(function () { return referral(profile); })
       .then(function () { return pull(profile); });
+  }
+
+  // Invites: link a new player to whoever invited them (once), then check
+  // whether they now qualify (a certificate and 3 finished toys).
+  function referral(profile) {
+    var code = null;
+    try { code = localStorage.getItem('web3toys.ref.v1'); } catch (e) { /* private mode */ }
+    var link = code && !profile.referred_by
+      ? db.rpc('set_referrer', { p_code: code }).then(function (r) {
+          if (r.data) profile.referred_by = 'set';
+          try { localStorage.removeItem('web3toys.ref.v1'); } catch (e) { /* ok */ }
+        })
+      : Promise.resolve();
+    return link.then(function () {
+      if (!profile.referred_by || profile.referral_done) return;
+      return db.rpc('check_referral').then(function (r) {
+        if (r.data === 'paid' || r.data === 'capped') profile.referral_done = true;
+      });
+    }).catch(function () { /* try again next sync */ });
   }
 
   function sync() {
@@ -161,6 +181,9 @@
         return sync();
       });
     },
+    claimQuest: function (id, proof) { return db.rpc('claim_quest', { p_id: id, p_proof: proof || null }).then(rpcMsg).then(function (n) { return sync().then(function () { return n; }); }); },
+    referrals: function () { return db.rpc('my_referrals').then(rpcMsg).then(function (rows) { return rows[0]; }); },
+    redeem: function (product, item) { return db.rpc('redeem_product', { p_product: product, p_item: item || null }).then(rpcMsg).then(function (id) { return sync().then(function () { return id; }); }); },
     leaderboard: function (n) { return db.rpc('leaderboard', { p_limit: n || 50 }).then(rpcMsg); },
   };
   document.dispatchEvent(new CustomEvent('web3sync:ready'));

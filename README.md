@@ -342,3 +342,15 @@ Book a Call page takes payment first, then shows Pick your time), `calUrl`
 and `product` (`call-30` in `data/products.json`). Cal.com bookings reach
 the admin Bookings tab through `supabase/functions/cal-webhook`
 (`supabase/007_bookings.sql`). Setup: `docs/setup/part-6-calls.md`.
+
+## Coin tasks, coin unlocks and referrals
+
+- My Progress, Coins tab (`js/profile.js`): Earn coins tasks (`data/quests.json`),
+  an invite link (`?ref=CODE`, kept by `js/site.js`, linked on login by
+  `js/sync.js`), paid items to unlock with coins, and cosmetic extras.
+- Database: `supabase/008_quests_referrals.sql` (`claim_quest`,
+  `redeem_product`, `my_referrals`, `set_referrer`, `check_referral`). A
+  referral pays (inviter +200, new player +50) once the new player has a
+  certificate and 3 finished toys, up to 20 a month per inviter.
+- Coins are site points with no cash value; they unlock extras and items with
+  a `coins` price. Setup: `docs/setup/coins-tasks-referrals.md`.

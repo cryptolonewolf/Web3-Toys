@@ -10,14 +10,19 @@
   var site = window.WEB3TOYS;
   var app = document.getElementById('app');
   var ME_KEY = 'web3toys.me.v1';
-  var TABS = [['certs', 'Certificates'], ['extras', 'Extras'], ['purchases', 'Purchases'], ['settings', 'Settings']];
+  var TABS = [['certs', 'Certificates'], ['coins', 'Coins'], ['purchases', 'Purchases'], ['settings', 'Settings']];
   var home = null;
   var ranks = null;
   var cosmetics = null;
   var tab = tabFromHash();
   var say = '';
 
-  Promise.all([C.loadJson('../data/home.json'), C.loadJson('../data/ranks.json'), C.loadJson('../data/cosmetics.json')]).then(function (r) {
+  var quests = null;
+  var productList = [];
+
+  Promise.all([C.loadJson('../data/home.json'), C.loadJson('../data/ranks.json'), C.loadJson('../data/cosmetics.json'), C.loadJson('../data/quests.json'), C.loadJson('../data/products.json')]).then(function (r) {
+    quests = r[3];
+    productList = r[4].products;
     home = r[0];
     ranks = r[1].ranks;
     cosmetics = r[2];
@@ -34,7 +39,7 @@
 
   function tabFromHash() {
     var h = location.hash.replace('#', '');
-    if (h === 'coins') return 'extras';
+    if (h === 'extras' || h === 'earn') return 'coins';
     return TABS.some(function (t) { return t[0] === h; }) ? h : 'certs';
   }
 
@@ -104,7 +109,7 @@
     app.innerHTML =
       '<section class="card pf-head">' + avatar +
       '<div class="pf-who"><h1 class="pf-name">' + esc(name) + '</h1>' + C.rankBadge(s.rank, lvl) + '</div>' +
-      '<a class="pf-coins" href="#extras" aria-label="' + s.w.balance + ' coins">' + site.icon('coin') + '<b data-coin-count>' + s.w.balance.toLocaleString('en-US') + '</b></a>' +
+      '<a class="pf-coins" href="#coins" aria-label="' + s.w.balance + ' coins">' + site.icon('coin') + '<b data-coin-count>' + s.w.balance.toLocaleString('en-US') + '</b></a>' +
       '<div class="pf-next"><div class="meter" role="img" aria-label="' + pct + ' percent to the next rank"><span style="width:' + pct + '%"></span></div>' +
       '<p class="small-print">' + (s.nextRank ? (s.nextRank.min - s.n) + ' more certificate' + (s.nextRank.min - s.n === 1 ? '' : 's') + ' to ' + esc(s.nextRank.name) : 'Top rank reached') +
       (s.user ? '' : ' · <button type="button" class="text-button" data-login>Log in to save</button>') + '</p></div></section>' +
@@ -121,8 +126,8 @@
         var on = t[0] === tab;
         return '<button type="button" role="tab" id="tab-' + t[0] + '" class="pf-tab' + (on ? ' is-on' : '') + '" aria-selected="' + on + '" aria-controls="panel-' + t[0] + '" tabindex="' + (on ? 0 : -1) + '" data-tab="' + t[0] + '">' + t[1] + '</button>';
       }).join('') + '</div>' +
-      '<section class="pf-panel" role="tabpanel" id="panel-' + tab + '" aria-labelledby="tab-' + tab + '">' + ({ certs: certsPanel, extras: extrasPanel, purchases: purchasesPanel, settings: settingsPanel })[tab](s) + '</section>' +
-      '<p class="small-print pf-say" data-say aria-live="polite">' + esc(say) + '</p>';
+      '<p class="pf-say" data-say aria-live="polite">' + esc(say) + '</p>' +
+      '<section class="pf-panel" role="tabpanel" id="panel-' + tab + '" aria-labelledby="tab-' + tab + '">' + ({ certs: certsPanel, coins: coinsPanel, purchases: purchasesPanel, settings: settingsPanel })[tab](s) + '</section>';
 
     applyTheme(s.user ? s.cx.theme : null);
     bind(s);
@@ -166,10 +171,110 @@
     return '<span class="cx-swatch cx-swatch--' + it.slot + '" style="--sw:' + esc(bg) + '" aria-hidden="true"></span>';
   }
 
+  // ---------- Coins: earn, invite, spend ----------
+
+  var opened = {};
+  var invite = null;
+
+  function questReady(q, s) {
+    if (q.need === 'login') return !!s.user;
+    if (q.need === 'finish') return Object.keys(s.w.claimed || {}).some(function (k) { return k.indexOf('finish:') === 0; });
+    if (q.need === 'certificate') return s.certs.length + s.pros.length > 0;
+    if (q.need === 'streak') return s.streak >= q.days;
+    if (q.type === 'honor') return !!opened[q.id];
+    return true;
+  }
+
+  function socialLink(q) {
+    return ((window.WEB3TOYS_CONFIG || {}).social || {})[q.link] || '';
+  }
+
+  function inviteUrl() {
+    return invite && invite.code ? 'https://web3.toys/?ref=' + invite.code : 'https://web3.toys/';
+  }
+
+  function xIntent() {
+    return 'https://x.com/intent/post?text=' + encodeURIComponent(quests.invite.post + ' ' + inviteUrl());
+  }
+
+  function questRow(q, s) {
+    var done = !!(s.w.claimed || {})['quest:' + q.id];
+    var ready = questReady(q, s);
+    var action;
+    if (done) action = '<span class="chip is-mint">Done ✓</span>';
+    else if (!s.user) action = q.id === 'account' ? '<button type="button" class="btn btn--small btn--yellow" data-login>Log in</button>' : '<span class="small-print">Log in first</span>';
+    else if (q.type === 'post') action = '<a class="btn btn--small" href="' + esc(xIntent()) + '" target="_blank" rel="noopener" data-post-open>Write post</a>';
+    else if (q.type === 'honor' && !ready) action = '<a class="btn btn--small" href="' + esc(socialLink(q)) + '" target="_blank" rel="noopener" data-open="' + q.id + '">Open</a>';
+    else if (ready) action = '<button type="button" class="btn btn--small btn--yellow" data-claim="' + q.id + '">Claim +' + q.coins + '</button>';
+    else action = q.go ? '<a class="btn btn--small" href="../' + esc(q.go) + '">Go</a>' : '<span class="small-print">' + (q.need === 'streak' ? s.streak + '/' + q.days + ' days' : 'Not yet') + '</span>';
+    return '<li class="qs-row' + (done ? ' is-done' : '') + '"><span class="qs-coins">+' + q.coins + '</span><div><b>' + esc(q.title) + '</b>' + (q.line && !done ? '<span class="small-print">' + esc(q.line) + '</span>' : '') +
+      (q.type === 'post' && s.user && !done ? '<form class="lk-row qs-proof" data-proof><input class="field" type="url" inputmode="url" placeholder="https://x.com/you/status/…" aria-label="Link to your post" /><button type="submit" class="btn btn--small btn--yellow">Claim +' + q.coins + '</button></form>' : '') +
+      '</div>' + (q.type === 'post' && s.user && !done ? '' : action) + (q.type === 'post' && s.user && !done ? action : '') + '</li>';
+  }
+
+  function coinsPanel(s) {
+    var list = quests.quests.filter(function (q) { return q.type !== 'honor' || socialLink(q); });
+    var left = list.filter(function (q) { return !(s.w.claimed || {})['quest:' + q.id]; });
+    var worth = left.reduce(function (n, q) { return n + q.coins; }, 0);
+    var spend = productList.filter(function (p) { return p.coins && !p.perItem; });
+    if (s.user && !invite && window.Web3Sync) {
+      window.Web3Sync.referrals().then(function (r) { invite = r; if (tab === 'coins') render(); }).catch(function () {});
+    }
+    return '<p class="cx-nocash">' + esc(quests.noCash) + '</p>' +
+      '<h3 class="pf-h">' + esc(quests.title) + ' <span class="small-print">' + (left.length ? left.length + ' left, worth ' + worth + ' coins' : 'All done!') + '</span></h3>' +
+      '<ul class="qs-list">' + list.map(function (q) { return questRow(q, s); }).join('') + '</ul>' +
+      '<h3 class="pf-h">' + esc(quests.invite.title) + '</h3>' +
+      '<div class="qs-invite"><p class="small-print">' + esc(quests.invite.line) + '</p>' +
+      (s.user
+        ? '<div class="lk-row"><input class="field" readonly value="' + esc(inviteUrl()) + '" aria-label="Your invite link" data-invite-link /><button type="button" class="btn btn--small" data-copy-invite>Copy</button></div>' +
+          '<div class="btn-row"><a class="btn btn--small btn--ink" href="' + esc(xIntent()) + '" target="_blank" rel="noopener">Share on X</a>' +
+          '<span class="small-print">' + (invite ? invite.paid + ' joined and qualified · ' + invite.pending + ' still playing' : 'Loading…') + '</span></div>'
+        : '<p class="text">Log in to get your invite link.</p>') + '</div>' +
+      '<h3 class="pf-h">' + esc(quests.spendTitle) + ' <span class="small-print">' + esc(quests.spendLine) + '</span></h3>' +
+      '<ul class="pf-row pf-row--cx">' + spend.map(function (p) {
+        return '<li class="cx-item qs-item"><b>' + esc(p.title) + '</b><button type="button" class="btn btn--small" data-unlock="' + esc(p.id) + '">' + site.icon('coin') + p.coins.toLocaleString('en-US') + '</button></li>';
+      }).join('') + '</ul><p class="small-print">Reports and HD certificates are unlocked from the end of each toy.</p>' +
+      extrasPanel(s);
+  }
+
+  function bindCoins(s) {
+    var msg = function (t) { say = t; var el = app.querySelector('[data-say]'); if (el) el.textContent = t; };
+    app.querySelectorAll('[data-claim]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        b.disabled = true;
+        window.Web3Sync.claimQuest(b.getAttribute('data-claim')).then(function (n) {
+          if (n) { site.fx.coins(b, 5); site.sound.play('cash'); }
+          say = n ? '+' + n + ' coins!' : '';
+          render();
+        }, function (err) { b.disabled = false; msg(err.message); });
+      });
+    });
+    app.querySelectorAll('[data-open]').forEach(function (a) {
+      a.addEventListener('click', function () { opened[a.getAttribute('data-open')] = true; setTimeout(render, 400); });
+    });
+    var proof = app.querySelector('[data-proof]');
+    if (proof) proof.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var url = proof.querySelector('input').value.trim();
+      window.Web3Sync.claimQuest('post-x', url).then(function (n) { say = n ? '+' + n + ' coins! Thanks for sharing.' : ''; render(); }, function (err) { msg(err.message); });
+    });
+    var copy = app.querySelector('[data-copy-invite]');
+    if (copy) copy.addEventListener('click', function () {
+      var input = app.querySelector('[data-invite-link]');
+      (navigator.clipboard ? navigator.clipboard.writeText(input.value) : Promise.reject()).then(function () { copy.textContent = 'Copied'; }, function () { input.select(); });
+    });
+    app.querySelectorAll('[data-unlock]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (!window.Web3Pay) return msg('Unlocking opens soon.');
+        window.Web3Pay.buy(b.getAttribute('data-unlock')).catch(function (err) { if (err.message !== 'login') msg(err.message); });
+      });
+    });
+  }
+
   function extrasPanel(s) {
     var wearing = { cert: s.cx.cert, frame: s.cx.frame, theme: s.cx.theme };
-    return '<p class="cx-nocash">' + esc(cosmetics.noCash) + '</p>' +
-      (s.user ? '' : '<p class="text pf-empty">Log in to unlock extras with your coins. <button type="button" class="btn btn--small" data-login>Log in</button></p>') +
+    return '<h3 class="pf-h">Extras</h3>' +
+      (s.user ? '' : '<p class="text pf-empty">Log in to unlock extras with your coins.</p>') +
       cosmetics.slots.map(function (slot) {
         return '<h3 class="pf-h">' + esc(slot.title) + ' <span class="small-print">' + esc(slot.line) + '</span></h3><ul class="pf-row pf-row--cx">' +
           cosmetics.items.filter(function (it) { return it.slot === slot.id; }).map(function (it) {
@@ -182,7 +287,7 @@
             return '<li class="cx-item' + (worn ? ' is-on' : '') + '">' + swatch(it) + '<b>' + esc(it.title) + '</b>' + action + '</li>';
           }).join('') + '</ul>';
       }).join('') +
-      '<details class="pf-more"><summary class="small-print">How to earn coins</summary><ul class="lesson-points">' + cosmetics.how.map(function (h) { return '<li>' + esc(h) + '</li>'; }).join('') + '</ul></details>' +
+      '<details class="pf-more"><summary class="small-print">Other ways to earn coins</summary><ul class="lesson-points">' + cosmetics.how.map(function (h) { return '<li>' + esc(h) + '</li>'; }).join('') + '</ul></details>' +
       (s.w.history.length ? '<details class="pf-more coins-history"><summary class="small-print">Coin history</summary><ul>' + s.w.history.map(function (h) {
         return '<li><span>' + esc(h.label) + '</span><b class="' + (h.coins < 0 ? 'is-spent' : '') + '">' + (h.coins > 0 ? '+' : '') + h.coins + '</b></li>';
       }).join('') + '</ul></details>' : '') +
@@ -206,6 +311,7 @@
   }
 
   function money(o) {
+    if (o.currency === 'COINS') return o.amount.toLocaleString('en-US') + ' coins';
     var n = o.amount / 100;
     return o.currency === 'INR' ? '₹' + n.toLocaleString('en-IN') : '$' + n.toFixed(2);
   }
@@ -295,7 +401,8 @@
     });
     app.querySelectorAll('[data-login]').forEach(function (b) { b.addEventListener('click', function () { A && A.open(); }); });
     var coins = app.querySelector('.pf-coins');
-    coins.addEventListener('click', function (e) { e.preventDefault(); setTab('extras'); });
+    coins.addEventListener('click', function (e) { e.preventDefault(); setTab('coins'); });
+    bindCoins(s);
 
     app.querySelectorAll('[data-buy]').forEach(function (b) {
       b.addEventListener('click', function () {

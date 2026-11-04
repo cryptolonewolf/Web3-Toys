@@ -1,6 +1,6 @@
 {
-  "_help": "Cosmetic extras bought with coins. Coins are site points only, with no cash value: they can never be withdrawn, sold or swapped for money, crypto or tokens. Ids and coin prices must match the cosmetic_items list in supabase/003_progress.sql (the database checks the price). slot: cert (certificate style), frame (badge frame around your picture), theme (My Progress colours).",
-  "noCash": "Coins are site points only. They have no cash value and can never be withdrawn, sold or swapped for money, crypto or tokens.",
+  "_help": "Cosmetic extras bought with coins. Coins are site points with no cash value: they can never be withdrawn, sold or swapped for money, crypto or tokens. They unlock these extras and the paid items that have a coin price in data/products.json. Ids and coin prices must match the cosmetic_items list in supabase/003_progress.sql (the database checks the price). slot: cert (certificate style), frame (badge frame around your picture), theme (My Progress colours).",
+  "noCash": "Coins are site points. They unlock extras and paid items on web3.toys, but have no cash value and can never be withdrawn, sold or swapped for money, crypto or tokens.",
   "how": [
     "Open your first toy of the day: +5",
     "Finish a game: +20",
