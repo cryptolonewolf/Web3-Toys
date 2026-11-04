@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/caitlin-long/
 
 ## Fun fact (short)
 
-Fun fact about Caitlin Long: Former Wall Street banker at Morgan Stanley. @CaitlinLong_ is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/caitlin-long/
+Fun fact about Caitlin Long: Former Wall Street banker at Morgan Stanley. @CaitlinLong_ is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/caitlin-long/
+
+## Story thread (@web3toys)
+
+1/ @CaitlinLong_, in three sentences 🧵
+
+2/ Caitlin spent over 20 years on Wall Street, then helped Wyoming pass crypto-friendly laws from 2017.
+3/ In 2020 she founded Custodia Bank, first called Avanti, to bank crypto businesses.
+
+4/ Known for: Wyoming's crypto laws, Custodia Bank (2020). Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/caitlin-long/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

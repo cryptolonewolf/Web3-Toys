@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/balaji-sriniva
 
 ## Fun fact (short)
 
-Fun fact about Balaji Srinivasan: Was a general partner at a16z. @balajis is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/balaji-srinivasan/
+Fun fact about Balaji Srinivasan: Was a general partner at a16z. @balajis is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/balaji-srinivasan/
+
+## Story thread (@web3toys)
+
+1/ @balajis, in three sentences 🧵
+
+2/ Balaji co-founded Earn.com, which Coinbase bought in 2018, and then became Coinbase's CTO.
+3/ He was a general partner at a16z and in 2022 wrote The Network State, about online communities that grow into new countries.
+
+4/ Known for: The Network State (2022), Coinbase CTO, Earn.com. Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/balaji-srinivasan/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

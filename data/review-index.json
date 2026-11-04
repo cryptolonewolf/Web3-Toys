@@ -754,8 +754,8 @@
    "file": "data/hall-of-fame-people.json",
    "item": "(whole file)",
    "label": "data/hall-of-fame-people.json",
-   "note": "Who Built It? (Web3 Builders Hall of Fame): the 50 people, from web3_people_game_list.xlsx. Facts are public information as of 5 Nov 2026 and need checking before launch (entries with check say what t",
-   "hash": "224b106a8821"
+   "note": "Web3 Hall of Famers: the 50 people, from web3_people_game_list.xlsx. Facts are public information as of 5 Nov 2026 and need checking before launch (entries with check say what to look at). level: easy",
+   "hash": "b36229a4894c"
   },
   {
    "file": "data/legal/privacy.json",

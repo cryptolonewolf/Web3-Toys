@@ -1,4 +1,4 @@
-// Who Built It? portraits and share cards, shared by the game
+// Web3 Hall of Famers portraits and share cards, shared by the game
 // (js/hof-app.js), the person pages (js/hof-person.js) and the X preview
 // images (tools/hof-cards.mjs makes images/people/cards/ID.png).
 //

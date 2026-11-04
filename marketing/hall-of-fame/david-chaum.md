@@ -17,7 +17,17 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/david-chaum/
 
 ## Fun fact (short)
 
-Fun fact about David Chaum: Invented blind signatures, the cryptography behind early private payments. David Chaum is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/david-chaum/
+Fun fact about David Chaum: Invented blind signatures, the cryptography behind early private payments. David Chaum is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/david-chaum/
+
+## Story thread (@web3toys)
+
+1/ David Chaum, in three sentences 🧵
+
+2/ In the early 1980s David showed how payments could be private using blind signatures.
+3/ He founded DigiCash in 1989 to build ecash, many years before Bitcoin.
+4/ DigiCash went bankrupt in 1998, but its ideas shaped digital money.
+
+5/ Known for: Blind signatures (1982), DigiCash and ecash, Mix networks for privacy. Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/david-chaum/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

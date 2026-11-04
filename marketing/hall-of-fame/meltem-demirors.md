@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/meltem-demiror
 
 ## Fun fact (short)
 
-Fun fact about Meltem Demirors: Previously chief strategy officer at CoinShares. @Melt_Dem is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/meltem-demirors/
+Fun fact about Meltem Demirors: Previously chief strategy officer at CoinShares. @Melt_Dem is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/meltem-demirors/
+
+## Story thread (@web3toys)
+
+1/ @Melt_Dem, in three sentences 🧵
+
+2/ Meltem became a well known speaker and investor in digital assets.
+3/ She was chief strategy officer at CoinShares, one of the early crypto investment firms, before founding Crucible Capital.
+
+4/ Known for: CoinShares strategy, Crucible Capital. Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/meltem-demirors/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

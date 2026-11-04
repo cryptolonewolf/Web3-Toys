@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/cathie-wood/
 
 ## Fun fact (short)
 
-Fun fact about Cathie Wood: Known for bold long term price predictions. @CathieDWood is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/cathie-wood/
+Fun fact about Cathie Wood: Known for bold long term price predictions. @CathieDWood is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/cathie-wood/
+
+## Story thread (@web3toys)
+
+1/ @CathieDWood, in three sentences 🧵
+
+2/ Cathie founded ARK Invest in 2014 to invest in fast-changing technology.
+3/ ARK was an early big fund manager to back Bitcoin, and in 2024 it launched a spot Bitcoin ETF with 21Shares.
+
+4/ Known for: ARK Invest (2014), The ARK 21Shares Bitcoin ETF (2024). Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/cathie-wood/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

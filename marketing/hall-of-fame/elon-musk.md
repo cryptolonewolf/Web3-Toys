@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/elon-musk/
 
 ## Fun fact (short)
 
-Fun fact about Elon Musk: Dogecoin started in 2013 as a joke. @elonmusk is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/elon-musk/
+Fun fact about Elon Musk: Dogecoin started in 2013 as a joke. @elonmusk is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/elon-musk/
+
+## Story thread (@web3toys)
+
+1/ @elonmusk, in three sentences 🧵
+
+2/ Elon runs Tesla and SpaceX and owns X.
+3/ In 2021 Tesla said it had bought 1.5 billion dollars of Bitcoin, and Elon's posts about Dogecoin have often moved its price, a reminder of how much hype can move crypto.
+
+4/ Known for: Tesla's Bitcoin purchase (2021), Moving Dogecoin's price. Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/elon-musk/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

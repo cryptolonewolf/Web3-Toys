@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/raj-gokal/
 
 ## Fun fact (short)
 
-Fun fact about Raj Gokal: Solana is named after Solana Beach, a surf town in California. @rajgokal is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/raj-gokal/
+Fun fact about Raj Gokal: Solana is named after Solana Beach, a surf town in California. @rajgokal is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/raj-gokal/
+
+## Story thread (@web3toys)
+
+1/ @rajgokal, in three sentences 🧵
+
+2/ Raj joined Anatoly early and co-founded Solana Labs in 2018.
+3/ While Anatoly led the technology, Raj focused on the company, funding and the apps and community growing around Solana.
+
+4/ Known for: Solana Labs cofounder, Growing the Solana ecosystem. Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/raj-gokal/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

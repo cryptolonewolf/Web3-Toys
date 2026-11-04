@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/emilie-choi/
 
 ## Fun fact (short)
 
-Fun fact about Emilie Choi: Joined Coinbase from LinkedIn in 2018. @emiliemc is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/emilie-choi/
+Fun fact about Emilie Choi: Joined Coinbase from LinkedIn in 2018. @emiliemc is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/emilie-choi/
+
+## Story thread (@web3toys)
+
+1/ @emiliemc, in three sentences 🧵
+
+2/ Emilie led corporate development at LinkedIn before joining Coinbase in 2018.
+3/ There she ran its deals and acquisitions and later became President and COO.
+
+4/ Known for: Coinbase deals and acquisitions, Running Coinbase operations. Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/emilie-choi/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

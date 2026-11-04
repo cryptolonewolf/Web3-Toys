@@ -401,7 +401,7 @@ day with ×, and hides while a toy is being played, coming back on the finish
 screen. The task list itself (`js/earn-tasks.js`, `data/quests.json`) is
 shared with the Coins tab on My Progress.
 
-## Who Built It? (Web3 Builders Hall of Fame)
+## Web3 Hall of Famers (hall-of-fame/)
 
 `hall-of-fame/` (`js/hof-app.js`): read a clue, pick the person from three
 portraits, and their card flips over. 10 rounds (3 easy, 4 medium, 3 hard)

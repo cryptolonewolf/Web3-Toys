@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/raoul-pal/
 
 ## Fun fact (short)
 
-Fun fact about Raoul Pal: Previously a hedge fund sales head at Goldman Sachs. @RaoulGMI is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/raoul-pal/
+Fun fact about Raoul Pal: Previously a hedge fund sales head at Goldman Sachs. @RaoulGMI is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/raoul-pal/
+
+## Story thread (@web3toys)
+
+1/ @RaoulGMI, in three sentences 🧵
+
+2/ Raoul ran a macro hedge fund and wrote research for big investors before co-founding Real Vision in 2014, a finance video channel.
+3/ He argues crypto prices follow the global supply of money, an idea he calls the Everything Code.
+
+4/ Known for: Real Vision (2014), The Everything Code. Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/raoul-pal/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

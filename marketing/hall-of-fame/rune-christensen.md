@@ -17,7 +17,17 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/rune-christens
 
 ## Fun fact (short)
 
-Fun fact about Rune Christensen: DAI launched in 2017 and was one of the first decentralized stablecoins. @RuneKek is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/rune-christensen/
+Fun fact about Rune Christensen: DAI launched in 2017 and was one of the first decentralized stablecoins. @RuneKek is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/rune-christensen/
+
+## Story thread (@web3toys)
+
+1/ @RuneKek, in three sentences 🧵
+
+2/ Rune founded MakerDAO in 2014 to build a stablecoin with no company holding the dollars.
+3/ DAI launched in 2017, kept near one dollar by crypto locked up as collateral.
+4/ Maker rebranded to Sky in 2024.
+
+5/ Known for: MakerDAO, DAI (2017), Sky (2024). Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/rune-christensen/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/mike-novogratz
 
 ## Fun fact (short)
 
-Fun fact about Mike Novogratz: Was a hedge fund manager before turning to crypto. @novogratz is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/mike-novogratz/
+Fun fact about Mike Novogratz: Was a hedge fund manager before turning to crypto. @novogratz is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/mike-novogratz/
+
+## Story thread (@web3toys)
+
+1/ @novogratz, in three sentences 🧵
+
+2/ Mike was a partner at Goldman Sachs and ran a big hedge fund before he started buying Bitcoin around 2013.
+3/ He founded Galaxy Digital in 2018 to offer trading, investing and other crypto services.
+
+4/ Known for: Galaxy Digital (2018). Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/mike-novogratz/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/hester-peirce/
 
 ## Fun fact (short)
 
-Fun fact about Hester Peirce: Resigned from the SEC effective October 2, 2026. @HesterPeirce is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/hester-peirce/
+Fun fact about Hester Peirce: Resigned from the SEC effective October 2, 2026. @HesterPeirce is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/hester-peirce/
+
+## Story thread (@web3toys)
+
+1/ @HesterPeirce, in three sentences 🧵
+
+2/ Hester joined the SEC as a commissioner in 2018.
+3/ She often spoke out against crypto crackdowns, proposed a safe harbor to give new token projects time to grow, and in 2025 led the SEC's crypto task force.
+
+4/ Known for: The token safe harbor idea, The SEC crypto task force (2025). Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/hester-peirce/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

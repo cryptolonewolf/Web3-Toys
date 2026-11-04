@@ -17,7 +17,17 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/gary-gensler/
 
 ## Fun fact (short)
 
-Fun fact about Gary Gensler: Taught a blockchain course at MIT before becoming SEC Chair. @GaryGensler is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/gary-gensler/
+Fun fact about Gary Gensler: Taught a blockchain course at MIT before becoming SEC Chair. @GaryGensler is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/gary-gensler/
+
+## Story thread (@web3toys)
+
+1/ @GaryGensler, in three sentences 🧵
+
+2/ Gary was a Goldman Sachs partner, led the CFTC from 2009 to 2014 and taught at MIT.
+3/ As SEC Chair from 2021 to January 2025 he brought many cases against crypto firms, arguing most tokens were securities.
+4/ Spot Bitcoin ETFs were approved in January 2024, while he was Chair.
+
+5/ Known for: SEC Chair (2021 to 2025), MIT blockchain course. Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/gary-gensler/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

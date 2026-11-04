@@ -15,4 +15,4 @@ Big names and big promises do not remove risk. Learn the story in 5 minutes: htt
 
 ## Before posting
 
-- Check for later legal updates before launch.
+- Check for later legal updates (sentencing) before launch.

@@ -17,7 +17,17 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/sandeep-nailwa
 
 ## Fun fact (short)
 
-Fun fact about Sandeep Nailwal: Polygon began as Matic Network in 2017 and rebranded in 2021. @sandeepnailwal is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/sandeep-nailwal/
+Fun fact about Sandeep Nailwal: Polygon began as Matic Network in 2017 and rebranded in 2021. @sandeepnailwal is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/sandeep-nailwal/
+
+## Story thread (@web3toys)
+
+1/ @sandeepnailwal, in three sentences 🧵
+
+2/ Sandeep co-founded Matic Network in 2017 with fellow Indian founders Jaynti Kanani and Anurag Arjun, to make Ethereum faster and cheaper to use.
+3/ It became Polygon in 2021.
+4/ That year he also started the Crypto Covid Relief Fund for India.
+
+5/ Known for: Polygon (Matic), Crypto Covid Relief Fund for India (2021). Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/sandeep-nailwal/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

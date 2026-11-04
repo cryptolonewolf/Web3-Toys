@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/laura-shin/
 
 ## Fun fact (short)
 
-Fun fact about Laura Shin: Reports on crypto through her long running Unchained podcast. @laurashin is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/laura-shin/
+Fun fact about Laura Shin: Reports on crypto through her long running Unchained podcast. @laurashin is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/laura-shin/
+
+## Story thread (@web3toys)
+
+1/ @laurashin, in three sentences 🧵
+
+2/ A former senior editor at Forbes, Laura started the Unchained podcast in 2016.
+3/ Her 2022 book The Cryptopians tells the story of Ethereum's early years and The DAO hack.
+
+4/ Known for: Unchained (2016), The Cryptopians (2022). Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/laura-shin/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

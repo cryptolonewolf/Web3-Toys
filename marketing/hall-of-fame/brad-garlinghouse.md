@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/brad-garlingho
 
 ## Fun fact (short)
 
-Fun fact about Brad Garlinghouse: The SEC case began in December 2020 and ran until 2025. @bgarlinghouse is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/brad-garlinghouse/
+Fun fact about Brad Garlinghouse: The SEC case began in December 2020 and ran until 2025. @bgarlinghouse is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/brad-garlinghouse/
+
+## Story thread (@web3toys)
+
+1/ @bgarlinghouse, in three sentences 🧵
+
+2/ Brad was an executive at Yahoo and AOL before joining Ripple in 2015 and becoming CEO in 2017.
+3/ Ripple builds payment tools for banks and supports the XRP Ledger.
+
+4/ Known for: Ripple CEO (2017), The XRP case against the SEC. Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/brad-garlinghouse/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

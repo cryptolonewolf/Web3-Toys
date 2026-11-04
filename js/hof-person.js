@@ -55,10 +55,12 @@
       '<p class="hof-tags"><span class="chip">' + esc(cat.icon || '') + ' ' + esc(cat.title || '') + '</span>' +
       (p.anon ? '<span class="chip">🕶️ Never shown their face</span>' : '') + '</p></div></div>' +
       '<p class="text"><b>Why they matter:</b> ' + esc(p.why) + '</p>' +
+      '<h2 class="title-sm">The story</h2><p class="text">' + esc(p.story) + '</p>' +
+      (p.known && p.known.length ? '<p class="hof-known"><b>Known for:</b> ' + p.known.map(function (k) { return '<span class="chip">' + esc(k) + '</span>'; }).join('') + '</p>' : '') +
       '<p class="tip">' + site.icon('bulb') + '<span><b>Fun fact:</b> ' + esc(p.fun) + '</span></p>' +
       (n.right_pct != null ? '<p class="small-print hof-pct">📊 ' + n.right_pct + '% of players named them from the clue.</p>' : '') +
       (n.votes ? '<p class="small-print">❤️ ' + n.votes + (n.votes === 1 ? ' player' : ' players') + ' voted them their favourite builder.</p>' : '') +
-      '<div class="btn-row"><a class="btn btn--ink" href="../">Play Who Built It?</a>' +
+      '<div class="btn-row"><a class="btn btn--ink" href="../">Play Web3 Hall of Famers</a>' +
       '<a class="btn" href="https://x.com/intent/post?text=' + encodeURIComponent(post()) + '" target="_blank" rel="noopener" data-share>Share on X</a>' +
       (p.caution ? '' : '<button type="button" class="btn" data-vote>❤️ Vote favourite</button>') +
       '<a class="btn" href="' + esc(p.more) + '" target="_blank" rel="noopener">Read more</a></div>' +

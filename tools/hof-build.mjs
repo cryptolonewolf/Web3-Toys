@@ -20,7 +20,7 @@ const link = (p) => `${SITE}/hall-of-fame/${p.id}/`;
 
 export function page(p) {
   const title = p.caution ? `${p.name}: a cautionary tale · web3.toys` : `${p.name} · web3.toys Hall of Fame`;
-  const desc = `${p.why}. ${p.fun}.`;
+  const desc = p.story;
   const img = `${SITE}/images/people/cards/${p.id}.png`;
   return `<!doctype html>
 <html lang="en">
@@ -40,7 +40,7 @@ export function page(p) {
     <meta property="og:image:alt" content="${esc(p.name)}, ${esc(p.role)}" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@web3toys" />
-    <meta name="twitter:title" content="${esc(p.name)} · Who Built It?" />
+    <meta name="twitter:title" content="${esc(p.name)} · Web3 Hall of Famers" />
     <meta name="twitter:description" content="${esc(desc)}" />
     <meta name="twitter:image" content="${img}" />
     <meta name="theme-color" content="#FFD93D" />
@@ -59,11 +59,11 @@ export function page(p) {
     </header>
 
     <div class="page">
-      <p class="small-print"><a href="../">← Who Built It? Web3 Builders Hall of Fame</a></p>
+      <p class="small-print"><a href="../">← Web3 Hall of Famers</a></p>
       <main id="app" class="stack" aria-live="polite">
         <noscript>
           <h1>${esc(p.name)}</h1>
-          <p>${esc(p.role)}. ${esc(p.why)}. ${esc(p.fun)}.</p>
+          <p>${esc(p.role)}. ${esc(p.story)}</p>
         </noscript>
       </main>
 
@@ -101,7 +101,10 @@ export function posts(p) {
       '## Induction post (@web3toys)', '',
       `🏛️ ${tag(p)} is in the web3.toys Hall of Fame.`, '', `${p.why}.`, '', `Fun fact: ${p.fun}.`, '', `Can you name all 50 web3 builders? ${link(p)}`, '',
       '## Fun fact (short)', '',
-      `Fun fact about ${p.name}: ${p.fun}. ${tag(p)} is one of 50 builders in Who Built It? ${link(p)}`, '',
+      `Fun fact about ${p.name}: ${p.fun}. ${tag(p)} is one of the 50 Web3 Hall of Famers. ${link(p)}`, '',
+      '## Story thread (@web3toys)', '',
+      `1/ ${tag(p)}, in three sentences 🧵`, '', ...p.story.split(/(?<=\.)\s+/).map((x, i) => `${i + 2}/ ${x}`), '',
+      `${p.story.split(/(?<=\.)\s+/).length + 2}/ Known for: ${(p.known || []).join(', ')}. Meet all 50 Web3 Hall of Famers: ${link(p)}`, '',
       '## Stat post (fill in the number from the person page once 20+ players have played)', '',
       `Only __% of players named ${tag(p)} from this clue: "${p.why}". Can you? ${link(p)}`, '',
       '## Founder post (@BuildWithAki)', '',

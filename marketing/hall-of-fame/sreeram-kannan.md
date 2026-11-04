@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/sreeram-kannan
 
 ## Fun fact (short)
 
-Fun fact about Sreeram Kannan: Is a professor at the University of Washington. @sreeramkannan is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/sreeram-kannan/
+Fun fact about Sreeram Kannan: Is a professor at the University of Washington. @sreeramkannan is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/sreeram-kannan/
+
+## Story thread (@web3toys)
+
+1/ @sreeramkannan, in three sentences 🧵
+
+2/ Sreeram ran a blockchain research lab at the University of Washington.
+3/ He founded EigenLayer, which went live in 2023 and lets ETH stakers reuse their stake to secure other services, an idea called restaking.
+
+4/ Known for: EigenLayer, Restaking. Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/sreeram-kannan/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

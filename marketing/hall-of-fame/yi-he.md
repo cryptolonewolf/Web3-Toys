@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/yi-he/
 
 ## Fun fact (short)
 
-Fun fact about Yi He: Was named joint CEO of Binance in December 2025. @heyibinance is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/yi-he/
+Fun fact about Yi He: Was named joint CEO of Binance in December 2025. @heyibinance is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/yi-he/
+
+## Story thread (@web3toys)
+
+1/ @heyibinance, in three sentences 🧵
+
+2/ Yi He co-founded Binance in 2017 and led its marketing as it spread across many countries.
+3/ She also led Binance Labs, the company's investment arm.
+
+4/ Known for: Binance cofounder (2017), Binance Labs. Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/yi-he/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

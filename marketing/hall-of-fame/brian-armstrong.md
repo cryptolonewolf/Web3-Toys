@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/brian-armstron
 
 ## Fun fact (short)
 
-Fun fact about Brian Armstrong: Coinbase listed directly on Nasdaq in April 2021. @brian_armstrong is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/brian-armstrong/
+Fun fact about Brian Armstrong: Coinbase listed directly on Nasdaq in April 2021. @brian_armstrong is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/brian-armstrong/
+
+## Story thread (@web3toys)
+
+1/ @brian_armstrong, in three sentences 🧵
+
+2/ Brian worked at Airbnb before founding Coinbase in 2012 to make buying Bitcoin simple.
+3/ Coinbase grew into the largest US exchange, listed on Nasdaq in April 2021 and later built Base, its own layer 2 network.
+
+4/ Known for: Coinbase (2012), Nasdaq listing (2021), Base (2023). Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/brian-armstrong/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

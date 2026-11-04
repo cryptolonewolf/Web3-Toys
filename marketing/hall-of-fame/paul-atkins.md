@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/paul-atkins/
 
 ## Fun fact (short)
 
-Fun fact about Paul Atkins: Sworn in as chair on April 21, 2025. Paul Atkins is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/paul-atkins/
+Fun fact about Paul Atkins: Sworn in as chair on April 21, 2025. Paul Atkins is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/paul-atkins/
+
+## Story thread (@web3toys)
+
+1/ Paul Atkins, in three sentences 🧵
+
+2/ Paul was an SEC commissioner from 2002 to 2008.
+3/ He returned as SEC Chair in April 2025 and launched Project Crypto to write clearer rules for digital assets.
+
+4/ Known for: SEC Chair (2025), Project Crypto. Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/paul-atkins/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 
@@ -29,4 +38,4 @@ Building web3.toys, I made a game about the people who built web3. Paul Atkins i
 
 ## Before posting
 
-- Current role: check before launch.
+- Current role and Project Crypto: check before launch.

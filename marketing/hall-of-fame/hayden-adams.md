@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/hayden-adams/
 
 ## Fun fact (short)
 
-Fun fact about Hayden Adams: Built the first version after being laid off from an engineering job at Siemens. @haydenzadams is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/hayden-adams/
+Fun fact about Hayden Adams: Built the first version after being laid off from an engineering job at Siemens. @haydenzadams is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/hayden-adams/
+
+## Story thread (@web3toys)
+
+1/ @haydenzadams, in three sentences 🧵
+
+2/ After being laid off in 2017, Hayden taught himself to code Ethereum smart contracts on a friend's suggestion.
+3/ He launched Uniswap in November 2018: a pool of two tokens that anyone can swap against, with no order book.
+
+4/ Known for: Uniswap (2018), Automated market makers, The UNI token (2020). Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/hayden-adams/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

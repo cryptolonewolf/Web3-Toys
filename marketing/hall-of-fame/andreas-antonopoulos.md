@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/andreas-antono
 
 ## Fun fact (short)
 
-Fun fact about Andreas Antonopoulos: Known for talks that explain Bitcoin to non technical audiences. @aantonop is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/andreas-antonopoulos/
+Fun fact about Andreas Antonopoulos: Known for talks that explain Bitcoin to non technical audiences. @aantonop is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/andreas-antonopoulos/
+
+## Story thread (@web3toys)
+
+1/ @aantonop, in three sentences 🧵
+
+2/ Andreas became one of Bitcoin's best known teachers through hundreds of free talks.
+3/ His book Mastering Bitcoin (2014), and later Mastering Ethereum, are standard guides for developers.
+
+4/ Known for: Mastering Bitcoin (2014), Mastering Ethereum. Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/andreas-antonopoulos/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

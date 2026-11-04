@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/illia-polosukh
 
 ## Fun fact (short)
 
-Fun fact about Illia Polosukhin: Coauthored Attention Is All You Need, the paper that introduced the Transformer behind modern AI. @ilblackdragon is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/illia-polosukhin/
+Fun fact about Illia Polosukhin: Coauthored Attention Is All You Need, the paper that introduced the Transformer behind modern AI. @ilblackdragon is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/illia-polosukhin/
+
+## Story thread (@web3toys)
+
+1/ @ilblackdragon, in three sentences 🧵
+
+2/ Before crypto, Illia worked on AI at Google and co-wrote the 2017 paper that introduced the Transformer.
+3/ He co-founded NEAR in 2018, first as an AI project, then as a blockchain designed to be easy to use.
+
+4/ Known for: NEAR Protocol, The Transformer paper (2017). Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/illia-polosukhin/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

@@ -1,4 +1,4 @@
-// Who Built It? (Web3 Builders Hall of Fame). Read a clue, pick the person
+// Web3 Hall of Famers (hall-of-fame/). Read a clue, pick the person
 // from three portraits, and their card flips over: what they did, why it
 // matters and a fun fact. Every right answer adds them to your Hall of Fame
 // wall (kept in this browser). 10 rounds (easy, then medium, then hard),
@@ -221,7 +221,8 @@
       '<p class="hof-tags"><span class="chip">' + esc(cat.icon || '') + ' ' + esc(cat.title || '') + '</span>' +
       (p.caution ? '<span class="chip is-coral">⚠️ ' + esc(T.cautionLabel) + '</span>' : '') +
       (p.anon ? '<span class="chip">🕶️ ' + esc(T.anonLabel) + '</span>' : '') + '</p></div></div>' +
-      '<p class="text"><b>Why they matter:</b> ' + esc(p.why) + '</p>' +
+      '<div class="hof-story"><p class="label">📖 ' + esc(T.storyLabel) + '</p><p class="text">' + esc(p.story) + '</p></div>' +
+      (p.known && p.known.length ? '<p class="hof-known"><b>' + esc(T.knownLabel) + ':</b> ' + p.known.map(function (k) { return '<span class="chip">' + esc(k) + '</span>'; }).join('') + '</p>' : '') +
       '<p class="tip">' + site.icon('bulb') + '<span><b>Fun fact:</b> ' + esc(p.fun) + '</span></p>' +
       (pctLine(p) ? '<p class="small-print hof-pct">📊 ' + esc(pctLine(p)) + '</p>' : '') +
       '<div class="btn-row"><a class="btn btn--small" href="https://x.com/intent/post?text=' + encodeURIComponent(personPost(p)) + '" target="_blank" rel="noopener" data-share-person>Share this card</a>' +
@@ -265,7 +266,7 @@
         var p = people.filter(function (x) { return x.id === b.getAttribute('data-who'); })[0];
         box.querySelector('[data-who-box]').innerHTML = '<div class="card stack stack--tight hof-card"><div class="hof-card-top">' + portrait(p, 'hof-face--lg') +
           '<div class="stack stack--tight"><h3 class="title-md">' + esc(p.name) + '</h3><p class="text text--ink">' + esc(p.role) + '</p></div></div>' +
-          '<p class="text">' + esc(p.why) + '</p><p class="tip">' + site.icon('bulb') + '<span>' + esc(p.fun) + '</span></p>' +
+          '<p class="text">' + esc(p.story) + '</p><p class="tip">' + site.icon('bulb') + '<span>' + esc(p.fun) + '</span></p>' +
           '<div class="btn-row"><a class="btn btn--small" href="' + esc(p.id) + '/">Their page</a><a class="btn btn--small" href="https://x.com/intent/post?text=' + encodeURIComponent(personPost(p)) + '" target="_blank" rel="noopener">Share this card</a></div></div>';
       });
     });
@@ -296,7 +297,7 @@
     loadNumbers().then(function () { var box = app.querySelector('[data-loved]'); if (box) box.innerHTML = lovedHtml(); });
     sfx.play('ding');
     if (right >= round.length * 0.7) site.fx.confetti();
-    site.coins.award('finish', 'hall-of-fame', 'Finished a round of Who Built It?');
+    site.coins.award('finish', 'hall-of-fame', 'Finished a round of Web3 Hall of Famers');
     C.track('hof_finished', { score: score, right: right, collected: n });
     card.ready.then(function () { var img = app.querySelector('[data-preview]'); if (img) img.src = card.canvas.toDataURL('image/png'); }).catch(function () {});
     app.querySelector('[data-share]').addEventListener('click', function () { card.share(); });

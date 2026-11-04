@@ -1,4 +1,4 @@
-# Who Built It? portraits
+# Web3 Hall of Famers portraits
 
 The game works without pictures: until a portrait is added, each person
 shows a pencil-style sketch with their initials. Add portraits whenever they

@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/anthony-pompli
 
 ## Fun fact (short)
 
-Fun fact about Anthony Pompliano: Widely known as Pomp. @APompliano is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/anthony-pompliano/
+Fun fact about Anthony Pompliano: Widely known as Pomp. @APompliano is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/anthony-pompliano/
+
+## Story thread (@web3toys)
+
+1/ @APompliano, in three sentences 🧵
+
+2/ Pomp served in the US Army and worked at Facebook before co-founding Morgan Creek Digital.
+3/ He hosts The Pomp Podcast and writes a daily letter about Bitcoin and markets.
+
+4/ Known for: The Pomp Podcast, Morgan Creek Digital. Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/anthony-pompliano/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

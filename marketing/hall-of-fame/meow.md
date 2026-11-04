@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/meow/
 
 ## Fun fact (short)
 
-Fun fact about Meow: Operates under a pseudonym. @weremeow is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/meow/
+Fun fact about Meow: Operates under a pseudonym. @weremeow is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/meow/
+
+## Story thread (@web3toys)
+
+1/ @weremeow, in three sentences 🧵
+
+2/ Meow, the pseudonymous cofounder of Jupiter, built Solana's main swap aggregator, which searches many exchanges for the best price.
+3/ Jupiter launched its JUP token with a large airdrop in January 2024.
+
+4/ Known for: Jupiter, The JUP airdrop (2024). Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/meow/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

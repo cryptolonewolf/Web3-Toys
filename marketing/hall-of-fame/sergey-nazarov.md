@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/sergey-nazarov
 
 ## Fun fact (short)
 
-Fun fact about Sergey Nazarov: Chainlink's fan community calls itself the LINK Marines. @SergeyNazarov is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/sergey-nazarov/
+Fun fact about Sergey Nazarov: Chainlink's fan community calls itself the LINK Marines. @SergeyNazarov is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/sergey-nazarov/
+
+## Story thread (@web3toys)
+
+1/ @SergeyNazarov, in three sentences 🧵
+
+2/ Sergey co-founded Chainlink, which published its whitepaper in 2017.
+3/ Chainlink oracles bring prices and other outside data onto blockchains, and most DeFi apps rely on data like that.
+
+4/ Known for: Chainlink (2017), Decentralized oracles. Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/sergey-nazarov/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

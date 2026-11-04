@@ -209,21 +209,33 @@
       },
     },
 
+    // A gallery wall of pencil-sketch portraits in little frames, with gold
+    // stars, like the drawings in the game.
     'hall-of-fame': {
-      font: 'Cinzel Decorative',
+      font: 'Kalam',
       weight: 700,
       art: function () {
-        var laurel = function (x, flip) {
-          return '<g transform="translate(' + x + ' 50) scale(' + flip + ' 1)" fill="#E8B923" stroke="#7A5A00" stroke-width="0.8">' +
-            range(6, function (i) { return '<ellipse cx="' + (-4 - i * 1.5) + '" cy="' + (-24 + i * 9) + '" rx="3" ry="7" transform="rotate(' + (-40 + i * 12) + ' ' + (-4 - i * 1.5) + ' ' + (-24 + i * 9) + ')"/>'; }) + '</g>';
+        var frame = function (x, y, r, color, hair) {
+          return '<g class="frame" transform="translate(' + x + ' ' + y + ') rotate(' + r + ')">' +
+            '<rect x="-17" y="-21" width="34" height="42" rx="2" fill="#fff" stroke="' + INK + '" stroke-width="1.6"/>' +
+            '<rect x="-13" y="-17" width="26" height="30" fill="' + color + '" opacity=".35"/>' +
+            '<g stroke="' + color + '" stroke-width="1.1" opacity=".9">' + range(6, function (i) { return '<path d="M' + (-13 + i * 5) + ' 13 l8 -30"/>'; }) + '</g>' +
+            '<circle cx="0" cy="-3" r="7.5" fill="#FFE3C8" stroke="' + INK + '" stroke-width="1.3"/>' +
+            '<path d="' + hair + '" fill="' + INK + '"/>' +
+            '<path d="M-11 13 q11 -12 22 0" fill="' + color + '" stroke="' + INK + '" stroke-width="1.3"/>' +
+            '<circle cx="-2.6" cy="-3" r=".9" fill="' + INK + '"/><circle cx="2.6" cy="-3" r=".9" fill="' + INK + '"/>' +
+            '<path d="M-2.5 1 q2.5 2 5 0" fill="none" stroke="' + INK + '" stroke-width=".9"/></g>';
         };
+        var short = 'M-7.5 -4 q0 -8 7.5 -8 q7.5 0 7.5 8 q-3 -4 -7.5 -4 q-4.5 0 -7.5 4z';
+        var long = 'M-8 4 q-2 -16 8 -16 q10 0 8 16 q-1 -9 -8 -11 q-7 2 -8 11z';
+        var cap = 'M-8.5 -5 q0 -8 8.5 -8 q8.5 0 8.5 8z M8 -5 h5';
         return svg(
-          '<defs><radialGradient id="spot" cx="50%" cy="45%" r="55%"><stop offset="0" stop-color="#C8243C"/><stop offset="1" stop-color="#4A0812"/></radialGradient></defs>' +
-          '<rect width="270" height="100" fill="url(#spot)"/>' +
-          range(14, function (i) { return '<rect x="' + (i * 20) + '" width="8" height="100" fill="#000" opacity=".12"/>'; }) +
-          '<rect x="5" y="5" width="260" height="90" rx="10" fill="none" stroke="#E8B923" stroke-width="2"/><rect x="9" y="9" width="252" height="82" rx="8" fill="none" stroke="#E8B923" stroke-width="0.8"/>' +
-          laurel(40, 1) + laurel(230, -1) +
-          '<g class="sparkle">' + star(70, 22, 4, '#FFE9A8') + star(206, 80, 4, '#FFE9A8') + star(196, 18, 3, '#FFE9A8') + '</g>'
+          '<rect width="270" height="100" fill="#FFF8E1"/>' +
+          '<g stroke="#E8B923" stroke-width="1" opacity=".35">' + range(30, function (i) { return '<path d="M' + (i * 10 - 30) + ' 100 l40 -100"/>'; }) + '</g>' +
+          '<path d="M0 8 h270 M0 92 h270" stroke="' + INK + '" stroke-width="1.5" stroke-dasharray="6 4" opacity=".5"/>' +
+          frame(26, 32, -8, '#4D96FF', short) + frame(58, 70, 6, '#FF7AB6', long) + frame(20, 76, 4, '#6BCB77', cap) +
+          frame(244, 30, 7, '#FFD93D', cap) + frame(214, 70, -6, '#9B5DE5', short) + frame(252, 76, -3, '#FF9F45', long) +
+          '<g class="sparkle">' + star(92, 16, 5, '#E8B923') + star(180, 88, 5, '#E8B923') + star(196, 14, 4, '#E8B923') + star(78, 92, 3.5, '#E8B923') + '</g>'
         );
       },
     },

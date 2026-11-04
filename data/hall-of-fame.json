@@ -1,12 +1,19 @@
 {
-  "_help": "Who Built It? (Web3 Builders Hall of Fame): words and scoring. The people are in data/hall-of-fame-people.json and the quiz in quizzes/hall-of-fame.json. rounds: how many people per game, by level. points: for a right answer, and with the hint used.",
+  "_help": "Web3 Hall of Famers: words and scoring. The people are in data/hall-of-fame-people.json and the quiz in quizzes/hall-of-fame.json. rounds: how many people per game, by level. points: for a right answer, and with the hint used.",
   "id": "hall-of-fame",
-  "title": "Who Built It?",
-  "certTitle": "Who Built It? Web3 Builders Hall of Fame",
-  "intro": "Read the clue, pick the person. Every right answer adds their card to your Hall of Fame wall. 50 people built, shaped and shook web3. How many can you collect?",
+  "title": "Web3 Hall of Famers",
+  "certTitle": "Web3 Hall of Famers",
+  "intro": "Read the clue, pick the person, then hear their story. Every right answer adds them to your Hall of Fame wall. 50 people built, shaped and shook web3. How many can you collect?",
   "startButton": "Start a round of 10",
-  "rounds": { "easy": 3, "medium": 4, "hard": 3 },
-  "points": { "right": 100, "hint": 60 },
+  "rounds": {
+    "easy": 3,
+    "medium": 4,
+    "hard": 3
+  },
+  "points": {
+    "right": 100,
+    "hint": 60
+  },
   "clueLabel": "Who is this?",
   "hintButton": "Show a hint",
   "nextButton": "Next clue",
@@ -16,18 +23,32 @@
   "cautionLabel": "Cautionary tale",
   "anonLabel": "Never shown their face",
   "ranks": [
-    { "name": "Curious Visitor", "min": 0 },
-    { "name": "Crypto Fan", "min": 0.4 },
-    { "name": "Web3 Historian", "min": 0.7 },
-    { "name": "Hall Keeper", "min": 0.9 }
+    {
+      "name": "Curious Visitor",
+      "min": 0
+    },
+    {
+      "name": "Crypto Fan",
+      "min": 0.4
+    },
+    {
+      "name": "Web3 Historian",
+      "min": 0.7
+    },
+    {
+      "name": "Hall Keeper",
+      "min": 0.9
+    }
   ],
   "endTitle": "Round done.",
   "endLesson": "Web3 was built by many people: coders, cryptographers, founders, investors, investigators and regulators. Knowing who did what helps you judge who to listen to.",
   "quizButton": "Take the quiz for your certificate",
   "note": "Facts are public information as of November 2026. Roles change; tell us if something is out of date.",
   "share": {
-    "title": "I played Who Built It?",
+    "title": "I played Web3 Hall of Famers",
     "cta": "Collect them all",
-    "text": "I named {right} of {n} web3 builders and scored {score}. Rank: {rank}. My Hall of Fame: {collected}/{total}. Play Who Built It?: {link}"
-  }
+    "text": "I named {right} of {n} web3 builders and scored {score}. Rank: {rank}. My Hall of Fame: {collected}/{total}. Play Web3 Hall of Famers: {link}"
+  },
+  "storyLabel": "The story",
+  "knownLabel": "Known for"
 }

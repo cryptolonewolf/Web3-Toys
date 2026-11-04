@@ -2887,20 +2887,39 @@ body.home .page {
 }
 
 .xcard--hall-of-fame {
-  background: #4a0812;
-  box-shadow: 0 0 0 3px #e8b923;
+  background: #fff8e1;
+  box-shadow: 0 0 0 3px #1f1b2e, 4px 4px 0 3px #e8b923;
 }
 
 .xcard--hall-of-fame .xtitle {
-  font-size: 6.6cqi;
+  font-size: 8.4cqi;
   font-weight: 700;
-  color: #ffe9a8;
-  text-shadow: 0 2px 0 #7a5a00, 0 0 16px rgba(255, 233, 168, 0.35);
-  padding: 0 20cqi;
+  line-height: 1;
+  color: #1f1b2e;
+  text-shadow: 2px 2px 0 #ffd93d;
+  padding: 0 24cqi;
+  transform: rotate(-3deg);
+}
+
+.xcard--hall-of-fame .frame {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+}
+
+.xcard--hall-of-fame:hover .frame {
+  animation: hof-swing 0.6s ease-in-out 2;
 }
 
 .xcard--hall-of-fame:hover .sparkle {
   animation: twinkle 0.6s ease-in-out 2;
+}
+
+@keyframes hof-swing {
+  50% { rotate: 6deg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xcard--hall-of-fame:hover .frame { animation: none; }
 }
 
 /* For Entrepreneurs */
@@ -6955,3 +6974,6 @@ body[data-theme='theme-night'] .pf-h .small-print { color: #d9d4f0; }
 .eb-toast.is-out { opacity: 0; translate: -50% -20px; }
 @media (prefers-reduced-motion: reduce) { .eb-toast { transition: none; } }
 @media print { .eb-toast, .eb-pill, .eb-line { display: none !important; } }
+.hof-story { display: grid; gap: 4px; }
+.hof-story .label { margin: 0; }
+.hof-known { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0; }

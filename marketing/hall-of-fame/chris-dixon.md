@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/chris-dixon/
 
 ## Fun fact (short)
 
-Fun fact about Chris Dixon: Popularized the phrase read, write, own to describe web eras. @cdixon is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/chris-dixon/
+Fun fact about Chris Dixon: Popularized the phrase read, write, own to describe web eras. @cdixon is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/chris-dixon/
+
+## Story thread (@web3toys)
+
+1/ @cdixon, in three sentences 🧵
+
+2/ An early internet founder and investor, Chris launched a16z crypto at Andreessen Horowitz in 2018.
+3/ In 2024 he published the book Read Write Own about why blockchains matter.
+
+4/ Known for: a16z crypto (2018), Read Write Own (2024). Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/chris-dixon/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

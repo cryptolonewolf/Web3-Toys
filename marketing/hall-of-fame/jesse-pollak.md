@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/jesse-pollak/
 
 ## Fun fact (short)
 
-Fun fact about Jesse Pollak: Base launched in 2023. @jessepollak is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/jesse-pollak/
+Fun fact about Jesse Pollak: Base launched in 2023. @jessepollak is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/jesse-pollak/
+
+## Story thread (@web3toys)
+
+1/ @jessepollak, in three sentences 🧵
+
+2/ Jesse leads Base at Coinbase.
+3/ Base is a layer 2 network on Ethereum that opened to everyone in August 2023 to make onchain apps cheap and simple, kicked off with an event called Onchain Summer.
+
+4/ Known for: Base (2023), Onchain Summer. Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/jesse-pollak/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

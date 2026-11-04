@@ -17,7 +17,16 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/michael-saylor
 
 ## Fun fact (short)
 
-Fun fact about Michael Saylor: Strategy started buying Bitcoin in August 2020. @saylor is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/michael-saylor/
+Fun fact about Michael Saylor: Strategy started buying Bitcoin in August 2020. @saylor is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/michael-saylor/
+
+## Story thread (@web3toys)
+
+1/ @saylor, in three sentences 🧵
+
+2/ Michael co-founded MicroStrategy (now called Strategy) in 1989.
+3/ In August 2020 the company began turning its cash into Bitcoin and kept buying, becoming the largest company holder of Bitcoin.
+
+4/ Known for: The Bitcoin treasury company, Strategy (MicroStrategy). Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/michael-saylor/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

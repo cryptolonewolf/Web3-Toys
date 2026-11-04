@@ -17,7 +17,17 @@ Can you name all 50 web3 builders? https://web3.toys/hall-of-fame/andre-cronje/
 
 ## Fun fact (short)
 
-Fun fact about Andre Cronje: Launched the YFI token with no premine, giving all tokens to users. @AndreCronjeTech is one of 50 builders in Who Built It? https://web3.toys/hall-of-fame/andre-cronje/
+Fun fact about Andre Cronje: Launched the YFI token with no premine, giving all tokens to users. @AndreCronjeTech is one of the 50 Web3 Hall of Famers. https://web3.toys/hall-of-fame/andre-cronje/
+
+## Story thread (@web3toys)
+
+1/ @AndreCronjeTech, in three sentences 🧵
+
+2/ Andre, a South African developer, launched Yearn Finance in 2020.
+3/ It moved deposits between DeFi apps to chase the best yield, and its YFI token had no team allocation, which helped spark DeFi summer.
+4/ He is also linked with the Fantom chain, now Sonic.
+
+5/ Known for: Yearn Finance (2020), The YFI fair launch, Fantom, now Sonic. Meet all 50 Web3 Hall of Famers: https://web3.toys/hall-of-fame/andre-cronje/
 
 ## Stat post (fill in the number from the person page once 20+ players have played)
 

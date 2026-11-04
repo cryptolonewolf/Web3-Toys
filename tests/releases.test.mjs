@@ -105,7 +105,7 @@ describe('Release schedule', () => {
     assert.ok(!/create policy[^;]*for (insert|update|delete|all)/i.test(sql));
   });
 
-  it('Who Built It? has 50 people with every field', () => {
+  it('Web3 Hall of Famers has 50 people with every field', () => {
     const d = json('data/hall-of-fame-people.json');
     const cats = new Set(d.categories.map((c) => c.id));
     const words = json('data/hall-of-fame.json');
@@ -113,7 +113,7 @@ describe('Release schedule', () => {
     assert.equal(new Set(d.people.map((p) => p.id)).size, 50);
     d.people.forEach((p) => {
       assert.match(p.id, /^[a-z0-9-]+$/);
-      assert.ok(p.name && p.role && p.why && p.fun, p.id);
+      assert.ok(p.name && p.role && p.why && p.fun && p.story && p.known && p.known.length, p.id);
       assert.ok(cats.has(p.cat), p.id);
       assert.ok(['easy', 'medium', 'hard'].includes(p.level), p.id);
       if (p.photo) assert.ok(existsSync(new URL(`../images/people/${p.id}.webp`, import.meta.url)), p.id + ' photo missing');
