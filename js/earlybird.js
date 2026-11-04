@@ -11,7 +11,7 @@
 (function () {
   var site = window.WEB3TOYS || {};
   var cfg = (window.WEB3TOYS_CONFIG || {}).supabase || {};
-  var counts = {}, mine = {}, ready = false, known = null;
+  var counts = {}, mine = {}, ready = false;
   // Toy pages whose folder is not the toy's id.
   var PAGE_TOY = { simulator: 'token-simulator' };
 
@@ -32,16 +32,28 @@
     }).then(function (r) { if (!r.ok) throw new Error('busy'); return r.json(); });
   }
 
+  // Spots already celebrated in this browser, so the note shows only once.
+  var SEEN = 'web3toys.ebSeen.v1';
+  function seen() { try { return JSON.parse(localStorage.getItem(SEEN)) || {}; } catch (e) { return {}; } }
+  function markSeen(toy) { var s = seen(); s[toy] = true; try { localStorage.setItem(SEEN, JSON.stringify(s)); } catch (e) { /* private mode */ } }
+
   function refresh() {
     return Promise.all([
       rpc('early_bird_counts').then(function (rows) { counts = {}; (rows || []).forEach(function (r) { counts[r.toy] = r; }); }).catch(function () {}),
-      rpc('my_early_birds', true).then(function (rows) { var m = {}; (rows || []).forEach(function (r) { m[r.toy] = r.spot; }); return m; }).catch(function () { return mine; }),
+      rpc('my_early_birds', true).catch(function () { return null; }),
     ]).then(function (r) {
-      var next = r[1];
-      // A new spot since last time: celebrate it.
-      if (known) Object.keys(next).forEach(function (t) { if (!known[t]) celebrate(t, next[t]); });
-      mine = next;
-      known = token() ? Object.assign({}, mine) : null;
+      var rows = r[1];
+      if (rows) {
+        var m = {};
+        var s = seen();
+        rows.forEach(function (x) {
+          m[x.toy] = x.spot;
+          // Celebrate a spot won in the last 15 minutes, once.
+          if (!s[x.toy] && Date.now() - Date.parse(x.created_at) < 15 * 60 * 1000) celebrate(x.toy, x.spot);
+          if (!s[x.toy]) markSeen(x.toy);
+        });
+        mine = m;
+      }
       ready = true;
       decorate();
       document.dispatchEvent(new CustomEvent('web3earlybird:change'));
@@ -136,7 +148,7 @@
   // Logged in or out: reload this player's spots. After a certificate is
   // saved to the account, check for a new spot.
   var hook = function () {
-    if (window.Web3Auth) window.Web3Auth.onChange(function () { known = null; refresh().then(function () { known = token() ? Object.assign({}, mine) : null; }); });
+    if (window.Web3Auth) window.Web3Auth.onChange(function (user) { if (!user) mine = {}; refresh(); });
   };
   if (window.Web3Auth) hook(); else document.addEventListener('web3auth:ready', hook, { once: true });
   document.addEventListener('web3toys:synced', function () { refresh(); });

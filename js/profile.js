@@ -10,7 +10,7 @@
   var site = window.WEB3TOYS;
   var app = document.getElementById('app');
   var ME_KEY = 'web3toys.me.v1';
-  var TABS = [['certs', 'Certificates'], ['coins', 'Coins'], ['purchases', 'Purchases'], ['settings', 'Settings']];
+  var TABS = [['coins', 'Coins'], ['purchases', 'Purchases'], ['settings', 'Settings']];
   var home = null;
   var ranks = null;
   var cosmetics = null;
@@ -27,21 +27,22 @@
     ranks = r[1].ranks;
     cosmetics = r[2];
     render();
+    jump();
   }).catch(function (err) { app.innerHTML = C.loadError(err); });
 
   // Re-draw when the account loads, logs out or finishes syncing.
   document.addEventListener('web3auth:ready', function () { window.Web3Auth.onChange(function () { if (home) render(); }); });
   document.addEventListener('web3toys:synced', function () { if (home) render(); });
-  document.addEventListener('web3earlybird:change', function () { if (home && tab === 'certs') render(); });
+  document.addEventListener('web3earlybird:change', function () { if (home) render(); });
   document.addEventListener('web3toys:purchased', function () { orders = null; if (home) render(); });
   document.addEventListener('web3pay:ready', function () { if (home && tab === 'purchases') render(); });
   document.addEventListener('web3auth:ready', function () { window.Web3Auth.onChange(function () { orders = null; }); });
-  window.addEventListener('hashchange', function () { tab = tabFromHash(); if (home) render(); });
+  window.addEventListener('hashchange', function () { tab = tabFromHash(); if (home) { render(); jump(); } });
 
   function tabFromHash() {
     var h = location.hash.replace('#', '');
     if (h === 'extras' || h === 'earn') return 'coins';
-    return TABS.some(function (t) { return t[0] === h; }) ? h : 'certs';
+    return TABS.some(function (t) { return t[0] === h; }) ? h : 'coins';
   }
 
   function read(key, fallback) {
@@ -97,31 +98,45 @@
     var lvl = Web3Progress.level(s.rank, ranks);
     var pct = s.nextRank ? Math.round((s.n / s.nextRank.min) * 100) : 100;
 
+    // Four sections: You, Keep playing, Your certificates, Coins and account.
     app.innerHTML =
-      '<section class="card pf-head">' + avatar +
-      '<div class="pf-who"><h1 class="pf-name">' + esc(name) + '</h1>' + C.rankBadge(s.rank, lvl) + '</div>' +
-      '<a class="pf-coins" href="#coins" aria-label="' + s.w.balance + ' coins">' + site.icon('coin') + '<b data-coin-count>' + s.w.balance.toLocaleString('en-US') + '</b></a>' +
-      '<div class="pf-next"><div class="meter" role="img" aria-label="' + pct + ' percent to the next rank"><span style="width:' + pct + '%"></span></div>' +
-      '<p class="small-print">' + (s.nextRank ? (s.nextRank.min - s.n) + ' more certificate' + (s.nextRank.min - s.n === 1 ? '' : 's') + ' to ' + esc(s.nextRank.name) : 'Top rank reached') +
-      (s.user ? '' : ' · <button type="button" class="text-button" data-login>Log in to save</button>') + '</p></div></section>' +
-
-      '<ul class="pf-stats">' +
-      stat(s.done.length + '/' + s.toys.length, 'Toys done') + stat(s.certs.length, 'Certificates') + stat(s.pros.length, 'Pro tags') + stat(s.streak + (s.streak === 1 ? ' day' : ' days'), 'Streak') +
-      '</ul>' +
-
-      (s.next.length ? '<section class="pf-row-wrap"><h2 class="pf-h">Continue playing</h2><ul class="pf-row pf-row--toys">' + s.next.slice(0, 8).map(function (c) {
+      '<div class="pf-top">' +
+      section('you', '👤', 'You', '',
+        '<div class="card pf-head">' + avatar +
+        '<div class="pf-who"><h1 class="pf-name">' + esc(name) + '</h1>' + C.rankBadge(s.rank, lvl) + '</div>' +
+        '<a class="pf-coins" href="#coins" aria-label="' + s.w.balance + ' coins">' + site.icon('coin') + '<b data-coin-count>' + s.w.balance.toLocaleString('en-US') + '</b></a>' +
+        '<div class="pf-next"><div class="meter" role="img" aria-label="' + pct + ' percent to the next rank"><span style="width:' + pct + '%"></span></div>' +
+        '<p class="small-print">' + (s.nextRank ? (s.nextRank.min - s.n) + ' more certificate' + (s.nextRank.min - s.n === 1 ? '' : 's') + ' to ' + esc(s.nextRank.name) : 'Top rank reached') +
+        (s.user ? '' : ' · <button type="button" class="text-button" data-login>Log in to save</button>') + '</p></div>' +
+        '<ul class="pf-stats">' + stat(s.done.length + '/' + s.toys.length, 'Toys done') + stat(s.certs.length, 'Certificates') + stat(s.pros.length, 'Pro tags') + stat(s.streak + (s.streak === 1 ? ' day' : ' days'), 'Streak') + '</ul></div>') +
+      (s.next.length ? section('play', '🎮', 'Keep playing', '', '<ul class="pf-row pf-row--toys">' + s.next.slice(0, 8).map(function (c) {
         return '<li><a class="xcard xcard--' + esc(c.id) + ' pf-toy" href="../' + esc(c.path) + '" aria-label="' + esc(c.title) + '">' + (Web3Cards.card(c.id, c.title, esc) || '<span class="xtitle">' + esc(c.title) + '</span>') + '</a></li>';
-      }).join('') + '</ul></section>' : '') +
-
-      '<div class="pf-tabs" role="tablist" aria-label="My Progress">' + TABS.map(function (t) {
-        var on = t[0] === tab;
-        return '<button type="button" role="tab" id="tab-' + t[0] + '" class="pf-tab' + (on ? ' is-on' : '') + '" aria-selected="' + on + '" aria-controls="panel-' + t[0] + '" tabindex="' + (on ? 0 : -1) + '" data-tab="' + t[0] + '">' + t[1] + '</button>';
-      }).join('') + '</div>' +
-      '<p class="pf-say" data-say aria-live="polite">' + esc(say) + '</p>' +
-      '<section class="pf-panel" role="tabpanel" id="panel-' + tab + '" aria-labelledby="tab-' + tab + '">' + ({ certs: certsPanel, coins: coinsPanel, purchases: purchasesPanel, settings: settingsPanel })[tab](s) + '</section>';
+      }).join('') + '</ul>') : '') +
+      '</div>' +
+      section('certs', '🏅', 'Your certificates', (s.certs.length + s.pros.length) ? String(s.certs.length + s.pros.length) : '', certsPanel(s)) +
+      section('account', '🪙', 'Coins and account', '',
+        '<div class="pf-tabs" role="tablist" aria-label="Coins and account">' + TABS.map(function (t) {
+          var on = t[0] === tab;
+          return '<button type="button" role="tab" id="tab-' + t[0] + '" class="pf-tab' + (on ? ' is-on' : '') + '" aria-selected="' + on + '" aria-controls="panel-' + t[0] + '" tabindex="' + (on ? 0 : -1) + '" data-tab="' + t[0] + '">' + t[1] + '</button>';
+        }).join('') + '</div>' +
+        '<p class="pf-say" data-say aria-live="polite">' + esc(say) + '</p>' +
+        '<div class="pf-panel" role="tabpanel" id="panel-' + tab + '" aria-labelledby="tab-' + tab + '">' + ({ coins: coinsPanel, purchases: purchasesPanel, settings: settingsPanel })[tab](s) + '</div>');
 
     applyTheme(s.user ? s.cx.theme : null);
     bind(s);
+  }
+
+  function section(id, icon, title, count, body) {
+    return '<section class="pf-section pf-section--' + id + '" id="' + id + '" aria-labelledby="h-' + id + '">' +
+      '<h2 class="pf-section-title" id="h-' + id + '"><span aria-hidden="true">' + icon + '</span>' + esc(title) +
+      (count ? '<span class="pf-count">' + esc(count) + '</span>' : '') + '</h2>' + body + '</section>';
+  }
+
+  // Links to #certs (or the old #certificates) scroll to that section.
+  function jump() {
+    var h = location.hash.replace('#', '');
+    var el = h === 'certs' || h === 'certificates' ? document.getElementById('certs') : null;
+    if (el) el.scrollIntoView({ block: 'start' });
   }
 
   function stat(value, label) {
@@ -146,15 +161,13 @@
   }
 
   function certsPanel(s) {
-    return '<h3 class="pf-h">Toy certificates</h3>' +
-      (s.certs.length ? '<ul class="pf-row">' + s.certs.map(function (c) { return certCard(c, false); }).join('') + '</ul>'
-        : '<p class="text pf-empty">None yet. Pass the quiz at the end of a toy to earn one.</p>') +
-      '<h3 class="pf-h">Pro tags</h3>' +
-      (s.pros.length ? '<ul class="pf-row">' + s.pros.map(function (c) { return certCard(c, true); }).join('') + '</ul>'
-        : '<p class="text pf-empty">Earn Pro tags in the <a href="../academy/">Project Academy</a>. They count toward your rank.</p>') +
-      '<details class="pf-more"><summary class="small-print">All ranks</summary><ol class="rank-ladder">' + ranks.map(function (r, i) {
+    var all = s.certs.map(function (c) { return certCard(c, false); }).concat(s.pros.map(function (c) { return certCard(c, true); }));
+    return (all.length ? '<ul class="pf-certs">' + all.join('') + '</ul>'
+        : '<p class="text pf-empty">None yet. Pass the quiz at the end of any toy to earn one.</p>') +
+      '<div class="pf-certs-foot"><p class="small-print">Pro tags come from the <a href="../academy/">Project Academy</a> and count toward your rank.</p>' +
+      '<details class="pf-more"><summary>See all ranks</summary><ol class="rank-ladder">' + ranks.map(function (r, i) {
         return '<li class="' + (r === s.rank ? 'is-current' : s.n >= r.min ? 'is-done' : '') + '">' + C.rankBadge(r, i + 1) + '<span class="small-print">' + r.min + (r.min === 1 ? ' certificate' : ' certificates') + '</span></li>';
-      }).join('') + '</ol></details>';
+      }).join('') + '</ol></details></div>';
   }
 
   // ---------- Extras (coins) ----------

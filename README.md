@@ -298,7 +298,7 @@ settings, the framework preset is **Other** with no build command.
 
 ## My Progress (compact profile)
 
-`progress/` is drawn by `js/profile.js`: picture, name, rank and coins on
+`progress/` is drawn by `js/profile.js` in four sections: You (picture, name, rank, coins, stats), Keep playing, Your certificates, and Coins and account (tabs: Coins, Purchases, Settings). Older notes: picture, name, rank and coins on
 top, then stats (toys done, certificates, Pro tags, streak), a Continue
 playing row and tabs for Certificates, Extras (coins and cosmetic extras),
 Purchases (filled in by payments) and Settings (name, picture, log out,

@@ -6375,7 +6375,7 @@ body[data-theme='theme-night'] #coins > .text { color: #fff; }
 /* Tabs */
 .pf-tabs {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 4px;
   padding: 4px;
   background: var(--white);
@@ -6459,12 +6459,6 @@ body[data-theme='theme-night'] .pf-panel a { color: #ffd93d; }
   margin-bottom: -8px;
 }
 
-#app > .pf-stats,
-#app > .pf-row-wrap,
-#app > .pf-tabs,
-#app > .pf-panel {
-  margin-top: -10px;
-}
 body[data-theme='theme-night'] .pf-h .small-print { color: #d9d4f0; }
 
 /* Payments */
@@ -6999,3 +6993,27 @@ body[data-theme='theme-night'] .pf-h .small-print { color: #d9d4f0; }
 .hof-story { display: grid; gap: 4px; }
 .hof-story .label { margin: 0; }
 .hof-known { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0; }
+
+/* ---------- My Progress: four sections ---------- */
+.page--progress { max-width: 1040px; }
+.pf-top { display: grid; gap: 22px; min-width: 0; }
+.pf-section { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.pf-section-title { display: flex; align-items: center; gap: 8px; margin: 0; font: 700 22px / 1.1 var(--font-display); color: var(--ink); }
+.pf-count { padding: 1px 10px; font: 800 14px var(--font-body); background: var(--yellow); border: var(--line-thin); border-radius: 999px; }
+.pf-head .pf-stats { grid-column: 1 / -1; margin-top: 10px; padding-top: 10px; border-top: 2px dashed rgba(31, 27, 46, .2); }
+.pf-head .pf-stats li { padding: 2px; background: none; border: 0; }
+.pf-certs { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.pf-certs .pf-cert { width: auto; }
+.pf-certs-foot { display: grid; gap: 4px; }
+.pf-certs-foot .small-print { margin: 0; }
+.pf-more summary { font: 700 14px var(--font-body); }
+#app > .pf-section, #app > .pf-top { margin-top: 8px; }
+body[data-theme='theme-night'] .pf-section-title { color: #fff; }
+@media (min-width: 900px) {
+  .pf-top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+  .pf-section--play .pf-row { display: grid; grid-template-columns: 1fr 1fr; margin: 0; padding: 2px; overflow: visible; }
+  .pf-section--play .pf-row > li:nth-child(n+5) { display: none; }
+  .pf-section--play .pf-toy { width: 100%; }
+  .pf-certs { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+  .pf-section-title { font-size: 26px; }
+}
