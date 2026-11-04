@@ -19,7 +19,7 @@
   var T = null, people = [], cats = {};
   var round = [], at = 0, score = 0, right = 0, hint = false;
 
-  // The pencil wobble used by every sketch, defined once.
+  // The pencil wobble used by every sketch (js/hof-card.js), defined once.
   document.body.insertAdjacentHTML('beforeend', '<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="hof-pencil"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="2.2"/></filter></svg>');
 
   Promise.all([C.loadJson('../data/hall-of-fame.json'), C.loadJson('../data/hall-of-fame-people.json')]).then(function (r) {
@@ -50,32 +50,58 @@
     return true;
   }
 
-  // ---------- Portraits ----------
-
-  var COLORS = { blue: '#4D96FF', violet: '#9B5DE5', mint: '#6BCB77', yellow: '#FFD93D', orange: '#FF9F45', teal: '#2EC4B6', pink: '#FF7AB6', coral: '#FF6B6B' };
-
-  function initials(name) {
-    return name.replace(/\(.*?\)/g, '').trim().split(/\s+/).map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase();
-  }
-
-  // A coloured-pencil style sketch: wobbly circle, hatching and initials.
-  function sketch(p) {
-    var col = COLORS[(cats[p.cat] || {}).color] || '#FFD93D';
-    var fid = 'hof-pencil';
-    var face = p.anon
-      ? '<path d="M50 14c-20 0-32 16-32 34v40h64V48c0-18-12-34-32-34z" fill="#3B3552"/><ellipse cx="50" cy="52" rx="17" ry="20" fill="#1F1B2E"/>' +
-        '<text x="50" y="60" text-anchor="middle" font-size="22" font-weight="800" fill="#FFD93D" font-family="Fredoka, sans-serif">?</text>'
-      : '<text x="50" y="62" text-anchor="middle" font-size="30" font-weight="700" fill="#1F1B2E" font-family="Chewy, Fredoka, sans-serif">' + esc(initials(p.name)) + '</text>';
-    return '<svg class="hof-sketch" viewBox="0 0 100 100" aria-hidden="true">' +
-      '<defs><pattern id="hatch-' + esc(p.id) + '" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><line x1="0" y1="0" x2="0" y2="6" stroke="' + col + '" stroke-width="2.4" opacity=".75"/></pattern></defs>' +
-      '<g filter="url(#' + fid + ')"><circle cx="50" cy="50" r="44" fill="#FFF8E1"/><circle cx="50" cy="50" r="44" fill="url(#hatch-' + esc(p.id) + ')"/>' +
-      '<circle cx="50" cy="50" r="44" fill="none" stroke="#1F1B2E" stroke-width="2.5"/>' + face + '</g></svg>';
-  }
+  // ---------- Portraits (js/hof-card.js) ----------
 
   function portrait(p, cls) {
-    return '<span class="hof-face ' + (cls || '') + '">' + (p.photo
-      ? '<img src="../images/people/' + esc(p.id) + '.webp" alt="" loading="lazy" onerror="this.remove()" />'
-      : '') + sketch(p) + '</span>';
+    return Web3HofCard.portrait(p, (cats[p.cat] || {}).color, cls, '../');
+  }
+
+  // ---------- Numbers: who got it right, favourite builders ----------
+  // Anonymous totals in Supabase (supabase/011_hall_of_fame.sql).
+
+  var numbers = {};
+  var SB = (window.WEB3TOYS_CONFIG || {}).supabase || {};
+
+  function sb(fn, body) {
+    if (!SB.url || !SB.anonKey) return Promise.reject(new Error('off'));
+    return fetch(SB.url.replace(/\/$/, '') + '/rest/v1/rpc/' + fn, {
+      method: 'POST',
+      headers: { apikey: SB.anonKey, Authorization: 'Bearer ' + SB.anonKey, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body || {}),
+    }).then(function (r) { if (!r.ok) throw new Error('busy'); return r.status === 204 ? null : r.json(); });
+  }
+
+  function loadNumbers() {
+    return sb('hof_numbers').then(function (rows) {
+      numbers = {};
+      (rows || []).forEach(function (r) { numbers[r.person_id] = r; });
+    }).catch(function () {});
+  }
+
+  function pctLine(p) {
+    var n = numbers[p.id];
+    return n && n.right_pct != null ? n.right_pct + '% of players named ' + (p.anon ? 'them' : p.name.split(' ')[0]) + '.' : '';
+  }
+
+  function loved() {
+    return people.filter(function (p) { return numbers[p.id] && numbers[p.id].votes > 0; })
+      .sort(function (a, b) { return numbers[b.id].votes - numbers[a.id].votes; }).slice(0, 10);
+  }
+
+  function lovedHtml() {
+    var top = loved();
+    if (!top.length) return '';
+    return '<section class="card stack stack--tight"><h2 class="title-md">❤️ Most loved builders</h2><p class="small-print">Voted by players after each round.</p>' +
+      '<ol class="hof-loved">' + top.map(function (p) {
+        return '<li><a href="' + esc(p.id) + '/">' + portrait(p, 'hof-face--xs') + '<b>' + esc(p.name) + '</b></a><span class="small-print">' + numbers[p.id].votes + (numbers[p.id].votes === 1 ? ' vote' : ' votes') + '</span></li>';
+      }).join('') + '</ol></section>';
+  }
+
+  // What players post about one person: tags them when they have a handle.
+  function personPost(p) {
+    var who = p.x && !p.caution ? '@' + p.x : p.name;
+    return (p.caution ? 'A lesson from ' + p.name + ': ' + p.why + '.' : 'Fun fact about ' + p.name + ': ' + p.fun + '. ' + who + ' is in the web3.toys Hall of Fame 🏛️') +
+      ' Can you name all 50 web3 builders? ' + SHARE_URL + p.id + '/';
   }
 
   // ---------- Start ----------
@@ -95,8 +121,10 @@
       '<p class="text text--ink">' + esc(T.intro) + '</p>' +
       '<button type="button" class="btn btn--ink btn--block" data-go>' + esc(T.startButton) + '</button>' +
       '<p class="small-print">' + esc(wallLine()) + ' <a href="#wall" data-wall-link>See your wall</a></p></section>' +
+      '<div data-loved></div>' +
       '<p class="small-print">' + esc(T.note) + '</p>' +
       '<section class="stack stack--tight" data-wall hidden></section>';
+    loadNumbers().then(function () { var box = app.querySelector('[data-loved]'); if (box) box.innerHTML = lovedHtml(); });
     pill.textContent = people.length + ' builders';
     app.querySelector('[data-go]').addEventListener('click', play);
     app.querySelector('[data-wall-link]').addEventListener('click', function (e) {
@@ -182,6 +210,7 @@
     });
     sfx.play(ok ? 'cash' : 'buzz');
     C.track('hof_answer', { person: p.id, right: ok });
+    sb('hof_answer', { p_person: p.id, p_right: ok }).catch(function () {});
     var cat = cats[p.cat] || {};
     var card = document.createElement('section');
     card.className = 'card stack stack--tight hof-card' + (p.caution ? ' is-caution' : '');
@@ -194,11 +223,16 @@
       (p.anon ? '<span class="chip">🕶️ ' + esc(T.anonLabel) + '</span>' : '') + '</p></div></div>' +
       '<p class="text"><b>Why they matter:</b> ' + esc(p.why) + '</p>' +
       '<p class="tip">' + site.icon('bulb') + '<span><b>Fun fact:</b> ' + esc(p.fun) + '</span></p>' +
+      (pctLine(p) ? '<p class="small-print hof-pct">📊 ' + esc(pctLine(p)) + '</p>' : '') +
+      '<div class="btn-row"><a class="btn btn--small" href="https://x.com/intent/post?text=' + encodeURIComponent(personPost(p)) + '" target="_blank" rel="noopener" data-share-person>Share this card</a>' +
+      '<a class="btn btn--small" href="' + esc(p.id) + '/">Their page</a>' +
+      '<a class="btn btn--small" href="' + esc(p.more) + '" target="_blank" rel="noopener">Read more</a></div>' +
       '<button type="button" class="btn btn--ink btn--block" data-next>' + esc(at + 1 < round.length ? T.nextButton : T.finishButton) + ' →</button>';
     app.appendChild(card);
     if (ok) site.fx.coins(card.querySelector('.hof-result'), 5);
     card.scrollIntoView({ behavior: site.fx.calm() ? 'auto' : 'smooth', block: 'start' });
     pill.textContent = 'Clue ' + (at + 1) + ' of ' + round.length + ' · ' + score + ' pts';
+    card.querySelector('[data-share-person]').addEventListener('click', function () { C.track('hof_share_person', { person: p.id }); site.log('share', 'hall-of-fame:' + p.id); });
     card.querySelector('[data-next]').addEventListener('click', function () {
       at++;
       if (at < round.length) clue(); else end();
@@ -231,7 +265,8 @@
         var p = people.filter(function (x) { return x.id === b.getAttribute('data-who'); })[0];
         box.querySelector('[data-who-box]').innerHTML = '<div class="card stack stack--tight hof-card"><div class="hof-card-top">' + portrait(p, 'hof-face--lg') +
           '<div class="stack stack--tight"><h3 class="title-md">' + esc(p.name) + '</h3><p class="text text--ink">' + esc(p.role) + '</p></div></div>' +
-          '<p class="text">' + esc(p.why) + '</p><p class="tip">' + site.icon('bulb') + '<span>' + esc(p.fun) + '</span></p></div>';
+          '<p class="text">' + esc(p.why) + '</p><p class="tip">' + site.icon('bulb') + '<span>' + esc(p.fun) + '</span></p>' +
+          '<div class="btn-row"><a class="btn btn--small" href="' + esc(p.id) + '/">Their page</a><a class="btn btn--small" href="https://x.com/intent/post?text=' + encodeURIComponent(personPost(p)) + '" target="_blank" rel="noopener">Share this card</a></div></div>';
       });
     });
   }
@@ -248,6 +283,8 @@
       '<p class="text">' + esc(T.endLesson) + '</p>' +
       '<button type="button" class="btn btn--ink btn--block" data-quiz>' + esc(T.quizButton) + '</button>' +
       '<button type="button" class="btn btn--block" data-again>Play another round</button></section>' +
+      voteHtml() +
+      '<div data-loved></div>' +
       '<section class="stack stack--tight" data-wall>' + wallHtml() + '</section>' +
       '<h2 class="section-title">Your share card</h2>' +
       '<img class="share-preview" data-preview alt="Share card: ' + esc(rank.name) + ', ' + score + ' points" />' +
@@ -255,6 +292,8 @@
       '<a class="btn" target="_blank" rel="noopener" href="https://x.com/intent/tweet?text=' + encodeURIComponent(shareText(rank, n)) + '">Post on X</a></div>' +
       ToyKit.offersSlot('game', 'hall-of-fame');
     bindWall(app.querySelector('[data-wall]'));
+    bindVote();
+    loadNumbers().then(function () { var box = app.querySelector('[data-loved]'); if (box) box.innerHTML = lovedHtml(); });
     sfx.play('ding');
     if (right >= round.length * 0.7) site.fx.confetti();
     site.coins.award('finish', 'hall-of-fame', 'Finished a round of Who Built It?');
@@ -263,6 +302,37 @@
     app.querySelector('[data-share]').addEventListener('click', function () { card.share(); });
     app.querySelector('[data-quiz]').addEventListener('click', startQuiz);
     app.querySelector('[data-again]').addEventListener('click', play);
+  }
+
+  // Favourite builder: one vote per account, from this round's people.
+  function voteHtml() {
+    return '<section class="card stack stack--tight" data-vote><h2 class="title-md">❤️ Who is your favourite builder?</h2>' +
+      '<p class="small-print">One vote per player. You can change it after any round.</p>' +
+      '<div class="hof-vote">' + round.map(function (p) {
+        return '<button type="button" class="hof-vote-btn" data-vote-for="' + esc(p.id) + '">' + portrait(p, 'hof-face--xs') + '<span>' + esc(p.name) + '</span></button>';
+      }).join('') + '</div><p class="small-print" data-vote-msg aria-live="polite"></p></section>';
+  }
+
+  function bindVote() {
+    var box = app.querySelector('[data-vote]');
+    box.querySelectorAll('[data-vote-for]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var A = window.Web3Auth;
+        var msg = box.querySelector('[data-vote-msg]');
+        if (!A) { msg.textContent = 'Voting opens soon.'; return; }
+        if (!A.user()) { msg.textContent = 'Log in to vote, so every player gets one vote.'; A.open('Log in to vote for your favourite builder.'); return; }
+        var id = b.getAttribute('data-vote-for');
+        msg.textContent = 'Saving your vote…';
+        A.client.rpc('hof_vote', { p_person: id }).then(function (r) {
+          if (r.error) throw r.error;
+          box.querySelectorAll('[data-vote-for]').forEach(function (x) { x.classList.toggle('is-on', x === b); });
+          var p = people.filter(function (x) { return x.id === id; })[0];
+          msg.innerHTML = 'Voted for ' + esc(p.name) + '! <a href="https://x.com/intent/post?text=' + encodeURIComponent('I voted ' + (p.x && !p.caution ? '@' + p.x : p.name) + ' my favourite web3 builder in the web3.toys Hall of Fame ❤️ Who is yours? ' + SHARE_URL + p.id + '/') + '" target="_blank" rel="noopener">Tell them on X</a>';
+          sfx.play('pop');
+          loadNumbers().then(function () { var l = app.querySelector('[data-loved]'); if (l) l.innerHTML = lovedHtml(); });
+        }).catch(function (err) { msg.textContent = 'Could not save: ' + err.message; });
+      });
+    });
   }
 
   function shareText(rank, n) {

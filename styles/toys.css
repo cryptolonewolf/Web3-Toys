@@ -6930,3 +6930,14 @@ body[data-theme='theme-night'] .pf-h .small-print { color: #d9d4f0; }
 .hof-tile { display: grid; justify-items: center; gap: 4px; width: 100%; padding: 0; font: inherit; font-size: 11px; font-weight: 700; line-height: 1.2; text-align: center; color: var(--ink); background: none; border: 0; cursor: pointer; }
 .hof-tile.is-empty { cursor: default; color: rgba(31, 27, 46, .45); }
 @media (min-width: 600px) { .hof-choice { font-size: 15px; } .hof-quote { font-size: 21px; } }
+.hof-face--xs { width: 40px; }
+.hof-pct { font-weight: 700; }
+.hof-loved { margin: 0; padding: 0; list-style: none; counter-reset: loved; display: grid; gap: 6px; }
+.hof-loved li { counter-increment: loved; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.hof-loved a { display: flex; align-items: center; gap: 8px; color: var(--ink); text-decoration: none; }
+.hof-loved a::before { content: counter(loved); width: 22px; font-weight: 800; text-align: right; }
+.hof-vote { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 6px; }
+.hof-vote-btn { display: flex; align-items: center; gap: 8px; padding: 6px 8px; font: inherit; font-weight: 700; font-size: 13px; line-height: 1.2; text-align: left; color: var(--ink); background: var(--white); border: var(--line-thin); border-radius: 14px; cursor: pointer; }
+.hof-vote-btn.is-on { background: var(--pink, #FF7AB6); }
+.hof-more { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 10px; }
+.hof-more a { display: grid; justify-items: center; gap: 4px; font-size: 12px; font-weight: 700; text-align: center; color: var(--ink); text-decoration: none; }

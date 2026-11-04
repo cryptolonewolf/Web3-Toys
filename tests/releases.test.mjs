@@ -121,4 +121,18 @@ describe('Release schedule', () => {
     Object.entries(words.rounds).forEach(([lv, n]) => assert.ok(d.people.filter((p) => p.level === lv).length >= n, lv));
     assert.ok(json('quizzes/index.json').toys.some((t) => t.id === 'hall-of-fame'));
   });
+
+  it('Hall of Fame person pages, cards and posts are up to date (node tools/hof-build.mjs)', async () => {
+    const { build } = await import('../tools/hof-build.mjs');
+    const files = build(false);
+    Object.entries(files).forEach(([f, body]) => assert.equal(read(f), body, f + ' is out of date: run node tools/hof-build.mjs'));
+    json('data/hall-of-fame-people.json').people.forEach((p) => {
+      assert.ok(existsSync(new URL(`../images/people/cards/${p.id}.png`, import.meta.url)), p.id + ' card: run node tools/hof-cards.mjs');
+      if (p.x) assert.match(p.x, /^[A-Za-z0-9_]{1,15}$/, p.id);
+      if (p.caution) assert.ok(!p.x, p.id + ' is never tagged');
+    });
+    const sql = read('supabase/011_hall_of_fame.sql');
+    assert.ok(sql.includes("raise exception 'Log in to vote.'"));
+    assert.ok(!/create policy[^;]*for (insert|update|delete|all)/i.test(sql));
+  });
 });

@@ -413,3 +413,17 @@ until then a pencil sketch with initials shows. Brief:
 `docs/setup/hall-of-fame-portraits.md`. Live now, part of launch day.
 Preview any locked toy before its date by setting `PREVIEW_KEY` in Vercel
 and opening `/TOY/?preview=YOUR_KEY` once.
+
+### Hall of Fame pages, cards, votes and marketing
+
+- Person pages `hall-of-fame/ID/` and posts `marketing/hall-of-fame/ID.md`
+  are made by `node tools/hof-build.mjs` from `data/hall-of-fame-people.json`
+  (run it after editing that file; the checks fail until you do).
+- X preview cards `images/people/cards/ID.png` (1200 x 675) are made by
+  `node tools/hof-cards.mjs` with the local preview running; run it again
+  after adding portraits.
+- `x` is each person's X handle (check before posting; cautionary tales are
+  never tagged). Share buttons tag them.
+- Numbers: `supabase/011_hall_of_fame.sql` counts how many players named
+  each person (shown from 20 answers) and one favourite-builder vote per
+  logged-in player (Most loved builders).
