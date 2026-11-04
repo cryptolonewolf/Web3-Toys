@@ -2677,27 +2677,31 @@ body.home .page {
 
 /* 4. Stack Sats: purple, gold gradient title with a hard shadow */
 .xcard--earn-small {
-  background: #5a2ac0;
-  box-shadow: 4px 4px 0 #2a0f5c;
+  background: #ffe27a;
+  box-shadow: 4px 4px 0 #1f1b2e;
 }
 
 .xcard--earn-small .xtitle {
-  font-size: 12cqi;
-  background: linear-gradient(180deg, #fff6b0 0%, #ffd93d 45%, #e8a800 55%, #ffe36b 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  filter: drop-shadow(0.04em 0.04em 0 #2a0f5c);
-  padding: 0 28cqi;
+  font-size: 12.5cqi;
+  font-weight: 800;
+  color: #1f1b2e;
+  text-shadow: 3px 3px 0 #ff9ec4;
+  padding: 0 27cqi;
 }
 
-.xcard--earn-small:hover .cstack {
-  animation: coin-bounce 0.5s ease var(--d) 1;
+.xcard--earn-small:hover .drop {
+  animation: coin-drop 0.7s ease-in 1;
 }
 
-@keyframes coin-bounce {
-  40% { transform: translateY(-6px); }
-  70% { transform: translateY(1px); }
+.xcard--earn-small:hover .chute {
+  animation: bob 1.2s ease-in-out 1;
+}
+
+@keyframes coin-drop {
+  70% { transform: translateY(20px); opacity: 1; }
+  100% { transform: translateY(22px); opacity: 0; }
+}
+
 }
 
 /* 5. Famous Web3 Hacks: a case file with a stamp */
@@ -2787,15 +2791,33 @@ body.home .page {
 
 /* 8. Fish the Dead Projects: dark water, a creepy title */
 .xcard--dead-projects {
-  background: #03121b;
-  box-shadow: inset 0 0 0 2px #2b5d73;
+  background: #1e7f9c;
+  box-shadow: 4px 4px 0 #0b3a4a;
 }
 
 .xcard--dead-projects .xtitle {
-  font-size: 11.5cqi;
-  letter-spacing: 0.03em;
-  color: #a6ff4d;
-  text-shadow: 0 0 10px rgba(166, 255, 77, 0.45), 2px 3px 0 #000;
+  font-size: 8.4cqi;
+  line-height: 1.1;
+  color: #fff;
+  text-shadow: 2px 3px 0 #0b3a4a;
+  padding: 0 27cqi 6cqi;
+}
+
+.xcard--dead-projects .weed {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+.xcard--dead-projects:hover .weed {
+  animation: sway 1.2s ease-in-out var(--d) 2;
+}
+
+@keyframes sway {
+  50% { rotate: 8deg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xcard--earn-small:hover .drop, .xcard--earn-small:hover .chute, .xcard--dead-projects:hover .weed { animation: none; }
 }
 
 .xcard--dead-projects:hover .line {

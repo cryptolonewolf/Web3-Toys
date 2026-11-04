@@ -24,15 +24,6 @@
     return '<path d="M' + x + ' ' + (y - r) + ' L' + (x + r * 0.3) + ' ' + (y - r * 0.3) + ' L' + (x + r) + ' ' + y + ' L' + (x + r * 0.3) + ' ' + (y + r * 0.3) + ' L' + x + ' ' + (y + r) + ' L' + (x - r * 0.3) + ' ' + (y + r * 0.3) + ' L' + (x - r) + ' ' + y + ' L' + (x - r * 0.3) + ' ' + (y - r * 0.3) + 'Z" fill="' + fill + '"/>';
   }
 
-  // Stack of coins drawn from the bottom up. cls lets each stack bounce.
-  function coinStack(x, base, n, cls, delay) {
-    return '<g class="' + cls + '" style="--d:' + delay + 's">' + range(n, function (i) {
-      var y = base - i * 5;
-      return '<path d="M' + (x - 11) + ' ' + y + ' v3 a11 3.5 0 0 0 22 0 v-3z" fill="#B8860B" stroke="' + INK + '" stroke-width="1.2"/>' +
-        '<ellipse cx="' + x + '" cy="' + y + '" rx="11" ry="3.5" fill="#FFD93D" stroke="' + INK + '" stroke-width="1.2"/>';
-    }) + '</g>';
-  }
-
   var DESIGNS = {
     // 1. Pixel art on black, glowing yellow, blocks chained along the edges.
     'crypto-in-5': {
@@ -93,15 +84,26 @@
     },
 
     // 4. Purple, a gold gradient title with a hard shadow, coin stacks growing.
+    // A sunny side-hustle desk: a phone video, a pencil, an airdrop on a
+    // parachute and a piggy bank with a coin dropping in.
     'earn-small': {
-      font: 'Shrikhand',
+      font: 'Sniglet',
+      weight: 800,
       art: function () {
         return svg(
-          '<defs><radialGradient id="ss" cx="50%" cy="40%" r="70%"><stop offset="0" stop-color="#8E5CFF"/><stop offset="1" stop-color="#4B1FA8"/></radialGradient></defs>' +
-          '<rect width="270" height="100" fill="url(#ss)"/>' +
-          star(30, 18, 4, '#FFE98A') + star(244, 16, 5, '#FFE98A') + star(132, 90, 3, '#C9B2FF') +
-          coinStack(18, 88, 3, 'cstack', 0) + coinStack(42, 88, 6, 'cstack', 0.08) + coinStack(66, 88, 9, 'cstack', 0.16) +
-          coinStack(206, 88, 10, 'cstack', 0.24) + coinStack(230, 88, 12, 'cstack', 0.32) + coinStack(254, 88, 14, 'cstack', 0.4)
+          '<rect width="270" height="100" fill="#FFE27A"/>' +
+          '<g fill="#FFF1B8">' + range(9, function (i) { var a = -80 + i * 20; return '<path d="M135 120 L' + (135 + 260 * Math.sin(a * Math.PI / 180)).toFixed(1) + ' ' + (120 - 260 * Math.cos(a * Math.PI / 180)).toFixed(1) + ' L' + (135 + 260 * Math.sin((a + 8) * Math.PI / 180)).toFixed(1) + ' ' + (120 - 260 * Math.cos((a + 8) * Math.PI / 180)).toFixed(1) + 'Z"/>'; }) + '</g>' +
+          // Phone with a video, and a pencil.
+          '<g transform="translate(26 50) rotate(-10)" stroke="' + INK + '" stroke-width="1.6"><rect x="-13" y="-23" width="26" height="46" rx="5" fill="' + INK + '"/><rect x="-10" y="-18" width="20" height="34" rx="2" fill="#fff"/><path d="M-3 -6 L5 0 L-3 6Z" fill="#FF6B6B" stroke-width="1"/></g>' +
+          '<g transform="translate(58 72) rotate(35)" stroke="' + INK + '" stroke-width="1.4"><rect x="-4" y="-18" width="8" height="30" fill="#FFD93D"/><rect x="-4" y="-22" width="8" height="5" fill="#FF9EC4"/><path d="M-4 12 L0 20 L4 12Z" fill="#F5D7A8"/></g>' +
+          // Airdrop crate on a parachute.
+          '<g class="chute" transform="translate(196 6)" stroke="' + INK + '" stroke-width="1.3"><path d="M-16 14 a16 13 0 0 1 32 0z" fill="#4D96FF"/><path d="M-5.3 14 a5.3 13 0 0 1 10.6 0" fill="#fff"/><path d="M-16 14 L-5 30 M16 14 L5 30 M0 14 V30" fill="none"/><rect x="-6" y="30" width="12" height="10" fill="#C98B4B"/><path d="M-6 35 h12" /></g>' +
+          // Piggy bank and a coin dropping in.
+          '<g class="drop"><ellipse cx="232" cy="38" rx="7" ry="7" fill="#FFD93D" stroke="' + INK + '" stroke-width="1.5"/><text x="232" y="41" text-anchor="middle" font-size="8" font-weight="900" fill="' + INK + '" font-family="Arial, sans-serif">₿</text></g>' +
+          '<g stroke="' + INK + '" stroke-width="1.6"><rect x="216" y="78" width="6" height="12" rx="2" fill="#FF9EC4"/><rect x="240" y="78" width="6" height="12" rx="2" fill="#FF9EC4"/>' +
+          '<ellipse cx="232" cy="68" rx="24" ry="17" fill="#FF9EC4"/><path d="M220 53 l3 -9 l6 7z" fill="#FF7AB6"/><ellipse cx="256" cy="67" rx="5" ry="6" fill="#FF7AB6"/>' +
+          '<path d="M226 52 h12" stroke-width="2.4"/><circle cx="244" cy="62" r="1.6" fill="' + INK + '"/><path d="M208 66 q-6 -4 -4 -9" fill="none"/></g>' +
+          star(96, 18, 4, '#fff') + star(176, 90, 4, '#fff') + star(14, 12, 3, '#fff')
         );
       },
     },
@@ -153,17 +155,30 @@
     },
 
     // 8. Dark water, a fishing line and a dead coin.
+    // Under the sea in daylight: a seabed of token gravestones, swaying
+    // weed, and a hook pulling up a dead coin.
     'dead-projects': {
-      font: 'Creepster',
+      font: 'Rubik Wet Paint',
       art: function () {
+        var grave = function (x, h, label) {
+          return '<g transform="translate(' + x + ' ' + (88 - h) + ')" stroke="' + INK + '" stroke-width="1.4"><path d="M0 ' + h + ' V10 a11 10 0 0 1 22 0 V' + h + 'z" fill="#B8C4C2"/>' +
+            '<text x="11" y="17" text-anchor="middle" font-size="6.5" font-weight="900" font-family="Arial, sans-serif" fill="' + INK + '" stroke="none">RIP</text>' +
+            '<text x="11" y="27" text-anchor="middle" font-size="6" font-family="monospace" fill="' + INK + '" stroke="none">' + label + '</text></g>';
+        };
+        var weed = function (x, h, d) {
+          return '<path class="weed" style="--d:' + d + 's" d="M' + x + ' 92 q-6 -' + (h / 3) + ' 0 -' + (h / 2) + ' t0 -' + (h / 2) + '" fill="none" stroke="#2FA36B" stroke-width="3.5" stroke-linecap="round"/>';
+        };
         return svg(
-          '<defs><linearGradient id="dw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16384A"/><stop offset="1" stop-color="#03121B"/></linearGradient></defs>' +
-          '<rect width="270" height="100" fill="url(#dw)"/>' +
-          range(3, function (i) { return '<path d="M0 ' + (18 + i * 30) + ' q15 -6 30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0" fill="none" stroke="#2B5D73" stroke-width="1.5" opacity=".7"/>'; }) +
-          '<g class="bubbles" fill="none" stroke="#5FA3BF" stroke-width="1"><circle cx="40" cy="70" r="3"/><circle cx="46" cy="58" r="2"/><circle cx="210" cy="40" r="2.5"/></g>' +
-          '<g class="line"><path d="M246 0 V58" stroke="#B9D4DF" stroke-width="1"/><path d="M246 58 V66 a6 6 0 0 1 -11 2" fill="none" stroke="#B9D4DF" stroke-width="2"/>' +
-          '<g transform="translate(238 76)" stroke="#0A0A0A" stroke-width="1.5"><circle r="9" fill="#8A8F6A"/><circle cx="-3" cy="-1" r="2" fill="#0A0A0A"/><circle cx="3" cy="-1" r="2" fill="#0A0A0A"/><path d="M-3 4 h6"/></g></g>' +
-          '<g transform="translate(18 74)" fill="none" stroke="#C8D8C0" stroke-width="1.5"><path d="M0 8 L8 2 L8 14Z"/><path d="M8 8 H40"/><path d="M14 2 V14 M20 3 V13 M26 4 V12 M32 5 V11"/><circle cx="44" cy="8" r="5"/></g>'
+          '<defs><linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8EE3EF"/><stop offset="1" stop-color="#1E7F9C"/></linearGradient></defs>' +
+          '<rect width="270" height="100" fill="url(#sea)"/>' +
+          '<g fill="#fff" opacity=".18"><path d="M60 0 h18 l-30 100 h-14z"/><path d="M150 0 h12 l-18 100 h-10z"/></g>' +
+          '<path d="M0 6 q11 -5 22 0 t22 0 t22 0 t22 0 t22 0 t22 0 t22 0 t22 0 t22 0 t22 0 t22 0 t22 0 t22 0 V0 H0z" fill="#C8F4FA"/>' +
+          '<path d="M0 92 q40 -8 80 -2 t90 0 t100 -2 V100 H0z" fill="#F2D49B" stroke="' + INK + '" stroke-width="1.2"/>' +
+          weed(62, 30, 0) + weed(70, 22, 0.2) + weed(190, 28, 0.35) + weed(262, 24, 0.1) +
+          grave(6, 30, '$RUG') + grave(32, 28, '$LUNA') + grave(204, 26, '$DEAD') +
+          '<g class="bubbles" fill="none" stroke="#fff" stroke-width="1.2"><circle cx="70" cy="50" r="3"/><circle cx="76" cy="40" r="2"/><circle cx="206" cy="44" r="2.5"/></g>' +
+          '<g class="line"><path d="M248 0 V52" stroke="' + INK + '" stroke-width="1"/><path d="M248 52 V60 a6 6 0 0 1 -11 2" fill="none" stroke="#5A5470" stroke-width="2"/>' +
+          '<g transform="translate(240 72)" stroke="' + INK + '" stroke-width="1.5"><circle r="10" fill="#9AA36B"/><path d="M-5 -3 l3 3 M-2 -3 l-3 3 M2 -3 l3 3 M5 -3 l-3 3" stroke-width="1.2"/><path d="M-4 5 q4 -3 8 0" fill="none" stroke-width="1.2"/></g></g>'
         );
       },
     },
