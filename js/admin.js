@@ -258,6 +258,15 @@
 
   // ---------- Project requests ----------
 
+  // Telegram contact for a request: their username and their group link.
+  function tgLinks(d) {
+    var user = /^@?[A-Za-z0-9_]{5,32}$/.test(d.telegram || '') ? String(d.telegram).replace(/^@/, '') : '';
+    var group = /^https:\/\/(t\.me|telegram\.me)\/\S+$/.test(d.tgGroup || '') ? d.tgGroup : '';
+    if (!user && !group) return '';
+    return '<div class="btn-row">' + (user ? '<a class="btn btn--small" href="https://t.me/' + esc(user) + '" target="_blank" rel="noopener">Telegram @' + esc(user) + '</a>' : '') +
+      (group ? '<a class="btn btn--small btn--yellow" href="' + esc(group) + '" target="_blank" rel="noopener">Join their group</a>' : '') + '</div>';
+  }
+
   function requests(panel) {
     return Promise.all([
       load('requests', function () { return db().from('project_requests').select('*').order('created_at', { ascending: false }).then(must); }),
@@ -266,8 +275,8 @@
       var rows = r[0];
       var orders = {};
       r[1].forEach(function (o) { orders[o.id] = o; });
-      table = { name: 'project-requests', head: ['Date', 'Project', 'Kind', 'Tier', 'Email', 'Website', 'X', 'Status', 'Payment', 'Note'],
-        rows: rows.map(function (q) { var o = orders[q.order_id]; return [date(q.created_at), q.project, q.kind, q.tier, q.email, q.website, q.x_handle, q.status, o ? o.status + ' ' + money(o.amount, o.currency) : 'not paid', q.admin_note]; }) };
+      table = { name: 'project-requests', head: ['Date', 'Project', 'Kind', 'Tier', 'Email', 'Website', 'X', 'Telegram', 'Telegram group', 'Status', 'Payment', 'Note'],
+        rows: rows.map(function (q) { var o = orders[q.order_id]; var d = q.details || {}; return [date(q.created_at), q.project, q.kind, q.tier, q.email, q.website, q.x_handle, d.telegram || '', d.tgGroup || '', q.status, o ? o.status + ' ' + money(o.amount, o.currency) : 'not paid', q.admin_note]; }) };
       panel.innerHTML = '<div class="btn-row"><button type="button" class="btn btn--small" data-csv>Export CSV</button><span class="small-print">' + rows.length + ' requests</span></div>' +
         (rows.length ? rows.map(function (q) {
           var o = orders[q.order_id];
@@ -275,6 +284,7 @@
             '<span class="chip ' + (q.status === 'declined' ? 'is-white' : 'is-yellow') + '">' + esc(settings.statusNames[q.status] || q.status) + '</span></div>' +
             '<p class="small-print">' + esc(date(q.created_at)) + ' · ' + esc(q.email || '') + (q.website ? ' · ' + esc(q.website) : '') + (q.x_handle ? ' · ' + esc(q.x_handle) : '') +
             ' · Payment: ' + (o ? esc(o.status) + ' ' + money(o.amount, o.currency) : 'not paid yet') + '</p>' +
+            tgLinks(q.details || {}) +
             '<details><summary class="small-print">Their answers</summary><pre class="adm-pre">' + esc(JSON.stringify(q.details, null, 2)) + '</pre></details>' +
             '<fieldset class="adm-check"><legend class="label">Vetting checklist</legend>' + settings.vetting.map(function (v) {
               return '<label class="mk-check"><input type="checkbox" data-v="' + v.id + '"' + ((q.checklist || {})[v.id] ? ' checked' : '') + ' /> <span>' + esc(v.text) + '</span></label>';

@@ -185,7 +185,7 @@
       site.fx.confetti();
       site.sound.play('cash');
       m.innerHTML = '<div class="card stack stack--tight" role="dialog" aria-modal="true" aria-labelledby="pay-title">' +
-        '<h2 class="title-md" id="pay-title">Paid ✓</h2><p class="text">' + (p.type === 'project' ? 'Payment received for ' + esc(p.title) + '. We will review your project and email you. A receipt is on its way to your email.'
+        '<h2 class="title-md" id="pay-title">Paid ✓</h2><p class="text">' + (p.type === 'project' ? 'Payment received for ' + esc(p.title) + '. We will review your project and contact you on Telegram or email. A receipt is on its way to your email.'
           : esc(item ? order.title || p.title : p.title) + ' is yours.' + (withCoins ? ' Paid with coins.' : ' A receipt is on its way to your email.')) + '</p>' +
         '<div class="btn-row">' + (p.file ? '<button type="button" class="btn btn--yellow" data-dl>Download</button>' : '') +
         (p.type === 'call' && callUrl() ? '<a class="btn btn--yellow" href="' + esc(callUrl(order.id)) + '" target="_blank" rel="noopener">Pick your time</a>' : '') +

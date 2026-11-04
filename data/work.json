@@ -1,14 +1,54 @@
 {
-  "_help": "The Work with us page (work-with-us/, js/work-app.js). packages: what people can pay for; product is the id in data/products.json, where the real price lives. fields: the questions on the request form for each kind (key, label, type text, url or area, required true or false). statuses: the words and short explanations people see for their requests. guarantee must stay word for word.",
+  "_help": "The Work with us page (work-with-us/, js/work-app.js). packages: what people can pay for; product is the id in data/products.json, where the real price lives. fields: the questions on the request form for each kind (key, label, type text, url or area, required true or false, optional placeholder, pattern (what a valid answer looks like), bad (what to ask for when it does not match) and hint (a line under the label; {project} becomes the project name)). statuses: the words and short explanations people see for their requests. guarantee must stay word for word.",
   "label": "Work with us",
   "title": "Put your project in front of curious people.",
   "intro": "We turn your project into a short course or a playful toy, in the web3.toys style. People learn what you do, pass a quiz and share a certificate in your colours.",
   "packagesTitle": "Pick a package",
   "packages": [
-    { "id": "course-4", "kind": "course", "product": "course-4", "name": "Academy course: Starter", "points": ["4 lessons", "15 quiz questions", "A certificate in your colours"] },
-    { "id": "course-6", "kind": "course", "product": "course-6", "name": "Academy course: Standard", "points": ["6 lessons", "25 quiz questions", "A certificate in your colours"] },
-    { "id": "course-8", "kind": "course", "product": "course-8", "name": "Academy course: Featured", "points": ["8 lessons", "30 quiz questions", "30 days featured on the Academy page"] },
-    { "id": "project-toy", "kind": "toy", "product": "project-toy", "name": "Custom toy", "points": ["A game or interactive toy about your project", "Made with you, in our style", "A share card people want to post"] }
+    {
+      "id": "course-4",
+      "kind": "course",
+      "product": "course-4",
+      "name": "Academy course: Starter",
+      "points": [
+        "4 lessons",
+        "15 quiz questions",
+        "A certificate in your colours"
+      ]
+    },
+    {
+      "id": "course-6",
+      "kind": "course",
+      "product": "course-6",
+      "name": "Academy course: Standard",
+      "points": [
+        "6 lessons",
+        "25 quiz questions",
+        "A certificate in your colours"
+      ]
+    },
+    {
+      "id": "course-8",
+      "kind": "course",
+      "product": "course-8",
+      "name": "Academy course: Featured",
+      "points": [
+        "8 lessons",
+        "30 quiz questions",
+        "30 days featured on the Academy page"
+      ]
+    },
+    {
+      "id": "project-toy",
+      "kind": "toy",
+      "product": "project-toy",
+      "name": "Custom toy",
+      "points": [
+        "A game or interactive toy about your project",
+        "Made with you, in our style",
+        "A share card people want to post"
+      ]
+    }
   ],
   "guarantee": "Payment does not guarantee listing. Every project passes our vetting checklist first, and we refund in full if we decline.",
   "checklistLink": "See the vetting checklist",
@@ -21,26 +61,123 @@
   ],
   "formTitle": "Tell us about your project",
   "common": [
-    { "key": "project", "label": "Project name", "type": "text", "required": true },
-    { "key": "email", "label": "Email we can reply to", "type": "email", "required": true },
-    { "key": "website", "label": "Website", "type": "url", "required": true },
-    { "key": "x", "label": "X (Twitter) handle", "type": "text", "required": false, "placeholder": "@yourproject" },
-    { "key": "name", "label": "Your name and role", "type": "text", "required": true }
+    {
+      "key": "project",
+      "label": "Project name",
+      "type": "text",
+      "required": true
+    },
+    {
+      "key": "email",
+      "label": "Email we can reply to",
+      "type": "email",
+      "required": true
+    },
+    {
+      "key": "website",
+      "label": "Website",
+      "type": "url",
+      "required": true
+    },
+    {
+      "key": "x",
+      "label": "X (Twitter) handle",
+      "type": "text",
+      "required": false,
+      "placeholder": "@yourproject"
+    },
+    {
+      "key": "telegram",
+      "label": "Your Telegram username",
+      "type": "text",
+      "required": true,
+      "placeholder": "@yourname",
+      "pattern": "^@?[A-Za-z0-9_]{5,32}$",
+      "bad": "a Telegram username like @yourname"
+    },
+    {
+      "key": "tgGroup",
+      "label": "Telegram group invite link",
+      "type": "url",
+      "required": false,
+      "placeholder": "https://t.me/+AbCdEf123",
+      "pattern": "^https://(t\\.me|telegram\\.me)/\\S+$",
+      "bad": "a Telegram invite link starting with https://t.me/",
+      "hint": "Create a Telegram group, name it \"{project} x Web3Toys\", and add its invite link below. This is where we talk to you about your project."
+    },
+    {
+      "key": "name",
+      "label": "Your name and role",
+      "type": "text",
+      "required": true
+    }
   ],
   "fields": {
     "course": [
-      { "key": "what", "label": "What does your project do, in two sentences?", "type": "area", "required": true },
-      { "key": "audit", "label": "Audit or security review link", "type": "url", "required": false, "placeholder": "Leave empty if you have no token contracts yet" },
-      { "key": "team", "label": "Where we can see your team (page or profiles)", "type": "url", "required": false },
-      { "key": "content", "label": "Your filled course template (link to a doc), or leave empty and send it later", "type": "url", "required": false }
+      {
+        "key": "what",
+        "label": "What does your project do, in two sentences?",
+        "type": "area",
+        "required": true
+      },
+      {
+        "key": "audit",
+        "label": "Audit or security review link",
+        "type": "url",
+        "required": false,
+        "placeholder": "Leave empty if you have no token contracts yet"
+      },
+      {
+        "key": "team",
+        "label": "Where we can see your team (page or profiles)",
+        "type": "url",
+        "required": false
+      },
+      {
+        "key": "content",
+        "label": "Your filled course template (link to a doc), or leave empty and send it later",
+        "type": "url",
+        "required": false
+      }
     ],
     "toy": [
-      { "key": "what", "label": "What does your project do, in two sentences?", "type": "area", "required": true },
-      { "key": "learn", "label": "What should players understand after playing?", "type": "area", "required": true },
-      { "key": "idea", "label": "Any game idea? (optional)", "type": "area", "required": false },
-      { "key": "deadline", "label": "Any date it should be ready by? (optional)", "type": "text", "required": false },
-      { "key": "audit", "label": "Audit or security review link", "type": "url", "required": false, "placeholder": "Leave empty if you have no token contracts yet" },
-      { "key": "team", "label": "Where we can see your team (page or profiles)", "type": "url", "required": false }
+      {
+        "key": "what",
+        "label": "What does your project do, in two sentences?",
+        "type": "area",
+        "required": true
+      },
+      {
+        "key": "learn",
+        "label": "What should players understand after playing?",
+        "type": "area",
+        "required": true
+      },
+      {
+        "key": "idea",
+        "label": "Any game idea? (optional)",
+        "type": "area",
+        "required": false
+      },
+      {
+        "key": "deadline",
+        "label": "Any date it should be ready by? (optional)",
+        "type": "text",
+        "required": false
+      },
+      {
+        "key": "audit",
+        "label": "Audit or security review link",
+        "type": "url",
+        "required": false,
+        "placeholder": "Leave empty if you have no token contracts yet"
+      },
+      {
+        "key": "team",
+        "label": "Where we can see your team (page or profiles)",
+        "type": "url",
+        "required": false
+      }
     ]
   },
   "agree": "I understand that payment does not guarantee listing, and that web3.toys never promises returns and does not endorse any token.",
@@ -50,11 +187,30 @@
   "mineTitle": "Your requests",
   "payNow": "Pay now",
   "statuses": {
-    "submitted": { "name": "Submitted", "line": "Waiting for payment. We start reviewing once it is paid." },
-    "paid": { "name": "Paid", "line": "Thank you. Your project is in the queue for review." },
-    "in_review": { "name": "In review", "line": "We are checking your project against the vetting checklist." },
-    "approved": { "name": "Approved", "line": "You passed. We will email you to start building." },
-    "live": { "name": "Live", "line": "Your course or toy is live on web3.toys." },
-    "declined": { "name": "Declined", "line": "We could not list this project. Your full refund is on its way." }
-  }
+    "submitted": {
+      "name": "Submitted",
+      "line": "Waiting for payment. We start reviewing once it is paid."
+    },
+    "paid": {
+      "name": "Paid",
+      "line": "Thank you. Your project is in the queue for review."
+    },
+    "in_review": {
+      "name": "In review",
+      "line": "We are checking your project against the vetting checklist."
+    },
+    "approved": {
+      "name": "Approved",
+      "line": "You passed. We will message you on Telegram (or email) to start building."
+    },
+    "live": {
+      "name": "Live",
+      "line": "Your course or toy is live on web3.toys."
+    },
+    "declined": {
+      "name": "Declined",
+      "line": "We could not list this project. Your full refund is on its way."
+    }
+  },
+  "telegramButton": "Questions first? Message us on Telegram"
 }

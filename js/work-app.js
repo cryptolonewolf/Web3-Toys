@@ -24,6 +24,14 @@
   var params = new URLSearchParams(location.search);
   var pick = params.get('pkg') || (params.get('kind') === 'toy' ? 'project-toy' : params.get('kind') === 'course' ? 'course-6' : draft.pkg || '');
 
+  // Your Telegram link, from social.telegram in config.js.
+  function tg() {
+    var t = (((window.WEB3TOYS_CONFIG || {}).social || {}).telegram || '').trim();
+    if (!t) return '';
+    if (/^https?:\/\//.test(t)) return t;
+    return 'https://t.me/' + t.replace(/^@/, '');
+  }
+
   function pkg(id) { return W.packages.filter(function (p) { return p.id === id; })[0]; }
   function priceOf(productId) {
     var p = products[productId];
@@ -34,12 +42,18 @@
   function field(f) {
     var id = 'wk-' + f.key;
     var v = (draft.answers || {})[f.key] || '';
-    var attrs = ' id="' + id + '" name="' + f.key + '" data-f="' + f.key + '"' + (f.required ? ' required' : '') + (f.placeholder ? ' placeholder="' + esc(f.placeholder) + '"' : '');
+    var attrs = ' id="' + id + '" name="' + f.key + '" data-f="' + f.key + '"' + (f.required ? ' required' : '') + (f.placeholder ? ' placeholder="' + esc(f.placeholder) + '"' : '') +
+      (f.pattern ? ' pattern="' + esc(f.pattern) + '"' : '') + (f.bad ? ' data-bad="' + esc(f.bad) + '"' : '') + (f.hint ? ' aria-describedby="' + id + '-hint"' : '');
     var input = f.type === 'area'
       ? '<textarea class="field field--area" rows="3" maxlength="1200"' + attrs + '>' + esc(v) + '</textarea>'
       : '<input class="field" maxlength="' + (f.type === 'url' ? 300 : 120) + '" type="' + (f.type === 'email' ? 'email' : f.type === 'url' ? 'url' : 'text') + '"' +
         (f.type === 'url' ? ' inputmode="url"' : '') + attrs + ' value="' + esc(v) + '" />';
-    return '<div class="stack stack--tight"><label class="label" for="' + id + '">' + esc(f.label) + (f.required ? '' : ' <span class="small-print">(optional)</span>') + '</label>' + input + '</div>';
+    var hint = f.hint ? '<p class="small-print wk-hint" id="' + id + '-hint">' + esc(f.hint).replace('{project}', '<b data-project-name>' + esc(projectName()) + '</b>') + '</p>' : '';
+    return '<div class="stack stack--tight"><label class="label" for="' + id + '">' + esc(f.label) + (f.required ? '' : ' <span class="small-print">(optional)</span>') + '</label>' + hint + input + '</div>';
+  }
+
+  function projectName() {
+    return ((draft.answers || {}).project || '').trim() || 'Project Name';
   }
 
   function render() {
@@ -56,7 +70,8 @@
           '<span class="wk-points">' + p.points.map(function (t) { return '<span>' + site.icon('check') + esc(t) + '</span>'; }).join('') + '</span></button></li>';
       }).join('') + '</ul>' +
       '<section class="card card--yellow stack stack--tight"><p class="text text--ink"><b>' + esc(W.guarantee) + '</b></p>' +
-      '<p class="small-print"><a href="../academy/list-your-project/">' + esc(W.checklistLink) + '</a> · <a href="../refunds/">Refunds</a></p></section>' +
+      '<p class="small-print"><a href="../academy/list-your-project/">' + esc(W.checklistLink) + '</a> · <a href="../refunds/">Refunds</a></p>' +
+      (tg() ? '<a class="btn btn--block" href="' + esc(tg()) + '" target="_blank" rel="noopener" data-tg>' + esc(W.telegramButton) + '</a>' : '') + '</section>' +
       '<section class="card stack stack--tight"><h2 class="title-md">' + esc(W.stepsTitle) + '</h2><ol class="lesson-points">' +
       W.steps.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ol></section>' +
       (chosen ? form(chosen) : '<p class="text" data-hint>Pick a package above to see the form.</p>');
@@ -74,7 +89,10 @@
     });
     var f = app.querySelector('#wk-form');
     if (f) {
-      f.addEventListener('input', keep);
+      f.addEventListener('input', function () {
+        keep();
+        f.querySelectorAll('[data-project-name]').forEach(function (b) { b.textContent = projectName(); });
+      });
       f.addEventListener('submit', send);
     }
     mine();
@@ -114,15 +132,20 @@
     var p = pkg(pick);
     var f = app.querySelector('#wk-form');
     var bad = Array.prototype.filter.call(f.querySelectorAll('[data-f]'), function (el) { return !el.checkValidity() || (el.required && !el.value.trim()); })[0];
-    if (bad) { say('Please fill in: ' + f.querySelector('label[for="' + bad.id + '"]').textContent.replace(' (optional)', '') + '.'); bad.focus(); return; }
+    if (bad) {
+      say(bad.value.trim() && bad.getAttribute('data-bad') ? 'Please add ' + bad.getAttribute('data-bad') + '.' : 'Please fill in: ' + f.querySelector('label[for="' + bad.id + '"]').textContent.replace(' (optional)', '') + '.');
+      bad.focus();
+      return;
+    }
     if (!draft.agree) { say('Please tick the box to say you understand how listing works.'); return; }
     if (!window.Web3Pay || !window.Web3Auth) { say(W.noPay); return; }
     if (!window.Web3Auth.user()) { say(W.loginNote); window.Web3Auth.open(W.loginNote); return; }
 
     var a = draft.answers;
     var details = { package: p.name, agreed: true };
+    if (a.telegram) a.telegram = '@' + a.telegram.trim().replace(/^@/, '');
     W.common.concat(W.fields[p.kind]).forEach(function (q) {
-      if (['project', 'email', 'website', 'x'].indexOf(q.key) < 0 && a[q.key]) details[q.key] = String(a[q.key]).slice(0, 1200);
+      if (['project', 'email', 'website', 'x'].indexOf(q.key) < 0 && a[q.key]) details[q.key] = String(a[q.key]).trim().slice(0, 1200);
     });
     var btn = f.querySelector('[data-send]');
     btn.disabled = true;
