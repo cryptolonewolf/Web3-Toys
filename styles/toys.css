@@ -2340,9 +2340,8 @@ body.home .page {
   border-top: 0;
 }
 
-/* Sections marked "column" in data/home.json share a row when they fit.
-   Each section spans as many grid columns as it has cards (--s2 and --s3,
-   set by js/home.js), so every card keeps the same size. */
+/* Sections marked "column" in data/home.json sit side by side on wider
+   screens: one column each (--cols, set by js/home.js), cards stacked. */
 .shelf-row {
   display: flex;
   flex-direction: column;
@@ -2359,12 +2358,22 @@ body.home .page {
 @media (min-width: 700px) {
   .shelf-row {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 32px 18px;
+    grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+    gap: 32px 16px;
+    align-items: start;
   }
 
   .shelf-row > .shelf {
-    grid-column: span var(--s2);
+    min-width: 0;
+  }
+
+  .shelf-row > .shelf + .shelf {
+    margin-top: 0;
+  }
+
+  .shelf-row .shelf-title {
+    font-size: min(28px, 3.2vw);
+    white-space: nowrap;
   }
 
   .home-top + .shelf-row > .shelf {
@@ -2373,22 +2382,13 @@ body.home .page {
   }
 
   .shelf-row > .shelf .tile-grid {
-    grid-template-columns: repeat(var(--s2), minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
 @media (min-width: 1100px) {
   .shelf-row {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 32px 20px;
-  }
-
-  .shelf-row > .shelf {
-    grid-column: span var(--s3);
-  }
-
-  .shelf-row > .shelf .tile-grid {
-    grid-template-columns: repeat(var(--s3), minmax(0, 1fr));
+    gap: 32px 22px;
   }
 }
 

@@ -43,24 +43,28 @@
 
   // Live toys show in their own section. Every coming soon toy goes into one
   // Coming soon section at the bottom, and moves up by itself once it is live.
-  // Sections marked "column" share a row on wider screens when they fit.
+  // Sections marked "column" sit side by side on wider screens, one column
+  // each, with their cards stacked (up to 3 columns). Phones stack them.
   function sections(home) {
     var soon = [];
     var html = '';
-    var row = '';
+    var row = [];
+    var flush = function () {
+      if (row.length) html += '<div class="shelf-row" style="--cols:' + Math.min(row.length, 3) + '">' + row.join('') + '</div>';
+      row = [];
+    };
     home.shelves.forEach(function (shelf) {
       var live = shelf.cards.filter(function (c) { return isLive(c, shelf); });
       shelf.cards.forEach(function (c) { if (!isLive(c, shelf)) soon.push(c); });
       if (!live.length) return;
       if (shelf.column) {
-        row += section(shelf, live, true, '');
+        row.push(section(shelf, live, true, ''));
         return;
       }
-      if (row) html += '<div class="shelf-row">' + row + '</div>';
-      row = '';
+      flush();
       html += section(shelf, live, true, '');
     });
-    if (row) html += '<div class="shelf-row">' + row + '</div>';
+    flush();
     if (soon.length && home.soonSection) html += section(home.soonSection, soon, false, ' shelf--soon');
     return html;
   }
