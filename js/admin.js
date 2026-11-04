@@ -1,13 +1,13 @@
 // The admin dashboard (admin/). Only works for accounts in the admins table:
 // every number comes from the database, which refuses anyone else. Tabs:
-// Users, Leads, Purchases, Bookings, Project requests, Review queue and Toy
-// stats, each with Export CSV. Settings: data/admin.json.
+// Users, Leads, Purchases, Bookings, Project requests, Review queue,
+// Referrals, Releases and Toy stats, each with Export CSV. Settings: data/admin.json.
 
 (function () {
   var C = window.Web3Common;
   var esc = C.esc;
   var app = document.getElementById('app');
-  var TABS = [['users', 'Users'], ['leads', 'Leads'], ['purchases', 'Purchases'], ['bookings', 'Bookings'], ['requests', 'Project requests'], ['review', 'Review queue'], ['growth', 'Referrals & posts'], ['stats', 'Toy stats']];
+  var TABS = [['users', 'Users'], ['leads', 'Leads'], ['purchases', 'Purchases'], ['bookings', 'Bookings'], ['requests', 'Project requests'], ['review', 'Review queue'], ['growth', 'Referrals & posts'], ['releases', 'Releases'], ['stats', 'Toy stats']];
   var tab = (location.hash.replace('#', '') || 'users');
   var days = 30;
   var settings = null;
@@ -78,7 +78,7 @@
       render();
     });
     var panel = app.querySelector('[data-panel]');
-    ({ users: users, leads: leads, purchases: purchases, bookings: bookings, requests: requests, review: review, growth: growth, stats: stats })[tab](panel)
+    ({ users: users, leads: leads, purchases: purchases, bookings: bookings, requests: requests, review: review, growth: growth, releases: releases, stats: stats })[tab](panel)
       .catch(function (err) { panel.innerHTML = '<p class="tk-warn is-bad">Could not load: ' + esc(err.message) + '</p>'; });
   }
 
@@ -253,6 +253,63 @@
       show(panel, tiles([['Page views', total('page_view')], ['Finishes', total('finish')], ['Shares', total('share')], ['Buy clicks', total('buy_click')], ['Purchases', total('purchase')]]) +
         '<p class="small-print">Last ' + days + ' days. Plays = visits to the toy page. Conversion = purchases started from that toy divided by plays.</p>' +
         grid('toy-stats', ['Toy or tool', 'Kind', 'Plays', 'Finishes', 'Finish rate', 'Shares', 'Buy clicks', 'Purchases', 'Conversion to paid'], rows));
+    });
+  }
+
+  // ---------- Releases (data/releases.json) ----------
+  // Each scheduled toy: its date, status and Notify me count, with Release
+  // now, Delay and Back to schedule buttons (release_overrides, 010_releases.sql).
+
+  function releases(panel) {
+    var R = window.Web3Releases;
+    var cards = {};
+    home.shelves.forEach(function (s) { s.cards.forEach(function (c) { cards[c.id] = c; }); });
+    return Promise.all([
+      R.reload(),
+      db().from('release_overrides').select('*').then(must),
+      load('notify', function () { return db().from('release_notify').select('toy_id').limit(100000).then(must); }),
+    ]).then(function (r) {
+      var over = {};
+      r[1].forEach(function (o) { over[o.toy_id] = o; });
+      var asked = {};
+      r[2].forEach(function (n) { asked[n.toy_id] = (asked[n.toy_id] || 0) + 1; });
+      var when = function (d) { return d ? R.dayLabel(d) + ' ' + d.toLocaleDateString('en-GB', { year: 'numeric', timeZone: 'Asia/Kolkata' }) : ''; };
+      var rows = R.list().map(function (t) {
+        var i = R.info(t.id);
+        var o = over[t.id];
+        return { t: t, i: i, o: o, row: [(cards[t.id] || {}).title || t.id, when(new Date(Date.parse(t.date))), i.status + (i.isNew ? ' (new)' : ''),
+          o ? (o.action === 'release' ? 'Released early' : 'Delayed' + (o.until ? ' to ' + when(new Date(o.until)) : '')) : '', t.ready ? 'yes' : 'not built yet', asked[t.id] || 0] };
+      });
+      var head = ['Toy', 'Date in releases.json', 'Status now', 'Your override', 'Built', 'Notify me'];
+      panel.innerHTML = '<p class="small-print">Server time: ' + esc(R.now().toLocaleString('en-GB', { timeZone: 'Asia/Kolkata' })) + ' India time. Change dates in data/releases.json; use these buttons to release early or delay without editing it.</p>' +
+        grid('releases', head, rows.map(function (x) { return x.row; }), rows.map(function (x) {
+          return '<tr>' + x.row.map(function (c) { return '<td>' + esc(String(c)) + '</td>'; }).join('') +
+            '<td><div class="btn-row">' +
+            (x.i.status !== 'live' && x.t.ready ? '<button type="button" class="btn btn--small btn--yellow" data-rel="release" data-toy="' + esc(x.t.id) + '">Release now</button>' : '') +
+            (!x.t.playableNow ? '<button type="button" class="btn btn--small" data-rel="delay" data-toy="' + esc(x.t.id) + '">Delay…</button>' : '') +
+            (x.o ? '<button type="button" class="btn btn--small" data-rel="clear" data-toy="' + esc(x.t.id) + '">Back to schedule</button>' : '') +
+            '</div></td></tr>';
+        }));
+      panel.querySelector('thead tr').insertAdjacentHTML('beforeend', '<th>Change</th>');
+      bindCsv(panel);
+      panel.querySelectorAll('[data-rel]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var act = b.getAttribute('data-rel');
+          var toy = b.getAttribute('data-toy');
+          var until = null;
+          if (act === 'release' && !window.confirm('Release ' + toy + ' now? Everyone can play it straight away.')) return;
+          if (act === 'delay') {
+            var v = window.prompt('Delay until which day? (YYYY-MM-DD, unlocks at 10:00 India time). Leave empty to keep it locked until you release it.', '');
+            if (v === null) return;
+            v = v.trim();
+            if (v && !/^\d{4}-\d{2}-\d{2}$/.test(v)) { window.alert('Please write the date like 2026-12-01.'); return; }
+            until = v ? v + 'T10:00:00+05:30' : null;
+          }
+          b.disabled = true;
+          db().rpc('admin_set_release', { p_toy: toy, p_action: act === 'clear' ? null : act, p_until: until }).then(must)
+            .then(function () { render(); }, function (err) { b.disabled = false; window.alert('Could not save: ' + err.message); });
+        });
+      });
     });
   }
 

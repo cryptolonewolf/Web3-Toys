@@ -379,3 +379,15 @@ trigger marks the request Paid when its order is paid; the admin Project
 requests tab moves it to In review, Approved, Live or Declined (refund in
 full when declining). The visitor follows every step on the same page.
 Database: `supabase/009_work_with_us.sql`. Setup: `docs/setup/part-7-work-with-us.md`.
+
+## Scheduled releases
+
+`data/releases.json` holds each toy's release date (10:00 India time), hook
+line and lead persona. `js/releases.js` works out live, locked or delayed
+from the server's clock (Supabase `server_now`) and the admin overrides
+(`release_overrides`). Locked toys show on the home page with a lock, the
+unlock day, a countdown in the last 7 days and Notify me; the teaser page is
+`soon/?toy=ID`. Released toys get a New sticker for 7 days and move to the top
+of their section. `middleware.js` (Vercel) keeps each scheduled toy's folder
+locked on the server. Builder tools and the Academy are not scheduled.
+Database: `supabase/010_releases.sql`. Setup: `docs/setup/releases.md`.

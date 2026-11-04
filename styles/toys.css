@@ -6865,3 +6865,18 @@ body[data-theme='theme-night'] .pf-h .small-print { color: #d9d4f0; }
 .wk-steps li.is-done { background: var(--mint); opacity: 1; }
 @media (min-width: 600px) { .wk-packs { grid-template-columns: 1fr 1fr; } }
 @media (min-width: 960px) { .wk-packs { grid-template-columns: repeat(4, 1fr); } }
+
+/* ---------- Scheduled releases (js/releases.js, js/home.js, soon/) ---------- */
+.tile-locked { display: grid; gap: 4px; }
+.xcard.is-locked { filter: saturate(.75); }
+.tile-lock { top: 6px; right: 8px; display: grid; place-items: center; width: 26px; height: 26px; font-size: 13px; background: var(--white); border-radius: 50%; }
+.tile-new { top: 7px; left: 9px; padding: 1px 8px; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; background: var(--coral, #ff8a7a); border-radius: 999px; rotate: -5deg; }
+.tile-when { margin: 0; font-size: 12px; line-height: 1.3; }
+.tile-when span { display: block; font-weight: 700; font-variant-numeric: tabular-nums; }
+.tile-when span:empty { display: none; }
+.tile-notify { justify-self: start; font-size: 12px; font-weight: 800; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; padding: 4px 0; }
+.soon-hero { display: grid; gap: 14px; }
+.soon-hero .xcard { max-width: 420px; width: 100%; }
+.soon-count { display: flex; flex-wrap: wrap; gap: 8px; }
+.soon-count span { display: grid; place-items: center; min-width: 64px; padding: 8px 6px; border: var(--line-thin); border-radius: 14px; background: var(--white); font-weight: 800; font-size: 22px; font-variant-numeric: tabular-nums; }
+.soon-count small { display: block; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }

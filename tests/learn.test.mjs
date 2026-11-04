@@ -182,11 +182,12 @@ describe('content files', () => {
     }
   });
 
-  it('shows Spot the Scam as a live game in Games, and the simulator as coming soon', () => {
+  it('shows Spot the Scam and the simulator as live games in Games', () => {
     const play = home.shelves.find((s) => s.id === 'games');
     const scam = play.cards.find((c) => c.id === 'scam');
     assert.ok(isLive(play, scam) && scam.path === 'scam/' && scam.kind === 'game');
-    assert.ok(!isLive(play, play.cards.find((c) => c.id === 'token-simulator')));
+    const sim = play.cards.find((c) => c.id === 'token-simulator');
+    assert.ok(isLive(play, sim) && sim.path === 'simulator/');
   });
 
   it('ranks are in order and start at 0', () => {

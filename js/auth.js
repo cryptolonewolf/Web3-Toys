@@ -180,8 +180,10 @@
     });
   }
 
-  client.auth.getSession().then(function (r) { changed(r.data.session && r.data.session.user); });
+  var accessToken = '';
+  client.auth.getSession().then(function (r) { accessToken = (r.data.session && r.data.session.access_token) || ''; changed(r.data.session && r.data.session.user); });
   client.auth.onAuthStateChange(function (event, session) {
+    accessToken = (session && session.access_token) || '';
     if (event === 'SIGNED_OUT') { profile = null; current = null; paintHeader(); listeners.forEach(function (cb) { cb(null, null); }); return; }
     changed(session && session.user);
   });
@@ -231,6 +233,8 @@
     avatarHtml: avatarHtml,
     client: client,
     user: function () { return current; },
+    // The login token for plain requests to Supabase (empty when logged out).
+    token: function () { return current ? accessToken : ''; },
     profile: function () { return profile; },
     open: open,
     signOut: signOut,

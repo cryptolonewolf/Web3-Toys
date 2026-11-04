@@ -7,9 +7,34 @@
   var esc = C.esc;
   var app = document.getElementById('app');
   var progress = Web3Progress.load(window.localStorage);
-  Promise.all([C.loadJson('data/home.json'), C.loadJson('data/ranks.json')])
-    .then(function (r) { render(r[0], r[1].ranks); })
+  // The release schedule (js/releases.js) decides which scheduled toys are
+  // live; if it cannot load, home.json's own status is used.
+  var R = window.Web3Releases;
+  var rel = R ? R.load().catch(function () { return null; }) : Promise.resolve(null);
+  var homeData, rankList, timer;
+  Promise.all([C.loadJson('data/home.json'), C.loadJson('data/ranks.json'), rel])
+    .then(function (r) { homeData = r[0]; rankList = r[1].ranks; R = r[2]; render(homeData, rankList); tick(); })
     .catch(function (err) { app.innerHTML = C.loadError(err); });
+
+  // Countdowns on locked cards; when one reaches zero the page redraws and
+  // the toy moves up to its section.
+  function tick() {
+    if (!R || timer) return;
+    timer = setInterval(function () {
+      var redraw = false;
+      app.querySelectorAll('[data-cd]').forEach(function (el) {
+        var at = new Date(Number(el.getAttribute('data-cd')));
+        var left = R.countdown(at);
+        if (at.getTime() <= R.now().getTime()) redraw = true;
+        el.textContent = left;
+      });
+      if (redraw) R.load().then(function () { render(homeData, rankList); });
+    }, 1000);
+  }
+
+  function rinfo(c) {
+    return R && R.toy(c.id) ? R.info(c.id) : null;
+  }
 
   // A real picture in images/covers/crypto_in_5.png (for the card
   // "crypto-in-5") goes on top of the drawn card as soon as it exists.
@@ -18,16 +43,36 @@
   }
 
   function tile(c, live) {
+    var ri = rinfo(c);
+    if (!live && ri) return locked(c, ri);
     var cert = live && progress.certificates[c.id];
     var said = c.title + (c.topic ? ', ' + c.topic : '') + '. ' + (c.blurb || '') + (live ? '' : ' Coming soon.') + (cert ? ' Completed.' : '');
     var inner = (Web3Cards.card(c.id, c.title, esc) || '<span class="xtitle">' + esc(c.title) + '</span>') +
       '<img class="tile-img" src="' + coverPath(c.id) + '" alt="" loading="lazy" onload="this.parentNode.classList.add(\'has-cover\')" onerror="this.remove()" />' +
       (cert ? '<span class="tile-sticker tile-done" aria-hidden="true">✓</span>' : '') +
+      (live && ri && ri.isNew ? '<span class="tile-sticker tile-new" aria-hidden="true">New</span>' : '') +
       (live ? '' : '<span class="tile-sticker tile-soon" aria-hidden="true">Soon</span>');
     var cls = 'xcard xcard--' + esc(c.id);
     return '<li>' + (live
       ? '<a class="' + cls + '" href="' + esc(c.path) + '" aria-label="' + esc(said) + '">' + inner + '</a>'
       : '<div class="' + cls + ' is-soon" role="img" aria-label="' + esc(said) + '">' + inner + '</div>') + '</li>';
+  }
+
+  // A scheduled toy that is not out yet: its cover with a lock, the day it
+  // unlocks, a countdown in the last 7 days, and Notify me. The card opens
+  // the teaser page (soon/).
+  function locked(c, ri) {
+    var future = ri.at && ri.at.getTime() > R.now().getTime();
+    var when = future ? 'Unlocks ' + R.dayLabel(ri.at) : 'Coming soon';
+    var said = c.title + '. ' + (ri.toy.hook || c.blurb || '') + ' ' + when + '.';
+    var href = 'soon/?toy=' + encodeURIComponent(c.id);
+    var inner = (Web3Cards.card(c.id, c.title, esc) || '<span class="xtitle">' + esc(c.title) + '</span>') +
+      '<img class="tile-img" src="' + coverPath(c.id) + '" alt="" loading="lazy" onload="this.parentNode.classList.add(\'has-cover\')" onerror="this.remove()" />' +
+      '<span class="tile-sticker tile-lock" aria-hidden="true">🔒</span>';
+    var cd = future ? '<span data-cd="' + ri.at.getTime() + '">' + R.countdown(ri.at) + '</span>' : '';
+    return '<li class="tile-locked"><a class="xcard xcard--' + esc(c.id) + ' is-soon is-locked" href="' + href + '" aria-label="' + esc(said) + '">' + inner + '</a>' +
+      '<p class="tile-when"><b>' + esc(when) + '</b>' + cd + '</p>' +
+      '<a class="tile-notify" href="' + href + '#notify">' + (R.asked(c.id) ? '✓ We will tell you' : '🔔 Notify me') + '</a></li>';
   }
 
   function render(home, ranks) {
@@ -56,6 +101,9 @@
     };
     home.shelves.forEach(function (shelf) {
       var live = shelf.cards.filter(function (c) { return isLive(c, shelf); });
+      // A toy released in the last 7 days goes to the top of its section.
+      live = live.filter(function (c) { var i = rinfo(c); return i && i.isNew; })
+        .concat(live.filter(function (c) { var i = rinfo(c); return !(i && i.isNew); }));
       shelf.cards.forEach(function (c) { if (!isLive(c, shelf)) soon.push(c); });
       if (!live.length) return;
       if (shelf.column) {
@@ -66,12 +114,17 @@
       html += section(shelf, live, true, '');
     });
     flush();
+    // Scheduled toys first, soonest first, then the rest.
+    var when = function (c) { var i = rinfo(c); return i && i.at && i.at.getTime() > R.now().getTime() ? i.at.getTime() : Infinity; };
+    soon.sort(function (a, b) { return when(a) - when(b); });
     if (soon.length && home.soonSection) html += section(home.soonSection, soon, false, ' shelf--soon');
     return html;
   }
 
   // A card can set its own status; otherwise its section's status counts.
   function isLive(c, shelf) {
+    var i = rinfo(c);
+    if (i) return i.status === 'live' && Boolean(c.path);
     return (c.status || shelf.status) === 'live';
   }
 
