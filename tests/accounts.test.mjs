@@ -74,13 +74,13 @@ describe('Random profile pictures and names', async () => {
 });
 
 describe('Compact profile page', () => {
-  it('uses one profile script with four sections, three tabs, and old #coins links still work', () => {
+  it('uses one profile script: a dashboard (earn, invite, certificates), three tabs, and old #coins links still work', () => {
     const html = read('progress/index.html');
     assert.ok(html.includes('js/profile.js') && !html.includes('progress-page.js') && !html.includes('account-box.js'));
     const js = read('js/profile.js');
-    ['coins', 'purchases', 'settings'].forEach((t) => assert.ok(js.includes(`['${t}',`), t));
-    ["section('you'", "section('play'", "section('certs'", "section('account'"].forEach((t) => assert.ok(js.includes(t), t));
-    assert.ok(js.includes("if (h === 'extras' || h === 'earn') return 'coins'"));
+    ['shop', 'purchases', 'settings'].forEach((t) => assert.ok(js.includes(`['${t}',`), t));
+    ["card('earn'", "card('invite'", "card('certs'"].forEach((t) => assert.ok(js.includes(t), t));
+    assert.ok(js.includes("coins: 'earn', earn: 'earn'") && js.includes("if (h === 'extras') return 'shop'"));
     assert.ok(js.includes('Delete my account and data'));
     assert.ok(js.includes('role="tablist"') && js.includes('aria-selected'));
   });

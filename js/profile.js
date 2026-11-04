@@ -10,7 +10,7 @@
   var site = window.WEB3TOYS;
   var app = document.getElementById('app');
   var ME_KEY = 'web3toys.me.v1';
-  var TABS = [['coins', 'Coins'], ['purchases', 'Purchases'], ['settings', 'Settings']];
+  var TABS = [['shop', 'Spend coins'], ['purchases', 'Purchases'], ['settings', 'Settings']];
   var home = null;
   var ranks = null;
   var cosmetics = null;
@@ -36,13 +36,16 @@
   document.addEventListener('web3earlybird:change', function () { if (home) render(); });
   document.addEventListener('web3toys:purchased', function () { orders = null; if (home) render(); });
   document.addEventListener('web3pay:ready', function () { if (home && tab === 'purchases') render(); });
+  var showAllTasks = false, showAllCerts = false;
   document.addEventListener('web3auth:ready', function () { window.Web3Auth.onChange(function () { orders = null; }); });
   window.addEventListener('hashchange', function () { tab = tabFromHash(); if (home) { render(); jump(); } });
 
+  // #coins, #earn: the Earn coins card (already on screen). #extras, #shop:
+  // the Spend coins tab. #purchases, #settings: their tabs.
   function tabFromHash() {
     var h = location.hash.replace('#', '');
-    if (h === 'extras' || h === 'earn') return 'coins';
-    return TABS.some(function (t) { return t[0] === h; }) ? h : 'coins';
+    if (h === 'extras') return 'shop';
+    return TABS.some(function (t) { return t[0] === h; }) ? h : 'shop';
   }
 
   function read(key, fallback) {
@@ -98,45 +101,45 @@
     var lvl = Web3Progress.level(s.rank, ranks);
     var pct = s.nextRank ? Math.round((s.n / s.nextRank.min) * 100) : 100;
 
-    // Four sections: You, Keep playing, Your certificates, Coins and account.
+    // First screen: a slim profile strip, then the three things to act on
+    // (Earn coins, Invite friends, Certificates). Below: Keep playing, then
+    // tabs for Spend coins, Purchases and Settings.
     app.innerHTML =
-      '<div class="pf-top">' +
-      section('you', '👤', 'You', '',
-        '<div class="card pf-head">' + avatar +
-        '<div class="pf-who"><h1 class="pf-name">' + esc(name) + '</h1>' + C.rankBadge(s.rank, lvl) + '</div>' +
-        '<a class="pf-coins" href="#coins" aria-label="' + s.w.balance + ' coins">' + site.icon('coin') + '<b data-coin-count>' + s.w.balance.toLocaleString('en-US') + '</b></a>' +
-        '<div class="pf-next"><div class="meter" role="img" aria-label="' + pct + ' percent to the next rank"><span style="width:' + pct + '%"></span></div>' +
-        '<p class="small-print">' + (s.nextRank ? (s.nextRank.min - s.n) + ' more certificate' + (s.nextRank.min - s.n === 1 ? '' : 's') + ' to ' + esc(s.nextRank.name) : 'Top rank reached') +
-        (s.user ? '' : ' · <button type="button" class="text-button" data-login>Log in to save</button>') + '</p></div>' +
-        '<ul class="pf-stats">' + stat(s.done.length + '/' + s.toys.length, 'Toys done') + stat(s.certs.length, 'Certificates') + stat(s.pros.length, 'Pro tags') + stat(s.streak + (s.streak === 1 ? ' day' : ' days'), 'Streak') + '</ul></div>') +
-      (s.next.length ? section('play', '🎮', 'Keep playing', '', '<ul class="pf-row pf-row--toys">' + s.next.slice(0, 8).map(function (c) {
+      '<section class="card pf-head" aria-label="Your profile">' + avatar +
+      '<div class="pf-who"><h1 class="pf-name">' + esc(name) + '</h1>' + C.rankBadge(s.rank, lvl) + '</div>' +
+      '<a class="pf-coins" href="#shop" aria-label="' + s.w.balance + ' coins">' + site.icon('coin') + '<b data-coin-count>' + s.w.balance.toLocaleString('en-US') + '</b></a>' +
+      '<div class="pf-next"><div class="meter" role="img" aria-label="' + pct + ' percent to the next rank"><span style="width:' + pct + '%"></span></div>' +
+      '<p class="small-print">' + (s.nextRank ? (s.nextRank.min - s.n) + ' more certificate' + (s.nextRank.min - s.n === 1 ? '' : 's') + ' to ' + esc(s.nextRank.name) : 'Top rank reached') +
+      (s.user ? '' : ' · <button type="button" class="text-button" data-login>Log in to save</button>') + '</p></div>' +
+      '<ul class="pf-stats">' + stat(s.done.length + '/' + s.toys.length, 'Toys done') + stat(s.certs.length + s.pros.length, 'Certificates') + stat(s.streak + (s.streak === 1 ? ' day' : ' days'), 'Streak') + '</ul></section>' +
+      '<p class="pf-say" data-say aria-live="polite">' + esc(say) + '</p>' +
+      '<div class="pf-dash">' + earnCard(s) + inviteCard(s) + certsCard(s) + '</div>' +
+      (s.next.length ? '<section class="pf-section pf-section--play" aria-labelledby="h-play"><h2 class="pf-card-title" id="h-play">🎮 Keep playing</h2><ul class="pf-row pf-row--toys">' + s.next.slice(0, 8).map(function (c) {
         return '<li><a class="xcard xcard--' + esc(c.id) + ' pf-toy" href="../' + esc(c.path) + '" aria-label="' + esc(c.title) + '">' + (Web3Cards.card(c.id, c.title, esc) || '<span class="xtitle">' + esc(c.title) + '</span>') + '</a></li>';
-      }).join('') + '</ul>') : '') +
-      '</div>' +
-      section('certs', '🏅', 'Your certificates', (s.certs.length + s.pros.length) ? String(s.certs.length + s.pros.length) : '', certsPanel(s)) +
-      section('account', '🪙', 'Coins and account', '',
-        '<div class="pf-tabs" role="tablist" aria-label="Coins and account">' + TABS.map(function (t) {
-          var on = t[0] === tab;
-          return '<button type="button" role="tab" id="tab-' + t[0] + '" class="pf-tab' + (on ? ' is-on' : '') + '" aria-selected="' + on + '" aria-controls="panel-' + t[0] + '" tabindex="' + (on ? 0 : -1) + '" data-tab="' + t[0] + '">' + t[1] + '</button>';
-        }).join('') + '</div>' +
-        '<p class="pf-say" data-say aria-live="polite">' + esc(say) + '</p>' +
-        '<div class="pf-panel" role="tabpanel" id="panel-' + tab + '" aria-labelledby="tab-' + tab + '">' + ({ coins: coinsPanel, purchases: purchasesPanel, settings: settingsPanel })[tab](s) + '</div>');
+      }).join('') + '</ul></section>' : '') +
+      '<section class="pf-section" id="more" aria-label="Spend coins, purchases and settings">' +
+      '<div class="pf-tabs" role="tablist" aria-label="More">' + TABS.map(function (t) {
+        var on = t[0] === tab;
+        return '<button type="button" role="tab" id="tab-' + t[0] + '" class="pf-tab' + (on ? ' is-on' : '') + '" aria-selected="' + on + '" aria-controls="panel-' + t[0] + '" tabindex="' + (on ? 0 : -1) + '" data-tab="' + t[0] + '">' + t[1] + '</button>';
+      }).join('') + '</div>' +
+      '<div class="pf-panel" role="tabpanel" id="panel-' + tab + '" aria-labelledby="tab-' + tab + '">' + ({ shop: shopPanel, purchases: purchasesPanel, settings: settingsPanel })[tab](s) + '</div></section>';
 
     applyTheme(s.user ? s.cx.theme : null);
     bind(s);
   }
 
-  function section(id, icon, title, count, body) {
-    return '<section class="pf-section pf-section--' + id + '" id="' + id + '" aria-labelledby="h-' + id + '">' +
-      '<h2 class="pf-section-title" id="h-' + id + '"><span aria-hidden="true">' + icon + '</span>' + esc(title) +
-      (count ? '<span class="pf-count">' + esc(count) + '</span>' : '') + '</h2>' + body + '</section>';
+  function card(id, title, extra, body) {
+    return '<section class="card pf-card pf-card--' + id + '" id="' + id + '" aria-labelledby="h-' + id + '">' +
+      '<div class="pf-card-head"><h2 class="pf-card-title" id="h-' + id + '">' + title + '</h2>' + (extra || '') + '</div>' + body + '</section>';
   }
 
-  // Links to #certs (or the old #certificates) scroll to that section.
+  // Old links: #certs scrolls to the certificates, #coins and #earn to Earn
+  // coins, #shop, #purchases and #settings to the tabs.
   function jump() {
     var h = location.hash.replace('#', '');
-    var el = h === 'certs' || h === 'certificates' ? document.getElementById('certs') : null;
-    if (el) el.scrollIntoView({ block: 'start' });
+    var to = { certs: 'certs', certificates: 'certs', coins: 'earn', earn: 'earn', shop: 'more', extras: 'more', purchases: 'more', settings: 'more' }[h];
+    var el = to && document.getElementById(to);
+    if (el && to !== 'earn') el.scrollIntoView({ block: 'start' });
   }
 
   function stat(value, label) {
@@ -149,9 +152,9 @@
     var path = pro ? 'academy/course/?id=' + encodeURIComponent(c.toy.slice(8)) : (toyPath(c.toy) || '');
     var eb = !pro && window.Web3EarlyBird ? window.Web3EarlyBird.spot(c.toy) : null;
     return '<li class="pf-cert' + (pro ? ' pf-cert--pro' : '') + '"><span class="pf-cert-score">' + c.score + '%</span>' +
-      '<b>' + esc(c.title || c.toy) + '</b><span class="small-print">' + esc(c.date) + '</span>' +
-      (eb ? '<span class="chip is-yellow pf-eb">🐣 Early Bird #' + eb + '</span>' : '') +
-      '<span class="pf-cert-links"><a href="../' + esc(path) + '#certificate">View</a> · <a href="../verify/?code=' + encodeURIComponent(c.code) + '&name=' + encodeURIComponent(c.name) + '">Verify</a></span></li>';
+      '<span class="pf-cert-main"><b>' + esc(c.title || c.toy) + '</b>' +
+      '<span class="small-print">' + (pro ? 'Pro tag · ' : '') + esc(c.date) + (eb ? ' · <span class="pf-eb">🐣 Early Bird #' + eb + '</span>' : '') + '</span></span>' +
+      '<span class="pf-cert-links"><a href="../' + esc(path) + '#certificate">View</a><a href="../verify/?code=' + encodeURIComponent(c.code) + '&name=' + encodeURIComponent(c.name) + '">Verify</a></span></li>';
   }
 
   function toyPath(id) {
@@ -160,14 +163,17 @@
     return p;
   }
 
-  function certsPanel(s) {
+  function certsCard(s) {
     var all = s.certs.map(function (c) { return certCard(c, false); }).concat(s.pros.map(function (c) { return certCard(c, true); }));
-    return (all.length ? '<ul class="pf-certs">' + all.join('') + '</ul>'
-        : '<p class="text pf-empty">None yet. Pass the quiz at the end of any toy to earn one.</p>') +
-      '<div class="pf-certs-foot"><p class="small-print">Pro tags come from the <a href="../academy/">Project Academy</a> and count toward your rank.</p>' +
-      '<details class="pf-more"><summary>See all ranks</summary><ol class="rank-ladder">' + ranks.map(function (r, i) {
+    var n = all.length;
+    var shown = showAllCerts ? all : all.slice(0, 3);
+    return card('certs', '🏅 Certificates', n ? '<span class="pf-count">' + n + '</span>' : '',
+      (n ? '<ul class="pf-certs">' + shown.join('') + '</ul>' +
+        (n > 3 ? '<button type="button" class="text-button pf-toggle" data-more-certs>' + (showAllCerts ? 'Show fewer' : 'Show all ' + n) + '</button>' : '')
+        : '<p class="text pf-empty">None yet. Pass the quiz at the end of any toy to earn one.</p><a class="btn btn--small btn--ink" href="../">Play a toy</a>') +
+      '<details class="pf-more"><summary>Ranks and Pro tags</summary><p class="small-print">Pro tags come from the <a href="../academy/">Project Academy</a> and count toward your rank.</p><ol class="rank-ladder">' + ranks.map(function (r, i) {
         return '<li class="' + (r === s.rank ? 'is-current' : s.n >= r.min ? 'is-done' : '') + '">' + C.rankBadge(r, i + 1) + '<span class="small-print">' + r.min + (r.min === 1 ? ' certificate' : ' certificates') + '</span></li>';
-      }).join('') + '</ol></details></div>';
+      }).join('') + '</ol></details>');
   }
 
   // ---------- Extras (coins) ----------
@@ -185,25 +191,36 @@
   function inviteUrl() { return T.inviteUrl(invite); }
   function xIntent() { return T.xIntent(invite, quests.invite.post); }
 
-  function coinsPanel(s) {
-    var list = T.list(quests);
+  function earnCard(s) {
     var left = T.left(quests, s);
     var worth = left.reduce(function (n, q) { return n + q.coins; }, 0);
-    var spend = productList.filter(function (p) { return p.coins && !p.perItem; });
+    var done = T.list(quests).length - left.length;
+    // Tasks you can claim now come first.
+    var order = left.slice().sort(function (a, b) { return (T.ready(b, s) && s.user ? 1 : 0) - (T.ready(a, s) && s.user ? 1 : 0); });
+    var shown = showAllTasks ? order : order.slice(0, 3);
+    return card('earn', '🎯 Earn coins', left.length ? '<span class="pf-count">+' + worth + '</span>' : '',
+      (left.length ? '<ul class="qs-list" data-tasks>' + shown.map(function (q) { return T.row(q, s, invite, quests.invite.post); }).join('') + '</ul>'
+        : '<p class="text">All tasks done. Invite friends for more coins.</p>') +
+      '<p class="small-print pf-card-foot">' + (left.length > 3 ? '<button type="button" class="text-button pf-toggle" data-more-tasks>' + (showAllTasks ? 'Show fewer' : '+' + (left.length - 3) + ' more tasks') + '</button> · ' : '') +
+      (done ? '✓ ' + done + ' done · ' : '') + 'Coins have no cash value.</p>');
+  }
+
+  function inviteCard(s) {
     if (s.user && !invite && window.Web3Sync) {
-      window.Web3Sync.referrals().then(function (r) { invite = r; if (tab === 'coins') render(); }).catch(function () {});
+      window.Web3Sync.referrals().then(function (r) { invite = r; render(); }).catch(function () {});
     }
-    return '<p class="cx-nocash">' + esc(quests.noCash) + '</p>' +
-      '<h3 class="pf-h">' + esc(quests.title) + ' <span class="small-print">' + (left.length ? left.length + ' left, worth ' + worth + ' coins' : 'All done!') + '</span></h3>' +
-      '<ul class="qs-list" data-tasks>' + list.map(function (q) { return T.row(q, s, invite, quests.invite.post); }).join('') + '</ul>' +
-      '<h3 class="pf-h">' + esc(quests.invite.title) + '</h3>' +
-      '<div class="qs-invite"><p class="small-print">' + esc(quests.invite.line) + '</p>' +
+    return card('invite', '👥 Invite friends', '<span class="pf-count">+200</span>',
+      '<p class="small-print">' + esc(quests.invite.line) + '</p>' +
       (s.user
         ? '<div class="lk-row"><input class="field" readonly value="' + esc(inviteUrl()) + '" aria-label="Your invite link" data-invite-link /><button type="button" class="btn btn--small" data-copy-invite>Copy</button></div>' +
-          '<div class="btn-row"><a class="btn btn--small btn--ink" href="' + esc(xIntent()) + '" target="_blank" rel="noopener">Share on X</a>' +
-          '<span class="small-print">' + (invite ? invite.paid + ' joined and qualified · ' + invite.pending + ' still playing' : 'Loading…') + '</span></div>'
-        : '<p class="text">Log in to get your invite link.</p>') + '</div>' +
-      '<h3 class="pf-h">' + esc(quests.spendTitle) + ' <span class="small-print">' + esc(quests.spendLine) + '</span></h3>' +
+          '<div class="pf-invite-foot"><a class="btn btn--small btn--ink" href="' + esc(xIntent()) + '" target="_blank" rel="noopener">Share on X</a>' +
+          '<span class="small-print">' + (invite ? invite.paid + ' joined · ' + invite.pending + ' playing' : 'Loading…') + '</span></div>'
+        : '<button type="button" class="btn btn--small btn--yellow" data-login>Log in to get your link</button>'));
+  }
+
+  function shopPanel(s) {
+    var spend = productList.filter(function (p) { return p.coins && !p.perItem; });
+    return '<h3 class="pf-h">' + esc(quests.spendTitle) + ' <span class="small-print">' + esc(quests.spendLine) + '</span></h3>' +
       '<ul class="pf-row pf-row--cx">' + spend.map(function (p) {
         return '<li class="cx-item qs-item"><b>' + esc(p.title) + '</b><button type="button" class="btn btn--small" data-unlock="' + esc(p.id) + '">' + site.icon('coin') + p.coins.toLocaleString('en-US') + '</button></li>';
       }).join('') + '</ul><p class="small-print">Reports and HD certificates are unlocked from the end of each toy.</p>' +
@@ -358,7 +375,11 @@
     });
     app.querySelectorAll('[data-login]').forEach(function (b) { b.addEventListener('click', function () { A && A.open(); }); });
     var coins = app.querySelector('.pf-coins');
-    coins.addEventListener('click', function (e) { e.preventDefault(); setTab('coins'); });
+    coins.addEventListener('click', function (e) { e.preventDefault(); setTab('shop'); var m = document.getElementById('more'); if (m) m.scrollIntoView({ block: 'start' }); });
+    var mt = app.querySelector('[data-more-tasks]');
+    if (mt) mt.addEventListener('click', function () { showAllTasks = !showAllTasks; render(); });
+    var mc = app.querySelector('[data-more-certs]');
+    if (mc) mc.addEventListener('click', function () { showAllCerts = !showAllCerts; render(); });
     bindCoins(s);
 
     app.querySelectorAll('[data-buy]').forEach(function (b) {

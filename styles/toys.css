@@ -6994,26 +6994,54 @@ body[data-theme='theme-night'] .pf-h .small-print { color: #d9d4f0; }
 .hof-story .label { margin: 0; }
 .hof-known { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0; }
 
-/* ---------- My Progress: four sections ---------- */
-.page--progress { max-width: 1040px; }
-.pf-top { display: grid; gap: 22px; min-width: 0; }
-.pf-section { display: grid; gap: 10px; align-content: start; min-width: 0; }
-.pf-section-title { display: flex; align-items: center; gap: 8px; margin: 0; font: 700 22px / 1.1 var(--font-display); color: var(--ink); }
-.pf-count { padding: 1px 10px; font: 800 14px var(--font-body); background: var(--yellow); border: var(--line-thin); border-radius: 999px; }
-.pf-head .pf-stats { grid-column: 1 / -1; margin-top: 10px; padding-top: 10px; border-top: 2px dashed rgba(31, 27, 46, .2); }
-.pf-head .pf-stats li { padding: 2px; background: none; border: 0; }
-.pf-certs { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
-.pf-certs .pf-cert { width: auto; }
-.pf-certs-foot { display: grid; gap: 4px; }
-.pf-certs-foot .small-print { margin: 0; }
-.pf-more summary { font: 700 14px var(--font-body); }
-#app > .pf-section, #app > .pf-top { margin-top: 8px; }
-body[data-theme='theme-night'] .pf-section-title { color: #fff; }
-@media (min-width: 900px) {
-  .pf-top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; align-items: start; }
-  .pf-section--play .pf-row { display: grid; grid-template-columns: 1fr 1fr; margin: 0; padding: 2px; overflow: visible; }
-  .pf-section--play .pf-row > li:nth-child(n+5) { display: none; }
-  .pf-section--play .pf-toy { width: 100%; }
-  .pf-certs { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
-  .pf-section-title { font-size: 26px; }
+/* ---------- My Progress: a dashboard that fits the first screen ---------- */
+.page--progress { max-width: 1120px; }
+#app > .pf-head { padding: 12px 14px; }
+.pf-head .pf-stats { grid-column: 1 / -1; display: flex; gap: 14px; margin: 4px 0 0; }
+.pf-head .pf-stats li { display: flex; gap: 5px; align-items: baseline; padding: 0; background: none; border: 0; }
+.pf-head .pf-stats b { font-size: 15px; }
+.pf-head .pf-stats span { font-size: 12px; }
+.pf-head .pf-next { margin-top: 2px; }
+.pf-dash { display: grid; gap: 12px; align-items: start; }
+.pf-card { display: grid; gap: 8px; align-content: start; padding: 12px; min-width: 0; }
+.pf-card-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.pf-card-title { margin: 0; font: 700 18px / 1.1 var(--font-display); color: var(--ink); }
+.pf-count { padding: 1px 9px; font: 800 13px var(--font-body); background: var(--yellow); border: 2px solid var(--ink); border-radius: 999px; }
+.pf-card .qs-row { padding: 6px 8px; gap: 8px; font-size: 14px; }
+.pf-card .qs-row .btn--small { padding: 4px 10px; font-size: 13px; }
+.pf-card .qs-coins { min-width: 40px; font-size: 12px; }
+.pf-card-foot { margin: 0; }
+.pf-toggle { font: 800 13px var(--font-body); color: var(--ink); }
+.pf-card--invite { background: #e8fff1; }
+.pf-card--invite .small-print { margin: 0; }
+.pf-invite-foot { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.pf-certs { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.pf-certs .pf-cert { width: auto; display: grid; grid-template-columns: auto 1fr auto; gap: 8px; align-items: center; padding: 6px 8px; box-shadow: none; border-radius: 12px; }
+.pf-cert-main { display: grid; min-width: 0; }
+.pf-cert-main b { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pf-cert-links { display: flex; gap: 8px; font-size: 13px; }
+.pf-eb { font-weight: 800; color: var(--ink); }
+.pf-section { display: grid; gap: 8px; min-width: 0; }
+.pf-section--play .pf-toy { width: 160px; }
+@media (max-width: 759px) {
+  #app > .pf-head { gap: 2px 10px; padding: 10px 12px; }
+  #app > .pf-head .pf-avatar { width: 48px; height: 48px; }
+  #app > .pf-head .pf-name { font-size: 19px; }
+  #app > .pf-head .rank-badge { font-size: 11px; }
+  #app > .pf-head .pf-stats { gap: 10px; }
+  .pf-card--invite .lk-row .btn, .pf-invite-foot .btn { padding: 4px 12px; }
+}
+.pf-more summary { font: 700 13px var(--font-body); }
+#app > .pf-say { margin: -4px 0; }
+body[data-theme='theme-night'] .pf-card-title, body[data-theme='theme-night'] .pf-section .pf-card-title { color: inherit; }
+@media (min-width: 760px) {
+  .pf-dash { grid-template-columns: 1fr 1fr; }
+  .pf-card--earn { grid-row: span 2; }
+  #app > .pf-head { grid-template-columns: auto auto auto 1fr auto; }
+  #app > .pf-head .pf-next { grid-column: auto; margin: 0 8px; }
+  #app > .pf-head .pf-stats { grid-column: auto; margin: 0; }
+}
+@media (min-width: 1040px) {
+  .pf-dash { grid-template-columns: 1.15fr 1fr 1fr; }
+  .pf-card--earn { grid-row: auto; }
 }
