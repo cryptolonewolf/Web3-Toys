@@ -298,7 +298,7 @@ settings, the framework preset is **Other** with no build command.
 
 ## My Progress (compact profile)
 
-`progress/` is drawn by `js/profile.js` as a dashboard: a slim profile strip, then Earn coins (top 3 tasks, claimable first), Invite friends and Certificates (top 3) on the first screen, Keep playing, and tabs for Spend coins, Purchases and Settings. Older notes: picture, name, rank and coins on
+`progress/` is drawn by `js/profile.js` as a dashboard: a slim profile strip, then Earn coins (top 3 tasks, claimable first), Invite friends and Certificates (top 3) on the first screen, Keep playing, and buttons that open pop-ups for Spend coins, Extras, Purchases and Settings (also all tasks, all certificates and ranks). Older notes: picture, name, rank and coins on
 top, then stats (toys done, certificates, Pro tags, streak), a Continue
 playing row and tabs for Certificates, Extras (coins and cosmetic extras),
 Purchases (filled in by payments) and Settings (name, picture, log out,

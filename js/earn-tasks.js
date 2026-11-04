@@ -79,12 +79,14 @@
     return 'https://x.com/intent/post?text=' + encodeURIComponent((post || 'Learning web3 by playing little toys on web3.toys') + ' ' + inviteUrl(invite));
   }
 
-  function row(q, s, invite, post) {
+  // compact: no link form inside the row (the button opens the full list).
+  function row(q, s, invite, post, compact) {
     var done = isDone(q, s);
     var action;
-    var proofForm = q.type === 'post' && s.user && !done;
+    var proofForm = q.type === 'post' && s.user && !done && !compact;
     if (done) action = '<span class="chip is-mint">Done ✓</span>';
     else if (!s.user) action = q.id === 'account' ? '<button type="button" class="btn btn--small btn--yellow" data-login>Log in</button>' : '<span class="small-print">Log in first</span>';
+    else if (q.type === 'post' && compact) action = '<button type="button" class="btn btn--small" data-sheet="tasks">Post and claim</button>';
     else if (q.type === 'post') action = '<a class="btn btn--small" href="' + esc(xIntent(invite, post)) + '" target="_blank" rel="noopener" data-post-open>Write post</a>';
     else if (q.type === 'honor' && !ready(q, s)) action = '<a class="btn btn--small" href="' + esc(socialLink(q)) + '" target="_blank" rel="noopener" data-open="' + q.id + '">Open</a>';
     else if (ready(q, s)) action = '<button type="button" class="btn btn--small btn--yellow" data-claim="' + q.id + '">Claim +' + q.coins + '</button>';

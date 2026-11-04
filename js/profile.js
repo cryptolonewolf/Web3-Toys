@@ -10,11 +10,13 @@
   var site = window.WEB3TOYS;
   var app = document.getElementById('app');
   var ME_KEY = 'web3toys.me.v1';
-  var TABS = [['shop', 'Spend coins'], ['purchases', 'Purchases'], ['settings', 'Settings']];
+  // Pop-ups for everything that is not needed at first sight.
+  var SHEETS = { shop: '🛍️ Spend coins', extras: '🎨 Extras', purchases: '🧾 Purchases', settings: '⚙️ Settings', tasks: '🎯 All coin tasks', certs: '🏅 All certificates' };
+  var BUTTONS = ['shop', 'extras', 'purchases', 'settings'];
   var home = null;
   var ranks = null;
   var cosmetics = null;
-  var tab = tabFromHash();
+  var tab = sheetFromHash();
   var say = '';
 
   var quests = null;
@@ -36,16 +38,15 @@
   document.addEventListener('web3earlybird:change', function () { if (home) render(); });
   document.addEventListener('web3toys:purchased', function () { orders = null; if (home) render(); });
   document.addEventListener('web3pay:ready', function () { if (home && tab === 'purchases') render(); });
-  var showAllTasks = false, showAllCerts = false;
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && tab && home) closeSheet(); });
   document.addEventListener('web3auth:ready', function () { window.Web3Auth.onChange(function () { orders = null; }); });
-  window.addEventListener('hashchange', function () { tab = tabFromHash(); if (home) { render(); jump(); } });
+  window.addEventListener('hashchange', function () { tab = sheetFromHash(); if (home) { render(); jump(); } });
 
-  // #coins, #earn: the Earn coins card (already on screen). #extras, #shop:
-  // the Spend coins tab. #purchases, #settings: their tabs.
-  function tabFromHash() {
+  // Links ending in #shop, #extras, #purchases or #settings open that pop-up
+  // (#coins and #earn just show the page: Earn coins is at the top).
+  function sheetFromHash() {
     var h = location.hash.replace('#', '');
-    if (h === 'extras') return 'shop';
-    return TABS.some(function (t) { return t[0] === h; }) ? h : 'shop';
+    return BUTTONS.indexOf(h) >= 0 ? h : null;
   }
 
   function read(key, fallback) {
@@ -112,17 +113,16 @@
       '<p class="small-print">' + (s.nextRank ? (s.nextRank.min - s.n) + ' more certificate' + (s.nextRank.min - s.n === 1 ? '' : 's') + ' to ' + esc(s.nextRank.name) : 'Top rank reached') +
       (s.user ? '' : ' · <button type="button" class="text-button" data-login>Log in to save</button>') + '</p></div>' +
       '<ul class="pf-stats">' + stat(s.done.length + '/' + s.toys.length, 'Toys done') + stat(s.certs.length + s.pros.length, 'Certificates') + stat(s.streak + (s.streak === 1 ? ' day' : ' days'), 'Streak') + '</ul></section>' +
-      '<p class="pf-say" data-say aria-live="polite">' + esc(say) + '</p>' +
+      (tab ? '' : '<p class="pf-say" data-say aria-live="polite">' + esc(say) + '</p>') +
       '<div class="pf-dash">' + earnCard(s) + inviteCard(s) + certsCard(s) + '</div>' +
       (s.next.length ? '<section class="pf-section pf-section--play" aria-labelledby="h-play"><h2 class="pf-card-title" id="h-play">🎮 Keep playing</h2><ul class="pf-row pf-row--toys">' + s.next.slice(0, 8).map(function (c) {
         return '<li><a class="xcard xcard--' + esc(c.id) + ' pf-toy" href="../' + esc(c.path) + '" aria-label="' + esc(c.title) + '">' + (Web3Cards.card(c.id, c.title, esc) || '<span class="xtitle">' + esc(c.title) + '</span>') + '</a></li>';
       }).join('') + '</ul></section>' : '') +
-      '<section class="pf-section" id="more" aria-label="Spend coins, purchases and settings">' +
-      '<div class="pf-tabs" role="tablist" aria-label="More">' + TABS.map(function (t) {
-        var on = t[0] === tab;
-        return '<button type="button" role="tab" id="tab-' + t[0] + '" class="pf-tab' + (on ? ' is-on' : '') + '" aria-selected="' + on + '" aria-controls="panel-' + t[0] + '" tabindex="' + (on ? 0 : -1) + '" data-tab="' + t[0] + '">' + t[1] + '</button>';
-      }).join('') + '</div>' +
-      '<div class="pf-panel" role="tabpanel" id="panel-' + tab + '" aria-labelledby="tab-' + tab + '">' + ({ shop: shopPanel, purchases: purchasesPanel, settings: settingsPanel })[tab](s) + '</div></section>';
+      '<nav class="pf-actions" aria-label="More">' + BUTTONS.map(function (id) {
+        return '<button type="button" class="pf-action" data-sheet="' + id + '" aria-haspopup="dialog">' + esc(SHEETS[id]) + '</button>';
+      }).join('') + '</nav>' +
+      (tab ? sheetHtml(tab, s) : '');
+    document.body.classList.toggle('has-sheet', Boolean(tab));
 
     applyTheme(s.user ? s.cx.theme : null);
     bind(s);
@@ -137,9 +137,35 @@
   // coins, #shop, #purchases and #settings to the tabs.
   function jump() {
     var h = location.hash.replace('#', '');
-    var to = { certs: 'certs', certificates: 'certs', coins: 'earn', earn: 'earn', shop: 'more', extras: 'more', purchases: 'more', settings: 'more' }[h];
+    var to = { certs: 'certs', certificates: 'certs', coins: 'earn', earn: 'earn' }[h];
     var el = to && document.getElementById(to);
     if (el && to !== 'earn') el.scrollIntoView({ block: 'start' });
+  }
+
+  function sheetHtml(id, s) {
+    var body = ({ shop: shopPanel, extras: extrasPanel, purchases: purchasesPanel, settings: settingsPanel, tasks: tasksPanel, certs: allCertsPanel })[id](s);
+    return '<div class="modal pf-modal" data-sheet-backdrop><div class="card stack stack--tight pf-sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">' +
+      '<div class="pf-card-head"><h2 class="pf-card-title" id="sheet-title">' + esc(SHEETS[id]) + '</h2>' +
+      '<button type="button" class="earn-panel-close" aria-label="Close" data-sheet-close>×</button></div>' +
+      '<p class="pf-say" data-say aria-live="polite">' + esc(say) + '</p>' +
+      '<div class="pf-panel">' + body + '</div></div></div>';
+  }
+
+  function tasksPanel(s) {
+    var left = T.left(quests, s);
+    return '<ul class="qs-list" data-tasks>' + T.list(quests).map(function (q) { return T.row(q, s, invite, quests.invite.post); }).join('') + '</ul>' +
+      '<p class="small-print">' + (left.length ? left.length + ' left, worth ' + left.reduce(function (n, q) { return n + q.coins; }, 0) + ' coins. ' : 'All done! ') + esc(quests.noCash) + '</p>';
+  }
+
+  function allCertsPanel(s) {
+    var all = s.certs.map(function (c) { return certCard(c, false); }).concat(s.pros.map(function (c) { return certCard(c, true); }));
+    return (all.length ? '<ul class="pf-certs">' + all.join('') + '</ul>' : '<p class="text">None yet.</p>') + ranksHtml(s);
+  }
+
+  function ranksHtml(s) {
+    return '<h3 class="pf-h">Ranks</h3><p class="small-print">Every certificate and Pro tag (from the <a href="../academy/">Project Academy</a>) counts toward your rank.</p><ol class="rank-ladder">' + ranks.map(function (r, i) {
+      return '<li class="' + (r === s.rank ? 'is-current' : s.n >= r.min ? 'is-done' : '') + '">' + C.rankBadge(r, i + 1) + '<span class="small-print">' + r.min + (r.min === 1 ? ' certificate' : ' certificates') + '</span></li>';
+    }).join('') + '</ol>';
   }
 
   function stat(value, label) {
@@ -166,14 +192,11 @@
   function certsCard(s) {
     var all = s.certs.map(function (c) { return certCard(c, false); }).concat(s.pros.map(function (c) { return certCard(c, true); }));
     var n = all.length;
-    var shown = showAllCerts ? all : all.slice(0, 3);
+    var shown = all.slice(0, 3);
     return card('certs', '🏅 Certificates', n ? '<span class="pf-count">' + n + '</span>' : '',
-      (n ? '<ul class="pf-certs">' + shown.join('') + '</ul>' +
-        (n > 3 ? '<button type="button" class="text-button pf-toggle" data-more-certs>' + (showAllCerts ? 'Show fewer' : 'Show all ' + n) + '</button>' : '')
-        : '<p class="text pf-empty">None yet. Pass the quiz at the end of any toy to earn one.</p><a class="btn btn--small btn--ink" href="../">Play a toy</a>') +
-      '<details class="pf-more"><summary>Ranks and Pro tags</summary><p class="small-print">Pro tags come from the <a href="../academy/">Project Academy</a> and count toward your rank.</p><ol class="rank-ladder">' + ranks.map(function (r, i) {
-        return '<li class="' + (r === s.rank ? 'is-current' : s.n >= r.min ? 'is-done' : '') + '">' + C.rankBadge(r, i + 1) + '<span class="small-print">' + r.min + (r.min === 1 ? ' certificate' : ' certificates') + '</span></li>';
-      }).join('') + '</ol></details>');
+      (n ? '<ul class="pf-certs">' + shown.join('') + '</ul>' : '<p class="text pf-empty">None yet. Pass the quiz at the end of any toy to earn one.</p><a class="btn btn--small btn--ink" href="../">Play a toy</a>') +
+      '<p class="small-print pf-card-foot">' + (n > 3 ? '<button type="button" class="text-button pf-toggle" data-sheet="certs">See all ' + n + '</button> · ' : '') +
+      '<button type="button" class="text-button pf-toggle" data-sheet="certs">Ranks and Pro tags</button></p>');
   }
 
   // ---------- Extras (coins) ----------
@@ -196,12 +219,13 @@
     var worth = left.reduce(function (n, q) { return n + q.coins; }, 0);
     var done = T.list(quests).length - left.length;
     // Tasks you can claim now come first.
-    var order = left.slice().sort(function (a, b) { return (T.ready(b, s) && s.user ? 1 : 0) - (T.ready(a, s) && s.user ? 1 : 0); });
-    var shown = showAllTasks ? order : order.slice(0, 3);
+    var claimNow = function (q) { return s.user && q.type !== 'post' && T.ready(q, s) ? 1 : 0; };
+    var order = left.slice().sort(function (a, b) { return claimNow(b) - claimNow(a); });
+    var shown = order.slice(0, 3);
     return card('earn', '🎯 Earn coins', left.length ? '<span class="pf-count">+' + worth + '</span>' : '',
-      (left.length ? '<ul class="qs-list" data-tasks>' + shown.map(function (q) { return T.row(q, s, invite, quests.invite.post); }).join('') + '</ul>'
+      (left.length ? '<ul class="qs-list" data-tasks>' + shown.map(function (q) { return T.row(q, s, invite, quests.invite.post, true); }).join('') + '</ul>'
         : '<p class="text">All tasks done. Invite friends for more coins.</p>') +
-      '<p class="small-print pf-card-foot">' + (left.length > 3 ? '<button type="button" class="text-button pf-toggle" data-more-tasks>' + (showAllTasks ? 'Show fewer' : '+' + (left.length - 3) + ' more tasks') + '</button> · ' : '') +
+      '<p class="small-print pf-card-foot">' + (left.length > 3 ? '<button type="button" class="text-button pf-toggle" data-sheet="tasks">+' + (left.length - 3) + ' more tasks</button> · ' : '') +
       (done ? '✓ ' + done + ' done · ' : '') + 'Coins have no cash value.</p>');
   }
 
@@ -220,11 +244,16 @@
 
   function shopPanel(s) {
     var spend = productList.filter(function (p) { return p.coins && !p.perItem; });
-    return '<h3 class="pf-h">' + esc(quests.spendTitle) + ' <span class="small-print">' + esc(quests.spendLine) + '</span></h3>' +
+    return '<p class="cx-nocash">' + esc(quests.noCash) + '</p>' +
+      '<h3 class="pf-h">' + esc(quests.spendTitle) + '</h3><p class="small-print">' + esc(quests.spendLine) + '</p>' +
       '<ul class="pf-row pf-row--cx">' + spend.map(function (p) {
         return '<li class="cx-item qs-item"><b>' + esc(p.title) + '</b><button type="button" class="btn btn--small" data-unlock="' + esc(p.id) + '">' + site.icon('coin') + p.coins.toLocaleString('en-US') + '</button></li>';
-      }).join('') + '</ul><p class="small-print">Reports and HD certificates are unlocked from the end of each toy.</p>' +
-      extrasPanel(s);
+      }).join('') + '</ul><p class="small-print">Reports and HD certificates are unlocked from the end of each toy. Picture frames, certificate styles and page colours are in Extras.</p>' +
+      '<details class="pf-more"><summary class="small-print">Other ways to earn coins</summary><ul class="lesson-points">' + cosmetics.how.map(function (h) { return '<li>' + esc(h) + '</li>'; }).join('') + '</ul></details>' +
+      (s.w.history.length ? '<details class="pf-more coins-history"><summary class="small-print">Coin history</summary><ul>' + s.w.history.map(function (h) {
+        return '<li><span>' + esc(h.label) + '</span><b class="' + (h.coins < 0 ? 'is-spent' : '') + '">' + (h.coins > 0 ? '+' : '') + h.coins + '</b></li>';
+      }).join('') + '</ul></details>' : '') +
+      '<p class="small-print">' + (s.user ? 'Saved to your account, on every device.' : 'Saved in this browser only.') + ' <a href="../leaderboard/">See the leaderboard</a></p>';
   }
 
   function bindCoins(s) {
@@ -246,8 +275,7 @@
 
   function extrasPanel(s) {
     var wearing = { cert: s.cx.cert, frame: s.cx.frame, theme: s.cx.theme };
-    return '<h3 class="pf-h">Extras</h3>' +
-      (s.user ? '' : '<p class="text pf-empty">Log in to unlock extras with your coins.</p>') +
+    return (s.user ? '' : '<p class="text pf-empty">Log in to unlock extras with your coins.</p>') +
       cosmetics.slots.map(function (slot) {
         return '<h3 class="pf-h">' + esc(slot.title) + ' <span class="small-print">' + esc(slot.line) + '</span></h3><ul class="pf-row pf-row--cx">' +
           cosmetics.items.filter(function (it) { return it.slot === slot.id; }).map(function (it) {
@@ -260,11 +288,7 @@
             return '<li class="cx-item' + (worn ? ' is-on' : '') + '">' + swatch(it) + '<b>' + esc(it.title) + '</b>' + action + '</li>';
           }).join('') + '</ul>';
       }).join('') +
-      '<details class="pf-more"><summary class="small-print">Other ways to earn coins</summary><ul class="lesson-points">' + cosmetics.how.map(function (h) { return '<li>' + esc(h) + '</li>'; }).join('') + '</ul></details>' +
-      (s.w.history.length ? '<details class="pf-more coins-history"><summary class="small-print">Coin history</summary><ul>' + s.w.history.map(function (h) {
-        return '<li><span>' + esc(h.label) + '</span><b class="' + (h.coins < 0 ? 'is-spent' : '') + '">' + (h.coins > 0 ? '+' : '') + h.coins + '</b></li>';
-      }).join('') + '</ul></details>' : '') +
-      '<p class="small-print">' + (s.user ? 'Saved to your account, on every device.' : 'Saved in this browser only.') + ' <a href="../leaderboard/">See the leaderboard</a></p>';
+      '<p class="small-print">Coins: ' + s.w.balance.toLocaleString('en-US') + '. Earn more with the tasks on this page.</p>';
   }
 
   // ---------- Purchases ----------
@@ -363,23 +387,14 @@
   function bind(s) {
     var A = s.A;
     var msg = function (t) { say = t; var el = app.querySelector('[data-say]'); if (el) el.textContent = t; };
-    app.querySelectorAll('[data-tab]').forEach(function (b, i, all) {
-      b.addEventListener('click', function () { setTab(b.getAttribute('data-tab')); });
-      b.addEventListener('keydown', function (e) {
-        var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-        if (!d) return;
-        var next = all[(i + d + all.length) % all.length];
-        setTab(next.getAttribute('data-tab'));
-        app.querySelector('[data-tab="' + next.getAttribute('data-tab') + '"]').focus();
-      });
-    });
     app.querySelectorAll('[data-login]').forEach(function (b) { b.addEventListener('click', function () { A && A.open(); }); });
     var coins = app.querySelector('.pf-coins');
-    coins.addEventListener('click', function (e) { e.preventDefault(); setTab('shop'); var m = document.getElementById('more'); if (m) m.scrollIntoView({ block: 'start' }); });
-    var mt = app.querySelector('[data-more-tasks]');
-    if (mt) mt.addEventListener('click', function () { showAllTasks = !showAllTasks; render(); });
-    var mc = app.querySelector('[data-more-certs]');
-    if (mc) mc.addEventListener('click', function () { showAllCerts = !showAllCerts; render(); });
+    coins.addEventListener('click', function (e) { e.preventDefault(); setTab('shop'); });
+    app.querySelectorAll('[data-sheet]').forEach(function (b) { b.addEventListener('click', function () { setTab(b.getAttribute('data-sheet')); }); });
+    var x = app.querySelector('[data-sheet-close]');
+    if (x) x.addEventListener('click', closeSheet);
+    var bg = app.querySelector('[data-sheet-backdrop]');
+    if (bg) bg.addEventListener('click', function (e) { if (e.target === bg) closeSheet(); });
     bindCoins(s);
 
     app.querySelectorAll('[data-buy]').forEach(function (b) {
@@ -436,8 +451,20 @@
   function setTab(id) {
     tab = id;
     say = '';
-    if (history.replaceState) history.replaceState(null, '', '#' + id);
+    if (history.replaceState) history.replaceState(null, '', BUTTONS.indexOf(id) >= 0 ? '#' + id : location.pathname);
     render();
+    var x = app.querySelector('[data-sheet-close]');
+    if (x) x.focus();
+  }
+
+  function closeSheet() {
+    var from = tab;
+    tab = null;
+    say = '';
+    if (history.replaceState) history.replaceState(null, '', location.pathname);
+    render();
+    var b = app.querySelector('[data-sheet="' + from + '"]');
+    if (b) b.focus();
   }
 
   function applyTheme(theme) {
