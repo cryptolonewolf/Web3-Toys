@@ -467,7 +467,8 @@
     };
     var need = window.Web3Progress ? [] : ['js/progress.js'];
     if (!window.Web3Avatar) need.push('js/avatar.js');
-    load(need.concat(['js/vendor/supabase-2.117.3.js', 'js/auth.js', 'js/log.js', 'js/sync.js', 'js/pay.js']));
+    var after = (window.Web3EarnTasks ? [] : ['js/earn-tasks.js']).concat(['js/earn-fab.js']);
+    load(need.concat(['js/vendor/supabase-2.117.3.js', 'js/auth.js', 'js/log.js', 'js/sync.js', 'js/pay.js'], after));
   }
 
   // Loading screen: the hexagon icon until the page draws its content

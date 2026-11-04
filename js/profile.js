@@ -65,17 +65,6 @@
     return out;
   }
 
-  function streak(claimed) {
-    var days = {};
-    Object.keys(claimed).forEach(function (id) { if (id.indexOf('daily:') === 0) days[id.slice(6)] = true; });
-    var d = new Date();
-    var key = function (x) { return x.toISOString().slice(0, 10); };
-    if (!days[key(d)]) d.setUTCDate(d.getUTCDate() - 1);
-    var n = 0;
-    while (days[key(d)]) { n++; d.setUTCDate(d.getUTCDate() - 1); }
-    return n;
-  }
-
   function state() {
     var A = window.Web3Auth;
     var user = A && A.user();
@@ -93,8 +82,9 @@
       toys: toys, done: done,
       next: toys.filter(function (c) { return done.indexOf(c) < 0; }),
       n: n, rank: Web3Progress.rankFor(n, ranks), nextRank: Web3Progress.nextRank(n, ranks),
-      streak: streak(w.claimed || {}),
+      streak: Web3EarnTasks.streak(w.claimed || {}),
       cx: read('web3toys.cosmetics.v1', { owned: [] }),
+      certCount: certs.length,
     };
   }
 
@@ -173,48 +163,15 @@
 
   // ---------- Coins: earn, invite, spend ----------
 
-  var opened = {};
   var invite = null;
+  var T = window.Web3EarnTasks;
 
-  function questReady(q, s) {
-    if (q.need === 'login') return !!s.user;
-    if (q.need === 'finish') return Object.keys(s.w.claimed || {}).some(function (k) { return k.indexOf('finish:') === 0; });
-    if (q.need === 'certificate') return s.certs.length + s.pros.length > 0;
-    if (q.need === 'streak') return s.streak >= q.days;
-    if (q.type === 'honor') return !!opened[q.id];
-    return true;
-  }
-
-  function socialLink(q) {
-    return ((window.WEB3TOYS_CONFIG || {}).social || {})[q.link] || '';
-  }
-
-  function inviteUrl() {
-    return invite && invite.code ? 'https://web3.toys/?ref=' + invite.code : 'https://web3.toys/';
-  }
-
-  function xIntent() {
-    return 'https://x.com/intent/post?text=' + encodeURIComponent(quests.invite.post + ' ' + inviteUrl());
-  }
-
-  function questRow(q, s) {
-    var done = !!(s.w.claimed || {})['quest:' + q.id];
-    var ready = questReady(q, s);
-    var action;
-    if (done) action = '<span class="chip is-mint">Done ✓</span>';
-    else if (!s.user) action = q.id === 'account' ? '<button type="button" class="btn btn--small btn--yellow" data-login>Log in</button>' : '<span class="small-print">Log in first</span>';
-    else if (q.type === 'post') action = '<a class="btn btn--small" href="' + esc(xIntent()) + '" target="_blank" rel="noopener" data-post-open>Write post</a>';
-    else if (q.type === 'honor' && !ready) action = '<a class="btn btn--small" href="' + esc(socialLink(q)) + '" target="_blank" rel="noopener" data-open="' + q.id + '">Open</a>';
-    else if (ready) action = '<button type="button" class="btn btn--small btn--yellow" data-claim="' + q.id + '">Claim +' + q.coins + '</button>';
-    else action = q.go ? '<a class="btn btn--small" href="../' + esc(q.go) + '">Go</a>' : '<span class="small-print">' + (q.need === 'streak' ? s.streak + '/' + q.days + ' days' : 'Not yet') + '</span>';
-    return '<li class="qs-row' + (done ? ' is-done' : '') + '"><span class="qs-coins">+' + q.coins + '</span><div><b>' + esc(q.title) + '</b>' + (q.line && !done ? '<span class="small-print">' + esc(q.line) + '</span>' : '') +
-      (q.type === 'post' && s.user && !done ? '<form class="lk-row qs-proof" data-proof><input class="field" type="url" inputmode="url" placeholder="https://x.com/you/status/…" aria-label="Link to your post" /><button type="submit" class="btn btn--small btn--yellow">Claim +' + q.coins + '</button></form>' : '') +
-      '</div>' + (q.type === 'post' && s.user && !done ? '' : action) + (q.type === 'post' && s.user && !done ? action : '') + '</li>';
-  }
+  function inviteUrl() { return T.inviteUrl(invite); }
+  function xIntent() { return T.xIntent(invite, quests.invite.post); }
 
   function coinsPanel(s) {
-    var list = quests.quests.filter(function (q) { return q.type !== 'honor' || socialLink(q); });
-    var left = list.filter(function (q) { return !(s.w.claimed || {})['quest:' + q.id]; });
+    var list = T.list(quests);
+    var left = T.left(quests, s);
     var worth = left.reduce(function (n, q) { return n + q.coins; }, 0);
     var spend = productList.filter(function (p) { return p.coins && !p.perItem; });
     if (s.user && !invite && window.Web3Sync) {
@@ -222,7 +179,7 @@
     }
     return '<p class="cx-nocash">' + esc(quests.noCash) + '</p>' +
       '<h3 class="pf-h">' + esc(quests.title) + ' <span class="small-print">' + (left.length ? left.length + ' left, worth ' + worth + ' coins' : 'All done!') + '</span></h3>' +
-      '<ul class="qs-list">' + list.map(function (q) { return questRow(q, s); }).join('') + '</ul>' +
+      '<ul class="qs-list" data-tasks>' + list.map(function (q) { return T.row(q, s, invite, quests.invite.post); }).join('') + '</ul>' +
       '<h3 class="pf-h">' + esc(quests.invite.title) + '</h3>' +
       '<div class="qs-invite"><p class="small-print">' + esc(quests.invite.line) + '</p>' +
       (s.user
@@ -239,25 +196,8 @@
 
   function bindCoins(s) {
     var msg = function (t) { say = t; var el = app.querySelector('[data-say]'); if (el) el.textContent = t; };
-    app.querySelectorAll('[data-claim]').forEach(function (b) {
-      b.addEventListener('click', function () {
-        b.disabled = true;
-        window.Web3Sync.claimQuest(b.getAttribute('data-claim')).then(function (n) {
-          if (n) { site.fx.coins(b, 5); site.sound.play('cash'); }
-          say = n ? '+' + n + ' coins!' : '';
-          render();
-        }, function (err) { b.disabled = false; msg(err.message); });
-      });
-    });
-    app.querySelectorAll('[data-open]').forEach(function (a) {
-      a.addEventListener('click', function () { opened[a.getAttribute('data-open')] = true; setTimeout(render, 400); });
-    });
-    var proof = app.querySelector('[data-proof]');
-    if (proof) proof.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var url = proof.querySelector('input').value.trim();
-      window.Web3Sync.claimQuest('post-x', url).then(function (n) { say = n ? '+' + n + ' coins! Thanks for sharing.' : ''; render(); }, function (err) { msg(err.message); });
-    });
+    var tasks = app.querySelector('[data-tasks]');
+    if (tasks) T.bind(tasks, function (m) { say = m; render(); });
     var copy = app.querySelector('[data-copy-invite]');
     if (copy) copy.addEventListener('click', function () {
       var input = app.querySelector('[data-invite-link]');

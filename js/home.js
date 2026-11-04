@@ -83,7 +83,7 @@
       '<div class="home-top"><h1 class="tagline">' + esc(home.tagline) + '</h1>' +
       '<a class="rank-link" href="progress/" aria-label="Your rank: ' + esc(rank.name) + '. Open My Progress">' +
       '<span class="rank-badge rank-badge--name">' + esc(rank.name) + '</span></a>' +
-      '<a class="home-earn" href="progress/#coins"><span>🪙 Earn coins with quick tasks, then unlock reports, books and extras</span><span aria-hidden="true">→</span></a></div>' +
+      '</div>' +
       sections(home);
   }
 

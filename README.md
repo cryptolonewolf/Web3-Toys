@@ -391,3 +391,12 @@ unlock day, a countdown in the last 7 days and Notify me; the teaser page is
 of their section. `middleware.js` (Vercel) keeps each scheduled toy's folder
 locked on the server. Builder tools and the Academy are not scheduled.
 Database: `supabase/010_releases.sql`. Setup: `docs/setup/releases.md`.
+
+## Floating Earn coins button
+
+`js/earn-fab.js` shows "🪙 Earn N" in the corner of every page (not My
+Progress or admin) when there are coin tasks left. It opens the tasks as a
+panel (bottom sheet on phones, side panel on computers), can be hidden for a
+day with ×, and hides while a toy is being played, coming back on the finish
+screen. The task list itself (`js/earn-tasks.js`, `data/quests.json`) is
+shared with the Coins tab on My Progress.
