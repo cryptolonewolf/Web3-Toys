@@ -151,4 +151,11 @@ describe('Release schedule', () => {
     assert.ok(sql.includes('for update'), 'spots are handed out one at a time');
     assert.ok(sql.includes('unique (toy, user_id)'));
   });
+
+  it('launch kits are up to date with every picture (node tools/launch-kit.mjs, tools/launch-images.mjs)', async () => {
+    const { build } = await import('../tools/launch-kit.mjs');
+    Object.entries(build(false)).forEach(([f, body]) => assert.equal(read(f), body, f + ' is out of date: run node tools/launch-kit.mjs'));
+    rel.toys.forEach((t) => ['teaser-x', 'launch-x', 'teaser-story', 'launch-story'].forEach((k) =>
+      assert.ok(existsSync(new URL(`../marketing/launches/img/${t.id}-${k}.png`, import.meta.url)), `${t.id}-${k}.png: run node tools/launch-images.mjs`)));
+  });
 });
