@@ -264,11 +264,23 @@
     var R = window.Web3Releases;
     var cards = {};
     home.shelves.forEach(function (s) { s.cards.forEach(function (c) { cards[c.id] = c; }); });
+    // Numbers since launch day (the events table keeps a count per page).
+    var launch = Date.parse((R.list()[0] || {}).date || '') || Date.now();
+    var sinceDays = Math.max(1, Math.ceil((Date.now() - launch) / 864e5));
     return Promise.all([
       R.reload(),
       db().from('release_overrides').select('*').then(must),
       load('notify', function () { return db().from('release_notify').select('toy_id').limit(100000).then(must); }),
+      load('relEvents', function () { return db().rpc('admin_event_counts', { p_days: sinceDays }).then(must); }),
+      load('relCerts', function () { return db().from('certificates').select('toy').limit(100000).then(must); }),
+      load('relBirds', function () { return db().rpc('early_bird_counts').then(must).catch(function () { return []; }); }),
     ]).then(function (r) {
+      var ev = r[3];
+      var certs = {};
+      r[4].forEach(function (c) { certs[c.toy] = (certs[c.toy] || 0) + 1; });
+      var birds = {};
+      (r[5] || []).forEach(function (b) { birds[b.toy] = b; });
+      var count = function (name, test) { return ev.filter(function (e) { return e.name === name && test(e); }).reduce(function (n, e) { return n + Number(e.total); }, 0); };
       var over = {};
       r[1].forEach(function (o) { over[o.toy_id] = o; });
       var asked = {};
@@ -277,11 +289,16 @@
       var rows = R.list().map(function (t) {
         var i = R.info(t.id);
         var o = over[t.id];
+        var key = String((cards[t.id] || {}).path || t.path || t.id).replace(/\/$/, '').split('/').pop();
+        var onPage = function (e) { return String(e.page || '').replace(/index\.html$/, '').replace(/\/$/, '').split('/').pop() === key; };
+        var mine = function (e) { return e.item === t.id || e.item === key; };
+        var b = birds[t.id];
         return { t: t, i: i, o: o, row: [(cards[t.id] || {}).title || t.id, when(new Date(Date.parse(t.date))), i.status + (i.isNew ? ' (new)' : ''),
-          o ? (o.action === 'release' ? 'Released early' : 'Delayed' + (o.until ? ' to ' + when(new Date(o.until)) : '')) : '', t.ready ? 'yes' : 'not built yet', asked[t.id] || 0] };
+          o ? (o.action === 'release' ? 'Released early' : 'Delayed' + (o.until ? ' to ' + when(new Date(o.until)) : '')) : '', t.ready ? 'yes' : 'not built yet', asked[t.id] || 0,
+          count('page_view', onPage), count('finish', mine), certs[t.id] || 0, b ? b.used + ' / ' + b.spots : '', count('share', mine)] };
       });
-      var head = ['Toy', 'Date in releases.json', 'Status now', 'Your override', 'Built', 'Notify me'];
-      panel.innerHTML = '<p class="small-print">Server time: ' + esc(R.now().toLocaleString('en-GB', { timeZone: 'Asia/Kolkata' })) + ' India time. Change dates in data/releases.json; use these buttons to release early or delay without editing it.</p>' +
+      var head = ['Toy', 'Date in releases.json', 'Status now', 'Your override', 'Built', 'Notify me', 'Plays', 'Finishes', 'Certificates', 'Early Bird used', 'Shares'];
+      panel.innerHTML = '<p class="small-print">Server time: ' + esc(R.now().toLocaleString('en-GB', { timeZone: 'Asia/Kolkata' })) + ' India time. Plays, finishes and shares are counted over the last ' + sinceDays + ' day' + (sinceDays === 1 ? '' : 's') + ' (since launch day). Change dates in data/releases.json; use these buttons to release early or delay without editing it.</p>' +
         grid('releases', head, rows.map(function (x) { return x.row; }), rows.map(function (x) {
           return '<tr>' + x.row.map(function (c) { return '<td>' + esc(String(c)) + '</td>'; }).join('') +
             '<td><div class="btn-row">' +
