@@ -35,11 +35,11 @@ Log in early: Early Bird spots are numbered, and #1 is still free on every toy �
 
 Little web3 toys that teach you something. Free, about 5 minutes each, no jargon.
 
-2/ For beginners: Genesis Block (crypto in 5 minutes), Not Your Keys (getting started), Don't Get Rekt (how not to lose money).
+2/ For beginners: Genesis Block (crypto in 5 minutes), Not Your Keys (getting started), Don't Get Rekt (how not to lose money) and the Vault Dive (famous web3 hacks).
 
 3/ Careers: Stack Sats (ways to earn small) and Web3 Hall of Famers (50 people who built web3).
 
-4/ Games: Spot the Scam, Fish the Dead Projects, What If You Invested $100, Rug or Real, the Vault Dive and Launch a Token.
+4/ Games: Spot the Scam, Fish the Dead Projects, What If You Invested $100, Rug or Real and the Launch a Token Simulator.
 
 5/ Every toy ends with a quiz and a certificate anyone can verify.
 Early Bird: the first 1,000 to earn each one get a numbered spot and 2x coins 🐣
@@ -68,9 +68,9 @@ https://web3.toys
 🚀 web3.toys is live!
 
 11 free toys, about 5 minutes each:
-🌱 Genesis Block · Not Your Keys · Don't Get Rekt
+🌱 Genesis Block · Not Your Keys · Don't Get Rekt · Vault Dive
 💼 Stack Sats · Web3 Hall of Famers
-🎮 Spot the Scam · Fish the Dead Projects · What If You Invested $100 · Rug or Real · Vault Dive · Launch a Token
+🎮 Spot the Scam · Fish the Dead Projects · What If You Invested $100 · Rug or Real · Launch a Token Simulator
 
 🎓 Every toy ends with a certificate
 🐣 Early Bird: the first 1,000 on each toy get 2x coins
