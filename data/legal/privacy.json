@@ -2,7 +2,7 @@
   "_help": "The Privacy page. Plain-English draft: have a lawyer check it before taking payments. Keep it matching what the site really collects. Lines starting with TODO are placeholders.",
   "review": true,
   "title": "Privacy policy",
-  "updated": "2 November 2026",
+  "updated": "5 November 2026",
   "intro": "web3.toys is built so you can play without telling us anything. This page lists exactly what we collect, why, who helps us store it, and how to delete it.",
   "sections": [
     {
@@ -10,7 +10,9 @@
       "list": [
         "Your progress, coins, certificates and tool inputs are saved in your own browser (local storage). They are not sent to us.",
         "Tools run in your browser. What you type into a tool is not sent anywhere.",
-        "We count simple page events (a toy was opened, finished or shared) without your name, to see which toys people like."
+        "We count simple page events (a toy was opened, finished or shared) without your name, to see which toys people like.",
+        "Small extras are kept in your browser too: your Hall of Famers wall, which toys you asked to be told about, and whether you hid the coin button. Clearing your browser data removes them.",
+        "When you answer a Web3 Hall of Famers clue, we add one to a total of how many players named that person. Only the total is stored, never who answered."
       ]
     },
     {
@@ -20,7 +22,9 @@
         "When and which version of this policy you agreed to.",
         "Your progress: toys played, scores, certificates, Pro tags, rank, coins and cosmetic extras, so you can see them on any device and on the leaderboard.",
         "You get a random cartoon picture and a random fun display name (like SleepyFrog42). We do not show your real name or your X or Google picture. The leaderboard shows only your display name, picture, rank and coins. You can change your name or get a new picture any time.",
-        "If you join through someone's invite link, we store who invited you, so both of you can get the invite bonus. If you claim the X post task, we keep the link to your post so we can check it."
+        "If you join through someone's invite link, we store who invited you, so both of you can get the invite bonus. If you claim the X post task, we keep the link to your post so we can check it.",
+        "Early Bird: if you are one of the first players to earn a toy's certificate, we store your spot number for that toy (for example Early Bird #87) and the double coins it gives.",
+        "If you vote for a favourite builder in Web3 Hall of Famers, we store your one vote so it can be changed and counted. Only vote totals are shown."
       ]
     },
     {
@@ -33,10 +37,17 @@
       ]
     },
     {
+      "title": "If you tap Notify me",
+      "list": [
+        "We store your email address (or your account's email if you are logged in), the toy you want to hear about and the time you agreed.",
+        "We use it only to email you about that toy's launch: the day before and on launch morning. Every email has an unsubscribe link, and you can ask us to remove you at any time."
+      ]
+    },
+    {
       "title": "If you join the email list or send a project request",
       "list": [
         "Your email address and the page you signed up from, to send you the updates you asked for. Every email has an unsubscribe link.",
-        "For project requests: your name, email, project details and payment status, to review and deliver your request."
+        "For project requests: your name and role, email, project name, website, X handle, Telegram username, the Telegram group link you choose to share, your answers, and payment and review status, to review your project, talk to you and deliver your request."
       ]
     },
     {
@@ -47,7 +58,7 @@
         "Razorpay (card and UPI payments, and receipts).",
         "Paymento (crypto payments).",
         "Cal.com (booking calls).",
-        "Our email provider (login links and receipts).",
+        "Our email providers: Supabase for login links, and Resend for receipts and launch emails.",
         "We do not sell your data and we do not use advertising trackers."
       ]
     },
@@ -56,7 +67,9 @@
       "list": [
         "Account and progress data: until you delete your account.",
         "Purchase records: as long as the law requires us to keep financial records, even after you delete your account.",
-        "Email list: until you unsubscribe."
+        "Email list: until you unsubscribe.",
+        "Notify me emails: until the toy has launched and both emails are sent, then removed within 90 days, or sooner if you ask.",
+        "Project requests: for as long as your project is with us, and financial records as the law requires."
       ]
     },
     {

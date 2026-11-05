@@ -2,7 +2,7 @@
   "_help": "The Terms page. Plain-English draft: have a lawyer check it before taking payments. Lines starting with TODO are placeholders.",
   "review": true,
   "title": "Terms of use",
-  "updated": "2 November 2026",
+  "updated": "5 November 2026",
   "intro": "By using web3.toys you agree to these terms. They are written to be short and readable.",
   "sections": [
     {
@@ -34,6 +34,30 @@
       "title": "Certificates and Pro tags",
       "list": [
         "Certificates show you finished a toy or passed a quiz on web3.toys. They are not a professional qualification."
+      ]
+    },
+    {
+      "title": "Early Bird",
+      "list": [
+        "For each toy, the first 1,000 logged-in players to earn its certificate from that toy's Early Bird start get a numbered Early Bird spot and double coins on that toy. One spot per account per toy.",
+        "Spots are handed out by our database in the order certificates are saved. Spot numbers and the number of spots are final once shown, except where we remove them for cheating.",
+        "Early Bird gives coins and a badge only. It has no cash value, like all coins.",
+        "We may change Early Bird for future toys; spots already given stay."
+      ]
+    },
+    {
+      "title": "New toys and release dates",
+      "list": [
+        "Release dates on the site are our plan, not a promise. A toy can come out later or earlier than shown.",
+        "Notify me emails are sent only to people who asked for them, and only about the toy they chose."
+      ]
+    },
+    {
+      "title": "Web3 Hall of Famers",
+      "list": [
+        "Web3 Hall of Famers describes real people from public information, for learning. Being listed is not an endorsement, and cautionary tales are included as lessons, not role models.",
+        "Portraits are drawings, not photos. If something about a person is wrong or out of date, email hi@web3.toys and we will check and fix it.",
+        "Favourite-builder votes and the percentages of players who named someone are for fun. One vote per account; we may remove votes from fake accounts."
       ]
     },
     {
