@@ -17,7 +17,7 @@ A simple rhythm for each drop: teaser 3 days before, sneak peek the day before, 
 | Tue 10 Nov | [Read the Token Split](token-split.md) | launch day |
 | Tue 10 Nov | [Launch a Token Simulator](token-simulator.md) | launch day |
 | Tue 10 Nov | [Web3 Hall of Famers](hall-of-fame.md) | launch day |
-| Tue 17 Nov | [Roles in Web3, Explained](web3-roles.md) | not built yet |
+| Tue 17 Nov | [Roles in Web3, Explained](web3-roles.md) | ready |
 | Tue 24 Nov | [Tokenomics Basics](tokenomics-basics.md) | not built yet |
 | Tue 1 Dec | [Ways to the Moon](ways-to-moon.md) | not built yet |
 | Tue 8 Dec | [Land Your First Web3 Job](first-job.md) | not built yet |

@@ -1,0 +1,78 @@
+{
+  "_help": "Quiz for Roles in Web3, Explained. 5 to 8 questions. answer must match one of the options exactly. explain is shown after the quiz. This folder is never shown to visitors.",
+  "review": true,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What does a smart contract engineer write?",
+      "options": [
+        "Code that runs on the blockchain and often holds money",
+        "Press releases",
+        "The project's legal terms",
+        "Social media posts"
+      ],
+      "answer": "Code that runs on the blockchain and often holds money",
+      "explain": "Because contract code can hold real money, careful testing and audits are part of the job."
+    },
+    {
+      "id": "q2",
+      "question": "What does a security auditor do?",
+      "options": [
+        "Reviews smart contract code for bugs",
+        "Runs the Telegram group",
+        "Sets the token price",
+        "Designs the logo"
+      ],
+      "answer": "Reviews smart contract code for bugs",
+      "explain": "Audits and bug bounties catch costly mistakes before attackers do."
+    },
+    {
+      "id": "q3",
+      "question": "What is developer relations (DevRel)?",
+      "options": [
+        "Helping other builders use the product with docs, tutorials and hackathons",
+        "Hiring developers",
+        "Paying developers' salaries",
+        "Fixing the office computers"
+      ],
+      "answer": "Helping other builders use the product with docs, tutorials and hackathons",
+      "explain": "DevRel sits between the product and the developers who build on it."
+    },
+    {
+      "id": "q4",
+      "question": "Which role runs the project's chats, welcomes newcomers and keeps scammers out?",
+      "options": [
+        "Community manager",
+        "Protocol engineer",
+        "Tokenomics designer",
+        "Auditor"
+      ],
+      "answer": "Community manager",
+      "explain": "It is one of the most common first jobs in web3."
+    },
+    {
+      "id": "q5",
+      "question": "Which of these is a red flag in a web3 job offer?",
+      "options": [
+        "You must pay a fee to get the job",
+        "They ask for links to your past work",
+        "There is a video interview",
+        "The salary is paid monthly"
+      ],
+      "answer": "You must pay a fee to get the job",
+      "explain": "Real jobs never charge you. Also never run unknown files a recruiter sends you."
+    },
+    {
+      "id": "q6",
+      "question": "What is often the best way to show you can do a web3 job?",
+      "options": [
+        "Public work you have already done, like a guide or community help",
+        "A long CV with no links",
+        "Buying the project's token",
+        "Following many accounts on X"
+      ],
+      "answer": "Public work you have already done, like a guide or community help",
+      "explain": "In web3, a link to real work usually matters more than a CV line."
+    }
+  ]
+}

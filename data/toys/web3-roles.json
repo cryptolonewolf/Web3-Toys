@@ -1,0 +1,198 @@
+{
+  "_help": "Cards for this toy, in order. Card types: story, reveal (tap tiles to flip), pick (choose an answer), steps (tap through a timeline), trending. Optional on any card: aki (what the mascot says), mascot (grin, thinking, worried, celebrating), points (bullet list), tip, link {label, href}.",
+  "review": true,
+  "id": "web3-roles",
+  "title": "Roles in Web3, Explained",
+  "time": "5 min",
+  "cards": [
+    {
+      "type": "story",
+      "mascot": "grin",
+      "aki": "You do not have to be a coder to work in web3.",
+      "title": "Roles in Web3, Explained",
+      "text": [
+        "A web3 team looks a lot like any startup: people who build, people who grow, and people who keep it running.",
+        "A few jobs are new, because the code holds real money and the community often owns part of the project. Let's meet them, then find where you fit."
+      ]
+    },
+    {
+      "type": "reveal",
+      "mascot": "thinking",
+      "aki": "Tap each card. These people write the product.",
+      "title": "Builders",
+      "items": [
+        {
+          "front": "Smart contract engineer",
+          "back": "Writes the code that runs on the blockchain, often in Solidity or Rust. That code can hold millions, so mistakes are costly and careful testing is the job."
+        },
+        {
+          "front": "Frontend and full-stack engineer",
+          "back": "Builds the app people actually click: connecting wallets, showing balances and making transactions clear."
+        },
+        {
+          "front": "Protocol and infrastructure engineer",
+          "back": "Works on the chain itself or what it runs on: nodes, clients, speed and reliability."
+        },
+        {
+          "front": "Security researcher and auditor",
+          "back": "Reviews smart contracts for bugs before and after launch. Many projects also pay outside researchers through bug bounties."
+        }
+      ]
+    },
+    {
+      "type": "reveal",
+      "mascot": "grin",
+      "aki": "No code needed for most of these.",
+      "title": "Growers",
+      "items": [
+        {
+          "front": "Community manager",
+          "back": "Runs the Discord or Telegram, answers questions, welcomes newcomers and keeps scammers out."
+        },
+        {
+          "front": "Developer relations (DevRel)",
+          "back": "Helps other builders use the product: docs, tutorials, workshops and hackathons."
+        },
+        {
+          "front": "Content and social",
+          "back": "Threads, videos, newsletters and memes that explain the product and keep people talking."
+        },
+        {
+          "front": "Growth and partnerships",
+          "back": "Finds partners, integrations and listings, and tracks what actually brings users in."
+        }
+      ]
+    },
+    {
+      "type": "reveal",
+      "mascot": "thinking",
+      "aki": "Every team also needs people who keep it running.",
+      "title": "Operators",
+      "items": [
+        {
+          "front": "Product manager",
+          "back": "Decides what to build next and why, by talking to users and turning their problems into plans."
+        },
+        {
+          "front": "Designer",
+          "back": "Makes wallets, swaps and sign-in screens simple. Good design in web3 prevents expensive mistakes."
+        },
+        {
+          "front": "Operations and finance",
+          "back": "Pays people (sometimes in stablecoins), manages the treasury and keeps the accounts."
+        },
+        {
+          "front": "Legal and compliance",
+          "back": "Follows the rules in each country: tokens, licences, tax and what the project can and cannot promise."
+        }
+      ]
+    },
+    {
+      "type": "story",
+      "mascot": "thinking",
+      "aki": "These roles are more web3 than anywhere else.",
+      "title": "Research, data and governance",
+      "points": [
+        "Researchers and analysts study projects, markets and onchain data, often building public dashboards.",
+        "Tokenomics designers plan who gets the tokens, when they unlock and why.",
+        "Governance or DAO coordinators help token holders discuss and vote on decisions, then make sure the results happen."
+      ]
+    },
+    {
+      "type": "pick",
+      "mascot": "worried",
+      "aki": "Who do you call?",
+      "title": "A team is about to launch smart contracts that will hold users' money. Who should check the code for bugs first?",
+      "options": [
+        {
+          "text": "A security auditor",
+          "correct": true,
+          "why": "Yes. An audit, plus a bug bounty, is the usual way to catch costly mistakes before launch."
+        },
+        {
+          "text": "The community manager",
+          "why": "Community managers talk to users. Reviewing contract code is a security job."
+        },
+        {
+          "text": "Nobody, the blockchain checks it",
+          "why": "The blockchain runs whatever code it is given, bugs included."
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "mascot": "grin",
+      "aki": "Here is how to find your fit.",
+      "title": "From where you are to a web3 role",
+      "steps": [
+        {
+          "label": "1. Start from your skills",
+          "text": "Writing, design, code, support, sales, numbers: almost every skill has a web3 version."
+        },
+        {
+          "label": "2. Pick a role family",
+          "text": "Builders, growers, operators or research. Choose the one that matches what you already enjoy."
+        },
+        {
+          "label": "3. Learn the web3 basics",
+          "text": "Wallets, gas fees, tokens and scams. Enough to talk to users and teammates with confidence."
+        },
+        {
+          "label": "4. Do public work",
+          "text": "Write a guide, answer questions in a community, fix a doc, join a hackathon or a bounty."
+        },
+        {
+          "label": "5. Apply with proof",
+          "text": "Send links to what you did. In web3, a public piece of work often matters more than a CV."
+        }
+      ]
+    },
+    {
+      "type": "story",
+      "mascot": "worried",
+      "aki": "Some 'jobs' are traps. Know the signs.",
+      "title": "Red flags in web3 job offers",
+      "points": [
+        "You are asked to pay to apply, for training, or to 'activate' your account.",
+        "A recruiter you never met asks you to download and run a file or a test project. Fake job offers have been used to steal crypto.",
+        "You would be paid only in the project's own brand-new token.",
+        "The 'job' is to promote a token's price or recruit other people."
+      ],
+      "tip": "Check the company's official site and socials, and never run unknown files on a computer that holds your crypto."
+    },
+    {
+      "type": "pick",
+      "mascot": "thinking",
+      "aki": "Last check before the quiz.",
+      "title": "You love explaining things and helping people in group chats. Which role fits best to start?",
+      "options": [
+        {
+          "text": "Community manager",
+          "correct": true,
+          "why": "Yes. Helping people in the community every day is exactly the job, and it is a common first role in web3."
+        },
+        {
+          "text": "Protocol engineer",
+          "why": "That role works deep in the chain's code. Your strength is people."
+        },
+        {
+          "text": "Legal and compliance",
+          "why": "That needs legal training. Your strength is helping people."
+        }
+      ]
+    },
+    {
+      "type": "story",
+      "mascot": "celebrating",
+      "aki": "There is a seat for you. Go find it.",
+      "title": "Quick recap",
+      "points": [
+        "Builders write the code: smart contracts, apps, the chain, and security.",
+        "Growers bring people in: community, DevRel, content and partnerships.",
+        "Operators keep it running: product, design, finance and legal.",
+        "Research and governance are extra web3 roles.",
+        "Show public work, and never pay to get a job."
+      ]
+    }
+  ]
+}

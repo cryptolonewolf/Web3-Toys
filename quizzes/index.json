@@ -11,6 +11,7 @@
     {"id": "dead-projects", "title": "Fish the Dead Projects", "letter": "H"},
     {"id": "invest-100", "title": "What If You Invested $100", "letter": "J"},
     {"id": "token-split", "title": "Rug or Real: Read the Token Split", "letter": "K"},
-    {"id": "token-simulator", "title": "Launch a Token Simulator", "letter": "M"}
+    {"id": "token-simulator", "title": "Launch a Token Simulator", "letter": "M"},
+    {"id": "web3-roles", "title": "Roles in Web3, Explained", "letter": "N"}
   ]
 }

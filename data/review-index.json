@@ -902,7 +902,7 @@
    "item": "(whole file)",
    "label": "data/releases.json",
    "note": "The release schedule for toys (js/releases.js, the soon/ teaser page, middleware.js). Times are India time (+05:30). date: when the toy unlocks; change it here any time, no code needed. playableNow: t",
-   "hash": "7bce3dd5b1d2"
+   "hash": "20e11a10bb85"
   },
   {
    "file": "data/reports.json",
@@ -987,6 +987,13 @@
    "label": "Simple Agreement for Future Tokens (SAFT)",
    "note": "SAFT (Simple Agreement for Future Tokens) template. Fields become the form; {{key}} in the text is replaced with what the visitor types. Blank fields show as [Field label]. A plain starting point only",
    "hash": "b3c64941acda"
+  },
+  {
+   "file": "data/toys/web3-roles.json",
+   "item": "(whole file)",
+   "label": "Roles in Web3, Explained",
+   "note": "Cards for this toy, in order. Card types: story, reveal (tap tiles to flip), pick (choose an answer), steps (tap through a timeline), trending. Optional on any card: aki (what the mascot says), mascot",
+   "hash": "72e414be7cfb"
   }
  ]
 }

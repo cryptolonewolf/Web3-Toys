@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" role="img" aria-label="Four team badges: dev, design, growth and ops">
+  <rect width="320" height="180" fill="#2EC4B6"/>
+  <g stroke="#1F1B2E" stroke-width="4" stroke-linejoin="round">
+    <g transform="translate(70 92) rotate(-12)"><rect x="-34" y="-46" width="68" height="92" rx="9" fill="#fff"/><rect x="-34" y="-46" width="68" height="22" rx="9" fill="#FFD93D"/><circle cy="2" r="14" fill="#FFD93D"/></g>
+    <g transform="translate(130 104) rotate(6)"><rect x="-34" y="-46" width="68" height="92" rx="9" fill="#fff"/><rect x="-34" y="-46" width="68" height="22" rx="9" fill="#FF6B6B"/><circle cy="2" r="14" fill="#FF6B6B"/></g>
+    <g transform="translate(192 88) rotate(-5)"><rect x="-34" y="-46" width="68" height="92" rx="9" fill="#fff"/><rect x="-34" y="-46" width="68" height="22" rx="9" fill="#A98BFF"/><circle cy="2" r="14" fill="#A98BFF"/></g>
+    <g transform="translate(252 102) rotate(10)"><rect x="-34" y="-46" width="68" height="92" rx="9" fill="#fff"/><rect x="-34" y="-46" width="68" height="22" rx="9" fill="#6BCB77"/><circle cy="2" r="14" fill="#6BCB77"/></g>
+  </g>
+</svg>

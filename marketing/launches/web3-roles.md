@@ -1,4 +1,4 @@
-# Roles in Web3, Explained
+# Roles in Web3, Explained (Every role in a web3 team)
 
 Launch: **Tuesday 17 November, 10:00 India time**  
 Hook: Every role in a web3 team, explained, so you know where you fit.  
