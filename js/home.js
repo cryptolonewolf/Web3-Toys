@@ -84,7 +84,38 @@
       '<a class="rank-link" href="progress/" aria-label="Your rank: ' + esc(rank.name) + '. Open My Progress">' +
       '<span class="rank-badge rank-badge--name">' + esc(rank.name) + '</span></a>' +
       '</div>' +
+      notice(home) +
       sections(home);
+    var x = app.querySelector('[data-notice-x]');
+    if (x) x.addEventListener('click', function () {
+      try { localStorage.setItem(NOTICE_KEY, x.getAttribute('data-notice-x')); } catch (e) { /* private mode */ }
+      x.parentNode.remove();
+    });
+  }
+
+  // "New on web3.toys": one line at the top about the newest toy or the
+  // next drop, from the release schedule. Its × hides that one message.
+  var NOTICE_KEY = 'web3toys.notice.v1';
+  function notice(home) {
+    if (!R) return '';
+    var cards = {};
+    home.shelves.forEach(function (s) { s.cards.forEach(function (c) { cards[c.id] = c; }); });
+    var now = R.now().getTime();
+    var list = R.list();
+    var launch = list.filter(function (t) { return t.playableNow; })[0];
+    var launchAt = launch ? Date.parse(launch.date) : 0;
+    var fresh = list.filter(function (t) { var i = R.info(t.id); return i && i.isNew && cards[t.id] && cards[t.id].path; })[0];
+    var next = list.filter(function (t) { var i = R.info(t.id); return i && i.status === 'locked' && i.at && i.at.getTime() > now && t.ready !== undefined; })
+      .sort(function (a, b) { return R.info(a.id).at - R.info(b.id).at; })[0];
+    var msg = null;
+    if (fresh) msg = { id: 'new:' + fresh.id, icon: '🆕', text: 'New on web3.toys: ' + cards[fresh.id].title + '. Early Bird spots are open.', href: cards[fresh.id].path, cta: 'Play now' };
+    else if (launchAt && now < launchAt) msg = { id: 'prelaunch', icon: '🐣', text: 'Early Bird opens ' + R.dayLabel(new Date(launchAt)) + ' at 10:00 India time: the first 1,000 on each toy get 2x coins.', href: 'progress/', cta: 'Log in early' };
+    else if (launchAt && now - launchAt < 7 * 864e5) msg = { id: 'launch', icon: '🎉', text: 'web3.toys just launched. Every toy has 1,000 Early Bird spots with 2x coins.', href: '#shelf-beginners', cta: 'Start here' };
+    else if (next && R.info(next.id).at.getTime() - now < 7 * 864e5) msg = { id: 'next:' + next.id, icon: '⏳', text: 'Next drop: ' + ((cards[next.id] || {}).title || next.id) + ', ' + R.dayLabel(R.info(next.id).at) + '.', href: 'soon/?toy=' + next.id + '#notify', cta: 'Notify me' };
+    if (!msg) return '';
+    try { if (localStorage.getItem(NOTICE_KEY) === msg.id) return ''; } catch (e) { /* private mode */ }
+    return '<p class="home-notice" role="status"><span aria-hidden="true">' + msg.icon + '</span><span>' + esc(msg.text) + ' <a href="' + esc(msg.href) + '">' + esc(msg.cta) + ' →</a></span>' +
+      '<button type="button" class="home-notice-x" aria-label="Hide this message" data-notice-x="' + esc(msg.id) + '">×</button></p>';
   }
 
   // Live toys show in their own section. Every coming soon toy goes into one

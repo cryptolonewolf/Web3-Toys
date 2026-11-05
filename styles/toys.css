@@ -7062,3 +7062,10 @@ body.has-sheet { overflow: hidden; }
 @media (prefers-reduced-motion: no-preference) {
   .pf-modal .pf-sheet { animation: earn-up .2s ease-out; }
 }
+
+/* "New on web3.toys" line on the home page (js/home.js) */
+.home-notice { display: flex; align-items: center; gap: 10px; margin: 0; padding: 10px 12px; font: 700 14px/1.35 var(--font-body); background: var(--yellow); border: var(--line-thin); border-radius: 16px; box-shadow: 3px 3px 0 var(--ink); }
+.home-notice a { color: var(--ink); font-weight: 800; white-space: nowrap; }
+.home-notice > span:first-child { font-size: 20px; }
+.home-notice > span:nth-child(2) { flex: 1; }
+.home-notice-x { width: 28px; height: 28px; flex: none; font: 800 16px var(--font-body); color: var(--ink); background: var(--white); border: 2px solid var(--ink); border-radius: 50%; cursor: pointer; }
