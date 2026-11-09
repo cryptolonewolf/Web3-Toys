@@ -475,3 +475,6 @@ footer. Prices, tiers and rules: `data/business/` (`toy_tiers.json`,
   Testers need Explorer rank, use testnets or empty wallets only, and are paid
   in stablecoins from the 25% tester pool by hand (admin, Tests & payouts).
   Approved testers get full reports free (`is_tester`, `js/offers.js`).
+- Sponsored rounds: `data/business/sponsored_rounds.json`, read by
+  `Web3Common.sponsoredRound` (`js/common.js`): a labelled lesson card in
+  `js/player.js` and one Spot the Scam round in `js/scam-app.js`.

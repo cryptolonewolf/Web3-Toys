@@ -103,9 +103,24 @@
 
   // ---------- Game ----------
 
+  // A sponsored round (data/business/sponsored_rounds.json, kind "scam"),
+  // when one is approved: it takes the place of one round of the same answer.
+  var sponsored = null;
+  window.Web3Common.sponsoredRound('scam', 'scam').then(function (r) {
+    var s = r && r.scenario;
+    if (s && SETTINGS.typeLabels[s.type] && (s.answer === 'scam' || s.answer === 'legit') && s.explain) {
+      sponsored = Object.assign({}, s, { id: 'sponsored-' + r.id, flags: (s.flags || []).filter(function (f) { return ruleById[f]; }), sponsor: { name: r.sponsor, link: r.link } });
+    }
+  }).catch(function () {});
+
   function newGame() {
+    var rounds = ScamGame.pickRounds(SCENARIOS, SETTINGS);
+    if (sponsored) {
+      var at = rounds.map(function (s) { return s.answer; }).lastIndexOf(sponsored.answer);
+      if (at >= 0) rounds[at] = sponsored;
+    }
     game = {
-      rounds: ScamGame.pickRounds(SCENARIOS, SETTINGS),
+      rounds: rounds,
       i: 0,
       results: [],
     };
@@ -161,7 +176,8 @@
     var tags = [];
     render(
       '<div class="stack stack--tight">' +
-      '<div class="chips"><span class="chip is-blue">' + esc(SETTINGS.typeLabels[s.type]) + '</span></div>' +
+      '<div class="chips"><span class="chip is-blue">' + esc(SETTINGS.typeLabels[s.type]) + '</span>' +
+      (s.sponsor ? '<span class="chip is-white chip--sponsored">Sponsored round by ' + esc(s.sponsor.name) + '</span>' : '') + '</div>' +
       '<h1 class="title-lg">Scam or legit?</h1></div>' +
       artifactHtml(s) +
       '<section class="stack stack--tight" aria-labelledby="tag-title">' +
@@ -226,6 +242,7 @@
       '<section class="card stack stack--tight"><h2 class="title-sm">Red flags</h2>' + flagsHtml + '</section>' +
       '<section class="card card--yellow stack stack--tight"><h2 class="title-sm">Why</h2>' +
       '<p class="text text--ink">' + esc(s.explain) + '</p></section>' +
+      (s.sponsor ? '<p class="small-print center">Sponsored round by ' + esc(s.sponsor.name) + ' · <a href="' + esc(s.sponsor.link) + '" target="_blank" rel="sponsored noopener">learn more ↗</a>. web3.toys checked it but does not endorse the sponsor or any token.</p>' : '') +
       '<button type="button" class="btn btn--ink btn--block" data-next>' + (last ? 'See my rank' : 'Next round') + '</button>',
       { text: 'Round ' + (game.i + 1) + ' of ' + game.rounds.length, color: 'yellow', progress: game.i + 1 }
     );

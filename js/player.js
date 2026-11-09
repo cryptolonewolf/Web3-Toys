@@ -34,6 +34,15 @@
       if (location.hash === '#certificate' && window.ToyQuiz && ToyQuiz.showSaved(toy)) return;
       if (location.hash === '#quiz') return startQuiz();
       show(0);
+      // A sponsored lesson card, when one is approved for this toy: added in
+      // the middle of the cards, labelled, and never part of the quiz.
+      C.sponsoredRound(toyId, 'lesson').then(function (r) {
+        if (!r || toy.cards.some(function (c) { return c.type === 'sponsored'; })) return;
+        var at = Math.max(index + 1, Math.floor(toy.cards.length / 2));
+        if (at >= toy.cards.length) return;
+        toy.cards.splice(at, 0, { type: 'sponsored', title: r.title, text: r.text, points: r.points, sponsor: r.sponsor, href: r.link, roundId: r.id });
+        if (shown >= 0) { pill.textContent = 'Card ' + (index + 1) + ' of ' + toy.cards.length; }
+      }).catch(function () {});
     })
     .catch(function (err) { app.innerHTML = C.loadError(err); });
 
@@ -49,7 +58,9 @@
   function extras(card) {
     return (card.points ? '<ul class="lesson-points">' + card.points.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ul>' : '') +
       (card.tip ? '<p class="tip">' + site.icon('bulb') + '<strong>Aki\'s tip:</strong> ' + esc(card.tip) + '</p>' : '') +
-      (card.link ? '<a class="btn btn--block" href="' + esc(card.link.href) + '">' + esc(card.link.label) + '</a>' : '');
+      (card.link ? '<a class="btn btn--block" href="' + esc(card.link.href) + '">' + esc(card.link.label) + '</a>' : '') +
+      (card.type === 'sponsored' ? '<a class="btn btn--small" href="' + esc(card.href) + '" target="_blank" rel="sponsored noopener" data-sponsored-link>Learn more from ' + esc(card.sponsor) + ' ↗</a>' +
+        '<p class="small-print">Sponsored. web3.toys checked this lesson but does not endorse the sponsor or any token. Not part of the quiz.</p>' : '');
   }
 
   function body(card, i) {
@@ -101,7 +112,9 @@
     app.innerHTML =
       guide(card) +
       '<section class="card lesson-card stack stack--tight">' +
-      '<span class="card-kind">' + site.icon((KINDS[card.type] || KINDS.story).icon) + (KINDS[card.type] || KINDS.story).label + '</span>' +
+      (card.type === 'sponsored'
+        ? '<span class="card-kind card-kind--sponsored">Sponsored round by ' + esc(card.sponsor) + '</span>'
+        : '<span class="card-kind">' + site.icon((KINDS[card.type] || KINDS.story).icon) + (KINDS[card.type] || KINDS.story).label + '</span>') +
       site.icon(DOODLES[i % DOODLES.length], 'doodle') +
       // Questions stay in the plain font so they are easy to read.
       '<h1 class="title-lg' + (card.type === 'pick' ? '' : ' toy-font') + '">' + esc(card.title) + '</h1>' + body(card, i) + extras(card) + '</section>' +

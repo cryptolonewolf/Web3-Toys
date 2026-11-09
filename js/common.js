@@ -59,5 +59,22 @@
     }
   }
 
-  window.Web3Common = { esc: esc, loadJson: loadJson, loadError: loadError, rankBadge: rankBadge, track: track };
+  // Sponsored rounds (data/business/sponsored_rounds.json): the approved,
+  // current round for this toy and kind ('lesson' or 'scam'), or null. Only
+  // while For Projects is switched on (config.js business.live, or preview).
+  var roundsFile = null;
+  function sponsoredRound(toyId, kind) {
+    var site = window.WEB3TOYS;
+    if (!site || !site.businessOn || !site.businessOn()) return Promise.resolve(null);
+    if (!roundsFile) roundsFile = loadJson((site.root || '../') + 'data/business/sponsored_rounds.json').catch(function () { return { rounds: [] }; });
+    var today = new Date().toISOString().slice(0, 10);
+    return roundsFile.then(function (f) {
+      return (f.rounds || []).filter(function (r) {
+        return r.approved === true && r.toy === toyId && r.kind === kind && r.sponsor && /^https:\/\//.test(r.link || '') &&
+          (!r.from || r.from <= today) && (!r.until || r.until >= today);
+      })[0] || null;
+    });
+  }
+
+  window.Web3Common = { esc: esc, loadJson: loadJson, loadError: loadError, rankBadge: rankBadge, track: track, sponsoredRound: sponsoredRound };
 })();

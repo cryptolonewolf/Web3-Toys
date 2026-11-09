@@ -59,3 +59,35 @@ describe('Test Your Product', () => {
     assert.ok(testers.includes('../terms/#testers') && testers.includes('../privacy/#testers'));
   });
 });
+
+describe('Sponsored rounds', () => {
+  const file = json('data/business/sponsored_rounds.json');
+  const roundToys = json('data/business/ad_slots.json').roundToys;
+  const flags = read('data/scam-game.js');
+
+  it('every round is in a round toy, labelled with a sponsor and an https link', () => {
+    file.rounds.forEach((r) => {
+      assert.ok(roundToys.includes(r.toy), r.id);
+      assert.ok(['lesson', 'scam'].includes(r.kind), r.id);
+      assert.ok(r.sponsor && /^https:\/\//.test(r.link), r.id);
+      assert.equal(typeof r.approved, 'boolean', r.id);
+      if (r.until) assert.match(r.until, /^\d{4}-\d{2}-\d{2}$/);
+    });
+  });
+
+  it('lesson rounds have points, scam rounds a full scenario with known red flags', () => {
+    file.rounds.filter((r) => r.kind === 'lesson').forEach((r) => assert.ok(r.title && (r.points || r.text), r.id));
+    file.rounds.filter((r) => r.kind === 'scam').forEach((r) => {
+      const s = r.scenario;
+      assert.equal(r.toy, 'scam');
+      assert.ok(s && s.body && s.explain && ['scam', 'legit'].includes(s.answer), r.id);
+      (s.flags || []).forEach((f) => assert.ok(flags.includes(`id: '${f}'`), f));
+    });
+  });
+
+  it('shows "Sponsored round by" wherever a round appears, and never promotes tokens', () => {
+    assert.ok(read('js/player.js').includes('Sponsored round by '));
+    assert.equal((read('js/scam-app.js').match(/Sponsored round by /g) || []).length, 2);
+    assert.ok(!/\b(buy|airdrop|presale|100x|moon)\b/i.test(JSON.stringify(file.rounds.map((r) => [r.title, r.points, r.text]))));
+  });
+});

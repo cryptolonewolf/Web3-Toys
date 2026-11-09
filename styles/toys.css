@@ -7233,3 +7233,7 @@ body.has-sheet { overflow: hidden; }
 @media (min-width: 760px) {
   .trep-kpis { grid-template-columns: repeat(4, 1fr); }
 }
+
+/* ---------- Sponsored rounds (js/player.js, js/scam-app.js) ---------- */
+.card-kind--sponsored { background: var(--white); border-style: dashed; font-weight: 800; }
+.chip--sponsored { border-style: dashed; }

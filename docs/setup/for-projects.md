@@ -65,6 +65,23 @@ approve it in admin, create and open a test, then (on an account with 2
 certificates) join on `/testers/`, run the test and send it, approve it, mark
 it paid with any https link and export the PDF.
 
+## Part 5: Sponsored rounds (no setup)
+
+A sponsor books "with a sponsored round" on `/advertise/`. After you approve
+the booking, add their round to `data/business/sponsored_rounds.json` and set
+`approved` to `true` (and `until` to the last day of their month):
+- `kind: "lesson"`: a card in the middle of a learning toy (title and up to
+  4 points), labelled "Sponsored round by [name]", with a "Learn more" link.
+  It is never part of the quiz.
+- `kind: "scam"`: one Spot the Scam message (same fields as the examples),
+  labelled the same way; it replaces one round with the same answer.
+Rounds only show while For Projects is switched on. Keep them educational:
+no token promotions, price claims or calls to buy.
+
+Test it: set `approved` to `true` on the two examples, open
+`/getting-started/?preview-business=1` (card 6) and play Spot the Scam.
+Set them back to `false` afterwards.
+
 ## Prices
 
 All in US dollars, in `data/business/`. The deposit is `price x deposit`

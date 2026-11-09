@@ -1,5 +1,5 @@
 {
-  "_help": "Sponsored rounds: one round a sponsor provides inside a toy, marked \"Sponsored round by [name]\". Shown only when approved is true. toy: the toy id. kind: 'lesson' (a card in a learning toy) or 'scam' (one Spot the Scam message). Keep it educational: no token promotions, price claims or calls to buy.",
+  "_help": "Sponsored rounds: one round a sponsor provides inside a toy, always labelled \"Sponsored round by [name]\". Shown only when approved is true, For Projects is switched on, and today is between from (optional) and until. toy: a toy id from roundToys in ad_slots.json. kind 'lesson': a card in the middle of a learning toy (title, optional text, points); never part of the quiz. kind 'scam': one Spot the Scam round (scenario: same fields as data/scam-scenarios.js; it replaces one round with the same answer). Keep it educational: no token promotions, price claims or calls to buy. Book it on /advertise/ (with a sponsored round), then add it here and set approved to true.",
   "review": true,
   "rounds": [
     {
@@ -10,8 +10,36 @@
       "sponsor": "Example Wallet",
       "link": "https://example.com",
       "title": "Back up your wallet the right way",
-      "points": ["Write your recovery phrase on paper, never in a photo or a chat.", "Keep it somewhere only you can reach.", "No real support team will ever ask for it."],
+      "points": [
+        "Write your recovery phrase on paper, never in a photo or a chat.",
+        "Keep it somewhere only you can reach.",
+        "No real support team will ever ask for it."
+      ],
       "until": "2026-12-31"
+    },
+    {
+      "id": "example-fake-support",
+      "approved": false,
+      "toy": "scam",
+      "kind": "scam",
+      "sponsor": "Example Wallet",
+      "link": "https://example.com",
+      "until": "2026-12-31",
+      "scenario": {
+        "type": "dm",
+        "from": {
+          "name": "Example Wallet Help",
+          "handle": "@examplewallet_helpdesk"
+        },
+        "body": "Hello! Your Example Wallet will be locked in 24 hours. Reply with your recovery phrase so we can verify you and keep it open.",
+        "answer": "scam",
+        "flags": [
+          "fake-support",
+          "secrets",
+          "urgency"
+        ],
+        "explain": "Example Wallet never messages you first and will never ask for your recovery phrase. Anyone who has it can empty your wallet. Use the in-app help only."
+      }
     }
   ]
 }

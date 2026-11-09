@@ -26,8 +26,8 @@
    "file": "data/business/sponsored_rounds.json",
    "item": "(whole file)",
    "label": "data/business/sponsored_rounds.json",
-   "note": "Sponsored rounds: one round a sponsor provides inside a toy, marked \"Sponsored round by [name]\". Shown only when approved is true. toy: the toy id. kind: 'lesson' (a card in a learning toy) or 'scam' ",
-   "hash": "79ebca550387"
+   "note": "Sponsored rounds: one round a sponsor provides inside a toy, always labelled \"Sponsored round by [name]\". Shown only when approved is true, For Projects is switched on, and today is between from (opti",
+   "hash": "06d8c26366b1"
   },
   {
    "file": "data/business/test_page.json",
