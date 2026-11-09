@@ -7069,3 +7069,27 @@ body.has-sheet { overflow: hidden; }
 .home-notice > span:first-child { font-size: 20px; }
 .home-notice > span:nth-child(2) { flex: 1; }
 .home-notice-x { width: 28px; height: 28px; flex: none; font: 800 16px var(--font-body); color: var(--ink); background: var(--white); border: 2px solid var(--ink); border-radius: 50%; cursor: pointer; }
+
+/* ---------- For Projects menu and Launch CTA (js/site.js) ---------- */
+.btn--cta { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; font: 800 15px var(--font-body); color: var(--ink); text-decoration: none; white-space: nowrap; background: linear-gradient(135deg, #ffd93d, #ff9f45); border: var(--line-thin); border-radius: 999px; box-shadow: 3px 3px 0 var(--ink); }
+.btn--cta:active { translate: 2px 2px; box-shadow: 1px 1px 0 var(--ink); }
+.btn--cta .cta-long { display: none; }
+.topnav-group { position: relative; }
+.topnav-group > summary { list-style: none; cursor: pointer; }
+.topnav-group > summary::-webkit-details-marker { display: none; }
+.topnav-group > summary::after { content: '▾'; margin-left: 6px; font-size: 13px; }
+.topnav-group[data-here] > summary { background: var(--yellow); border-color: var(--ink); }
+.topnav-drop { display: grid; gap: 2px; padding: 4px 0 4px 14px; }
+.topnav-drop .topnav-link { font-size: 16px; min-height: 40px; }
+.footer-group { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 16px; width: 100%; font-size: 14px; color: var(--ink-soft); }
+@media (min-width: 430px) {
+  .btn--cta .cta-long { display: inline; }
+  .btn--cta .cta-short { display: none; }
+}
+@media (max-width: 370px) {
+  .btn--cta { padding: 6px 10px; font-size: 13px; }
+}
+@media (min-width: 880px) {
+  .btn--cta { margin-left: 6px; }
+  .topnav-drop { position: absolute; top: calc(100% + 6px); left: 0; z-index: 30; min-width: 230px; padding: 8px; background: var(--white); border: var(--line-thin); border-radius: 16px; box-shadow: 4px 4px 0 var(--ink); }
+}

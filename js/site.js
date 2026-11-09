@@ -16,6 +16,15 @@
     { label: 'My Progress', href: 'progress/' },
   ];
   var CALL = { label: 'Book a Call', href: 'book-a-call/' };
+  // For Projects (switched on by business.live in config.js, planned for
+  // December; preview it now with ?preview-business=1, hide with =0).
+  var PROJECTS = [
+    { label: 'Launch Your Own Toy', href: 'launch-your-toy/' },
+    { label: 'Test Your Product', href: 'test-your-product/' },
+    { label: 'Advertise', href: 'advertise/' },
+    { label: 'List your course', href: 'academy/list-your-project/' },
+    { label: 'Book a Call', href: 'book-a-call/' },
+  ];
   // Books and About live in the footer and in the About Aki box on the side.
   var FOOTER_EXTRA = [
     { label: 'Books', href: 'books/' },
@@ -113,16 +122,37 @@
     }).join('');
   }
 
+  function businessOn() {
+    var m = /[?&]preview-business=([01])/.exec(location.search);
+    try {
+      if (m) localStorage.setItem('web3toys.bizPreview.v1', m[1]);
+      if (localStorage.getItem('web3toys.bizPreview.v1') === '1') return true;
+    } catch (e) { /* private mode */ }
+    return Boolean((config().business || {}).live);
+  }
+
+  function projectsMenu() {
+    var on = PROJECTS.some(function (m) { return here(m.href); });
+    return '<details class="topnav-group"' + (on ? ' data-here' : '') + '><summary class="topnav-link">For Projects</summary><div class="topnav-drop">' +
+      PROJECTS.map(function (m) {
+        return '<a class="topnav-link" href="' + ROOT + m.href + '"' + (here(m.href) ? ' aria-current="page"' : '') + '>' + m.label + '</a>';
+      }).join('') + '</div></details>';
+  }
+
   function buildTopbar() {
     var bar = document.getElementById('topbar');
     if (!bar) return;
+    var biz = businessOn();
+    var cta = biz
+      ? '<a class="btn btn--cta" href="' + ROOT + 'launch-your-toy/"' + (here('launch-your-toy/') ? ' aria-current="page"' : '') + '><span aria-hidden="true">🚀</span><span class="cta-long">Launch Your Own Toy</span><span class="cta-short">Launch a Toy</span></a>'
+      : '<a class="btn btn--yellow btn--call" href="' + ROOT + CALL.href + '"' + (here(CALL.href) ? ' aria-current="page"' : '') + '>' + icon('call') + '<span>' + CALL.label + '</span></a>';
     bar.innerHTML =
       '<div class="topbar-inner">' +
       '<a class="logo" href="' + ROOT + '">' + logoImg() + '</a>' +
-      '<nav class="topnav" id="topnav" aria-label="Main">' + menuLinks('topnav-link') +
+      '<nav class="topnav" id="topnav" aria-label="Main">' + menuLinks('topnav-link') + (biz ? projectsMenu() : '') +
       '<a class="topnav-link menu-coins" href="' + ROOT + 'progress/#coins" hidden>' + icon('coin') + '&nbsp;<span data-coin-count>0</span>&nbsp;coins</a></nav>' +
       '<a class="coin-count" href="' + ROOT + 'progress/#coins" hidden title="Your coins">' + icon('coin') + '<span data-coin-count>0</span><span class="sr-only"> coins</span></a>' +
-      '<a class="btn btn--yellow btn--call" href="' + ROOT + CALL.href + '"' + (here(CALL.href) ? ' aria-current="page"' : '') + '>' + icon('call') + '<span>' + CALL.label + '</span></a>' +
+      cta +
       '<button type="button" class="menu-btn" aria-expanded="false" aria-controls="topnav"><span class="sr-only">Menu</span><span class="menu-lines" aria-hidden="true"></span></button>' +
       '</div>';
     var btn = bar.querySelector('.menu-btn');
@@ -130,7 +160,10 @@
       var open = bar.classList.toggle('is-open');
       btn.setAttribute('aria-expanded', String(open));
     });
+    var group = bar.querySelector('.topnav-group');
+    if (group) document.addEventListener('click', function (e) { if (group.open && !group.contains(e.target)) group.open = false; });
     document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && group && group.open) group.open = false;
       if (e.key === 'Escape' && bar.classList.contains('is-open')) {
         bar.classList.remove('is-open');
         btn.setAttribute('aria-expanded', 'false');
@@ -150,9 +183,12 @@
     mark.href = ROOT;
     mark.innerHTML = '<img src="' + iconSrc() + '" alt="web3.toys" width="44" height="44" loading="lazy" />';
     foot.insertBefore(mark, foot.firstChild);
+    var biz = businessOn();
+    var extra = biz ? FOOTER_EXTRA.filter(function (m) { return m.href !== 'work-with-us/' && m.href !== 'academy/list-your-project/'; }) : FOOTER_EXTRA;
     nav.innerHTML = menuLinks('footer-link') +
-      '<a class="footer-link" href="' + ROOT + CALL.href + '">' + CALL.label + '</a>' +
-      FOOTER_EXTRA.map(function (m) { return '<a class="footer-link" href="' + ROOT + m.href + '">' + m.label + '</a>'; }).join('');
+      (biz ? '' : '<a class="footer-link" href="' + ROOT + CALL.href + '">' + CALL.label + '</a>') +
+      extra.map(function (m) { return '<a class="footer-link" href="' + ROOT + m.href + '">' + m.label + '</a>'; }).join('') +
+      (biz ? '<span class="footer-group"><b>For projects:</b> ' + PROJECTS.map(function (m) { return '<a class="footer-link" href="' + ROOT + m.href + '">' + m.label + '</a>'; }).join('') + '</span>' : '');
     foot.insertBefore(nav, mark.nextSibling);
   }
 
@@ -451,6 +487,7 @@
     sound: { play: play, on: soundOn, button: soundButton },
     log: logEvent,
     deliver: deliver,
+    businessOn: businessOn,
     coins: { award: award, wallet: wallet, amount: coinAmount, refresh: showCoins, pageKey: pageKey },
   };
 

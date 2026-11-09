@@ -1,0 +1,32 @@
+{
+  "_help": "Sponsor a Toy prices (US dollars only) and rules. toyMonth: price for one toy for one calendar month, by toy id; newToy is the price for a toy in its first month. Allowed categories and rules are shown on /advertise/ and checked when you approve a booking.",
+  "review": true,
+  "currency": "USD",
+  "toyMonth": {
+    "scam": 500,
+    "crypto-in-5": 500,
+    "getting-started": 350,
+    "dont-lose-money": 350,
+    "web3-hacks": 350,
+    "earn-small": 350,
+    "dead-projects": 350,
+    "invest-100": 350,
+    "token-split": 350,
+    "token-simulator": 350,
+    "hall-of-fame": 350
+  },
+  "newToy": 200,
+  "sponsoredRound": 300,
+  "siteWide": 1500,
+  "newsletter": 150,
+  "lineMax": 80,
+  "logoMaxKb": 300,
+  "monthsAhead": 6,
+  "allowedCategories": ["Security", "Wallets", "Developer tools", "Infrastructure", "Education", "Registered exchanges"],
+  "rules": [
+    "No token promotions, price claims or \"buy now\" calls.",
+    "Every sponsored item is labelled \"Sponsored\".",
+    "Sponsor cards never sit inside gameplay, never block play and never appear on certificates.",
+    "Every booking is reviewed before it goes live. If we reject it, you get a full refund."
+  ]
+}

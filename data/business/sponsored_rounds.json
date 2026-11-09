@@ -1,0 +1,17 @@
+{
+  "_help": "Sponsored rounds: one round a sponsor provides inside a toy, marked \"Sponsored round by [name]\". Shown only when approved is true. toy: the toy id. kind: 'lesson' (a card in a learning toy) or 'scam' (one Spot the Scam message). Keep it educational: no token promotions, price claims or calls to buy.",
+  "review": true,
+  "rounds": [
+    {
+      "id": "example-wallet-safety",
+      "approved": false,
+      "toy": "getting-started",
+      "kind": "lesson",
+      "sponsor": "Example Wallet",
+      "link": "https://example.com",
+      "title": "Back up your wallet the right way",
+      "points": ["Write your recovery phrase on paper, never in a photo or a chat.", "Keep it somewhere only you can reach.", "No real support team will ever ask for it."],
+      "until": "2026-12-31"
+    }
+  ]
+}

@@ -2,6 +2,34 @@
  "_help": "Made by tools/review-index.mjs from every \"review\": true in data/. Do not edit by hand.",
  "items": [
   {
+   "file": "data/business/ad_slots.json",
+   "item": "(whole file)",
+   "label": "data/business/ad_slots.json",
+   "note": "Sponsor a Toy prices (US dollars only) and rules. toyMonth: price for one toy for one calendar month, by toy id; newToy is the price for a toy in its first month. Allowed categories and rules are show",
+   "hash": "23bfad0e5a82"
+  },
+  {
+   "file": "data/business/sponsored_rounds.json",
+   "item": "(whole file)",
+   "label": "data/business/sponsored_rounds.json",
+   "note": "Sponsored rounds: one round a sponsor provides inside a toy, marked \"Sponsored round by [name]\". Shown only when approved is true. toy: the toy id. kind: 'lesson' (a card in a learning toy) or 'scam' ",
+   "hash": "79ebca550387"
+  },
+  {
+   "file": "data/business/test_tiers.json",
+   "item": "(whole file)",
+   "label": "data/business/test_tiers.json",
+   "note": "Test Your Product prices and tiers (US dollars only). deposit: share paid upfront to reserve a slot. testerShare: share of the price paid out to testers in stablecoins, split between the testers whose",
+   "hash": "a375d1ceebf4"
+  },
+  {
+   "file": "data/business/toy_tiers.json",
+   "item": "(whole file)",
+   "label": "data/business/toy_tiers.json",
+   "note": "Launch Your Own Toy prices and tiers (US dollars only). Shown on /launch-your-toy/ and charged by the payment server: the deposit is price x deposit. Edit freely; keep each id the same once people hav",
+   "hash": "2fd6ff649bc3"
+  },
+  {
    "file": "data/dead_projects.json",
    "item": "luna",
    "label": "Terra (LUNA)",

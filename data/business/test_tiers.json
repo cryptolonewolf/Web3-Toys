@@ -1,0 +1,37 @@
+{
+  "_help": "Test Your Product prices and tiers (US dollars only). deposit: share paid upfront to reserve a slot. testerShare: share of the price paid out to testers in stablecoins, split between the testers whose work is approved. testerCoins: site coins (no cash value) for each approved test. minRank: the rank a player needs to become a tester (from data/ranks.json).",
+  "review": true,
+  "currency": "USD",
+  "deposit": 0.5,
+  "depositLine": "Fully refunded if we decline your project after vetting.",
+  "testerShare": 0.25,
+  "testerCoins": 300,
+  "minRank": "Explorer",
+  "tiers": [
+    {
+      "id": "quick",
+      "name": "Quick Test",
+      "price": 499,
+      "testers": 10,
+      "time": "5 days",
+      "features": ["10 testers", "Results in 5 days", "Completion rate and time per task", "Where people got stuck"]
+    },
+    {
+      "id": "standard",
+      "name": "Standard",
+      "price": 1499,
+      "testers": 30,
+      "time": "About 1 week",
+      "popular": true,
+      "features": ["30 testers", "A mix of beginners and experienced users", "Screenshots and tester quotes", "A retest of your first fix"]
+    },
+    {
+      "id": "launch-ready",
+      "name": "Launch Ready",
+      "price": 2999,
+      "testers": 75,
+      "time": "About 2 weeks",
+      "features": ["75 testers", "A full retest after your fixes", "A 30 minute review call", "Everything in Standard"]
+    }
+  ]
+}

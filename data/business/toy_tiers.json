@@ -1,0 +1,35 @@
+{
+  "_help": "Launch Your Own Toy prices and tiers (US dollars only). Shown on /launch-your-toy/ and charged by the payment server: the deposit is price x deposit. Edit freely; keep each id the same once people have paid for it. price null means quoted on request (no online payment).",
+  "review": true,
+  "currency": "USD",
+  "deposit": 0.5,
+  "depositLine": "Fully refunded if we decline your project after vetting.",
+  "tiers": [
+    {
+      "id": "mini",
+      "name": "Mini Toy",
+      "price": 999,
+      "time": "About 1 week",
+      "features": ["One game mechanic", "Your branding", "A share card", "Listed for 30 days", "One launch post on @web3toys"]
+    },
+    {
+      "id": "full",
+      "name": "Full Game",
+      "price": 2499,
+      "time": "About 2 weeks",
+      "popular": true,
+      "features": ["Levels", "A quiz and a Pro badge", "A leaderboard", "A launch week campaign", "An analytics dashboard", "Featured for 90 days", "Embed code for your own site"]
+    },
+    {
+      "id": "tournament",
+      "name": "Launch Tournament",
+      "price": 4999,
+      "time": "About 3 weeks",
+      "features": ["Everything in Full Game", "A 2 week tournament timed to your launch", "A live leaderboard", "A creator push", "A recap report"]
+    }
+  ],
+  "addons": [
+    { "id": "featured-month", "name": "Extra featured month", "price": 199 },
+    { "id": "white-label", "name": "White label", "price": null, "note": "Quoted on request" }
+  ]
+}

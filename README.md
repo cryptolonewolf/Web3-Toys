@@ -440,3 +440,13 @@ and opening `/TOY/?preview=YOUR_KEY` once.
 - The five games that ended with a score now end with a short quiz and a
   certificate (`js/game-quiz.js`, `quizzes/scam.json`, `dead-projects`,
   `invest-100`, `token-split`, `token-simulator`; letters G, H, J, K, M).
+
+## For Projects (planned for December)
+
+Switched on by `business.live` in `config.js`; until then the site looks as
+before. Preview on your own device with `?preview-business=1` on any page
+(`=0` to stop). When on: a "Launch Your Own Toy" button replaces Book a Call
+in the header, and a For Projects menu (Launch Your Own Toy, Test Your
+Product, Advertise, List your course, Book a Call) appears in the menu and
+footer. Prices, tiers and rules: `data/business/` (`toy_tiers.json`,
+`test_tiers.json`, `ad_slots.json`, `sponsored_rounds.json`), US dollars only.
