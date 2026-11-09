@@ -36,11 +36,33 @@ async function loginUser(req: Request): Promise<Record<string, any> | Response> 
   return json(401, { error: 'Your login has expired. Log out, log in again, then retry.' });
 }
 
+// For Projects deposits, worked out from data/business/ (US dollars only):
+// deposit-toy-TIER and deposit-test-TIER cost price x deposit. The same rule
+// is in js/pay.js (the checks compare them).
+export function businessProducts(toy: any, test: any) {
+  const out: Array<Record<string, unknown>> = [];
+  const add = (kind: string, file: any, label: string) => {
+    if (!file || !Array.isArray(file.tiers)) return;
+    const share = Number(file.deposit) || 0.5;
+    file.tiers.forEach((t: any) => {
+      if (!(Number(t.price) > 0)) return;
+      out.push({ id: `deposit-${kind}-${t.id}`, type: 'project', perItem: true, usd: Math.round(Number(t.price) * share * 100) / 100,
+        title: `${label}: ${t.name} deposit (${Math.round(share * 100)}%)` });
+    });
+  };
+  add('toy', toy, 'Launch Your Own Toy');
+  add('test', test, 'Test Your Product');
+  return out;
+}
+
 async function loadProducts() {
   const site = (env('SITE_URL') || 'https://web3.toys').replace(/\/$/, '');
   const r = await fetch(`${site}/data/products.json`);
   if (!r.ok) throw new Error('products');
-  return (await r.json()).products as Array<Record<string, unknown>>;
+  const base = (await r.json()).products as Array<Record<string, unknown>>;
+  const get = (f: string) => fetch(`${site}/data/business/${f}`).then((x) => (x.ok ? x.json() : null)).catch(() => null);
+  const [toy, test] = await Promise.all([get('toy_tiers.json'), get('test_tiers.json')]);
+  return base.concat(businessProducts(toy, test));
 }
 
 export async function handle(req: Request): Promise<Response> {
@@ -53,7 +75,6 @@ export async function handle(req: Request): Promise<Response> {
 
   let body: Record<string, unknown>;
   try { body = await req.json(); } catch { return json(400, { error: 'Could not read the request.' }); }
-  const currency = body.currency === 'INR' ? 'INR' : 'USD';
   const item = body.item == null || body.item === '' ? null : String(body.item);
   if (item && !/^[a-z0-9:._-]{1,60}$/i.test(item)) return json(400, { error: 'Unknown item.' });
 
@@ -62,6 +83,8 @@ export async function handle(req: Request): Promise<Response> {
   const product = products.find((p) => p.id === body.product);
   if (!product) return json(404, { error: 'Unknown product.' });
   if (product.perItem && !item) return json(400, { error: 'Which one is this for?' });
+  // Rupees only when the product has a rupee price; otherwise US dollars.
+  const currency = body.currency === 'INR' && product.inr ? 'INR' : 'USD';
 
   const price = Number(currency === 'INR' ? product.inr : product.usd);
   const amount = Math.round(price * 100);

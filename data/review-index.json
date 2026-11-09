@@ -9,6 +9,13 @@
    "hash": "23bfad0e5a82"
   },
   {
+   "file": "data/business/launch_page.json",
+   "item": "(whole file)",
+   "label": "Don't pay someone to post about your product. Let people play it.",
+   "note": "Words for /launch-your-toy/ (js/biz-launch.js). Prices and tiers are in toy_tiers.json. examples: made-up concepts shown as small playable demos, always labelled as examples. form: the request form qu",
+   "hash": "89d6d701dc33"
+  },
+  {
    "file": "data/business/sponsored_rounds.json",
    "item": "(whole file)",
    "label": "data/business/sponsored_rounds.json",

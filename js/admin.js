@@ -7,7 +7,7 @@
   var C = window.Web3Common;
   var esc = C.esc;
   var app = document.getElementById('app');
-  var TABS = [['users', 'Users'], ['leads', 'Leads'], ['purchases', 'Purchases'], ['bookings', 'Bookings'], ['requests', 'Project requests'], ['review', 'Review queue'], ['growth', 'Referrals & posts'], ['releases', 'Releases'], ['stats', 'Toy stats']];
+  var TABS = [['users', 'Users'], ['leads', 'Leads'], ['purchases', 'Purchases'], ['bookings', 'Bookings'], ['toyreq', 'Toy requests'], ['requests', 'Project requests'], ['review', 'Review queue'], ['growth', 'Referrals & posts'], ['releases', 'Releases'], ['stats', 'Toy stats']];
   var tab = (location.hash.replace('#', '') || 'users');
   var days = 30;
   var settings = null;
@@ -78,7 +78,7 @@
       render();
     });
     var panel = app.querySelector('[data-panel]');
-    ({ users: users, leads: leads, purchases: purchases, bookings: bookings, requests: requests, review: review, growth: growth, releases: releases, stats: stats })[tab](panel)
+    ({ users: users, leads: leads, purchases: purchases, bookings: bookings, requests: requests, review: review, growth: growth, releases: releases, stats: stats, toyreq: function (p) { return bizRequests(p, 'toy'); } })[tab](panel)
       .catch(function (err) { panel.innerHTML = '<p class="tk-warn is-bad">Could not load: ' + esc(err.message) + '</p>'; });
   }
 
@@ -325,6 +325,90 @@
           b.disabled = true;
           db().rpc('admin_set_release', { p_toy: toy, p_action: act === 'clear' ? null : act, p_until: until }).then(must)
             .then(function () { render(); }, function (err) { b.disabled = false; window.alert('Could not save: ' + err.message); });
+        });
+      });
+    });
+  }
+
+  // ---------- For Projects requests (biz_requests, 014_business.sql) ----------
+  // Toy requests now; Test requests use the same list. Deposit status from
+  // orders; the vetting checklist from data/admin.json; Refund in full calls
+  // the admin-refund function.
+
+  var BIZ_STATUS = { submitted: 'Submitted', paid: 'Deposit paid', in_review: 'In review', approved: 'Approved', building: 'Building', live: 'Live', declined: 'Declined', refunded: 'Refunded' };
+
+  function refundOrder(orderId, mark) {
+    var A = window.Web3Auth;
+    return db().functions.invoke('admin-refund', { body: { orderId: orderId, action: mark ? 'mark' : 'refund' }, headers: { Authorization: 'Bearer ' + (A.token ? A.token() : '') } })
+      .then(function (r) {
+        if (r.error) {
+          return (r.error.context && r.error.context.json ? r.error.context.json() : Promise.resolve({})).then(function (j) { var e = new Error(j.error || r.error.message); e.crypto = j.crypto; throw e; });
+        }
+        return r.data;
+      });
+  }
+
+  function bizRequests(panel, kind) {
+    return Promise.all([
+      load('biz-' + kind, function () { return db().from('biz_requests').select('*').eq('kind', kind).order('created_at', { ascending: false }).then(must); }),
+      load('orders', function () { return db().from('orders').select('*').order('created_at', { ascending: false }).limit(5000).then(must); }),
+      load('bizTiers-' + kind, function () { return C.loadJson('../data/business/' + (kind === 'toy' ? 'toy' : 'test') + '_tiers.json'); }),
+    ]).then(function (r) {
+      var rows = r[0];
+      var orders = {};
+      r[1].forEach(function (o) { orders[o.id] = o; });
+      var tiers = {};
+      r[2].tiers.forEach(function (t) { tiers[t.id] = t; });
+      table = { name: kind + '-requests', head: ['Date', 'Project', 'Tier', 'Email', 'Website', 'X', 'Launch date', 'Status', 'Deposit', 'Note'],
+        rows: rows.map(function (q) { var o = orders[q.order_id]; return [date(q.created_at), q.project, (tiers[q.tier] || {}).name || q.tier, q.email, q.website, q.x_handle, q.launch_date, BIZ_STATUS[q.status] || q.status, o ? o.status + ' ' + money(o.amount, o.currency) : 'not paid', q.admin_note]; }) };
+      panel.innerHTML = '<div class="btn-row"><button type="button" class="btn btn--small" data-csv>Export CSV</button><span class="small-print">' + rows.length + ' requests</span></div>' +
+        (rows.length ? rows.map(function (q) {
+          var o = orders[q.order_id];
+          var t = tiers[q.tier] || { name: q.tier };
+          return '<article class="card stack stack--tight adm-req" data-biz="' + q.id + '"><div class="cap-row"><h3 class="title-sm">' + esc(q.project) + ' · ' + esc(t.name) + (t.price ? ' ($' + Number(t.price).toLocaleString('en-US') + ')' : '') + '</h3>' +
+            '<span class="chip ' + (q.status === 'declined' || q.status === 'refunded' ? 'is-white' : 'is-yellow') + '">' + esc(BIZ_STATUS[q.status] || q.status) + '</span></div>' +
+            '<p class="small-print">' + esc(date(q.created_at)) + ' · ' + esc(q.email) + (q.website ? ' · <a href="' + esc(q.website) + '" target="_blank" rel="noopener">' + esc(q.website) + '</a>' : '') + (q.x_handle ? ' · ' + esc(q.x_handle) : '') +
+            (q.launch_date ? ' · launch ' + esc(q.launch_date) : '') + ' · Deposit: ' + (o ? esc(o.status) + ' ' + money(o.amount, o.currency) : 'not paid yet') + '</p>' +
+            (q.product ? '<p class="text"><b>Product:</b> ' + esc(q.product) + '</p>' : '') + (q.idea ? '<p class="text"><b>Idea:</b> ' + esc(q.idea) + '</p>' : '') +
+            '<fieldset class="adm-check"><legend class="label">Vetting checklist</legend>' + settings.vetting.map(function (v) {
+              return '<label class="mk-check"><input type="checkbox" data-v="' + v.id + '"' + ((q.checklist || {})[v.id] ? ' checked' : '') + ' /> <span>' + esc(v.text) + '</span></label>';
+            }).join('') + '</fieldset>' +
+            '<label class="label">Note (only you see it)<textarea class="field" rows="2" data-note>' + esc(q.admin_note || '') + '</textarea></label>' +
+            '<div class="btn-row"><select class="field" data-status>' + Object.keys(BIZ_STATUS).map(function (st) {
+              return '<option value="' + st + '"' + (st === q.status ? ' selected' : '') + '>' + esc(BIZ_STATUS[st]) + '</option>';
+            }).join('') + '</select><button type="button" class="btn btn--small" data-save>Save</button>' +
+            '<button type="button" class="btn btn--small btn--yellow" data-set="approved">Approve</button>' +
+            '<button type="button" class="btn btn--small acct-danger" data-set="declined">Decline</button>' +
+            (o && o.status === 'paid' ? '<button type="button" class="btn btn--small acct-danger" data-refund="' + esc(o.id) + '">Refund deposit in full</button>' : '') + '</div>' +
+            '<p class="small-print" data-msg aria-live="polite"></p></article>';
+        }).join('') : '<p class="text">No requests yet. They arrive from the ' + (kind === 'toy' ? 'Launch Your Own Toy' : 'Test Your Product') + ' page.</p>');
+      bindCsv(panel);
+      panel.querySelectorAll('[data-biz]').forEach(function (card) {
+        var msg = card.querySelector('[data-msg]');
+        var save = function (status) {
+          var checklist = {};
+          card.querySelectorAll('[data-v]').forEach(function (c) { if (c.checked) checklist[c.getAttribute('data-v')] = true; });
+          if (status === 'declined' && !window.confirm('Decline this project? If they paid a deposit, refund it with the Refund button.')) return;
+          msg.textContent = 'Saving…';
+          db().rpc('admin_update_biz', { p_id: card.getAttribute('data-biz'), p_status: status || card.querySelector('[data-status]').value, p_checklist: checklist, p_note: card.querySelector('[data-note]').value })
+            .then(must).then(function () { delete cache['biz-' + kind]; render(); }, function (err) { msg.textContent = 'Could not save: ' + err.message; });
+        };
+        card.querySelector('[data-save]').addEventListener('click', function () { save(null); });
+        card.querySelectorAll('[data-set]').forEach(function (b) { b.addEventListener('click', function () { save(b.getAttribute('data-set')); }); });
+        var rf = card.querySelector('[data-refund]');
+        if (rf) rf.addEventListener('click', function () {
+          if (!window.confirm('Refund this deposit in full? The money goes back to the card or UPI they paid with.')) return;
+          rf.disabled = true;
+          msg.textContent = 'Refunding…';
+          refundOrder(rf.getAttribute('data-refund')).then(function () {
+            delete cache['biz-' + kind]; delete cache.orders; render();
+          }, function (err) {
+            if (err.crypto && window.confirm(err.message + '\n\nHave you refunded it in Paymento? Press OK to mark it refunded.')) {
+              return refundOrder(rf.getAttribute('data-refund'), true).then(function () { delete cache['biz-' + kind]; delete cache.orders; render(); });
+            }
+            rf.disabled = false;
+            msg.textContent = err.message;
+          });
         });
       });
     });

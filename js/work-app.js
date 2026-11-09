@@ -8,6 +8,8 @@
   var C = window.Web3Common;
   var esc = C.esc;
   var site = window.WEB3TOYS;
+  // Once For Projects is live, this page is replaced by Launch Your Own Toy.
+  if (site.businessOn && site.businessOn()) { location.replace('../launch-your-toy/'); return; }
   var app = document.getElementById('app');
   var DRAFT = 'web3toys.workDraft.v1';
   var ORDER = ['submitted', 'paid', 'in_review', 'approved', 'live'];

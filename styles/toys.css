@@ -7093,3 +7093,62 @@ body.has-sheet { overflow: hidden; }
   .btn--cta { margin-left: 6px; }
   .topnav-drop { position: absolute; top: calc(100% + 6px); left: 0; z-index: 30; min-width: 230px; padding: 8px; background: var(--white); border: var(--line-thin); border-radius: 16px; box-shadow: 4px 4px 0 var(--ink); }
 }
+
+/* ---------- For Projects pages (js/biz-*.js) ---------- */
+.biz-hero { gap: 14px; }
+.biz-title { margin: 0; font: 400 clamp(30px, 7.5vw, 52px) / 1.05 'Luckiest Guy', var(--font-display); color: var(--ink); letter-spacing: .5px; }
+.biz-why { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.biz-why .card { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; align-items: center; padding: 10px 12px; }
+.biz-why .card:last-child { background: var(--yellow); }
+.biz-why-icon { grid-row: span 2; font-size: 28px; }
+.biz-why .small-print { margin: 0; }
+.biz-examples, .biz-tiers, .biz-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.biz-example { display: grid; gap: 8px; align-content: start; position: relative; }
+.biz-example--coral { background: #ffe3df; }
+.biz-example--mint { background: #e8fff1; }
+.biz-example--blue { background: #e2effb; }
+.biz-tag { justify-self: start; background: var(--white); }
+.biz-example-head { display: flex; gap: 10px; align-items: center; }
+.biz-example-head .small-print { margin: 0; }
+.biz-example-icon { font-size: 34px; }
+.demo { display: grid; gap: 8px; }
+.demo-q { margin: 0; font: 700 15px/1.4 var(--font-body); }
+.demo-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.demo-opts--col { flex-direction: column; }
+.demo-opts--col .btn { justify-content: flex-start; text-align: left; }
+.demo-opts .btn.is-done { background: var(--mint); }
+.demo-bar { position: relative; height: 14px; background: var(--white); border: 2px solid var(--ink); border-radius: 999px; overflow: hidden; }
+.demo-bar span { position: absolute; inset: 0 auto 0 0; background: var(--coral); }
+.demo-bar i { position: absolute; top: 0; bottom: 0; width: 3px; background: var(--ink); }
+.demo-result { display: grid; gap: 4px; padding: 10px 12px; border: 2px solid var(--ink); border-radius: 14px; background: var(--white); }
+.demo-result.is-good { background: var(--mint); }
+.demo-result.is-bad { background: #ffd0c9; }
+.demo-result .text-button { justify-self: start; font-weight: 800; }
+.biz-tier { display: grid; gap: 6px; align-content: start; position: relative; }
+.biz-tier.is-popular { background: #fff7d1; box-shadow: 6px 6px 0 var(--ink); }
+.biz-popular { justify-self: start; }
+.biz-price { margin: 0; font: 700 38px / 1 var(--font-display); color: var(--ink); }
+.biz-tier .small-print { margin: 0; }
+.biz-feats { list-style: none; margin: 4px 0; padding: 0; display: grid; gap: 4px; }
+.biz-feats li { display: flex; gap: 6px; align-items: flex-start; font-size: 14px; }
+.biz-feats svg { flex: none; width: 16px; height: 16px; margin-top: 2px; }
+.biz-steps .card { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; align-items: center; padding: 10px 12px; }
+.biz-step-n { grid-row: span 2; display: grid; place-items: center; width: 34px; height: 34px; font: 700 18px var(--font-display); background: var(--yellow); border: 2px solid var(--ink); border-radius: 50%; }
+.biz-steps .small-print { margin: 0; }
+.biz-faq { display: grid; gap: 8px; }
+.biz-faq details { padding: 10px 14px; }
+.biz-faq summary { cursor: pointer; }
+.biz-faq .text { margin: 8px 0 0; }
+.biz-form { gap: 12px; }
+.biz-mine-title { margin: 16px 0 8px; }
+.biz-req { margin-bottom: 8px; }
+.biz-req .small-print { margin: 0; }
+@media (min-width: 760px) {
+  .biz-why { grid-template-columns: repeat(3, 1fr); }
+  .biz-why .card { grid-template-columns: 1fr; text-align: left; }
+  .biz-why-icon { grid-row: auto; }
+  .biz-examples, .biz-tiers { grid-template-columns: repeat(3, 1fr); }
+  .biz-steps { grid-template-columns: repeat(4, 1fr); }
+  .biz-steps .card { grid-template-columns: 1fr; }
+  .biz-step-n { grid-row: auto; }
+}

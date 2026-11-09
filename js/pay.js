@@ -19,8 +19,31 @@
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; });
   }
 
+  // The price list: data/products.json plus the For Projects deposits from
+  // data/business/ (the same rule as the payment server).
+  function businessProducts(toy, test) {
+    var out = [];
+    var add = function (kind, file, label) {
+      if (!file || !Array.isArray(file.tiers)) return;
+      var share = Number(file.deposit) || 0.5;
+      file.tiers.forEach(function (t) {
+        if (!(Number(t.price) > 0)) return;
+        out.push({ id: 'deposit-' + kind + '-' + t.id, type: 'project', perItem: true, usd: Math.round(Number(t.price) * share * 100) / 100,
+          title: label + ': ' + t.name + ' deposit (' + Math.round(share * 100) + '%)' });
+      });
+    };
+    add('toy', toy, 'Launch Your Own Toy');
+    add('test', test, 'Test Your Product');
+    return out;
+  }
+
   function products() {
-    if (!list) list = fetch(site.root + 'data/products.json').then(function (r) { return r.json(); }).then(function (d) { return d.products; });
+    if (!list) {
+      var get = function (f) { return fetch(site.root + f).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); };
+      list = Promise.all([get('data/products.json'), get('data/business/toy_tiers.json'), get('data/business/test_tiers.json')]).then(function (r) {
+        return r[0].products.concat(businessProducts(r[1], r[2]));
+      });
+    }
     return list;
   }
 
@@ -39,7 +62,7 @@
   }
 
   function price(p, cur) {
-    return cur === 'INR' ? '₹' + Number(p.inr).toLocaleString('en-IN') : '$' + (Number(p.usd) % 1 ? Number(p.usd).toFixed(2) : Number(p.usd));
+    return cur === 'INR' && p.inr ? '₹' + Number(p.inr).toLocaleString('en-IN') : '$' + Number(p.usd).toLocaleString('en-US', { minimumFractionDigits: Number(p.usd) % 1 ? 2 : 0, maximumFractionDigits: 2 });
   }
 
   // A friendly message from a server function error.
@@ -80,7 +103,8 @@
   }
 
   function box(p, item, onPaid) {
-    var cur = guessCurrency();
+    var dollarsOnly = !p.inr;
+    var cur = dollarsOnly ? 'USD' : guessCurrency();
     var m = document.createElement('div');
     m.className = 'modal pay-modal';
     document.body.appendChild(m);
@@ -95,7 +119,7 @@
         (p.line ? '<p class="text">' + esc(p.line) + '</p>' : '') +
         '<p class="pay-price">' + price(p, CFG.enabled ? cur : 'USD') + '</p>' +
         (CFG.enabled ? '<p class="small-print">' + (cur === 'INR' ? 'Pay with UPI or card, in rupees.' : 'Pay by card, in US dollars.') +
-        ' <button type="button" class="text-button" data-cur>' + (cur === 'INR' ? 'Pay in US dollars instead' : 'In India? Pay in rupees') + '</button></p>' : '') +
+        (dollarsOnly ? '' : ' <button type="button" class="text-button" data-cur>' + (cur === 'INR' ? 'Pay in US dollars instead' : 'In India? Pay in rupees') + '</button>') + '</p>' : '') +
         (CFG.enabled ? '<button type="button" class="btn btn--ink btn--block" data-pay>Pay ' + price(p, cur) + '</button>' : '') +
         (p.coins ? coinsButton(p) : '') +
         (CFG.crypto ? '<button type="button" class="btn btn--block" data-crypto>Pay with crypto · ' + price(p, 'USD') + '</button>' +
@@ -271,6 +295,6 @@
 
   A.onChange(function () { bought = null; });
 
-  window.Web3Pay = { callUrl: callUrl, money: !!(CFG.enabled || CFG.crypto), enabled: true, crypto: !!CFG.crypto, checkCrypto: checkCrypto, products: products, price: price, currency: guessCurrency, buy: buy, download: download, purchases: purchases, owns: owns };
+  window.Web3Pay = { businessProducts: businessProducts, callUrl: callUrl, money: !!(CFG.enabled || CFG.crypto), enabled: true, crypto: !!CFG.crypto, checkCrypto: checkCrypto, products: products, price: price, currency: guessCurrency, buy: buy, download: download, purchases: purchases, owns: owns };
   document.dispatchEvent(new CustomEvent('web3pay:ready'));
 })();

@@ -1,0 +1,60 @@
+{
+  "_help": "Words for /launch-your-toy/ (js/biz-launch.js). Prices and tiers are in toy_tiers.json. examples: made-up concepts shown as small playable demos, always labelled as examples. form: the request form questions.",
+  "review": true,
+  "label": "For projects",
+  "title": "Don't pay someone to post about your product. Let people play it.",
+  "why": [
+    { "icon": "📣", "title": "KOLs sell impressions", "text": "A paid post is seen for a second and forgotten." },
+    { "icon": "🌾", "title": "Quests attract farmers", "text": "People click through tasks for rewards, then leave." },
+    { "icon": "🎮", "title": "Toys make people learn", "text": "They play, understand what you do, and share it because it was fun." }
+  ],
+  "examplesTitle": "Three example concepts",
+  "examplesLine": "Made up for illustration. Tap Play to try a 30 second version.",
+  "examples": [
+    { "id": "liquidation", "name": "Don't Get Liquidated", "for": "for a lending protocol", "color": "coral", "icon": "📉", "pitch": "Borrow against your ETH, then survive a price drop. Players learn health factor and liquidation by feeling it." },
+    { "id": "slippage", "name": "Beat the Slippage", "for": "for a DEX", "color": "mint", "icon": "🔄", "pitch": "Pick a slippage setting before the market moves. Players learn why trades fail or get front-run." },
+    { "id": "bridge", "name": "Bridge Puzzle", "for": "for a bridge", "color": "blue", "icon": "🌉", "pitch": "Put the bridge steps in the right order, starting with checking you are on the real site. Players learn to bridge safely." }
+  ],
+  "benefitsTitle": "What you get",
+  "benefits": [
+    { "icon": "🧠", "title": "Real users who understand your product", "text": "Every player learns how it works, not just its name." },
+    { "icon": "🔁", "title": "Organic shares", "text": "Share cards and certificates people post because they want to." },
+    { "icon": "🚫", "title": "No farming", "text": "No token rewards, so there is nothing to farm. Prizes are merch or product perks only." },
+    { "icon": "🚀", "title": "Launch week reach", "text": "Posts on @web3toys and a spot in the newsletter in your launch week." },
+    { "icon": "📊", "title": "An analytics dashboard", "text": "Plays, finishes, quiz scores and shares, on a private link." },
+    { "icon": "🧩", "title": "Embed code", "text": "Put the toy on your own site with one line of code (Full Game and up)." }
+  ],
+  "pricingTitle": "Pick your toy",
+  "stepsTitle": "How it works",
+  "steps": [
+    { "title": "Request", "text": "Send the form below and, if you like, pay a 50% deposit to reserve a build slot." },
+    { "title": "20 minute call", "text": "We agree the idea, the key thing players should learn and your launch date." },
+    { "title": "We build, you review", "text": "You see it before anyone else and ask for changes." },
+    { "title": "Launch", "text": "It goes live on web3.toys with launch posts, timed to your date." }
+  ],
+  "faqTitle": "Questions",
+  "faq": [
+    { "q": "How long does it take?", "a": "About 1 week for a Mini Toy, 2 weeks for a Full Game and 3 weeks for a Launch Tournament, from the call. Tell us your launch date early." },
+    { "q": "What do you need from us?", "a": "Your logo and colours, the one thing players should understand, links to your docs, and a person to answer questions during the build." },
+    { "q": "How many revisions do we get?", "a": "Two rounds of changes are included. Bigger changes after that are quoted first." },
+    { "q": "Who owns the game?", "a": "You can use it, embed it and share it as much as you like. web3.toys keeps the code and hosts it, so it stays fast and safe." },
+    { "q": "Can we give prizes?", "a": "Yes, merch or product perks like fee discounts. Never tokens or crypto through web3.toys, and never anything that promises returns." },
+    { "q": "Will you build for any project?", "a": "No. Every project passes our vetting checklist first: a real product, a public or verifiable team, and no promises of returns. If we decline, your deposit is refunded in full." }
+  ],
+  "formTitle": "Request your toy",
+  "form": {
+    "project": "Project name",
+    "website": "Website",
+    "x": "X handle",
+    "email": "Contact email",
+    "product": "What does your product do, in two sentences?",
+    "launch": "Launch date (if you have one)",
+    "tier": "Package",
+    "idea": "Your idea, in your own words (optional)",
+    "agree": "I understand every project is vetted first, there are no token rewards, and the deposit is refunded in full if you decline.",
+    "submit": "Send request"
+  },
+  "afterTitle": "Request received",
+  "afterLine": "Reserve your build slot with a 50% deposit, or book a call first.",
+  "loginNote": "Log in first so you can follow your request. Your answers stay on this page."
+}

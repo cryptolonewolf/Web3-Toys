@@ -68,6 +68,24 @@ async function confirm(order: Record<string, any>) {
   return st === 10 ? 'refunded' : [4, 5, 9].includes(st) ? 'failed' : 'created';
 }
 
+// For Projects deposits, worked out from data/business/ (US dollars only).
+// The same rule as create-order and js/pay.js (the checks compare them).
+export function businessProducts(toy: any, test: any) {
+  const out: Array<Record<string, unknown>> = [];
+  const add = (kind: string, file: any, label: string) => {
+    if (!file || !Array.isArray(file.tiers)) return;
+    const share = Number(file.deposit) || 0.5;
+    file.tiers.forEach((t: any) => {
+      if (!(Number(t.price) > 0)) return;
+      out.push({ id: `deposit-${kind}-${t.id}`, type: 'project', perItem: true, usd: Math.round(Number(t.price) * share * 100) / 100,
+        title: `${label}: ${t.name} deposit (${Math.round(share * 100)}%)` });
+    });
+  };
+  add('toy', toy, 'Launch Your Own Toy');
+  add('test', test, 'Test Your Product');
+  return out;
+}
+
 export async function handle(req: Request): Promise<Response> {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
   if (req.method !== 'POST') return json(405, { error: 'Use POST.' });
@@ -90,7 +108,9 @@ export async function handle(req: Request): Promise<Response> {
   if (item && !/^[a-z0-9:._-]{1,60}$/i.test(item)) return json(400, { error: 'Unknown item.' });
   const list = await fetch(`${site()}/data/products.json`);
   if (!list.ok) return json(502, { error: 'Could not load the price list. Try again.' });
-  const product = (await list.json()).products.find((p: Record<string, unknown>) => p.id === b.product);
+  const get = (f: string) => fetch(`${site()}/data/business/${f}`).then((x) => (x.ok ? x.json() : null)).catch(() => null);
+  const [toyTiers, testTiers] = await Promise.all([get('toy_tiers.json'), get('test_tiers.json')]);
+  const product = (await list.json()).products.concat(businessProducts(toyTiers, testTiers)).find((p: Record<string, unknown>) => p.id === b.product);
   if (!product) return json(404, { error: 'Unknown product.' });
   if (product.perItem && !item) return json(400, { error: 'Which one is this for?' });
   const usd = Number(product.usd);
