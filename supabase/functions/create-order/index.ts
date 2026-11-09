@@ -5,6 +5,9 @@
 // SITE_URL if the site is not https://web3.toys).
 
 const env = (k: string) => Deno.env.get(k) || '';
+const FN = 'create-order';
+const VERSION = 2; // raise when this file changes in a way the admin to-do list should know about
+
 const CORS = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type', 'Access-Control-Allow-Methods': 'POST, OPTIONS' };
 const json = (status: number, body: unknown) => new Response(JSON.stringify(body), { status, headers: { ...CORS, 'Content-Type': 'application/json' } });
 
@@ -78,6 +81,8 @@ async function loadProducts() {
 }
 
 export async function handle(req: Request): Promise<Response> {
+  // Version check for the admin to-do list (no secrets, only whether they are set).
+  if (req.method === 'GET' && new URL(req.url).searchParams.get('ping')) return new Response(JSON.stringify({ fn: FN, version: VERSION, live: env('RAZORPAY_KEY_ID').startsWith('rzp_live'), ready: !!(env('RAZORPAY_KEY_ID') && env('RAZORPAY_KEY_SECRET')) }), { headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' } });
   if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
   if (req.method !== 'POST') return json(405, { error: 'Use POST.' });
   if (!env('RAZORPAY_KEY_ID') || !env('RAZORPAY_KEY_SECRET')) return json(503, { error: 'Payments are not switched on yet.' });

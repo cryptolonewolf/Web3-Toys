@@ -8,6 +8,9 @@
 // Secrets: PAYMENTO_API_KEY, SERVICE_KEY, SITE_URL.
 
 const env = (k: string) => Deno.env.get(k) || '';
+const FN = 'crypto-order';
+const VERSION = 2; // raise when this file changes in a way the admin to-do list should know about
+
 const API = 'https://api.paymento.io';
 const CORS = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type', 'Access-Control-Allow-Methods': 'POST, OPTIONS' };
 const json = (status: number, body: unknown) => new Response(JSON.stringify(body), { status, headers: { ...CORS, 'Content-Type': 'application/json' } });
@@ -99,6 +102,8 @@ export function businessProducts(toy: any, test: any, ads?: any) {
 }
 
 export async function handle(req: Request): Promise<Response> {
+  // Version check for the admin to-do list (no secrets, only whether they are set).
+  if (req.method === 'GET' && new URL(req.url).searchParams.get('ping')) return new Response(JSON.stringify({ fn: FN, version: VERSION, ready: !!env('PAYMENTO_API_KEY') }), { headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' } });
   if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
   if (req.method !== 'POST') return json(405, { error: 'Use POST.' });
   if (!env('PAYMENTO_API_KEY')) return json(503, { error: 'Crypto payments are not switched on yet.' });

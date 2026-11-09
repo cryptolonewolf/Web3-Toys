@@ -296,13 +296,18 @@
 
   var orders = null;
   var catalog = null;
+  var refundReqs = {}; // order id -> open | refunded | declined (supabase/017_ops.sql)
 
   function loadPurchases() {
     var P = window.Web3Pay;
     if (!P) return;
-    Promise.all([P.purchases(), P.products()]).then(function (r) {
+    var A = window.Web3Auth;
+    var reqs = A && A.client ? A.client.from('refund_requests').select('order_id,status,created_at').order('created_at', { ascending: false }).then(function (r) { return r.error ? [] : r.data; }, function () { return []; }) : Promise.resolve([]);
+    Promise.all([P.purchases(), P.products(), reqs]).then(function (r) {
       orders = r[0];
       catalog = r[1];
+      refundReqs = {};
+      (r[2] || []).forEach(function (q) { if (!refundReqs[q.order_id]) refundReqs[q.order_id] = q.status; });
       if (tab === 'purchases') render();
     }, function () { orders = []; if (tab === 'purchases') render(); });
   }
@@ -355,7 +360,12 @@
         : p.type === 'project' ? '<a class="btn btn--small btn--yellow" href="../work-with-us/">Follow it</a>'
         : p.type === 'call' && window.Web3Pay.callUrl() ? '<a class="btn btn--small btn--yellow" href="' + esc(window.Web3Pay.callUrl(o.id)) + '" target="_blank" rel="noopener">Pick your time</a>'
         : '<span class="chip is-mint">Unlocked</span>';
-      return '<li><div><b>' + esc(String(o.title).replace(/ \([0-9a-f-]{36}\)$/i, '')) + '</b><span class="small-print">' + esc(String(o.paid_at || '').slice(0, 10)) + ' · ' + money(o) + '</span></div>' + action + '</li>';
+      var rq = refundReqs[o.id];
+      var refund = o.status !== 'paid' || o.currency === 'COINS' ? ''
+        : rq === 'open' ? '<span class="small-print">Refund requested. We will reply by email.</span>'
+        : rq === 'declined' ? '<span class="small-print">Refund declined. Questions? Use the Contact page.</span>'
+        : '<button type="button" class="text-button pf-refund" data-refund-order="' + esc(o.id) + '">Request a refund</button>';
+      return '<li><div><b>' + esc(String(o.title).replace(/ \([0-9a-f-]{36}\)$/i, '')) + '</b><span class="small-print">' + esc(String(o.paid_at || '').slice(0, 10)) + ' · ' + money(o) + '</span>' + refund + '</div>' + action + '</li>';
     }).join('') + '</ul><p class="small-print">Download links work for 5 minutes; tap Download again any time for a fresh one. <a href="../refunds/">Refunds and delivery</a></p>';
   }
 
@@ -432,6 +442,20 @@
       if (typed !== 'DELETE') return msg('Nothing was deleted.');
       msg('Deleting…');
       A.deleteAccount().then(function () { location.reload(); }, function (err) { msg('Could not delete: ' + err.message + '. Email us from the Contact page and we will do it.'); });
+    });
+    app.querySelectorAll('[data-refund-order]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var why = window.prompt('Why would you like a refund? (A few words is fine. See Refunds and delivery for what we can refund.)');
+        if (why == null) return;
+        if (why.trim().length < 3) return msg('Tell us briefly why, then try again.');
+        b.disabled = true;
+        A.client.rpc('request_refund', { p_order: b.getAttribute('data-refund-order'), p_reason: why.trim() }).then(function (r) {
+          if (r.error) throw r.error;
+          refundReqs[b.getAttribute('data-refund-order')] = 'open';
+          msg('Refund request sent. We will reply by email.');
+          render();
+        }).catch(function (err) { b.disabled = false; msg(err.message); });
+      });
     });
     app.querySelectorAll('[data-dl]').forEach(function (b) {
       b.addEventListener('click', function () {

@@ -10,7 +10,7 @@
       "list": [
         "Your progress, coins, certificates and tool inputs are saved in your own browser (local storage). They are not sent to us.",
         "Tools run in your browser. What you type into a tool is not sent anywhere.",
-        "We count simple page events (a toy was opened, finished or shared) without your name, to see which toys people like.",
+        "We count simple page events (a toy was opened, started, finished or shared) without your name, to see which toys people like. If a page breaks, we record the error message (cut short, with emails and long numbers removed) and, for one visit in five, how long the page took to load. None of this includes who you are.",
         "Small extras are kept in your browser too: your Hall of Famers wall, which toys you asked to be told about, and whether you hid the coin button. Clearing your browser data removes them.",
         "When you answer a Web3 Hall of Famers clue, we add one to a total of how many players named that person. Only the total is stored, never who answered."
       ]
@@ -44,10 +44,12 @@
       ]
     },
     {
-      "title": "If you join the email list or send a project request",
+      "title": "If you join the email list, write to us or send a request",
       "list": [
         "Your email address and the page you signed up from, to send you the updates you asked for. Every email has an unsubscribe link.",
-        "For project requests: your name and role, email, project name, website, X handle, Telegram username, the Telegram group link you choose to share, your answers, and payment and review status, to review your project, talk to you and deliver your request."
+        "For project requests: your name and role, email, project name, website, X handle, Telegram username, the Telegram group link you choose to share, your answers, and payment and review status, to review your project, talk to you and deliver your request.",
+        "If you use the Contact form, we keep your name, email, topic and message so we can reply. We keep it only as long as we need to help you and keep a record of what we answered.",
+        "If you ask for a refund from My Progress, we keep your reason with the order so we can handle it."
       ]
     },
     {

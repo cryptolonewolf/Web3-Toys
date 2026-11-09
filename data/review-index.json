@@ -818,7 +818,7 @@
    "item": "(whole file)",
    "label": "Privacy policy",
    "note": "The Privacy page. Plain-English draft: have a lawyer check it before taking payments. Keep it matching what the site really collects. Lines starting with TODO are placeholders.",
-   "hash": "53721982dd36"
+   "hash": "4226131f2b2f"
   },
   {
    "file": "data/legal/refunds.json",

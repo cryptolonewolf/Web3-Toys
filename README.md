@@ -475,6 +475,13 @@ footer. Prices, tiers and rules: `data/business/` (`toy_tiers.json`,
   Testers need Explorer rank, use testnets or empty wallets only, and are paid
   in stablecoins from the 25% tester pool by hand (admin, Tests & payouts).
   Approved testers get full reports free (`is_tester`, `js/offers.js`).
+- Operations home (admin, first tab): `js/admin-ops.js`, settings and your
+  to-do list in `data/ops.json`. Queues, This week, last 7 days, Site health,
+  Inbox (refunds, contact messages, failed or disputed payments, X posts,
+  flagged referrals), Revenue and Audit log. Database:
+  `supabase/017_ops.sql`; daily email `ops-digest` and weekly link check
+  `ops-check` (list from `tools/link-list.mjs`), scheduled by
+  `supabase/018_ops_schedule.sql`. Setup: `docs/setup/operations.md`.
 - Sponsored rounds: `data/business/sponsored_rounds.json`, read by
   `Web3Common.sponsoredRound` (`js/common.js`): a labelled lesson card in
   `js/player.js` and one Spot the Scam round in `js/scam-app.js`.

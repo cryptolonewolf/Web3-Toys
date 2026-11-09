@@ -325,6 +325,34 @@
     if (window.Web3Log) window.Web3Log.flush();
   }
 
+  // Operations home (admin): a play is the first tap on a button inside a
+  // toy; page errors are counted with their message cut short (emails and
+  // long numbers removed); one page load in five sends its load time.
+  var played = false;
+  document.addEventListener('click', function (e) {
+    if (played || !document.body || !document.body.getAttribute('data-toy')) return;
+    var app = document.getElementById('app');
+    if (!app || !e.target.closest || !e.target.closest('#app button, #app [role="button"]')) return;
+    played = true;
+    logEvent('play', document.body.getAttribute('data-toy'));
+  }, true);
+  var errorsSent = 0;
+  function logError(msg) {
+    if (errorsSent >= 3) return;
+    errorsSent += 1;
+    logEvent('js_error', String(msg || 'Unknown error').replace(/\S+@\S+/g, '[email]').replace(/[0-9a-f]{16,}|\d{6,}/gi, '#').slice(0, 80));
+  }
+  window.addEventListener('error', function (e) { if (e && e.message) logError(e.message); });
+  window.addEventListener('unhandledrejection', function (e) { var r = e && e.reason; if (r && r.name !== 'AbortError') logError('Promise: ' + (r.message || r)); });
+  window.addEventListener('load', function () {
+    if (Math.random() >= 0.2) return;
+    setTimeout(function () {
+      var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+      var ms = nav ? Math.round(nav.loadEventEnd || nav.domComplete) : 0;
+      if (ms > 0 && ms < 600000) logEvent('page_load', String(ms));
+    }, 0);
+  });
+
   function logLead(email, source) {
     logQueue.push({ type: 'lead', email: email, source: source, page: location.pathname });
     if (window.Web3Log) window.Web3Log.flush();

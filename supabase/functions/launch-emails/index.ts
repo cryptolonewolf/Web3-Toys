@@ -12,6 +12,9 @@
 // In Supabase, switch OFF "Verify JWT" for this function.
 
 const env = (k: string) => Deno.env.get(k) || '';
+const FN = 'launch-emails';
+const VERSION = 2; // raise when this file changes in a way the admin to-do list should know about
+
 const HOUR = 36e5;
 
 function dbHeaders(extra: Record<string, string> = {}) {
@@ -83,6 +86,8 @@ async function unsubscribe(token: string) {
 }
 
 export async function handle(req: Request): Promise<Response> {
+  // Version check for the admin to-do list (no secrets, only whether they are set).
+  if (req.method === 'GET' && new URL(req.url).searchParams.get('ping')) return new Response(JSON.stringify({ fn: FN, version: VERSION, email: !!env('RESEND_API_KEY') }), { headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' } });
   const url = new URL(req.url);
   if (req.method === 'GET' && url.searchParams.get('unsub')) return unsubscribe(url.searchParams.get('unsub') || '');
   if (req.method !== 'POST') return new Response('Use POST.', { status: 405 });

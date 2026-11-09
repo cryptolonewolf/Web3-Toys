@@ -8,6 +8,9 @@
 // RAZORPAY_KEY_SECRET, SERVICE_KEY. In Supabase, switch OFF "Verify JWT".
 
 const env = (k: string) => Deno.env.get(k) || '';
+const FN = 'admin-refund';
+const VERSION = 2; // raise when this file changes in a way the admin to-do list should know about
+
 const CORS = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type', 'Access-Control-Allow-Methods': 'POST, OPTIONS' };
 const json = (status: number, body: unknown) => new Response(JSON.stringify(body), { status, headers: { ...CORS, 'Content-Type': 'application/json' } });
 
@@ -32,6 +35,8 @@ async function adminUser(req: Request): Promise<Record<string, any> | Response> 
 }
 
 export async function handle(req: Request): Promise<Response> {
+  // Version check for the admin to-do list (no secrets, only whether they are set).
+  if (req.method === 'GET' && new URL(req.url).searchParams.get('ping')) return new Response(JSON.stringify({ fn: FN, version: VERSION }), { headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' } });
   if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
   if (req.method !== 'POST') return json(405, { error: 'Use POST.' });
   const admin = await adminUser(req);
@@ -45,10 +50,14 @@ export async function handle(req: Request): Promise<Response> {
   if (order.status === 'refunded') return json(200, { status: 'refunded', already: true });
   if (order.status !== 'paid') return json(409, { error: 'This order is not paid, so there is nothing to refund.' });
 
-  const mark = () => db(`orders?id=eq.${id}`, { method: 'PATCH', headers: { Prefer: 'return=minimal' }, body: JSON.stringify({ status: 'refunded' }) });
+  // Marks the order refunded and records who did it in the audit log (017_ops.sql).
+  const mark = async (how: string) => {
+    await db(`orders?id=eq.${id}`, { method: 'PATCH', headers: { Prefer: 'return=minimal' }, body: JSON.stringify({ status: 'refunded' }) });
+    await db('admin_audit', { method: 'POST', headers: { Prefer: 'return=minimal' }, body: JSON.stringify({ admin_id: admin.id, action: how, target_kind: 'orders', target_id: id, detail: { label: order.title, amount: order.amount, currency: order.currency } }) }).catch(() => null);
+  };
   if ((order.provider || 'razorpay') !== 'razorpay') {
     if (b.action !== 'mark') return json(409, { error: 'This was a crypto payment. Refund it from your Paymento dashboard, then press Mark refunded.', crypto: true });
-    await mark();
+    await mark('marked refunded (crypto)');
     return json(200, { status: 'refunded', manual: true });
   }
   if (!order.razorpay_payment_id) return json(409, { error: 'No Razorpay payment is linked to this order.' });
@@ -61,7 +70,7 @@ export async function handle(req: Request): Promise<Response> {
     const e = await rz.json().catch(() => ({}));
     return json(502, { error: 'Razorpay did not accept the refund: ' + ((e.error && e.error.description) || rz.status) });
   }
-  await mark();
+  await mark('refunded in full');
   return json(200, { status: 'refunded' });
 }
 

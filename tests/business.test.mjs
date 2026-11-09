@@ -91,3 +91,62 @@ describe('Sponsored rounds', () => {
     assert.ok(!/\b(buy|airdrop|presale|100x|moon)\b/i.test(JSON.stringify(file.rounds.map((r) => [r.title, r.points, r.text]))));
   });
 });
+
+describe('Operations home', () => {
+  const O = json('data/ops.json');
+  const sql = read('supabase/017_ops.sql');
+  const admin = read('js/admin.js');
+
+  it('every queue card is filled by the database and opens a real tab', () => {
+    O.queues.forEach((q) => {
+      assert.ok(sql.includes(`'id', '${q.id}'`), q.id);
+      const tab = q.open.split(':')[0];
+      assert.ok(admin.includes(`['${tab}', `), q.open);
+    });
+    const ids = [...sql.matchAll(/jsonb_build_object\('id', '([a-z]+)'/g)].map((m) => m[1]);
+    assert.deepEqual(ids.slice().sort(), O.queues.map((q) => q.id).sort());
+  });
+
+  it('opens on the Operations tab, and inbox sections exist', () => {
+    assert.match(admin, /var tab = hash\[0\] \|\| 'ops'/);
+    const ops = read('js/admin-ops.js');
+    O.queues.filter((q) => q.open.startsWith('inbox:')).forEach((q) => assert.ok(ops.includes(`['${q.open.split(':')[1]}', `), q.open));
+  });
+
+  it('colours by age: green under 24 h, amber under 72 h, red after', () => {
+    const ctx = { window: {}, localStorage: { getItem: () => null } };
+    vm.runInNewContext(read('js/admin-ops.js'), ctx);
+    const H = 36e5, ago = (h) => new Date(Date.now() - h * H).toISOString();
+    const L = ctx.window.Web3AdminOps;
+    assert.deepEqual([[1, 2], [3, 30], [1, 80], [0, null]].map(([count, h]) => L.level({ count, oldest: h && ago(h) }, O.hours)), ['green', 'amber', 'red', 'clear']);
+    const sorted = L.sortQueues([{ id: 'a', count: 1, oldest: ago(2) }, { id: 'b', count: 0 }, { id: 'c', count: 2, oldest: ago(100) }, { id: 'd', count: 1, oldest: ago(30) }], O.hours);
+    assert.deepEqual(sorted.map((q) => q.id), ['c', 'd', 'a', 'b']);
+  });
+
+  it('every setup check in the to-do list can be answered', () => {
+    const auto = ['razorpay-live', 'resend', 'social', 'books', 'portraits', 'audience', 'review', 'business-live', 'manual'];
+    O.todo.forEach((t) => {
+      if (/^sql-/.test(t.check)) assert.ok(sql.includes(`'${t.check}'`), t.id);
+      else if (/^fn:/.test(t.check)) {
+        const [, name, v] = t.check.split(':');
+        const src = read(`supabase/functions/${name}/index.ts`);
+        assert.match(src, new RegExp(`const VERSION = ${v};`), t.id);
+        assert.ok(src.includes("searchParams.get('ping')"), t.id);
+      } else assert.ok(auto.includes(t.check), t.id);
+    });
+  });
+
+  it('the audit log is written by the database for every queue table', () => {
+    ['biz_requests', 'sponsor_bookings', 'test_runs', 'project_requests', 'orders', 'quest_proofs', 'referrals', 'refund_requests', 'contact_messages', 'product_tests', 'review_approvals', 'release_overrides']
+      .forEach((t) => assert.ok(sql.includes(`'${t}'`), t));
+    assert.ok(read('supabase/functions/admin-refund/index.ts').includes("db('admin_audit'"));
+    assert.ok(!/create policy[^;]*admin_audit for (insert|update|delete|all)/i.test(sql));
+  });
+
+  it('keeps the link check list up to date and never visits the scam examples', async () => {
+    const { build } = await import('../tools/link-list.mjs');
+    assert.deepEqual(json('data/link-check.json'), JSON.parse(JSON.stringify(build())));
+    const all = JSON.stringify(json('data/link-check.json'));
+    ['uniswap-claim', 'b1nance', 'bit.ly', 'justpaste'].forEach((bad) => assert.ok(!all.includes(bad), bad));
+  });
+});

@@ -7237,3 +7237,55 @@ body.has-sheet { overflow: hidden; }
 /* ---------- Sponsored rounds (js/player.js, js/scam-app.js) ---------- */
 .card-kind--sponsored { background: var(--white); border-style: dashed; font-weight: 800; }
 .chip--sponsored { border-style: dashed; }
+.pf-refund { display: block; margin-top: 2px; padding: 0; font-size: 13px; text-align: left; }
+.ct-form { margin-top: 12px; padding-top: 12px; border-top: 2px dashed rgba(31, 27, 46, .2); }
+.ct-trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* ---------- Operations home (js/admin-ops.js) ---------- */
+.ops-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; flex-wrap: wrap; }
+.ops-top .title-md, .ops-top .small-print { margin: 0; }
+.ops-red-text { color: #c0392b; }
+.ops-sample { font-size: 14px; }
+.ops-sample-note { margin: 0; padding: 6px 10px; font: 800 12px var(--font-body); text-transform: uppercase; letter-spacing: .5px; background: var(--coral-tint); border: var(--line-thin); border-radius: 10px; }
+.ops-queues { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.ops-q { display: grid; grid-template-columns: auto 1fr auto auto; gap: 10px; align-items: center; padding: 8px 10px; background: var(--white); border: var(--line-thin); border-left-width: 8px; border-radius: 14px; }
+.ops-q.is-green { border-left-color: var(--mint); }
+.ops-q.is-amber { border-left-color: #f5a623; background: #fff7e6; }
+.ops-q.is-red { border-left-color: #e74c3c; background: var(--coral-tint); }
+.ops-q.is-clear { border-left-color: #d9d4e4; opacity: .75; }
+.ops-q-icon { font-size: 22px; }
+.ops-q-body { display: grid; min-width: 0; }
+.ops-q-body b { font-size: 14px; line-height: 1.25; }
+.ops-q-body .small-print { margin: 0; }
+.ops-q-count { min-width: 34px; text-align: center; font: 700 22px var(--font-display); }
+.ops-legend { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; margin: 0; }
+.ops-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid var(--ink); }
+.ops-dot.is-green { background: var(--mint); }
+.ops-dot.is-amber { background: #f5a623; }
+.ops-dot.is-red { background: #e74c3c; }
+.ops-today { display: grid; gap: 8px; }
+.ops-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.ops-list li { display: flex; gap: 8px; align-items: center; justify-content: space-between; font-size: 14px; }
+.ops-list li > span:first-child { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.ops-list .small-print, .ops-list .tk-warn { margin: 0; }
+.ops-meter { flex: 0 0 70px; height: 8px; background: var(--track); border-radius: 999px; overflow: hidden; }
+.ops-meter i { display: block; height: 100%; background: var(--ink); }
+.ops-nums { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.ops-nums .card { display: grid; gap: 2px; padding: 8px 10px; }
+.ops-nums b { font: 700 22px / 1.1 var(--font-display); overflow-wrap: anywhere; }
+.ops-nums .small-print { margin: 0; }
+.ops-up { color: #1e8449; font-weight: 800; font-size: 13px; }
+.ops-down { color: #c0392b; font-weight: 800; font-size: 13px; }
+.ops-detail { margin: 6px 0 0; padding-left: 18px; display: grid; gap: 6px; font-size: 14px; overflow-wrap: anywhere; }
+.ops-health summary, .ops-todo summary { cursor: pointer; }
+.ops-todo-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.ops-todo-list .mk-check span { display: grid; gap: 2px; }
+.ops-todo-list .chip { justify-self: start; font-size: 11px; }
+.ops-todo-list.is-done li { font-size: 14px; }
+.ops-subs { flex-wrap: wrap; }
+.ops-msg { white-space: pre-wrap; overflow-wrap: anywhere; }
+@media (min-width: 760px) {
+  .ops-queues { grid-template-columns: 1fr 1fr; }
+  .ops-today { grid-template-columns: repeat(3, 1fr); }
+  .ops-nums { grid-template-columns: repeat(4, 1fr); }
+}

@@ -7,8 +7,10 @@
   var C = window.Web3Common;
   var esc = C.esc;
   var app = document.getElementById('app');
-  var TABS = [['users', 'Users'], ['leads', 'Leads'], ['purchases', 'Purchases'], ['bookings', 'Bookings'], ['toyreq', 'Toy requests'], ['testreq', 'Test requests'], ['tests', 'Tests & payouts'], ['sponsors', 'Sponsor bookings'], ['requests', 'Project requests'], ['review', 'Review queue'], ['growth', 'Referrals & posts'], ['releases', 'Releases'], ['stats', 'Toy stats']];
-  var tab = (location.hash.replace('#', '') || 'users');
+  var TABS = [['ops', '🏠 Operations'], ['inbox', 'Inbox'], ['users', 'Users'], ['leads', 'Leads'], ['purchases', 'Purchases'], ['bookings', 'Bookings'], ['toyreq', 'Toy requests'], ['testreq', 'Test requests'], ['tests', 'Tests & payouts'], ['sponsors', 'Sponsor bookings'], ['requests', 'Project requests'], ['review', 'Review queue'], ['growth', 'Referrals & posts'], ['releases', 'Releases'], ['stats', 'Toy stats'], ['revenue', 'Revenue'], ['audit', 'Audit log']];
+  var hash = location.hash.replace('#', '').split(':');
+  var tab = hash[0] || 'ops';
+  var sub = hash[1] || '';
   var days = 30;
   var settings = null;
   var home = null;
@@ -16,7 +18,7 @@
   var cache = {};
   var table = null;
 
-  if (!TABS.some(function (t) { return t[0] === tab; })) tab = 'users';
+  if (!TABS.some(function (t) { return t[0] === tab; })) tab = 'ops';
 
   function db() { return window.Web3Auth.client; }
 
@@ -67,9 +69,7 @@
       '<section class="adm-panel" data-panel><p class="small-print">Loading…</p></section>';
     app.querySelectorAll('[data-tab]').forEach(function (b) {
       b.addEventListener('click', function () {
-        tab = b.getAttribute('data-tab');
-        if (history.replaceState) history.replaceState(null, '', '#' + tab);
-        render();
+        go(b.getAttribute('data-tab'));
       });
     });
     app.querySelector('[data-days]').addEventListener('change', function (e) {
@@ -78,8 +78,20 @@
       render();
     });
     var panel = app.querySelector('[data-panel]');
-    ({ users: users, leads: leads, purchases: purchases, bookings: bookings, requests: requests, review: review, growth: growth, releases: releases, stats: stats, toyreq: function (p) { return bizRequests(p, 'toy'); }, testreq: function (p) { return bizRequests(p, 'test'); }, tests: productTests, sponsors: sponsorBookings })[tab](panel)
+    var ctx = { db: db, load: load, cache: cache, esc: esc, must: must, tiles: tiles, grid: grid, bindCsv: bindCsv, render: render, go: go, refundOrder: refundOrder, date: date };
+    var O = window.Web3AdminOps;
+    ({ ops: function (p) { return O.home(p, ctx); }, inbox: function (p) { return O.inbox(p, ctx, sub); }, audit: function (p) { delete cache.audit; return O.audit(p, ctx); }, revenue: function (p) { return O.revenue(p, ctx); }, users: users, leads: leads, purchases: purchases, bookings: bookings, requests: requests, review: review, growth: growth, releases: releases, stats: stats, toyreq: function (p) { return bizRequests(p, 'toy'); }, testreq: function (p) { return bizRequests(p, 'test'); }, tests: productTests, sponsors: sponsorBookings })[tab](panel)
       .catch(function (err) { panel.innerHTML = '<p class="tk-warn is-bad">Could not load: ' + esc(err.message) + '</p>'; });
+  }
+
+  // Open a tab (and an Inbox section, 'inbox:refunds').
+  function go(where) {
+    var parts = String(where).split(':');
+    tab = parts[0];
+    sub = parts[1] || '';
+    if (history.replaceState) history.replaceState(null, '', '#' + where);
+    render();
+    window.scrollTo(0, 0);
   }
 
   function load(key, fn) {
