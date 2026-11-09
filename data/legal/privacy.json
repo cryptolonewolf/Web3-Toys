@@ -2,7 +2,7 @@
   "_help": "The Privacy page. Plain-English draft: have a lawyer check it before taking payments. Keep it matching what the site really collects. Lines starting with TODO are placeholders.",
   "review": true,
   "title": "Privacy policy",
-  "updated": "5 November 2026",
+  "updated": "9 November 2026",
   "intro": "web3.toys is built so you can play without telling us anything. This page lists exactly what we collect, why, who helps us store it, and how to delete it.",
   "sections": [
     {
@@ -84,6 +84,16 @@
       "title": "Your rights",
       "list": [
         "You can ask to see, correct or delete the data we hold about you, and withdraw your consent at any time, by emailing us from the Contact page."
+      ]
+    },
+    {
+      "id": "testers",
+      "title": "Testers",
+      "list": [
+        "If you join as a tester we store your payout wallet address, network and stablecoin choice, the date you agreed to the tester rules, your test answers, times, ratings, comments and screenshots.",
+        "Projects see your answers and screenshots in their report under a number (Tester 1, Tester 2), not your name or wallet.",
+        "Screenshots are stored privately; only you and our team can open them. Your wallet address is only seen by our team, to pay you.",
+        "Ask us at hi@web3.toys to delete your tester details. We keep payment records as the law requires."
       ]
     },
     {

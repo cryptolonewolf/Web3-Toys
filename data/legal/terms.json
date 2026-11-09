@@ -2,7 +2,7 @@
   "_help": "The Terms page. Plain-English draft: have a lawyer check it before taking payments. Lines starting with TODO are placeholders.",
   "review": true,
   "title": "Terms of use",
-  "updated": "5 November 2026",
+  "updated": "9 November 2026",
   "intro": "By using web3.toys you agree to these terms. They are written to be short and readable.",
   "sections": [
     {
@@ -73,6 +73,19 @@
       "list": [
         "Payment does not guarantee listing. Every project passes our vetting checklist first, and we refund in full if we decline.",
         "We may remove a listed course or toy if we later find the project is misleading, unsafe or breaks the law."
+      ]
+    },
+    {
+      "id": "testers",
+      "title": "Paid product testing",
+      "list": [
+        "Testers must be 18 or older, have an account and the rank shown on the Testers page.",
+        "Testers only use testnets or a fresh, empty wallet. Never use real funds and never enter a recovery (seed) phrase anywhere. If a product asks for one, stop and report it.",
+        "Payment is for the testing work you do, not a reward for playing. It is paid in USDC or USDT to the wallet you give us, after the team approves your test, usually within 14 days.",
+        "We may decline tests that are rushed, copied or fake, and close accounts that use more than one profile. Declined tests are not paid.",
+        "You are responsible for any taxes on what you are paid. Payments sent to the address and network you gave us cannot be reversed, so check them carefully.",
+        "Coins for tests are site points with no cash value. web3.toys never pays in or promotes tokens.",
+        "What you write and your screenshots are shared with the project that asked for the test. Do not include personal details in them."
       ]
     },
     {

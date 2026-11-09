@@ -467,3 +467,11 @@ footer. Prices, tiers and rules: `data/business/` (`toy_tiers.json`,
   `supabase/015_sponsors.sql`. Ad products `ad-toy-TOY`, `ad-toy-TOY-round`,
   `ad-site`, `ad-newsletter`. Admin, Sponsor bookings: approve, reject and
   refund, views and clicks.
+- Test Your Product: `test-your-product/` (`js/biz-test.js`, words in
+  `data/business/test_page.json`, prices in `test_tiers.json`) and the tester
+  pages `testers/` (`js/biz-testers.js`, words in `testers_page.json`). The
+  report (sample and real, with the branded PDF): `js/test-report.js`.
+  Testers, tests, runs, screenshots and payouts: `supabase/016_tests.sql`.
+  Testers need Explorer rank, use testnets or empty wallets only, and are paid
+  in stablecoins from the 25% tester pool by hand (admin, Tests & payouts).
+  Approved testers get full reports free (`is_tester`, `js/offers.js`).

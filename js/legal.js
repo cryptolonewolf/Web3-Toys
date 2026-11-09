@@ -17,7 +17,7 @@
       '<p class="text text--ink">' + esc(d.intro) + '</p>' +
       (doc === 'contact' ? contactBox() : '') +
       d.sections.map(function (s) {
-        return '<h2 class="title-md">' + esc(s.title) + '</h2><ul>' + s.list.map(function (l) { return '<li>' + line(l) + '</li>'; }).join('') + '</ul>';
+        return '<h2 class="title-md"' + (s.id ? ' id="' + esc(s.id) + '"' : '') + '>' + esc(s.title) + '</h2><ul>' + s.list.map(function (l) { return '<li>' + line(l) + '</li>'; }).join('') + '</ul>';
       }).join('') +
       '<p class="small-print legal-links"><a href="../privacy/">Privacy</a> · <a href="../terms/">Terms</a> · <a href="../refunds/">Refunds and delivery</a> · <a href="../contact/">Contact</a></p>' +
       '</article>';

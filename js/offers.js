@@ -14,6 +14,8 @@
   var products = null;
   var handlers = {};
   var owned = {};
+  var tester = false; // approved testers get every full report free (supabase/016_tests.sql)
+  function has(id, item) { return !!owned[key(id, item)] || (tester && id === 'report-full'); }
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; });
@@ -62,7 +64,7 @@
     }
     var p = product(o.id);
     var forItem = p.perItem ? item : null;
-    var have = owned[key(p.id, forItem)];
+    var have = has(p.id, forItem);
     var icon = { book: '📘', report: '📄', certificate: '🏅', export: '🎨' }[p.type] || '✨';
     var label = have ? (data.owned[o.kind === 'book' ? 'book' : p.id] || 'Open') : (data.buttons[o.kind === 'book' ? 'book' : p.id] || 'Get it');
     return '<li class="offer' + (have ? ' is-owned' : '') + '"><span class="offer-icon" aria-hidden="true">' + icon + '</span><div><b>' + esc(p.title) + '</b>' +
@@ -104,7 +106,7 @@
   }
 
   function act(slot, id, item) {
-    if (owned[key(id, item)]) return use(slot, id, item);
+    if (has(id, item)) return use(slot, id, item);
     if (!window.Web3Pay) { say(slot, 'Buying opens soon.'); return; }
     window.Web3Pay.buy(id, item, function () {
       owned[key(id, item)] = true;
@@ -123,10 +125,11 @@
   // What this player already owns (needs an account).
   function loadOwned() {
     if (!window.Web3Pay || !window.Web3Auth || !window.Web3Auth.user()) return Promise.resolve();
-    return window.Web3Pay.purchases().then(function (rows) {
+    var t = window.Web3Auth.client.rpc('is_tester').then(function (r) { tester = !r.error && r.data === true; }, function () { tester = false; });
+    return Promise.all([t, window.Web3Pay.purchases().then(function (rows) {
       owned = {};
       rows.forEach(function (o) { if (o.status === 'paid') owned[key(o.product_id, o.item)] = true; });
-    }).catch(function () {});
+    })]).catch(function () {});
   }
 
   function refresh() {
@@ -167,7 +170,7 @@
   window.Web3Offers = {
     print: printHtml,
     deliver: function (id, fn) { handlers[id] = fn; },
-    owns: function (id, item) { return !!owned[key(id, item)]; },
+    owns: function (id, item) { return has(id, item); },
     slot: function (kind, item) { return '<section class="card offers stack stack--tight" data-offers="' + esc(kind) + '" data-item="' + esc(item || '') + '"></section>'; },
     refresh: function () { return loadOwned().then(refresh); },
   };

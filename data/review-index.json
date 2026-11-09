@@ -30,11 +30,25 @@
    "hash": "79ebca550387"
   },
   {
+   "file": "data/business/test_page.json",
+   "item": "(whole file)",
+   "label": "Test it before launch. Real people, real confusion, real fixes.",
+   "note": "Words for /test-your-product/ (js/biz-test.js). Prices and tiers: test_tiers.json. sample: the made-up sample report (always labelled as a sample).",
+   "hash": "00af5cb95c5d"
+  },
+  {
    "file": "data/business/test_tiers.json",
    "item": "(whole file)",
    "label": "data/business/test_tiers.json",
    "note": "Test Your Product prices and tiers (US dollars only). deposit: share paid upfront to reserve a slot. testerShare: share of the price paid out to testers in stablecoins, split between the testers whose",
    "hash": "a375d1ceebf4"
+  },
+  {
+   "file": "data/business/testers_page.json",
+   "item": "(whole file)",
+   "label": "Become a tester",
+   "note": "Words for /testers/ (js/testers.js): becoming a tester and running tests. The rank needed and the coins are in test_tiers.json; the safety rules are also checked by the database (016_tests.sql).",
+   "hash": "1b6b88f37abc"
   },
   {
    "file": "data/business/toy_tiers.json",
@@ -804,7 +818,7 @@
    "item": "(whole file)",
    "label": "Privacy policy",
    "note": "The Privacy page. Plain-English draft: have a lawyer check it before taking payments. Keep it matching what the site really collects. Lines starting with TODO are placeholders.",
-   "hash": "d4c3218ae257"
+   "hash": "53721982dd36"
   },
   {
    "file": "data/legal/refunds.json",
@@ -818,7 +832,7 @@
    "item": "(whole file)",
    "label": "Terms of use",
    "note": "The Terms page. Plain-English draft: have a lawyer check it before taking payments. Lines starting with TODO are placeholders.",
-   "hash": "4d46f87a851a"
+   "hash": "0e78f2285ae9"
   },
   {
    "file": "data/prices/ADA.json",

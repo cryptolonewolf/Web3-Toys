@@ -1,0 +1,63 @@
+{
+  "_help": "Words for /testers/ (js/testers.js): becoming a tester and running tests. The rank needed and the coins are in test_tiers.json; the safety rules are also checked by the database (016_tests.sql).",
+  "review": true,
+  "title": "Become a tester",
+  "intro": "Try new web3 products before they launch, task by task, and tell the team where you got stuck.",
+  "perks": [
+    {
+      "icon": "💵",
+      "title": "Paid in stablecoins",
+      "text": "Each approved test pays you in USDC or USDT, sent to your wallet after review."
+    },
+    {
+      "icon": "🪙",
+      "title": "Coins",
+      "text": "Coins for every approved test (site points, no cash value)."
+    },
+    {
+      "icon": "📄",
+      "title": "Free full reports",
+      "text": "Every toy's full report is free while you are a tester."
+    }
+  ],
+  "rankLine": "Testers need Explorer rank: earn {n} certificates first.",
+  "joinTitle": "Join as a tester",
+  "joinLine": "Where should we send your stablecoins? Use a wallet you control. Double-check the network: payments sent to the wrong network cannot be recovered.",
+  "agree": [
+    "I am 18 or older.",
+    "I will only use testnets or a fresh, empty wallet, never real funds, and never enter a recovery phrase.",
+    "Payments are for the testing work I do, after the team reviews it. I am responsible for any taxes on them.",
+    "One account per person. Fake or rushed tests are not paid."
+  ],
+  "safety": [
+    {
+      "id": "testnet",
+      "text": "I will use a testnet or a fresh, empty wallet only."
+    },
+    {
+      "id": "noFunds",
+      "text": "I will never use real funds."
+    },
+    {
+      "id": "noSeed",
+      "text": "I will never enter a recovery (seed) phrase anywhere."
+    },
+    {
+      "id": "stop",
+      "text": "If anything asks for a recovery phrase, I stop and report it."
+    }
+  ],
+  "safetyTitle": "Before you start",
+  "outcomes": {
+    "done": "✅ Done",
+    "stuck": "😕 Stuck",
+    "gave_up": "🏳️ Gave up"
+  },
+  "commentHint": "What happened? Where did you look? (Never paste a recovery phrase or private key.)",
+  "statuses": {
+    "started": "In progress",
+    "submitted": "Sent, waiting for review",
+    "approved": "Approved",
+    "rejected": "Not approved"
+  }
+}

@@ -7,7 +7,7 @@
   var C = window.Web3Common;
   var esc = C.esc;
   var app = document.getElementById('app');
-  var TABS = [['users', 'Users'], ['leads', 'Leads'], ['purchases', 'Purchases'], ['bookings', 'Bookings'], ['toyreq', 'Toy requests'], ['sponsors', 'Sponsor bookings'], ['requests', 'Project requests'], ['review', 'Review queue'], ['growth', 'Referrals & posts'], ['releases', 'Releases'], ['stats', 'Toy stats']];
+  var TABS = [['users', 'Users'], ['leads', 'Leads'], ['purchases', 'Purchases'], ['bookings', 'Bookings'], ['toyreq', 'Toy requests'], ['testreq', 'Test requests'], ['tests', 'Tests & payouts'], ['sponsors', 'Sponsor bookings'], ['requests', 'Project requests'], ['review', 'Review queue'], ['growth', 'Referrals & posts'], ['releases', 'Releases'], ['stats', 'Toy stats']];
   var tab = (location.hash.replace('#', '') || 'users');
   var days = 30;
   var settings = null;
@@ -78,7 +78,7 @@
       render();
     });
     var panel = app.querySelector('[data-panel]');
-    ({ users: users, leads: leads, purchases: purchases, bookings: bookings, requests: requests, review: review, growth: growth, releases: releases, stats: stats, toyreq: function (p) { return bizRequests(p, 'toy'); }, sponsors: sponsorBookings })[tab](panel)
+    ({ users: users, leads: leads, purchases: purchases, bookings: bookings, requests: requests, review: review, growth: growth, releases: releases, stats: stats, toyreq: function (p) { return bizRequests(p, 'toy'); }, testreq: function (p) { return bizRequests(p, 'test'); }, tests: productTests, sponsors: sponsorBookings })[tab](panel)
       .catch(function (err) { panel.innerHTML = '<p class="tk-warn is-bad">Could not load: ' + esc(err.message) + '</p>'; });
   }
 
@@ -370,6 +370,8 @@
             '<p class="small-print">' + esc(date(q.created_at)) + ' · ' + esc(q.email) + (q.website ? ' · <a href="' + esc(q.website) + '" target="_blank" rel="noopener">' + esc(q.website) + '</a>' : '') + (q.x_handle ? ' · ' + esc(q.x_handle) : '') +
             (q.launch_date ? ' · launch ' + esc(q.launch_date) : '') + ' · Deposit: ' + (o ? esc(o.status) + ' ' + money(o.amount, o.currency) : 'not paid yet') + '</p>' +
             (q.product ? '<p class="text"><b>Product:</b> ' + esc(q.product) + '</p>' : '') + (q.idea ? '<p class="text"><b>Idea:</b> ' + esc(q.idea) + '</p>' : '') +
+            (kind === 'test' && q.details ? '<p class="text"><b>Test link:</b> ' + (q.details.testLink ? '<a href="' + esc(q.details.testLink) + '" target="_blank" rel="noopener">' + esc(q.details.testLink) + '</a>' : '-') + (q.details.network ? ' · ' + esc(q.details.network) : '') + '</p>' +
+              (q.details.tasks ? '<p class="text"><b>Tasks they want tested:</b></p><pre class="adm-tasks">' + esc(q.details.tasks) + '</pre>' : '') : '') +
             '<fieldset class="adm-check"><legend class="label">Vetting checklist</legend>' + settings.vetting.map(function (v) {
               return '<label class="mk-check"><input type="checkbox" data-v="' + v.id + '"' + ((q.checklist || {})[v.id] ? ' checked' : '') + ' /> <span>' + esc(v.text) + '</span></label>';
             }).join('') + '</fieldset>' +
@@ -419,6 +421,164 @@
   // views and clicks from our own counter.
 
   var BOOK_STATUS = { pending_payment: 'Not paid', pending: 'Paid, needs review', approved: 'Approved', rejected: 'Rejected', refunded: 'Refunded', cancelled: 'Cancelled' };
+
+  // ---------- Tests & payouts (Test Your Product, supabase/016_tests.sql) ----------
+  var TEST_STATUS = { draft: 'Draft (hidden)', open: 'Open to testers', closed: 'Closed', reported: 'Report sent' };
+  function productTests(panel) {
+    return Promise.all([
+      load('tests', function () { return db().from('product_tests').select('*').order('created_at', { ascending: false }).then(must); }),
+      load('testRuns', function () { return db().from('test_runs').select('*').order('started_at', { ascending: false }).limit(5000).then(must); }),
+      load('testers', function () { return db().rpc('admin_testers').then(must); }),
+      load('biz-test', function () { return db().from('biz_requests').select('*').eq('kind', 'test').order('created_at', { ascending: false }).then(must); }),
+      load('bizTiers-test', function () { return C.loadJson('../data/business/test_tiers.json'); }),
+    ]).then(function (r) {
+      var tests = r[0], runs = r[1], T = r[4];
+      var who = {};
+      r[2].forEach(function (t) { who[t.user_id] = t; });
+      var reqs = r[3].filter(function (q) { return ['paid', 'in_review', 'approved', 'building', 'live'].indexOf(q.status) >= 0; });
+      var tierOf = function (q) { return T.tiers.filter(function (t) { return t.id === q.tier; })[0] || T.tiers[0]; };
+      var reward = function (t) { return Math.floor(t.price * T.testerShare / t.testers * 100) / 100; };
+      var owed = runs.filter(function (x) { return x.status === 'approved' && !x.paid_at; });
+      var testName = {};
+      tests.forEach(function (t) { testName[t.id] = t.project + ': ' + t.title; });
+      var payRows = owed.map(function (x) { var p = who[x.user_id] || {}; return [testName[x.test_id], p.display_name, x.owed_usd, p.token, p.network, p.wallet]; });
+      table = { name: 'tester-payouts', head: ['Test', 'Tester', 'Owed (USD)', 'Token', 'Network', 'Wallet'], rows: payRows };
+
+      panel.innerHTML = tiles([['Tests', tests.length], ['Open now', tests.filter(function (t) { return t.status === 'open'; }).length],
+        ['Waiting for review', runs.filter(function (x) { return x.status === 'submitted'; }).length], ['Payouts owed', '$' + owed.reduce(function (s, x) { return s + Number(x.owed_usd || 0); }, 0).toFixed(2)], ['Testers', r[2].length]]) +
+        '<details class="card stack stack--tight"><summary><b>➕ New test</b></summary><div data-new></div></details>' +
+        tests.map(function (t) {
+          var mine = runs.filter(function (x) { return x.test_id === t.id; });
+          var sent = mine.filter(function (x) { return x.status === 'submitted'; });
+          return '<article class="card stack stack--tight adm-req" data-test="' + t.id + '"><div class="cap-row"><h3 class="title-sm">' + esc(t.project) + ': ' + esc(t.title) + '</h3><span class="chip is-yellow">' + esc(TEST_STATUS[t.status]) + '</span></div>' +
+            '<p class="small-print">' + (t.tasks || []).length + ' tasks · ' + mine.filter(function (x) { return x.status !== 'rejected'; }).length + ' of ' + t.spots + ' spots taken · $' + Number(t.reward_usd).toFixed(2) + ' + ' + t.coins + ' coins per approved test · ' +
+            mine.filter(function (x) { return x.status === 'approved'; }).length + ' approved, ' + sent.length + ' to review</p>' +
+            '<div class="btn-row"><button type="button" class="btn btn--small" data-edit>Edit</button>' +
+            (t.status !== 'open' ? '<button type="button" class="btn btn--small btn--yellow" data-st="open">Open to testers</button>' : '<button type="button" class="btn btn--small" data-st="closed">Close</button>') +
+            '<button type="button" class="btn btn--small" data-report>Report</button><button type="button" class="btn btn--small btn--ink" data-pdf>Export branded PDF</button></div>' +
+            '<div data-editbox></div>' +
+            (sent.length ? '<h4 class="label">To review</h4>' + sent.map(function (x) {
+              var p = who[x.user_id] || {};
+              return '<div class="card stack stack--tight" data-run="' + x.id + '"><b>' + esc(p.display_name || 'Tester') + '</b><span class="small-print">sent ' + esc(date(x.submitted_at)) + '</span><ol class="tst-review">' +
+                (x.results || []).map(function (res, i) {
+                  return '<li><b>' + esc(((t.tasks || [])[i] || {}).title || res.task) + '</b><span class="small-print">' + esc(res.outcome) + ' · ' + Math.round(res.seconds || 0) + ' s · ' + res.rating + '/5' + (res.shot ? ' · <a href="#" data-shot="' + esc(res.shot) + '">screenshot</a>' : '') + '</span>' + (res.comment ? '<span class="small-print">"' + esc(res.comment) + '"</span>' : '') + '</li>';
+                }).join('') + '</ol><input class="field" data-note placeholder="Note (optional, why it was rejected)" maxlength="300" />' +
+                '<div class="btn-row"><button type="button" class="btn btn--small btn--yellow" data-review="approved">Approve (coins + $' + Number(t.reward_usd).toFixed(2) + ' owed)</button><button type="button" class="btn btn--small acct-danger" data-review="rejected">Reject</button></div><p class="small-print" data-msg></p></div>';
+            }).join('') : '') +
+            '<div data-reportbox></div><p class="small-print" data-msg aria-live="polite"></p></article>';
+        }).join('') +
+        '<section class="stack stack--tight"><h3 class="title-sm">Payouts owed</h3><p class="small-print">Send each one from your own wallet, then paste the transaction link (https://… from the block explorer) and press Mark paid. Check the network before you send.</p>' +
+        (owed.length ? '<div class="btn-row"><button type="button" class="btn btn--small" data-csv>Export CSV</button></div>' + owed.map(function (x) {
+          var p = who[x.user_id] || {};
+          return '<div class="card stack stack--tight" data-pay="' + x.id + '"><b>' + esc(p.display_name || 'Tester') + ' · $' + Number(x.owed_usd).toFixed(2) + ' in ' + esc(p.token || '?') + ' on ' + esc(p.network || '?') + '</b>' +
+            '<span class="small-print">' + esc(testName[x.test_id] || '') + '</span><code class="adm-tasks">' + esc(p.wallet || 'no wallet') + '</code>' +
+            '<div class="btn-row"><input class="field" data-tx placeholder="https://etherscan.io/tx/…" maxlength="300" /><button type="button" class="btn btn--small btn--ink" data-paid>Mark paid</button></div><p class="small-print" data-msg></p></div>';
+        }).join('') : '<p class="text">Nothing owed right now.</p>') + '</section>';
+      bindCsv(panel);
+
+      var refresh = function () { ['tests', 'testRuns', 'testers'].forEach(function (k) { delete cache[k]; }); render(); };
+      function editor(box, t) {
+        t = t || {};
+        box.innerHTML = '<form class="stack stack--tight adm-test-form">' +
+          (t.id ? '' : '<label class="label">From request<select class="field" data-req><option value="">(none)</option>' + reqs.map(function (q) { return '<option value="' + q.id + '">' + esc(q.project) + ' · ' + esc(tierOf(q).name) + ' · ' + esc(BIZ_STATUS[q.status] || q.status) + '</option>'; }).join('') + '</select></label>') +
+          '<label class="label">Project<input class="field" data-k="project" maxlength="120" value="' + esc(t.project || '') + '" /></label>' +
+          '<label class="label">Test title (testers see it)<input class="field" data-k="title" maxlength="120" value="' + esc(t.title || '') + '" placeholder="First swap on testnet" /></label>' +
+          '<label class="label">Short intro for testers<textarea class="field" rows="2" data-k="intro" maxlength="600">' + esc(t.intro || '') + '</textarea></label>' +
+          '<label class="label">Link testers open (https)<input class="field" data-k="url" maxlength="300" value="' + esc(t.url || '') + '" /></label>' +
+          '<label class="label">Network note<input class="field" data-k="network" maxlength="80" value="' + esc(t.network_note || '') + '" placeholder="Sepolia testnet" /></label>' +
+          '<label class="label">Tasks, one per line (1 to 20)<textarea class="field adm-tasks" rows="6" data-k="tasks">' + esc((t.tasks || []).map(function (x) { return x.title; }).join('\n')) + '</textarea></label>' +
+          '<div class="ad-row"><label class="label">Testers (spots)<input class="field" type="number" min="1" max="500" data-k="spots" value="' + (t.spots || 10) + '" /></label>' +
+          '<label class="label">Stablecoin per tester ($)<input class="field" type="number" min="0" step="0.01" data-k="reward" value="' + (t.reward_usd != null ? t.reward_usd : 0) + '" /></label>' +
+          '<label class="label">Coins per tester<input class="field" type="number" min="0" data-k="coins" value="' + (t.coins != null ? t.coins : T.testerCoins) + '" /></label>' +
+          '<label class="label">Minutes (about)<input class="field" type="number" min="5" max="240" data-k="minutes" value="' + (t.minutes || 30) + '" /></label></div>' +
+          '<p class="small-print">Tester pool: ' + Math.round(T.testerShare * 100) + '% of the price, split between the testers. Picking a request fills this in.' + (t.id ? ' Changing tasks after people started can mix up their answers.' : '') + '</p>' +
+          '<div class="btn-row"><button type="submit" class="btn btn--small btn--ink">Save as draft</button><button type="button" class="btn btn--small btn--yellow" data-open>Save and open</button></div><p class="small-print" data-msg></p></form>';
+        var f = box.querySelector('form');
+        var v = function (k) { return f.querySelector('[data-k="' + k + '"]'); };
+        var req = f.querySelector('[data-req]');
+        if (req) req.addEventListener('change', function () {
+          var q = reqs.filter(function (x) { return x.id === req.value; })[0];
+          if (!q) return;
+          var tier = tierOf(q), d = q.details || {};
+          v('project').value = q.project; v('url').value = d.testLink || q.website || ''; v('network').value = d.network || '';
+          v('tasks').value = String(d.tasks || '').split(/\n+/).map(function (x) { return x.trim(); }).filter(Boolean).slice(0, 20).join('\n');
+          v('spots').value = tier.testers; v('reward').value = reward(tier);
+        });
+        var save = function (status) {
+          var lines = v('tasks').value.split(/\n+/).map(function (x) { return x.trim(); }).filter(Boolean);
+          var msg = f.querySelector('[data-msg]');
+          if (!lines.length || lines.length > 20) { msg.textContent = 'Add 1 to 20 tasks, one per line.'; return; }
+          msg.textContent = 'Saving…';
+          db().rpc('admin_save_test', {
+            p_id: t.id || null, p_request: t.id ? t.request_id : (req.value || null), p_project: v('project').value.trim(), p_title: v('title').value.trim(), p_intro: v('intro').value.trim(),
+            p_url: v('url').value.trim(), p_network: v('network').value.trim(), p_tasks: lines.map(function (x, i) { return { id: 't' + (i + 1), title: x.slice(0, 200) }; }),
+            p_spots: Number(v('spots').value), p_reward: Number(v('reward').value), p_coins: Number(v('coins').value), p_minutes: Number(v('minutes').value), p_status: status || t.status || 'draft',
+          }).then(must).then(refresh, function (err) { msg.textContent = 'Could not save: ' + err.message; });
+        };
+        f.addEventListener('submit', function (e) { e.preventDefault(); save(t.id ? null : 'draft'); });
+        f.querySelector('[data-open]').addEventListener('click', function () { save('open'); });
+      }
+      editor(panel.querySelector('[data-new]'));
+
+      var signed = function (paths) {
+        if (!paths.length) return Promise.resolve({});
+        return db().storage.from('test-shots').createSignedUrls(paths, 3600).then(function (r) {
+          var out = {};
+          (r.data || []).forEach(function (x) { if (x.signedUrl) out[x.path] = x.signedUrl; });
+          return out;
+        });
+      };
+      var reportHtml = function (t) {
+        var mine = runs.filter(function (x) { return x.test_id === t.id && x.status === 'approved'; });
+        var paths = [];
+        mine.forEach(function (x) { (x.results || []).forEach(function (res) { if (res.shot) paths.push(res.shot); }); });
+        return signed(paths).then(function (urls) { return Web3TestReport.html(t, mine, { shot: function (p) { return urls[p] || ''; } }); });
+      };
+      panel.querySelectorAll('[data-test]').forEach(function (card) {
+        var t = tests.filter(function (x) { return x.id === card.getAttribute('data-test'); })[0];
+        var msg = card.querySelector(':scope > [data-msg]');
+        card.querySelector('[data-edit]').addEventListener('click', function () { editor(card.querySelector('[data-editbox]'), t); });
+        card.querySelectorAll('[data-st]').forEach(function (b) {
+          b.addEventListener('click', function () {
+            msg.textContent = 'Saving…';
+            db().rpc('admin_save_test', { p_id: t.id, p_request: t.request_id, p_project: t.project, p_title: t.title, p_intro: t.intro, p_url: t.url, p_network: t.network_note, p_tasks: t.tasks,
+              p_spots: t.spots, p_reward: t.reward_usd, p_coins: t.coins, p_minutes: t.minutes, p_status: b.getAttribute('data-st') }).then(must).then(refresh, function (err) { msg.textContent = err.message; });
+          });
+        });
+        card.querySelector('[data-report]').addEventListener('click', function () {
+          var box = card.querySelector('[data-reportbox]');
+          box.innerHTML = '<p class="small-print">Building…</p>';
+          reportHtml(t).then(function (h) { box.innerHTML = h; }, function (err) { box.innerHTML = '<p class="small-print">' + esc(err.message) + '</p>'; });
+        });
+        card.querySelector('[data-pdf]').addEventListener('click', function () {
+          msg.textContent = 'Preparing the PDF… choose Save as PDF in the print box.';
+          reportHtml(t).then(function (h) { Web3TestReport.print(h); }, function (err) { msg.textContent = err.message; });
+        });
+        card.querySelectorAll('[data-shot]').forEach(function (a) {
+          a.addEventListener('click', function (e) {
+            e.preventDefault();
+            signed([a.getAttribute('data-shot')]).then(function (u) { var url = u[a.getAttribute('data-shot')]; if (url) window.open(url, '_blank', 'noopener'); });
+          });
+        });
+        card.querySelectorAll('[data-run]').forEach(function (box) {
+          box.querySelectorAll('[data-review]').forEach(function (b) {
+            b.addEventListener('click', function () {
+              b.disabled = true;
+              db().rpc('admin_review_run', { p_run: box.getAttribute('data-run'), p_status: b.getAttribute('data-review'), p_note: box.querySelector('[data-note]').value })
+                .then(must).then(refresh, function (err) { b.disabled = false; box.querySelector('[data-msg]').textContent = err.message; });
+            });
+          });
+        });
+      });
+      panel.querySelectorAll('[data-pay]').forEach(function (box) {
+        box.querySelector('[data-paid]').addEventListener('click', function () {
+          var tx = box.querySelector('[data-tx]').value.trim();
+          if (!/^https:\/\/\S{3,}$/.test(tx)) { box.querySelector('[data-msg]').textContent = 'Paste the https:// transaction link from the block explorer.'; return; }
+          db().rpc('admin_mark_paid', { p_run: box.getAttribute('data-pay'), p_tx: tx }).then(must).then(refresh, function (err) { box.querySelector('[data-msg]').textContent = err.message; });
+        });
+      });
+    });
+  }
 
   function sponsorBookings(panel) {
     var SB = (window.WEB3TOYS_CONFIG || {}).supabase || {};
