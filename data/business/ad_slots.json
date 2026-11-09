@@ -1,5 +1,5 @@
 {
-  "_help": "Sponsor a Toy prices (US dollars only) and rules. toyMonth: price for one toy for one calendar month, by toy id; newToy is the price for a toy in its first month. Allowed categories and rules are shown on /advertise/ and checked when you approve a booking.",
+  "_help": "Sponsor a Toy prices (US dollars only) and rules. toyMonth: price for one toy for one calendar month, by toy id (new toys start at the newToy price; raise them here after their first month). roundToys: toys that can take a sponsored round (+sponsoredRound per month). siteWide: a sponsor card on every toy without its own sponsor that month. newsletter: one newsletter issue (the first issue of the month you pick). Allowed categories and rules are shown on /advertise/ and checked when you approve a booking.",
   "review": true,
   "currency": "USD",
   "toyMonth": {
@@ -13,7 +13,12 @@
     "invest-100": 350,
     "token-split": 350,
     "token-simulator": 350,
-    "hall-of-fame": 350
+    "hall-of-fame": 350,
+    "web3-roles": 200,
+    "tokenomics-basics": 200,
+    "ways-to-moon": 200,
+    "first-job": 200,
+    "raise-first-round": 200
   },
   "newToy": 200,
   "sponsoredRound": 300,
@@ -22,11 +27,26 @@
   "lineMax": 80,
   "logoMaxKb": 300,
   "monthsAhead": 6,
-  "allowedCategories": ["Security", "Wallets", "Developer tools", "Infrastructure", "Education", "Registered exchanges"],
+  "allowedCategories": [
+    "Security",
+    "Wallets",
+    "Developer tools",
+    "Infrastructure",
+    "Education",
+    "Registered exchanges"
+  ],
   "rules": [
     "No token promotions, price claims or \"buy now\" calls.",
     "Every sponsored item is labelled \"Sponsored\".",
     "Sponsor cards never sit inside gameplay, never block play and never appear on certificates.",
     "Every booking is reviewed before it goes live. If we reject it, you get a full refund."
+  ],
+  "roundToys": [
+    "crypto-in-5",
+    "getting-started",
+    "dont-lose-money",
+    "earn-small",
+    "web3-roles",
+    "scam"
   ]
 }

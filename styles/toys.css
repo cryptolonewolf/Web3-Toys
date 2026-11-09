@@ -7152,3 +7152,40 @@ body.has-sheet { overflow: hidden; }
   .biz-steps .card { grid-template-columns: 1fr; }
   .biz-step-n { grid-row: auto; }
 }
+
+/* ---------- Sponsor cards (js/sponsor.js) ---------- */
+.sponsor-start, .sponsor-result { display: block; }
+.sponsor-card { display: grid; grid-template-columns: auto 1fr auto; grid-template-rows: auto auto; gap: 2px 10px; align-items: center; padding: 8px 12px; color: var(--ink); text-decoration: none; background: var(--white); border: 2px dashed rgba(31, 27, 46, .45); border-radius: 14px; }
+.sponsor-card:hover { border-style: solid; }
+.sponsor-label { grid-column: 1 / -1; font: 800 10px var(--font-body); letter-spacing: 1px; text-transform: uppercase; color: var(--ink-soft, #5a5470); }
+.sponsor-logo { width: 40px; height: 40px; object-fit: contain; border-radius: 8px; background: #fff; }
+.sponsor-logo--house { display: grid; place-items: center; font-size: 24px; background: var(--yellow); }
+.sponsor-text { display: grid; min-width: 0; font-size: 13px; line-height: 1.3; }
+.sponsor-text b { font-size: 14px; }
+.sponsor-go { font-weight: 800; }
+.sponsor-start { margin-top: 14px; }
+@media print { .sponsor-start, .sponsor-result { display: none !important; } }
+
+/* ---------- Advertise (js/biz-advertise.js, js/biz-adstats.js) ---------- */
+.ad-audience { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.ad-audience .card { display: grid; gap: 2px; padding: 10px 12px; }
+.ad-audience b { font: 700 26px / 1.1 var(--font-display); color: var(--ink); }
+.ad-audience .small-print { margin: 0; }
+.ad-price { font-size: 26px; }
+.ad-prices summary { cursor: pointer; }
+.ad-prices ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 4px; }
+.ad-prices li { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; }
+.ad-cal-wrap { overflow-x: auto; margin: 0 -16px; padding: 0 16px 6px; }
+.ad-cal { border-collapse: separate; border-spacing: 4px; font-size: 13px; }
+.ad-cal th { text-align: left; font-weight: 800; white-space: nowrap; padding: 2px 6px; }
+.ad-cell { display: block; min-width: 64px; padding: 6px 8px; font: 800 12px var(--font-body); text-align: center; color: var(--ink); background: var(--mint); border: 2px solid var(--ink); border-radius: 10px; cursor: pointer; }
+.ad-cell.is-taken { background: #eee; color: #8a8698; border-color: #c8c4d4; cursor: default; }
+.ad-row { display: grid; gap: 12px; }
+.ad-preview { display: grid; gap: 4px; }
+.ad-preview .small-print { margin: 0; }
+@media (min-width: 760px) {
+  .ad-audience { grid-template-columns: repeat(4, 1fr); }
+  .ad-slots { grid-template-columns: repeat(4, 1fr); }
+  .ad-row { grid-template-columns: 1fr 1fr; }
+  .ad-row:has(> :nth-child(3)) { grid-template-columns: 1fr 1fr 1fr; }
+}

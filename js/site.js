@@ -553,10 +553,19 @@
     document.head.appendChild(el);
   }
 
+  // Sponsor cards on toy pages (js/sponsor.js).
+  function loadSponsor() {
+    if (window.Web3Sponsor || !document.body.getAttribute('data-toy') || !(config().supabase || {}).url) return;
+    var el = document.createElement('script');
+    el.src = ROOT + 'js/sponsor.js';
+    document.head.appendChild(el);
+  }
+
   function start() {
     keepReferral();
     loadOffers();
     loadEarlyBird();
+    loadSponsor();
     logEvent('page_view', null);
     showLoader();
     buildTopbar();

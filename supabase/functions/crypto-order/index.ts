@@ -70,7 +70,7 @@ async function confirm(order: Record<string, any>) {
 
 // For Projects deposits, worked out from data/business/ (US dollars only).
 // The same rule as create-order and js/pay.js (the checks compare them).
-export function businessProducts(toy: any, test: any) {
+export function businessProducts(toy: any, test: any, ads?: any) {
   const out: Array<Record<string, unknown>> = [];
   const add = (kind: string, file: any, label: string) => {
     if (!file || !Array.isArray(file.tiers)) return;
@@ -83,6 +83,18 @@ export function businessProducts(toy: any, test: any) {
   };
   add('toy', toy, 'Launch Your Own Toy');
   add('test', test, 'Test Your Product');
+  // Sponsor a Toy: ad-toy-TOY (one toy, one month), ad-toy-TOY-round (with a
+  // sponsored round), ad-site and ad-newsletter. The booking id is the item.
+  if (ads && ads.toyMonth) {
+    Object.keys(ads.toyMonth).forEach((id) => {
+      const p = Number(ads.toyMonth[id]);
+      if (!(p > 0)) return;
+      out.push({ id: `ad-toy-${id}`, type: 'ad', perItem: true, usd: p, title: 'Sponsor a Toy: one toy, one month' });
+      if ((ads.roundToys || []).includes(id) && Number(ads.sponsoredRound) > 0) out.push({ id: `ad-toy-${id}-round`, type: 'ad', perItem: true, usd: p + Number(ads.sponsoredRound), title: 'Sponsor a Toy: one toy, one month, with a sponsored round' });
+    });
+    if (Number(ads.siteWide) > 0) out.push({ id: 'ad-site', type: 'ad', perItem: true, usd: Number(ads.siteWide), title: 'Sponsor a Toy: site-wide, one month' });
+    if (Number(ads.newsletter) > 0) out.push({ id: 'ad-newsletter', type: 'ad', perItem: true, usd: Number(ads.newsletter), title: 'Sponsor a Toy: one newsletter issue' });
+  }
   return out;
 }
 
@@ -109,8 +121,8 @@ export async function handle(req: Request): Promise<Response> {
   const list = await fetch(`${site()}/data/products.json`);
   if (!list.ok) return json(502, { error: 'Could not load the price list. Try again.' });
   const get = (f: string) => fetch(`${site()}/data/business/${f}`).then((x) => (x.ok ? x.json() : null)).catch(() => null);
-  const [toyTiers, testTiers] = await Promise.all([get('toy_tiers.json'), get('test_tiers.json')]);
-  const product = (await list.json()).products.concat(businessProducts(toyTiers, testTiers)).find((p: Record<string, unknown>) => p.id === b.product);
+  const [toyTiers, testTiers, adSlots] = await Promise.all([get('toy_tiers.json'), get('test_tiers.json'), get('ad_slots.json')]);
+  const product = (await list.json()).products.concat(businessProducts(toyTiers, testTiers, adSlots)).find((p: Record<string, unknown>) => p.id === b.product);
   if (!product) return json(404, { error: 'Unknown product.' });
   if (product.perItem && !item) return json(400, { error: 'Which one is this for?' });
   const usd = Number(product.usd);

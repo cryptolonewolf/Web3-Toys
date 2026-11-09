@@ -7,7 +7,7 @@
   var C = window.Web3Common;
   var esc = C.esc;
   var app = document.getElementById('app');
-  var TABS = [['users', 'Users'], ['leads', 'Leads'], ['purchases', 'Purchases'], ['bookings', 'Bookings'], ['toyreq', 'Toy requests'], ['requests', 'Project requests'], ['review', 'Review queue'], ['growth', 'Referrals & posts'], ['releases', 'Releases'], ['stats', 'Toy stats']];
+  var TABS = [['users', 'Users'], ['leads', 'Leads'], ['purchases', 'Purchases'], ['bookings', 'Bookings'], ['toyreq', 'Toy requests'], ['sponsors', 'Sponsor bookings'], ['requests', 'Project requests'], ['review', 'Review queue'], ['growth', 'Referrals & posts'], ['releases', 'Releases'], ['stats', 'Toy stats']];
   var tab = (location.hash.replace('#', '') || 'users');
   var days = 30;
   var settings = null;
@@ -78,7 +78,7 @@
       render();
     });
     var panel = app.querySelector('[data-panel]');
-    ({ users: users, leads: leads, purchases: purchases, bookings: bookings, requests: requests, review: review, growth: growth, releases: releases, stats: stats, toyreq: function (p) { return bizRequests(p, 'toy'); } })[tab](panel)
+    ({ users: users, leads: leads, purchases: purchases, bookings: bookings, requests: requests, review: review, growth: growth, releases: releases, stats: stats, toyreq: function (p) { return bizRequests(p, 'toy'); }, sponsors: sponsorBookings })[tab](panel)
       .catch(function (err) { panel.innerHTML = '<p class="tk-warn is-bad">Could not load: ' + esc(err.message) + '</p>'; });
   }
 
@@ -409,6 +409,77 @@
             rf.disabled = false;
             msg.textContent = err.message;
           });
+        });
+      });
+    });
+  }
+
+  // ---------- Sponsor bookings (015_sponsors.sql) ----------
+  // Logo preview, the card as it will look, approve, reject and refund, and
+  // views and clicks from our own counter.
+
+  var BOOK_STATUS = { pending_payment: 'Not paid', pending: 'Paid, needs review', approved: 'Approved', rejected: 'Rejected', refunded: 'Refunded', cancelled: 'Cancelled' };
+
+  function sponsorBookings(panel) {
+    var SB = (window.WEB3TOYS_CONFIG || {}).supabase || {};
+    var logoUrl = function (p) { return SB.url.replace(/\/$/, '') + '/storage/v1/object/public/sponsor-logos/' + p.split('/').map(encodeURIComponent).join('/'); };
+    return Promise.all([
+      load('sponsorBookings', function () { return db().from('sponsor_bookings').select('*').order('created_at', { ascending: false }).then(must); }),
+      load('orders', function () { return db().from('orders').select('*').order('created_at', { ascending: false }).limit(5000).then(must); }),
+      load('sponsorCounts', function () { return db().rpc('admin_sponsor_counts').then(must).catch(function () { return []; }); }),
+    ]).then(function (r) {
+      var rows = r[0].filter(function (b) { return b.status !== 'pending_payment' || Date.now() - Date.parse(b.created_at) < 864e5; });
+      var orders = {};
+      r[1].forEach(function (o) { orders[o.id] = o; });
+      var counts = {};
+      (r[2] || []).forEach(function (c) { counts[c.booking_id] = c; });
+      var month = function (m) { return new Date(m + 'T00:00:00Z').toLocaleDateString('en-GB', { month: 'short', year: 'numeric', timeZone: 'UTC' }); };
+      var where = function (b) { return b.kind === 'toy' ? b.toy_id + (b.with_round ? ' + round' : '') : b.kind; };
+      table = { name: 'sponsor-bookings', head: ['Created', 'Sponsor', 'Slot', 'Month', 'Category', 'Line', 'Link', 'Email', 'Status', 'Paid', 'Views', 'Clicks'],
+        rows: rows.map(function (b) { var o = orders[b.order_id]; var c = counts[b.id] || {}; return [date(b.created_at), b.sponsor, where(b), b.month, b.category, b.line, b.link, b.email, BOOK_STATUS[b.status] || b.status, o ? o.status + ' ' + money(o.amount, o.currency) : '', c.views || 0, c.clicks || 0]; }) };
+      var waiting = rows.filter(function (b) { return b.status === 'pending'; }).length;
+      panel.innerHTML = '<div class="btn-row"><button type="button" class="btn btn--small" data-csv>Export CSV</button><span class="small-print">' + rows.length + ' bookings · ' + waiting + ' waiting for review</span></div>' +
+        '<p class="small-print">Check each card against the rules: allowed category, no token promotion, price claims or "buy now", and a safe link. Reject refunds in full.</p>' +
+        (rows.length ? rows.map(function (b) {
+          var o = orders[b.order_id];
+          var c = counts[b.id] || {};
+          var stats = location.origin + location.pathname.replace(/admin\/.*$/, 'advertise/stats/') + '?b=' + b.id + '&k=' + b.stats_token;
+          return '<article class="card stack stack--tight adm-req" data-booking="' + b.id + '"><div class="cap-row"><h3 class="title-sm">' + esc(b.sponsor) + ' · ' + esc(where(b)) + ' · ' + esc(month(b.month)) + '</h3>' +
+            '<span class="chip ' + (b.status === 'approved' ? 'is-mint' : b.status === 'pending' ? 'is-yellow' : 'is-white') + '">' + esc(BOOK_STATUS[b.status] || b.status) + '</span></div>' +
+            '<div class="sponsor-card"><span class="sponsor-label">Sponsored</span><img class="sponsor-logo" src="' + esc(logoUrl(b.logo_path)) + '" alt="Logo" /><span class="sponsor-text"><b>' + esc(b.sponsor) + '</b><span>' + esc(b.line) + '</span></span><span class="sponsor-go">→</span></div>' +
+            '<p class="small-print">' + esc(b.category) + ' · <a href="' + esc(b.link) + '" target="_blank" rel="noopener nofollow">' + esc(b.link) + '</a> · ' + esc(b.email) + ' · Paid: ' + (o ? esc(o.status) + ' ' + money(o.amount, o.currency) : 'no') +
+            ' · ' + (c.views || 0) + ' views, ' + (c.clicks || 0) + ' clicks · <a href="' + esc(stats) + '" target="_blank" rel="noopener">their stats link</a></p>' +
+            '<label class="label">Note (only you see it)<textarea class="field" rows="2" data-note>' + esc(b.admin_note || '') + '</textarea></label>' +
+            '<div class="btn-row">' +
+            (b.status === 'pending' ? '<button type="button" class="btn btn--small btn--yellow" data-book-set="approved">Approve</button>' : '') +
+            (b.status === 'pending' || b.status === 'approved' ? '<button type="button" class="btn btn--small acct-danger" data-book-reject>Reject and refund</button>' : '') +
+            '<button type="button" class="btn btn--small" data-book-note>Save note</button></div><p class="small-print" data-msg aria-live="polite"></p></article>';
+        }).join('') : '<p class="text">No bookings yet. They arrive from the Advertise page.</p>');
+      bindCsv(panel);
+      panel.querySelectorAll('[data-booking]').forEach(function (card) {
+        var id = card.getAttribute('data-booking');
+        var msg = card.querySelector('[data-msg]');
+        var b = rows.filter(function (x) { return x.id === id; })[0];
+        var set = function (status) {
+          msg.textContent = 'Saving…';
+          return db().rpc('admin_set_booking', { p_id: id, p_status: status, p_note: card.querySelector('[data-note]').value }).then(must);
+        };
+        var done = function () { delete cache.sponsorBookings; delete cache.orders; render(); };
+        var ap = card.querySelector('[data-book-set]');
+        if (ap) ap.addEventListener('click', function () { set('approved').then(done, function (err) { msg.textContent = err.message; }); });
+        card.querySelector('[data-book-note]').addEventListener('click', function () { set(null).then(done, function (err) { msg.textContent = err.message; }); });
+        var rj = card.querySelector('[data-book-reject]');
+        if (rj) rj.addEventListener('click', function () {
+          if (!window.confirm('Reject this booking and refund it in full?')) return;
+          rj.disabled = true;
+          set('rejected').then(function () {
+            if (!b.order_id || !orders[b.order_id] || orders[b.order_id].status !== 'paid') return null;
+            msg.textContent = 'Refunding…';
+            return refundOrder(b.order_id).catch(function (err) {
+              if (err.crypto && window.confirm(err.message + '\n\nHave you refunded it in Paymento? Press OK to mark it refunded.')) return refundOrder(b.order_id, true);
+              throw err;
+            });
+          }).then(done, function (err) { rj.disabled = false; msg.textContent = 'Rejected, but the refund failed: ' + err.message; });
         });
       });
     });

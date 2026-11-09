@@ -5,8 +5,15 @@
    "file": "data/business/ad_slots.json",
    "item": "(whole file)",
    "label": "data/business/ad_slots.json",
-   "note": "Sponsor a Toy prices (US dollars only) and rules. toyMonth: price for one toy for one calendar month, by toy id; newToy is the price for a toy in its first month. Allowed categories and rules are show",
-   "hash": "23bfad0e5a82"
+   "note": "Sponsor a Toy prices (US dollars only) and rules. toyMonth: price for one toy for one calendar month, by toy id (new toys start at the newToy price; raise them here after their first month). roundToys",
+   "hash": "08ca80cab1b3"
+  },
+  {
+   "file": "data/business/advertise_page.json",
+   "item": "(whole file)",
+   "label": "Sponsor a toy people actually play.",
+   "note": "Words for /advertise/ (js/biz-advertise.js). Prices, toys that take rounds, allowed categories and rules are in ad_slots.json. audience: fill in real numbers from admin, Toy stats before going live (t",
+   "hash": "625dbbf3fc72"
   },
   {
    "file": "data/business/launch_page.json",

@@ -20,6 +20,23 @@ Test in Razorpay test mode: open `/launch-your-toy/?preview-business=1`,
 send a request, pay the deposit with a test card, see it as "Deposit paid" in
 admin, **Toy requests**, then press Refund and check Razorpay shows the refund.
 
+## Part 3: Sponsor a Toy (about 5 minutes)
+
+1. Supabase, **SQL Editor**: run `supabase/015_sponsors.sql` (safe to run
+   again). It also creates the public `sponsor-logos` storage bucket (PNG or
+   SVG, 300 KB maximum; each sponsor can only upload into their own folder).
+2. Paste `create-order` and `crypto-order` again (they now also know the ad
+   prices from `ad_slots.json`).
+
+Before going live: fill in the audience numbers in
+`data/business/advertise_page.json` from admin, Toy stats.
+
+Test in Razorpay test mode: open `/advertise/?preview-business=1`, tap a free
+slot in the calendar, fill in the form with a logo, pay, then in admin,
+**Sponsor bookings**, approve it. In the month you booked, the card shows on
+that toy's start and result screens; its private stats link counts views and
+clicks. Reject and refund sends the money back in full.
+
 ## Prices
 
 All in US dollars, in `data/business/`. The deposit is `price x deposit`

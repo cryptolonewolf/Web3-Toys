@@ -458,3 +458,12 @@ footer. Prices, tiers and rules: `data/business/` (`toy_tiers.json`,
   by `create-order`, `crypto-order` and `js/pay.js`. Admin, Toy requests:
   vetting, statuses and Refund deposit in full (`admin-refund` function).
   Setup: `docs/setup/for-projects.md`.
+- Sponsor a Toy: `advertise/` (`js/biz-advertise.js`, words in
+  `data/business/advertise_page.json`, prices and rules in `ad_slots.json`),
+  private stats `advertise/stats/` (`js/biz-adstats.js`), the sponsor card on
+  toys `js/sponsor.js` (start and result screens only, never in gameplay or on
+  certificates; "Your project here" when free). Bookings, the slot calendar,
+  logos and the first-party view and click counter:
+  `supabase/015_sponsors.sql`. Ad products `ad-toy-TOY`, `ad-toy-TOY-round`,
+  `ad-site`, `ad-newsletter`. Admin, Sponsor bookings: approve, reject and
+  refund, views and clicks.

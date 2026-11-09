@@ -21,7 +21,7 @@
 
   // The price list: data/products.json plus the For Projects deposits from
   // data/business/ (the same rule as the payment server).
-  function businessProducts(toy, test) {
+  function businessProducts(toy, test, ads) {
     var out = [];
     var add = function (kind, file, label) {
       if (!file || !Array.isArray(file.tiers)) return;
@@ -34,14 +34,24 @@
     };
     add('toy', toy, 'Launch Your Own Toy');
     add('test', test, 'Test Your Product');
+    if (ads && ads.toyMonth) {
+      Object.keys(ads.toyMonth).forEach(function (id) {
+        var p = Number(ads.toyMonth[id]);
+        if (!(p > 0)) return;
+        out.push({ id: 'ad-toy-' + id, type: 'ad', perItem: true, usd: p, title: 'Sponsor a Toy: one toy, one month' });
+        if ((ads.roundToys || []).indexOf(id) >= 0 && Number(ads.sponsoredRound) > 0) out.push({ id: 'ad-toy-' + id + '-round', type: 'ad', perItem: true, usd: p + Number(ads.sponsoredRound), title: 'Sponsor a Toy: one toy, one month, with a sponsored round' });
+      });
+      if (Number(ads.siteWide) > 0) out.push({ id: 'ad-site', type: 'ad', perItem: true, usd: Number(ads.siteWide), title: 'Sponsor a Toy: site-wide, one month' });
+      if (Number(ads.newsletter) > 0) out.push({ id: 'ad-newsletter', type: 'ad', perItem: true, usd: Number(ads.newsletter), title: 'Sponsor a Toy: one newsletter issue' });
+    }
     return out;
   }
 
   function products() {
     if (!list) {
       var get = function (f) { return fetch(site.root + f).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); };
-      list = Promise.all([get('data/products.json'), get('data/business/toy_tiers.json'), get('data/business/test_tiers.json')]).then(function (r) {
-        return r[0].products.concat(businessProducts(r[1], r[2]));
+      list = Promise.all([get('data/products.json'), get('data/business/toy_tiers.json'), get('data/business/test_tiers.json'), get('data/business/ad_slots.json')]).then(function (r) {
+        return r[0].products.concat(businessProducts(r[1], r[2], r[3]));
       });
     }
     return list;

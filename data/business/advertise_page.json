@@ -1,0 +1,35 @@
+{
+  "_help": "Words for /advertise/ (js/biz-advertise.js). Prices, toys that take rounds, allowed categories and rules are in ad_slots.json. audience: fill in real numbers from admin, Toy stats before going live (they are marked for review).",
+  "review": true,
+  "label": "For projects",
+  "title": "Sponsor a toy people actually play.",
+  "intro": "One small, clearly labelled card on a toy's start and result screens, seen by people who are learning web3 right now. No pop-ups, no tracking pixels, never inside the game.",
+  "audienceTitle": "Who you reach",
+  "audience": [
+    { "icon": "🎮", "big": "11+", "label": "free toys, a new one every Tuesday" },
+    { "icon": "🌍", "big": "TBD", "label": "monthly players (fill in from admin before launch)" },
+    { "icon": "🎓", "big": "TBD", "label": "certificates earned (fill in from admin before launch)" },
+    { "icon": "🧠", "big": "5 min", "label": "average play: people are paying attention" }
+  ],
+  "slotsTitle": "Slots and prices",
+  "slots": [
+    { "id": "toy", "icon": "🧸", "name": "One toy, one month", "text": "Your card on the start and result screens of one toy for a calendar month.", "priceNote": "from" },
+    { "id": "round", "icon": "🎯", "name": "Sponsored round", "text": "Add one round inside a learning toy or Spot the Scam, written with you and marked \"Sponsored round by [your name]\". Educational only.", "priceNote": "extra a month" },
+    { "id": "site", "icon": "🌐", "name": "Site-wide", "text": "Your card on every toy that has no sponsor of its own that month.", "priceNote": "a month" },
+    { "id": "newsletter", "icon": "✉️", "name": "Newsletter", "text": "One sponsor spot in a web3.toys newsletter issue.", "priceNote": "an issue" }
+  ],
+  "calendarTitle": "Free slots",
+  "calendarLine": "Tap a free month to book it.",
+  "rulesTitle": "The rules",
+  "categoriesLine": "Allowed categories:",
+  "howTitle": "How booking works",
+  "how": [
+    "Pick a toy and month, upload your logo and write one line.",
+    "Pay with Razorpay (US dollars).",
+    "We review it, usually within 2 working days. If we reject it, you get a full refund.",
+    "It goes live on the 1st of your month, and you get a private stats link with views and clicks."
+  ],
+  "formTitle": "Book a slot",
+  "agree": "My card follows the rules: no token promotions, price claims or \"buy now\", and it is in an allowed category. I understand it is reviewed first and refunded in full if rejected.",
+  "loginNote": "Log in first so you can follow your booking and get your stats link."
+}

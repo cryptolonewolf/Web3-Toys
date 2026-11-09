@@ -39,7 +39,7 @@ async function loginUser(req: Request): Promise<Record<string, any> | Response> 
 // For Projects deposits, worked out from data/business/ (US dollars only):
 // deposit-toy-TIER and deposit-test-TIER cost price x deposit. The same rule
 // is in js/pay.js (the checks compare them).
-export function businessProducts(toy: any, test: any) {
+export function businessProducts(toy: any, test: any, ads?: any) {
   const out: Array<Record<string, unknown>> = [];
   const add = (kind: string, file: any, label: string) => {
     if (!file || !Array.isArray(file.tiers)) return;
@@ -52,6 +52,18 @@ export function businessProducts(toy: any, test: any) {
   };
   add('toy', toy, 'Launch Your Own Toy');
   add('test', test, 'Test Your Product');
+  // Sponsor a Toy: ad-toy-TOY (one toy, one month), ad-toy-TOY-round (with a
+  // sponsored round), ad-site and ad-newsletter. The booking id is the item.
+  if (ads && ads.toyMonth) {
+    Object.keys(ads.toyMonth).forEach((id) => {
+      const p = Number(ads.toyMonth[id]);
+      if (!(p > 0)) return;
+      out.push({ id: `ad-toy-${id}`, type: 'ad', perItem: true, usd: p, title: 'Sponsor a Toy: one toy, one month' });
+      if ((ads.roundToys || []).includes(id) && Number(ads.sponsoredRound) > 0) out.push({ id: `ad-toy-${id}-round`, type: 'ad', perItem: true, usd: p + Number(ads.sponsoredRound), title: 'Sponsor a Toy: one toy, one month, with a sponsored round' });
+    });
+    if (Number(ads.siteWide) > 0) out.push({ id: 'ad-site', type: 'ad', perItem: true, usd: Number(ads.siteWide), title: 'Sponsor a Toy: site-wide, one month' });
+    if (Number(ads.newsletter) > 0) out.push({ id: 'ad-newsletter', type: 'ad', perItem: true, usd: Number(ads.newsletter), title: 'Sponsor a Toy: one newsletter issue' });
+  }
   return out;
 }
 
@@ -61,8 +73,8 @@ async function loadProducts() {
   if (!r.ok) throw new Error('products');
   const base = (await r.json()).products as Array<Record<string, unknown>>;
   const get = (f: string) => fetch(`${site}/data/business/${f}`).then((x) => (x.ok ? x.json() : null)).catch(() => null);
-  const [toy, test] = await Promise.all([get('toy_tiers.json'), get('test_tiers.json')]);
-  return base.concat(businessProducts(toy, test));
+  const [toy, test, ads] = await Promise.all([get('toy_tiers.json'), get('test_tiers.json'), get('ad_slots.json')]);
+  return base.concat(businessProducts(toy, test, ads));
 }
 
 export async function handle(req: Request): Promise<Response> {

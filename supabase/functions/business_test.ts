@@ -13,6 +13,7 @@ const refund = (await import('./admin-refund/index.ts')).handle;
 
 const toy = JSON.parse(await Deno.readTextFile(new URL('../../data/business/toy_tiers.json', import.meta.url)));
 const test = JSON.parse(await Deno.readTextFile(new URL('../../data/business/test_tiers.json', import.meta.url)));
+const ads = JSON.parse(await Deno.readTextFile(new URL('../../data/business/ad_slots.json', import.meta.url)));
 
 Deno.test('deposits come from the price files, half the price, in dollars', () => {
   const list = create.businessProducts(toy, test);
@@ -22,6 +23,17 @@ Deno.test('deposits come from the price files, half the price, in dollars', () =
   assertEquals(by['deposit-test-quick'].usd, 249.5);
   assert(list.every((p: any) => p.perItem && !p.inr));
   assertEquals(JSON.stringify(crypto.businessProducts(toy, test)), JSON.stringify(list));
+});
+
+Deno.test('ad slots come from ad_slots.json, with rounds only where allowed', () => {
+  const by = Object.fromEntries(create.businessProducts(toy, test, ads).map((p: any) => [p.id, p]));
+  assertEquals(by['ad-toy-scam'].usd, 500);
+  assertEquals(by['ad-toy-scam-round'].usd, 800);
+  assertEquals(by['ad-toy-web3-roles'].usd, 200);
+  assert(!by['ad-toy-invest-100-round']);
+  assertEquals(by['ad-site'].usd, 1500);
+  assertEquals(by['ad-newsletter'].usd, 150);
+  assertEquals(JSON.stringify(crypto.businessProducts(toy, test, ads)), JSON.stringify(create.businessProducts(toy, test, ads)));
 });
 
 const orders: Record<string, any> = {
