@@ -56,13 +56,13 @@ window.WEB3TOYS_CONFIG = {
     crypto: false,
   },
 
-  // FOR PROJECTS (Launch Your Own Toy, Test Your Product, Advertise).
-  // Planned for December. While live is false the menu stays as it is and
-  // the pages say "Coming in December"; preview everything on your own
-  // phone by opening any page with ?preview-business=1 (and =0 to stop).
+  // FOR PROJECTS (Launch Your Own Toy, Test Your Product, Advertise,
+  // testers, profile pages at web3.toys/@handle and the /pages/ directory).
+  // live: true shows them to everyone. Set it to false to hide them again
+  // (the pages then say "Coming soon"; preview with ?preview-business=1).
   // Prices and words: data/business/.
   business: {
-    live: false,
+    live: true,
   },
 
   // Your social accounts (full links). The Earn coins tasks to join or
