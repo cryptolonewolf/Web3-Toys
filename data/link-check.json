@@ -82,6 +82,8 @@
   "/invest-100/",
   "/launch-your-toy/",
   "/leaderboard/",
+  "/my-page/",
+  "/p/",
   "/privacy/",
   "/progress/",
   "/real-toys/",
@@ -98,6 +100,10 @@
   "/work-with-us/"
  ],
  "links": [
+  [
+   "https://discord.gg/",
+   "/data/business/pages.json"
+  ],
   [
    "https://en.wikipedia.org/w/index.php?search=Adam+Back",
    "/data/hall-of-fame-people.json"
@@ -355,6 +361,10 @@
    "/data/hacks.json"
   ],
   [
+   "https://github.com/",
+   "/data/business/pages.json"
+  ],
+  [
    "https://rekt.news/bnb-bridge-rekt/",
    "/data/hacks.json"
   ],
@@ -379,6 +389,10 @@
    "/data/hacks.json"
   ],
   [
+   "https://warpcast.com/",
+   "/data/business/pages.json"
+  ],
+  [
    "https://www.fbi.gov/news/press-releases/fbi-dc3-and-npa-identification-of-north-korean-cyber-actors-tracked-as-tradertraitor-responsible-for-theft-of-308-million-from-bitcoindmmcom",
    "/data/hacks.json"
   ],
@@ -401,6 +415,10 @@
   [
    "https://www.sec.gov/news/press/2013/2013-132.htm",
    "/data/dead_projects.json"
+  ],
+  [
+   "https://www.youtube.com/",
+   "/data/business/pages.json"
   ]
  ]
 }

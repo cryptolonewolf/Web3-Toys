@@ -32,6 +32,8 @@ createServer(async (req, res) => {
       return res.end('Not found');
     }
   }
+  // web3.toys/@handle pages (vercel.json rewrites them to /p/).
+  if (/^\/@[A-Za-z0-9_]{1,15}\/?$/.test(url.pathname)) url.pathname = '/p/';
   let file = normalize(join(ROOT, decodeURIComponent(url.pathname)));
   if (!file.startsWith(ROOT)) return res.writeHead(403).end();
   try {

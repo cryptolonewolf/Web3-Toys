@@ -99,11 +99,11 @@ describe('Operations home', () => {
 
   it('every queue card is filled by the database and opens a real tab', () => {
     O.queues.forEach((q) => {
-      assert.ok(sql.includes(`'id', '${q.id}'`), q.id);
+      assert.ok((sql + read('supabase/019_pages.sql')).includes(`'id', '${q.id}'`), q.id);
       const tab = q.open.split(':')[0];
       assert.ok(admin.includes(`['${tab}', `), q.open);
     });
-    const ids = [...sql.matchAll(/jsonb_build_object\('id', '([a-z]+)'/g)].map((m) => m[1]);
+    const ids = [...(sql + read('supabase/019_pages.sql')).matchAll(/jsonb_build_object\('id', '([a-z]+)'/g)].map((m) => m[1]);
     assert.deepEqual(ids.slice().sort(), O.queues.map((q) => q.id).sort());
   });
 
@@ -148,5 +148,44 @@ describe('Operations home', () => {
     assert.deepEqual(json('data/link-check.json'), JSON.parse(JSON.stringify(build())));
     const all = JSON.stringify(json('data/link-check.json'));
     ['uniswap-claim', 'b1nance', 'bit.ly', 'justpaste'].forEach((bad) => assert.ok(!all.includes(bad), bad));
+  });
+});
+
+describe('Profile pages', () => {
+  const P = json('data/business/pages.json');
+  const sql = read('supabase/019_pages.sql');
+  const list = (name) => [...sql.slice(sql.indexOf(name)).split('$$')[1].matchAll(/'([^']+)'/g)].map((m) => m[1]);
+
+  it('reserves every folder of the site, admin and api, in the JSON and the database', async () => {
+    const { readdirSync, statSync } = await import('node:fs');
+    const root = new URL('../', import.meta.url);
+    const folders = readdirSync(root).filter((n) => !n.startsWith('.') && statSync(new URL(n, root)).isDirectory());
+    folders.concat(['admin', 'api', 'pages']).forEach((f) => assert.ok(P.reserved.includes(f), 'pages.json reserved is missing ' + f));
+    assert.deepEqual(list('function public.page_reserved').sort(), P.reserved.slice().sort());
+  });
+
+  it('flags the same words in the JSON and the database', () => {
+    const body = sql.slice(sql.indexOf('function public.page_flags'));
+    const arr = body.slice(body.indexOf('unnest(array[') + 13, body.indexOf('])'));
+    assert.deepEqual([...arr.matchAll(/'([^']+)'/g)].map((m) => m[1]).sort(), P.flagWords.slice().sort());
+  });
+
+  it('only admins make unclaimed pages, only for projects; people make their own from their X login', () => {
+    assert.match(sql, /You can only make pages for projects/);
+    assert.match(sql, /from auth\.identities i where i\.user_id = auth\.uid\(\)/);
+    assert.ok(!/raw_user_meta_data/.test(sql), 'never trust editable profile data for claims');
+    assert.ok(!/create policy[^;]*on public\.(pages|page_requests|page_reports) for (insert|update|delete|all)/i.test(sql));
+  });
+
+  it('routes web3.toys/@handle to the page', () => {
+    const v = json('vercel.json');
+    assert.ok(v.rewrites.some((r) => r.source === '/@:handle' && r.destination === '/p/'));
+    assert.ok(read('tools/dev-server.mjs').includes("url.pathname = '/p/'"));
+  });
+
+  it('Pro months match real products', () => {
+    const tiers = json('data/business/toy_tiers.json').tiers.map((t) => 'deposit-toy-' + t.id);
+    Object.keys(P.pro.months).forEach((k) => assert.ok(k === 'course' || tiers.includes(k), k));
+    assert.equal(P.pro.yearly.on, false);
   });
 });

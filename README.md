@@ -475,6 +475,11 @@ footer. Prices, tiers and rules: `data/business/` (`toy_tiers.json`,
   Testers need Explorer rank, use testnets or empty wallets only, and are paid
   in stablecoins from the 25% tester pool by hand (admin, Tests & payouts).
   Approved testers get full reports free (`is_tester`, `js/offers.js`).
+- Profile pages: web3.toys/@handle (`p/`, `js/page-view.js`, rewritten by
+  `vercel.json`), the owner editor `my-page/` (`js/page-edit.js`), admin
+  Pages tab (`js/admin-pages.js`). Settings and wording:
+  `data/business/pages.json`. Database: `supabase/019_pages.sql`. Setup:
+  `docs/setup/pages.md`.
 - Operations home (admin, first tab): `js/admin-ops.js`, settings and your
   to-do list in `data/ops.json`. Queues, This week, last 7 days, Site health,
   Inbox (refunds, contact messages, failed or disputed payments, X posts,

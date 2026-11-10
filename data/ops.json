@@ -12,6 +12,9 @@
     { "id": "contact", "icon": "✉️", "label": "Contact form messages", "open": "inbox:contact" },
     { "id": "posts", "icon": "🐦", "label": "Post to unlock reviews", "open": "inbox:posts" },
     { "id": "referrals", "icon": "🚩", "label": "Flagged referrals", "open": "inbox:referrals" },
+    { "id": "pageapprove", "icon": "🪪", "label": "Pages to approve", "open": "pages:approvals" },
+    { "id": "pagereports", "icon": "🚨", "label": "Reported pages", "open": "pages:reports" },
+    { "id": "pagereq", "icon": "📮", "label": "Page requests", "open": "pages:requests" },
     { "id": "review", "icon": "🔍", "label": "Data items marked review", "open": "review" }
   ],
   "digest": { "to": "hi@web3.toys", "time": "09:00 India time", "skipWhenEmpty": true },
@@ -23,6 +26,7 @@
     { "id": "sql-014", "group": "Database", "title": "Run supabase/014_business.sql", "how": "Supabase, SQL Editor, paste the file, Run.", "check": "sql-014" },
     { "id": "sql-015", "group": "Database", "title": "Run supabase/015_sponsors.sql", "how": "Supabase, SQL Editor, paste the file, Run.", "check": "sql-015" },
     { "id": "sql-016", "group": "Database", "title": "Run supabase/016_tests.sql", "how": "Supabase, SQL Editor, paste the file, Run.", "check": "sql-016" },
+    { "id": "sql-019", "group": "Database", "title": "Run supabase/019_pages.sql (profile pages)", "how": "Supabase, SQL Editor, paste the file, Run. Run 017_ops.sql again first (safe).", "check": "sql-019" },
     { "id": "sql-018", "group": "Database", "title": "Run supabase/018_ops_schedule.sql (daily digest and weekly link check)", "how": "docs/setup/operations.md", "check": "sql-018" },
     { "id": "fn-create-order", "group": "Functions", "title": "Paste create-order again (knows the For Projects prices)", "how": "Supabase, Edge Functions, create-order, replace the code with supabase/functions/create-order/index.ts, Deploy.", "check": "fn:create-order:2" },
     { "id": "fn-crypto-order", "group": "Functions", "title": "Paste crypto-order again", "how": "Same as create-order, with supabase/functions/crypto-order/index.ts.", "check": "fn:crypto-order:2" },

@@ -7,7 +7,7 @@
   var C = window.Web3Common;
   var esc = C.esc;
   var app = document.getElementById('app');
-  var TABS = [['ops', '🏠 Operations'], ['inbox', 'Inbox'], ['users', 'Users'], ['leads', 'Leads'], ['purchases', 'Purchases'], ['bookings', 'Bookings'], ['toyreq', 'Toy requests'], ['testreq', 'Test requests'], ['tests', 'Tests & payouts'], ['sponsors', 'Sponsor bookings'], ['requests', 'Project requests'], ['review', 'Review queue'], ['growth', 'Referrals & posts'], ['releases', 'Releases'], ['stats', 'Toy stats'], ['revenue', 'Revenue'], ['audit', 'Audit log']];
+  var TABS = [['ops', '🏠 Operations'], ['inbox', 'Inbox'], ['users', 'Users'], ['leads', 'Leads'], ['purchases', 'Purchases'], ['bookings', 'Bookings'], ['toyreq', 'Toy requests'], ['testreq', 'Test requests'], ['pages', 'Pages'], ['tests', 'Tests & payouts'], ['sponsors', 'Sponsor bookings'], ['requests', 'Project requests'], ['review', 'Review queue'], ['growth', 'Referrals & posts'], ['releases', 'Releases'], ['stats', 'Toy stats'], ['revenue', 'Revenue'], ['audit', 'Audit log']];
   var hash = location.hash.replace('#', '').split(':');
   var tab = hash[0] || 'ops';
   var sub = hash[1] || '';
@@ -80,9 +80,18 @@
     var panel = app.querySelector('[data-panel]');
     var ctx = { db: db, load: load, cache: cache, esc: esc, must: must, tiles: tiles, grid: grid, bindCsv: bindCsv, render: render, go: go, refundOrder: refundOrder, date: date };
     var O = window.Web3AdminOps;
-    ({ ops: function (p) { return O.home(p, ctx); }, inbox: function (p) { return O.inbox(p, ctx, sub); }, audit: function (p) { delete cache.audit; return O.audit(p, ctx); }, revenue: function (p) { return O.revenue(p, ctx); }, users: users, leads: leads, purchases: purchases, bookings: bookings, requests: requests, review: review, growth: growth, releases: releases, stats: stats, toyreq: function (p) { return bizRequests(p, 'toy'); }, testreq: function (p) { return bizRequests(p, 'test'); }, tests: productTests, sponsors: sponsorBookings })[tab](panel)
+    ({ ops: function (p) { return O.home(p, ctx); }, inbox: function (p) { return O.inbox(p, ctx, sub); }, audit: function (p) { delete cache.audit; return O.audit(p, ctx); }, pages: function (p) { return window.Web3AdminPages.tab(p, ctx, sub); }, revenue: function (p) { return O.revenue(p, ctx); }, users: users, leads: leads, purchases: purchases, bookings: bookings, requests: requests, review: review, growth: growth, releases: releases, stats: stats, toyreq: function (p) { return bizRequests(p, 'toy'); }, testreq: function (p) { return bizRequests(p, 'test'); }, tests: productTests, sponsors: sponsorBookings })[tab](panel)
       .catch(function (err) { panel.innerHTML = '<p class="tk-warn is-bad">Could not load: ' + esc(err.message) + '</p>'; });
   }
+
+  // Links and the Back button change the address (#pages:reports): follow them.
+  window.addEventListener('hashchange', function () {
+    var parts = location.hash.replace('#', '').split(':');
+    if (!settings || !TABS.some(function (t) { return t[0] === parts[0]; }) || (parts[0] === tab && (parts[1] || '') === sub)) return;
+    tab = parts[0];
+    sub = parts[1] || '';
+    render();
+  });
 
   // Open a tab (and an Inbox section, 'inbox:refunds').
   function go(where) {

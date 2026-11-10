@@ -23,6 +23,13 @@
    "hash": "89d6d701dc33"
   },
   {
+   "file": "data/business/pages.json",
+   "item": "(whole file)",
+   "label": "data/business/pages.json",
+   "note": "Profile pages at web3.toys/@handle (js/page-view.js, js/page-edit.js, supabase/019_pages.sql). Edit the wording freely. reserved: handles nobody can use (every folder of the site is added automaticall",
+   "hash": "0219e66dd724"
+  },
+  {
    "file": "data/business/sponsored_rounds.json",
    "item": "(whole file)",
    "label": "data/business/sponsored_rounds.json",

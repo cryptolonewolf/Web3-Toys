@@ -23,6 +23,7 @@
     { label: 'Test Your Product', href: 'test-your-product/' },
     { label: 'Advertise', href: 'advertise/' },
     { label: 'List your course', href: 'academy/list-your-project/' },
+    { label: 'Your free page', href: 'my-page/' },
     { label: 'Book a Call', href: 'book-a-call/' },
   ];
   // Books and About live in the footer and in the About Aki box on the side.

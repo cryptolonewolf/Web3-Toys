@@ -44,7 +44,7 @@ declare
   act text;
 begin
   if auth.uid() is null or not public.is_admin() then return null; end if;
-  foreach k in array array['status', 'action', 'until', 'paid_at', 'paid_tx', 'reviewed_at', 'ops_reviewed_at', 'admin_note', 'checklist', 'spots', 'reward_usd', 'tasks', 'hash'] loop
+  foreach k in array array['status', 'action', 'until', 'paid_at', 'paid_tx', 'reviewed_at', 'ops_reviewed_at', 'admin_note', 'checklist', 'spots', 'reward_usd', 'tasks', 'hash', 'owner_id', 'flags', 'pro_until'] loop
     if (o -> k) is distinct from (n -> k) and (r ? k) then
       changes := changes || jsonb_build_object(k, jsonb_build_object('from', o -> k, 'to', n -> k));
     end if;
@@ -57,11 +57,14 @@ begin
     when changes ? 'paid_tx' then 'marked paid'
     when changes ? 'reviewed_at' or changes ? 'ops_reviewed_at' then 'marked reviewed'
     when changes ? 'action' or changes ? 'until' then 'release ' || coalesce(n ->> 'action', '-')
+    when changes ? 'owner_id' then case when n ->> 'owner_id' is null then 'owner removed' else 'owner changed' end
+    when changes ? 'flags' then case when n -> 'flags' = '[]'::jsonb then 'flags cleared' else 'flagged' end
+    when changes ? 'pro_until' then 'Pro until ' || coalesce(left(n ->> 'pro_until', 10), '-')
     else 'edited' end;
   insert into public.admin_audit (admin_id, action, target_kind, target_id, detail)
   values (auth.uid(), act, tg_table_name,
     coalesce(r ->> 'id', r ->> 'referee', r ->> 'toy_id', case when r ? 'quest' then (r ->> 'user_id') || ':' || (r ->> 'quest') end, case when r ? 'file' then (r ->> 'file') || '#' || (r ->> 'item') end),
-    jsonb_build_object('changes', changes, 'label', coalesce(r ->> 'project', r ->> 'sponsor', r ->> 'title', r ->> 'quest', r ->> 'item', r ->> 'subject', '')));
+    jsonb_build_object('changes', changes, 'label', coalesce(case when r ? 'handle' then '@' || (r ->> 'handle') end, r ->> 'project', r ->> 'sponsor', r ->> 'title', r ->> 'quest', r ->> 'item', r ->> 'name', '')));
   return null;
 end; $$;
 
@@ -279,6 +282,16 @@ alter table public.review_seen enable row level security;
 
 -- ---------- Everything the Operations home shows ----------
 -- p_review: the hashes still waiting in the review queue (from the page).
+-- More queues from later files (019_pages.sql replaces this one). Made only
+-- when missing, so running this file again keeps the later version.
+do $$
+begin
+  if to_regprocedure('public.ops_extra()') is null then
+    execute $f$create function public.ops_extra() returns jsonb language sql stable as 'select ''[]''::jsonb'$f$;
+    execute 'revoke all on function public.ops_extra() from public, anon, authenticated';
+  end if;
+end $$;
+
 -- ops_data is also used by the daily digest email (ops-digest, which runs
 -- with the service key), so it has no admin check itself and only the
 -- service key may call it; admins use admin_ops below.
@@ -307,7 +320,7 @@ begin
       (select jsonb_build_object('id', 'review', 'count', count(*), 'oldest', min(first_seen)) from public.review_seen where hash = any(coalesce(p_review, '{}'))),
       (select jsonb_build_object('id', 'payments', 'count', count(*), 'oldest', min(coalesce(disputed_at, created_at))) from public.orders
         where ops_reviewed_at is null and (disputed_at is not null or (status = 'failed' and created_at > now() - interval '30 days')))
-    ),
+    ) || public.ops_extra(),
     'numbers', jsonb_build_object(
       'plays', jsonb_build_array((select count(*) from public.events where name = 'play' and created_at > w1), (select count(*) from public.events where name = 'play' and created_at > w2 and created_at <= w1)),
       'finishes', jsonb_build_array((select count(*) from public.events where name = 'finish' and created_at > w1), (select count(*) from public.events where name = 'finish' and created_at > w2 and created_at <= w1)),
@@ -389,6 +402,7 @@ begin
     'sql-016', to_regclass('public.product_tests') is not null,
     'sql-017', true,
     'sql-018', public.ops_cron_job('web3toys-ops-digest'),
+    'sql-019', to_regclass('public.pages') is not null,
     'books', (select count(*) from storage.objects where bucket_id = 'paid-files'),
     'todos', coalesce((select jsonb_object_agg(key, done_at) from public.ops_todos where done_at is not null), '{}')
   );

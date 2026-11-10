@@ -1,0 +1,62 @@
+{
+  "_help": "Profile pages at web3.toys/@handle (js/page-view.js, js/page-edit.js, supabase/019_pages.sql). Edit the wording freely. reserved: handles nobody can use (every folder of the site is added automatically by the checks; keep the same list in 019_pages.sql, a test compares them). flagWords: words that send a page to your review when an owner uses them (no token promotion); keep the same list in 019_pages.sql. pro: what Pro adds, how long each purchase turns it on (months), and the yearly plan (switched off until on is true).",
+  "review": true,
+  "reserved": [
+    "admin", "api", "p", "pages", "my-page", "web3toys", "web3_toys", "toys", "support", "help", "team", "official", "settings", "login", "logout", "signup",
+    "about", "academy", "advertise", "assets", "book-a-call", "books", "builder", "contact", "crypto-in-5", "data", "dead-projects", "docs", "dont-lose-money",
+    "earn-small", "getting-started", "hall-of-fame", "images", "invest-100", "js", "launch-your-toy", "leaderboard", "marketing", "privacy", "progress",
+    "quizzes", "real-toys", "refunds", "scam", "simulator", "soon", "styles", "supabase", "terms", "test-your-product", "testers", "tests", "token-split",
+    "tools", "verify", "web3-hacks", "web3-roles", "work-with-us", "buildwithaki"
+  ],
+  "flagWords": ["presale", "pre-sale", "airdrop", "whitelist", "100x", "1000x", "to the moon", "pump", "guaranteed", "buy now", "mint now", "token sale", "ico", "ido"],
+  "bioMax": 280,
+  "nameMax": 80,
+  "maxFeatured": 6,
+  "colors": ["#FFD93D", "#4D9DE0", "#6BCB77", "#FF6B6B", "#A98BFF", "#1F1B2E", "#F5A623", "#2EC4B6"],
+  "socials": [
+    { "id": "x", "label": "X", "prefix": "https://x.com/" },
+    { "id": "telegram", "label": "Telegram", "prefix": "https://t.me/" },
+    { "id": "discord", "label": "Discord", "prefix": "https://discord.gg/" },
+    { "id": "youtube", "label": "YouTube", "prefix": "https://www.youtube.com/" },
+    { "id": "github", "label": "GitHub", "prefix": "https://github.com/" },
+    { "id": "farcaster", "label": "Farcaster", "prefix": "https://warpcast.com/" },
+    { "id": "linkedin", "label": "LinkedIn", "prefix": "https://www.linkedin.com/" }
+  ],
+  "types": {
+    "project": { "label": "Project", "icon": "🧩", "line": "A web3 product, protocol or community. Every project is vetted before its page goes live." },
+    "creator": { "label": "Creator", "icon": "🎙️", "line": "You make web3 content: posts, videos, threads, newsletters. Free forever." },
+    "personality": { "label": "Personality", "icon": "⭐", "line": "A known name in web3: founder, builder, researcher, investor." }
+  },
+  "copy": {
+    "notClaimed": "Not claimed yet",
+    "notClaimedLine": "web3.toys made this page from public information. Is this your project?",
+    "claim": "Claim this page",
+    "claimHow": "Log in with the project's X account (@{handle}) to claim it. Nothing is posted to X.",
+    "verified": "Verified via X",
+    "claimed": "It's yours! You are now the owner of this page.",
+    "mismatch": "You are logged in with X as @{you}, but this page belongs to @{handle}. Log out and log in with @{handle}, or request a page for your own account.",
+    "noX": "Claiming needs Log in with X, so we can check you own @{handle}.",
+    "taken": "This page already has an owner. If you think that's wrong, report it and we will look.",
+    "report": "Report this page",
+    "reportReasons": ["Pretends to be someone else", "Promotes a token or a sale", "Scam or unsafe links", "Wrong information", "Something else"],
+    "reportThanks": "Thanks. Our team will look at it.",
+    "requestTitle": "Request a page for a project",
+    "requestLine": "We vet every project first. Tell us about it and we will make its page; the team can then claim it with the project's X account.",
+    "reviewNote": "Your page is waiting for our review. We check every new page before it goes live, usually within 2 working days.",
+    "draftNote": "Only you can see this draft. Send it for review when you're ready.",
+    "rejectedNote": "We could not publish this page yet. See the note below, change it and send it again.",
+    "suspendedNote": "This page is paused while we look into it. Questions? Use the Contact page.",
+    "rules": [
+      "No token promotion: no presales, airdrops, price talk or calls to buy.",
+      "Only claim what is yours. Pages about people are made only by those people.",
+      "Links must be safe. We remove pages that link to scams."
+    ]
+  },
+  "free": ["Your own web3.toys/@handle page", "Verified via X badge", "Featured toys and courses", "Basic stats: views, plays, players"],
+  "pro": {
+    "features": ["Detailed analytics", "Export of fans who agreed to share", "Featured in the pages directory", "Embed code for your custom toy", "No other sponsors on your page"],
+    "months": { "deposit-toy-mini": 3, "deposit-toy-full": 6, "deposit-toy-tournament": 12, "course": 3 },
+    "yearly": { "on": false, "usd": 199, "for": "project" },
+    "remindDays": [14, 3]
+  }
+}
