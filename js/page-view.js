@@ -134,12 +134,25 @@
   function more(box) {
     if (!box) return;
     var p = page;
-    var need = [rpc('page_showcase', { p_handle: p.handle }), ranks ? Promise.resolve(null) : C.loadJson(R + 'data/ranks.json').then(function (j) { ranks = j.ranks; }, function () { ranks = []; })];
-    if (p.is_owner || p.flags) need.push(rpc('page_stats', { p_id: p.id }).catch(function () { return null; }));
+    var need = [rpc('page_showcase', { p_handle: p.handle }), ranks ? Promise.resolve(null) : C.loadJson(R + 'data/ranks.json').then(function (j) { ranks = j.ranks; }, function () { ranks = []; }),
+      p.is_owner || p.flags ? rpc('page_stats', { p_id: p.id }).catch(function () { return null; }) : Promise.resolve(null),
+      rpc('page_pro_info', { p_id: p.id }).catch(function () { return null; })];
     Promise.all(need).then(function (r) {
       var S = r[0] || {};
       var stats = r[2];
+      var pro = r[3] || {};
       var html = '';
+      // Pro: a badge on the page; the owner sees the end date.
+      if (pro.pro) {
+        var chips = app.querySelector('.pg-chips');
+        if (chips && !chips.querySelector('.pg-pro')) chips.insertAdjacentHTML('beforeend', '<span class="chip is-yellow pg-pro">⭐ Pro</span>');
+      }
+      var ob = app.querySelector('.pg-owner');
+      if (ob && p.is_owner && !ob.querySelector('[data-pro-line]')) {
+        ob.insertAdjacentHTML('beforeend', '<p class="small-print" data-pro-line>' + (pro.pro && pro.pro_until ? '⭐ Pro until ' + esc(new Date(pro.pro_until).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })) + '.' : 'Free plan. Pro comes with a toy, course or test on web3.toys.') + ' <a href="' + R + 'my-page/#pro">Pro tools</a></p>');
+      }
+      // Free pages carry this month's site-wide sponsor (Pro pages don't).
+      if (!pro.pro) sponsorCard(box);
       if (p.type === 'project') {
         html += '<section class="card stack stack--tight"><h2 class="title-md">🎓 ' + esc(p.name) + ' Pro players</h2>' +
           '<p class="text"><b>' + Number(S.pro_count || 0).toLocaleString('en-US') + '</b> ' + (Number(S.pro_count) === 1 ? 'player has' : 'players have') + ' earned the Pro badge' + ((p.featured_courses || []).length ? ' in the Academy course.' : '.') + '</p>' +
@@ -169,8 +182,22 @@
         html += '<section class="stack stack--tight pg-stats"><h2 class="title-sm">📊 Your page, last 30 days <span class="small-print">(only you see this)</span></h2><ul class="ops-nums">' +
           row('👀 Views', stats.views) + row('🎮 Plays from your page', stats.plays) + row(p.type === 'creator' ? '🙋 Joined with your link' : '🎓 Players', stats.players) + '</ul></section>';
       }
-      box.innerHTML = html;
+      box.insertAdjacentHTML('afterbegin', html);
     }).catch(function () { box.innerHTML = ''; });
+  }
+
+  function sponsorCard(box) {
+    rpc('active_sponsors', {}).then(function (rows) {
+      var s = (rows || []).filter(function (x) { return x.kind === 'site'; })[0];
+      if (!s || box.querySelector('.sponsor-card')) return;
+      var logo = SB.url.replace(/\/$/, '') + '/storage/v1/object/public/sponsor-logos/' + s.logo_path.split('/').map(encodeURIComponent).join('/');
+      box.insertAdjacentHTML('beforeend', '<div class="sponsor-result"><a class="sponsor-card" href="' + esc(s.link) + '" target="_blank" rel="sponsored noopener" data-sp>' +
+        '<span class="sponsor-label">Sponsored</span><img class="sponsor-logo" src="' + esc(logo) + '" alt="" width="44" height="44" loading="lazy" />' +
+        '<span class="sponsor-text"><b>' + esc(s.sponsor) + '</b><span>' + esc(s.line) + '</span></span><span class="sponsor-go" aria-hidden="true">→</span></a></div>');
+      var a = box.querySelector('[data-sp]');
+      rpc('sponsor_hit', { p_booking: s.id, p_what: 'view', p_slot: 'result' }).catch(function () {});
+      a.addEventListener('click', function () { rpc('sponsor_hit', { p_booking: s.id, p_what: 'click', p_slot: 'result' }).catch(function () {}); });
+    }).catch(function () {});
   }
 
   function loginWithX() {

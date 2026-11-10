@@ -6,7 +6,7 @@
 
 const env = (k: string) => Deno.env.get(k) || '';
 const FN = 'create-order';
-const VERSION = 2; // raise when this file changes in a way the admin to-do list should know about
+const VERSION = 3; // raise when this file changes in a way the admin to-do list should know about
 
 const CORS = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type', 'Access-Control-Allow-Methods': 'POST, OPTIONS' };
 const json = (status: number, body: unknown) => new Response(JSON.stringify(body), { status, headers: { ...CORS, 'Content-Type': 'application/json' } });
@@ -42,7 +42,7 @@ async function loginUser(req: Request): Promise<Record<string, any> | Response> 
 // For Projects deposits, worked out from data/business/ (US dollars only):
 // deposit-toy-TIER and deposit-test-TIER cost price x deposit. The same rule
 // is in js/pay.js (the checks compare them).
-export function businessProducts(toy: any, test: any, ads?: any) {
+export function businessProducts(toy: any, test: any, ads?: any, pages?: any) {
   const out: Array<Record<string, unknown>> = [];
   const add = (kind: string, file: any, label: string) => {
     if (!file || !Array.isArray(file.tiers)) return;
@@ -67,6 +67,9 @@ export function businessProducts(toy: any, test: any, ads?: any) {
     if (Number(ads.siteWide) > 0) out.push({ id: 'ad-site', type: 'ad', perItem: true, usd: Number(ads.siteWide), title: 'Sponsor a Toy: site-wide, one month' });
     if (Number(ads.newsletter) > 0) out.push({ id: 'ad-newsletter', type: 'ad', perItem: true, usd: Number(ads.newsletter), title: 'Sponsor a Toy: one newsletter issue' });
   }
+  // Pro page for a year (pages.json pro.yearly), only while switched on. The page id is the item.
+  const y = pages && pages.pro && pages.pro.yearly;
+  if (y && y.on === true && Number(y.usd) > 0) out.push({ id: 'pro-year', type: 'pro', perItem: true, usd: Number(y.usd), title: 'Pro page: one year' });
   return out;
 }
 
@@ -76,8 +79,8 @@ async function loadProducts() {
   if (!r.ok) throw new Error('products');
   const base = (await r.json()).products as Array<Record<string, unknown>>;
   const get = (f: string) => fetch(`${site}/data/business/${f}`).then((x) => (x.ok ? x.json() : null)).catch(() => null);
-  const [toy, test, ads] = await Promise.all([get('toy_tiers.json'), get('test_tiers.json'), get('ad_slots.json')]);
-  return base.concat(businessProducts(toy, test, ads));
+  const [toy, test, ads, pages] = await Promise.all([get('toy_tiers.json'), get('test_tiers.json'), get('ad_slots.json'), get('pages.json')]);
+  return base.concat(businessProducts(toy, test, ads, pages));
 }
 
 export async function handle(req: Request): Promise<Response> {

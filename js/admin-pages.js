@@ -5,7 +5,7 @@
 //   Web3AdminPages.tab(panel, ctx, sub)   sub: approvals | requests | reports | all | new
 
 (function () {
-  var SUBS = [['approvals', 'To approve'], ['requests', 'Page requests'], ['reports', 'Reports'], ['all', 'All pages'], ['new', '➕ New project page']];
+  var SUBS = [['approvals', 'To approve'], ['requests', 'Page requests'], ['reports', 'Reports'], ['all', 'All pages'], ['pro', '⭐ Pro'], ['consents', 'Consent'], ['new', '➕ New project page']];
   var prefill = null;
 
   function tab(panel, ctx, sub) {
@@ -101,6 +101,50 @@
       }
 
       if (sub === 'new' || sub === 'edit') return editor(panel, ctx, nav, bindNav, P, done, null);
+
+      if (sub === 'pro') {
+        return Promise.all([db().rpc('admin_pro_status').then(ctx.must), db().from('page_pro_log').select('*').order('created_at', { ascending: false }).limit(500).then(ctx.must)]).then(function (x) {
+          var now = Date.now();
+          var waiting = x[1].filter(function (l) { return !l.page_id && !l.applied_at && !/refunded/.test(l.reason); });
+          var projects = rows.filter(function (p) { return p.type === 'project'; });
+          var opts = '<option value="">Pick a page…</option>' + rows.map(function (p) { return '<option value="' + esc(p.id) + '">@' + esc(p.handle) + ' · ' + esc(p.name) + '</option>'; }).join('');
+          panel.innerHTML = nav + '<p class="small-print">Pro turns on by itself from purchases (' + Object.keys(P.pro.months).map(function (k) { return esc(k) + ' ' + P.pro.months[k] + ' months'; }).join(', ') + '), added on top. Grant or extend it by hand for partners; minus months shorten it.</p>' +
+            (waiting.length ? '<section class="card stack stack--tight"><h3 class="title-sm">Purchases waiting for a page</h3><p class="small-print">No project page had the X handle from the request. They are added automatically when a page with that handle is made, or give them to a page now.</p>' + waiting.map(function (l) {
+              return '<div class="cap-row" data-wait="' + l.id + '"><span>' + esc(l.reason) + ' · ' + l.months + ' months · @' + esc(l.handle || '?') + ' · ' + esc(ctx.date(l.created_at)) + '</span><select class="field" data-to>' + opts + '</select><button type="button" class="btn btn--small" data-give>Give</button></div>';
+            }).join('') + '</section>' : '') +
+            '<section class="card stack stack--tight"><h3 class="title-sm">Grant or extend Pro</h3><div class="ad-row"><select class="field" data-g-page>' + opts + '</select><input class="field" type="number" min="-60" max="60" value="3" data-g-months aria-label="Months" />' +
+            '<input class="field" maxlength="120" placeholder="Why (for the log)" data-g-note /></div><button type="button" class="btn btn--small btn--ink" data-grant>Save</button><p class="small-print" data-gmsg></p></section>' +
+            '<div class="adm-scroll"><table class="tk-table adm-table"><thead><tr><th>Page</th><th>Owner</th><th>Pro until</th><th>Days left</th><th>Last change</th></tr></thead><tbody>' + x[0].map(function (r2) {
+              var left = Math.ceil((Date.parse(r2.pro_until) - now) / 864e5);
+              return '<tr><td><a href="' + view(r2.handle) + '" target="_blank" rel="noopener">@' + esc(r2.handle) + '</a></td><td>' + esc(r2.owner_name || '-') + '</td><td>' + esc(ctx.date(r2.pro_until)) + '</td><td>' + (left > 0 ? '<span class="tk-warn' + (left <= 14 ? '' : ' is-good') + '">' + left + '</span>' : 'ended') + '</td><td>' + esc(r2.last_reason || '') + '</td></tr>';
+            }).join('') + '</tbody></table></div>' + (x[0].length ? '' : '<p class="text">No Pro pages yet.</p>') +
+            '<p class="small-print">' + projects.length + ' project pages. Yearly plan: ' + (P.pro.yearly.on ? 'on ($' + esc(P.pro.yearly.usd) + ')' : 'off (switch it on in data/business/pages.json, pro.yearly.on)') + '.</p>';
+          bindNav();
+          panel.querySelector('[data-grant]').addEventListener('click', function () {
+            var page = panel.querySelector('[data-g-page]').value, msg = panel.querySelector('[data-gmsg]');
+            if (!page) { msg.textContent = 'Pick a page.'; return; }
+            db().rpc('admin_grant_pro', { p_page: page, p_months: Number(panel.querySelector('[data-g-months]').value), p_note: panel.querySelector('[data-g-note]').value.trim() || 'Granted by admin', p_log: null }).then(ctx.must).then(done, function (err) { msg.textContent = err.message; });
+          });
+          panel.querySelectorAll('[data-wait]').forEach(function (w) {
+            w.querySelector('[data-give]').addEventListener('click', function () {
+              var page = w.querySelector('[data-to]').value;
+              if (!page) return;
+              db().rpc('admin_grant_pro', { p_page: page, p_months: 0, p_note: null, p_log: Number(w.getAttribute('data-wait')) }).then(ctx.must).then(done, function (err) { window.alert(err.message); });
+            });
+          });
+        });
+      }
+
+      if (sub === 'consents') {
+        return db().rpc('admin_consent_stats').then(ctx.must).then(function (st) {
+          var sum = function (k) { return st.reduce(function (a, r2) { return a + Number(r2[k]); }, 0); };
+          panel.innerHTML = nav + ctx.tiles([['Players asked', sum('asked')], ['Said yes', sum('yes')], ['Shared email', sum('email')], ['Said no', sum('said_no')], ['Stopped later', sum('withdrawn')]]) +
+            '<p class="small-print">Counts only: who said yes is visible to each page\'s owner (Pro export) and in the database, not here.</p>' +
+            ctx.grid('consent-stats', ['Page', 'Asked', 'Yes', 'Email', 'No', 'Stopped'], st.map(function (r2) { return ['@' + r2.handle, r2.asked, r2.yes, r2.email, r2.said_no, r2.withdrawn]; }));
+          ctx.bindCsv(panel);
+          bindNav();
+        });
+      }
 
       // All pages
       var search = '';

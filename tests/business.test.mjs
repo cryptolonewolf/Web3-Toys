@@ -213,3 +213,46 @@ describe('Profile pages: what each page shows', () => {
     assert.ok(site.includes('function keepVia()') && site.includes("'@' + via"));
   });
 });
+
+describe('Profile pages: consent, Pro and the directory', () => {
+  const P = json('data/business/pages.json');
+  const sql = read('supabase/021_pages_pro.sql');
+
+  it('Pro months in the database match pages.json', () => {
+    const body = sql.slice(sql.indexOf('function public.pro_months'), sql.indexOf('$$;', sql.indexOf('function public.pro_months')));
+    Object.entries(P.pro.months).forEach(([k, m]) => {
+      const re = k === 'course' ? new RegExp(`p_product like 'course-%' then ${m}`) : new RegExp(`p_product = '${k}' then ${m}`);
+      assert.match(body, re, k);
+    });
+  });
+
+  it('the fan export has only players who said yes, and only what they agreed to', () => {
+    const f = sql.slice(sql.indexOf('function public.page_fans'), sql.indexOf('function public.page_analytics'));
+    assert.match(f, /k\.share_handle and k\.agreed_at is not null and k\.withdrawn_at is null/);
+    assert.match(f, /case when k\.share_email then/);
+    assert.match(f, /coalesce\(pg\.pro_until > now\(\), false\)/);
+  });
+
+  it('Pro features are locked for free pages, including pages that never had Pro', () => {
+    assert.equal((sql.match(/not coalesce\(pg\.pro_until > now\(\), false\)/g) || []).length, 2);
+  });
+
+  it('players are asked once, can say no, and can stop sharing in My Progress', () => {
+    const ask = read('js/consent-ask.js');
+    assert.ok(ask.includes('Share my X handle and badges with ') && ask.includes('Also share my email for updates from '));
+    assert.ok(ask.includes("p_share: yes") && ask.includes('data-no'));
+    assert.ok(read('js/profile.js').includes("rpc('withdraw_consent'"));
+    assert.ok(json('data/legal/privacy.json').sections.some((s) => s.id === 'pages'));
+  });
+
+  it('the directory puts Pro first and unclaimed pages last', () => {
+    const d = sql.slice(sql.indexOf('function public.directory_pages'));
+    assert.match(d, /order by coalesce\(p\.pro_until > now\(\), false\) desc, \(p\.owner_id is not null\) desc/);
+    assert.ok(P.reserved.includes('pages'));
+  });
+
+  it('the yearly plan is off, and the reminder days are 14 and 3', () => {
+    assert.equal(P.pro.yearly.on, false);
+    assert.deepEqual(P.pro.remindDays, [14, 3]);
+  });
+});

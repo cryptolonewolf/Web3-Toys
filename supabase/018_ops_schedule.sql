@@ -1,9 +1,10 @@
--- web3.toys: schedules the daily Operations email (9:00 India time) and the
--- weekly site check (Mondays, 6:30 India time).
+-- web3.toys: schedules the daily Operations email (9:00 India time), the
+-- weekly site check (Mondays, 6:30 India time) and the daily Pro reminder
+-- emails for page owners (10:00 India time).
 -- Run this AFTER 017_ops.sql and after deploying the ops-digest and ops-check
 -- Edge Functions with their secrets (docs/setup/operations.md). Safe to run again.
 --
--- Before running, replace the two words in capitals below (in both jobs):
+-- Before running, replace the two words in capitals below (in every job):
 --   YOUR-PROJECT  the start of your Supabase address (zdufxggiffinqcstoquq)
 --   CRON-PASSWORD the same password you saved as CRON_SECRET in Supabase
 -- Times are in UTC: 03:30 UTC is 9:00 in India; 01:00 UTC is 6:30 in India.
@@ -36,6 +37,20 @@ select cron.schedule(
     headers := jsonb_build_object('Content-Type', 'application/json', 'x-cron-key', 'CRON-PASSWORD'),
     body := '{}'::jsonb,
     timeout_milliseconds := 300000
+  );
+  $$
+);
+
+select cron.unschedule('web3toys-page-emails')
+where exists (select 1 from cron.job where jobname = 'web3toys-page-emails');
+select cron.schedule(
+  'web3toys-page-emails',
+  '30 4 * * *',
+  $$
+  select net.http_post(
+    url := 'https://YOUR-PROJECT.supabase.co/functions/v1/page-emails',
+    headers := jsonb_build_object('Content-Type', 'application/json', 'x-cron-key', 'CRON-PASSWORD'),
+    body := '{}'::jsonb
   );
   $$
 );

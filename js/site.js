@@ -24,6 +24,7 @@
     { label: 'Advertise', href: 'advertise/' },
     { label: 'List your course', href: 'academy/list-your-project/' },
     { label: 'Your free page', href: 'my-page/' },
+    { label: 'Pages directory', href: 'pages/' },
     { label: 'Book a Call', href: 'book-a-call/' },
   ];
   // Books and About live in the footer and in the About Aki box on the side.
@@ -592,6 +593,22 @@
     document.head.appendChild(el);
   }
 
+  // The consent question for profile pages (js/consent-ask.js), for
+  // logged-in players while For Projects is on.
+  function loadConsent() {
+    if (!businessOn() || document.body.getAttribute('data-toy') || !(config().supabase || {}).url) return;
+    var el = document.createElement('script');
+    el.src = ROOT + 'js/consent-ask.js';
+    document.head.appendChild(el);
+  }
+
+  // Embedded toys (?embed=1, the Pro embed code): only the toy, no menus.
+  function embedMode() {
+    if (!/[?&]embed=1\b/.test(location.search) || !document.body.getAttribute('data-toy')) return;
+    document.documentElement.classList.add('is-embed');
+    document.body.classList.add('is-embed');
+  }
+
   // Sponsor cards on toy pages (js/sponsor.js).
   function loadSponsor() {
     if (window.Web3Sponsor || !document.body.getAttribute('data-toy') || !(config().supabase || {}).url) return;
@@ -603,6 +620,8 @@
   function start() {
     keepReferral();
     keepVia();
+    embedMode();
+    loadConsent();
     loadOffers();
     loadEarlyBird();
     loadSponsor();

@@ -46,7 +46,7 @@
 
   function setHash(hash) {
     if (location.protocol === 'file:') return;
-    history.replaceState(null, '', hash ? '#' + hash : location.pathname);
+    history.replaceState(null, '', location.pathname + location.search + (hash ? '#' + hash : ''));
   }
 
   // Signup, report and call buttons, used on both end screens.

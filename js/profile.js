@@ -382,9 +382,31 @@
         '<button type="button" class="btn btn--small acct-danger" data-delete>Delete my account and data</button></div>'
       : '<p class="text">Playing without an account. Your progress is saved in this browser only.</p>' +
         (A ? '<div class="btn-row"><button type="button" class="btn btn--ink" data-login>Log in or sign up</button></div>' : '')) +
+      (s.user ? '<div class="pf-consents" data-consents></div>' : '') +
       '<div class="pf-setting"><span class="text">Sound effects</span>' + site.sound.button() + '</div>' +
       (!s.user && (s.certs.length || s.pros.length) ? '<button type="button" class="text-button" data-clear>Clear my progress in this browser</button>' : '') +
       '<p class="small-print"><a href="../privacy/">Privacy</a> · <a href="../terms/">Terms</a></p>';
+  }
+
+  // Sharing with profile pages (supabase/021_pages_pro.sql): what each page
+  // can see, with Stop sharing / Share again, and the email tick.
+  function consents(A) {
+    var box = app.querySelector('[data-consents]');
+    if (!box || !A || !A.client) return;
+    A.client.rpc('my_consents').then(function (r) {
+      var list = (!r.error && r.data) || [];
+      if (!list.length) { box.innerHTML = ''; return; }
+      box.innerHTML = '<h3 class="title-sm">Sharing with pages</h3><p class="small-print">Pages you joined through or earned a badge on. Sharing lets them see your display name, X handle and badges (and your email if ticked).</p><ul class="pf-share">' +
+        list.map(function (c) {
+          return '<li><div><a href="' + site.root + '@' + esc(c.handle) + '"><b>' + esc(c.name) + '</b></a><span class="small-print">' + (c.share_handle ? 'Sharing since ' + esc(String(c.agreed_at || '').slice(0, 10)) + (c.share_email ? ', with your email' : '') : c.withdrawn_at && c.agreed_at ? 'You stopped sharing' : 'Not sharing') + '</span>' +
+            (c.share_handle ? '<label class="mk-check small-print"><input type="checkbox" data-c-email="' + esc(c.page_id) + '"' + (c.share_email ? ' checked' : '') + ' /> <span>Also share my email</span></label>' : '') + '</div>' +
+            (c.share_handle ? '<button type="button" class="btn btn--small" data-c-stop="' + esc(c.page_id) + '">Stop sharing</button>' : '<button type="button" class="btn btn--small" data-c-share="' + esc(c.page_id) + '">Share</button>') + '</li>';
+        }).join('') + '</ul>';
+      var redo = function (p) { return p.then(function (x) { if (x.error) throw x.error; consents(A); }).catch(function (err) { box.insertAdjacentHTML('beforeend', '<p class="small-print">' + esc(err.message) + '</p>'); }); };
+      box.querySelectorAll('[data-c-stop]').forEach(function (b) { b.addEventListener('click', function () { redo(A.client.rpc('withdraw_consent', { p_page: b.getAttribute('data-c-stop') })); }); });
+      box.querySelectorAll('[data-c-share]').forEach(function (b) { b.addEventListener('click', function () { redo(A.client.rpc('answer_consent', { p_page: b.getAttribute('data-c-share'), p_share: true, p_email: false })); }); });
+      box.querySelectorAll('[data-c-email]').forEach(function (c) { c.addEventListener('change', function () { redo(A.client.rpc('answer_consent', { p_page: c.getAttribute('data-c-email'), p_share: true, p_email: c.checked })); }); });
+    }, function () {});
   }
 
   function provider(p) {
@@ -443,6 +465,7 @@
       msg('Deleting…');
       A.deleteAccount().then(function () { location.reload(); }, function (err) { msg('Could not delete: ' + err.message + '. Email us from the Contact page and we will do it.'); });
     });
+    consents(A);
     app.querySelectorAll('[data-refund-order]').forEach(function (b) {
       b.addEventListener('click', function () {
         var why = window.prompt('Why would you like a refund? (A few words is fine. See Refunds and delivery for what we can refund.)');

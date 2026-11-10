@@ -92,6 +92,70 @@
     });
   }
 
+  // ---------- Pro: end date, analytics, fan export, embed codes ----------
+  function pro(box, p) {
+    var site2 = (window.WEB3TOYS_CONFIG || {}).siteUrl || 'https://web3.toys';
+    A.client.rpc('page_pro_info', { p_id: p.id }).then(must).then(function (info) {
+      var on = info && info.pro;
+      var until = on && info.pro_until ? new Date(info.pro_until).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+      var feats = '<ul class="biz-feats">' + P.pro.features.map(function (f) { return '<li>' + site.icon('check') + '<span>' + esc(f) + '</span></li>'; }).join('') + '</ul>';
+      if (!on) {
+        var yearly = P.pro.yearly && P.pro.yearly.on === true && p.type === P.pro.yearly.for;
+        box.innerHTML = '<h2 class="title-md">⭐ Pro</h2><p class="text">Your page is on the free plan: your link, Verified via X badge, featured toys and basic stats. Pro adds:</p>' + feats +
+          '<p class="small-print">' + (p.type === 'project' ? 'Pro turns on by itself when your project buys a toy (Mini Toy ' + P.pro.months['deposit-toy-mini'] + ' months, Full Game ' + P.pro.months['deposit-toy-full'] + ', Launch Tournament ' + P.pro.months['deposit-toy-tournament'] + ') or an Academy course (' + P.pro.months.course + ' months). Use your page\'s X handle on the request form.' : 'Creator pages are free forever.') + '</p>' +
+          (p.type === 'project' ? '<div class="btn-row"><a class="btn btn--small btn--ink" href="' + R + 'launch-your-toy/">Launch a toy</a><a class="btn btn--small" href="' + R + 'academy/list-your-project/">List a course</a>' + (yearly ? '<button type="button" class="btn btn--small btn--yellow" data-yearly>Pro for a year · $' + esc(P.pro.yearly.usd) + '</button>' : '') + '</div><p class="small-print" data-pmsg></p>' : '');
+        var yb = box.querySelector('[data-yearly]');
+        if (yb) yb.addEventListener('click', function () {
+          if (!window.Web3Pay) return;
+          window.Web3Pay.buy('pro-year', p.id, function () { setTimeout(function () { pro(box, p); }, 2500); }).catch(function (err) { if (err.message !== 'login') box.querySelector('[data-pmsg]').textContent = err.message; });
+        });
+        return;
+      }
+      var embeds = (p.featured_toys || []).map(function (id) {
+        var t = toys.filter(function (x) { return x.id === id; })[0];
+        if (!t) return '';
+        var code = '<iframe src="' + site2 + '/' + t.path + '?embed=1&via=' + p.handle + '" title="' + esc(t.title) + ' on web3.toys" width="100%" height="720" style="border:0;border-radius:16px" loading="lazy"></iframe>';
+        return '<li><b>' + esc(t.title) + '</b><textarea class="field pg-embed" rows="3" readonly>' + esc(code) + '</textarea><button type="button" class="btn btn--small" data-copy>Copy</button></li>';
+      }).join('');
+      box.innerHTML = '<div class="cap-row"><h2 class="title-md">⭐ Pro</h2><span class="chip is-mint">until ' + esc(until) + '</span></div>' +
+        '<p class="small-print">You get: ' + esc(P.pro.features.join(', ')) + '. Buying another toy, course or test adds time on top.</p>' +
+        '<h3 class="title-sm">Last 30 days</h3><div data-analytics><p class="small-print">Loading…</p></div>' +
+        '<h3 class="title-sm">Fans who chose to share</h3><p class="small-print">Only players who said yes to sharing with you, with only what each one agreed to, and the date they agreed.</p><div class="btn-row"><button type="button" class="btn btn--small btn--ink" data-export>Export CSV</button></div><p class="small-print" data-xmsg></p>' +
+        '<h3 class="title-sm">Embed your toys</h3>' + (embeds ? '<p class="small-print">Paste this on your site. Plays count towards your page.</p><ul class="pg-embeds">' + embeds + '</ul>' : '<p class="small-print">Feature a toy above to get its embed code.</p>');
+      box.querySelectorAll('[data-copy]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var ta = b.previousElementSibling;
+          var done = function () { b.textContent = 'Copied'; };
+          if (navigator.clipboard) navigator.clipboard.writeText(ta.value).then(done, function () { ta.select(); document.execCommand('copy'); done(); });
+          else { ta.select(); document.execCommand('copy'); done(); }
+        });
+      });
+      box.querySelector('[data-export]').addEventListener('click', function () {
+        var msg = box.querySelector('[data-xmsg]');
+        A.client.rpc('page_fans', { p_id: p.id }).then(must).then(function (rows) {
+          if (!rows.length) { msg.textContent = 'Nobody has chosen to share yet.'; return; }
+          var cell = function (v) { var t = v == null ? '' : String(v); return /[",\n]/.test(t) ? '"' + t.replace(/"/g, '""') + '"' : t; };
+          var csv = [['Display name', 'X handle', 'Email', 'Badges', 'How they found you', 'Agreed on']].concat(rows.map(function (x) {
+            return [x.display_name, x.x_handle ? '@' + x.x_handle : '', x.email || '', (x.badges || []).join('; '), x.source === 'pro' ? 'Pro badge' : 'Invite link', String(x.agreed_at || '').slice(0, 10)];
+          })).map(function (r) { return r.map(cell).join(','); }).join('\n');
+          var a = document.createElement('a');
+          a.href = URL.createObjectURL(new Blob(['\ufeff' + csv], { type: 'text/csv' }));
+          a.download = 'web3toys-' + p.handle + '-fans-' + new Date().toISOString().slice(0, 10) + '.csv';
+          document.body.appendChild(a); a.click(); a.remove();
+          msg.textContent = rows.length + ' fans exported.';
+        }).catch(function (err) { msg.textContent = err.message; });
+      });
+      A.client.rpc('page_analytics', { p_id: p.id }).then(must).then(function (a) {
+        var max = Math.max(1, Math.max.apply(null, a.days.map(function (d) { return Math.max(d.views, d.plays); })));
+        box.querySelector('[data-analytics]').innerHTML = '<div class="pg-chart" role="img" aria-label="Views and plays per day for 30 days">' + a.days.map(function (d) {
+          return '<span title="' + esc(d.day) + ': ' + d.views + ' views, ' + d.plays + ' plays"><i class="is-views" style="height:' + Math.round(d.views / max * 100) + '%"></i><i class="is-plays" style="height:' + Math.round(d.plays / max * 100) + '%"></i></span>';
+        }).join('') + '</div><p class="small-print"><span class="pg-key is-views"></span> views <span class="pg-key is-plays"></span> plays</p>' +
+          (a.byToy.length ? '<table class="tk-table"><thead><tr><th>Toy</th><th>Plays from your page</th></tr></thead><tbody>' + a.byToy.map(function (t) { return '<tr><td>' + esc(t.toy) + '</td><td>' + t.plays + '</td></tr>'; }).join('') + '</tbody></table>' : '') +
+          '<p class="small-print">Sharing: ' + a.consent.yes + ' of ' + a.consent.asked + ' players asked said yes' + (a.consent.email ? ' (' + a.consent.email + ' with email)' : '') + (a.consent.withdrawn ? '; ' + a.consent.withdrawn + ' stopped later' : '') + '.</p>';
+      }).catch(function (err) { box.querySelector('[data-analytics]').innerHTML = '<p class="small-print">' + esc(err.message) + '</p>'; });
+    }).catch(function () { box.innerHTML = '<h2 class="title-md">⭐ Pro</h2><p class="small-print">Could not load Pro details right now.</p>'; });
+  }
+
   function createForm() {
     shell('<form class="card stack create-page" novalidate><h2 class="title-md">Make your page: web3.toys/@' + esc(me.handle) + '</h2>' +
       '<fieldset class="pg-types"><legend class="label">What kind of page?</legend>' + Object.keys(P.types).map(function (k, i) {
@@ -141,7 +205,9 @@
       '<fieldset><legend class="label">Brand colour</legend><div class="pg-swatches">' + P.colors.map(function (c) {
         return '<button type="button" class="pg-swatch' + (c.toLowerCase() === p.color.toLowerCase() ? ' is-on' : '') + '" style="background:' + c + '" data-color="' + c + '" aria-label="' + c + '"></button>';
       }).join('') + '<input type="color" value="' + esc(p.color) + '" data-color-input aria-label="Custom colour" /></div></fieldset>' +
-      '<button type="submit" class="btn btn--ink btn--block">Save</button><p class="small-print" data-msg aria-live="polite"></p></form>' + rules());
+      '<button type="submit" class="btn btn--ink btn--block">Save</button><p class="small-print" data-msg aria-live="polite"></p></form>' +
+      '<section class="card stack stack--tight" id="pro" data-pro><h2 class="title-md">⭐ Pro</h2><p class="small-print">Checking…</p></section>' + rules());
+    pro(app.querySelector('[data-pro]'), p);
     var f = app.querySelector('.pg-edit');
     var msg = f.querySelector('[data-msg]');
     var pics = { avatar: p.avatar_path || '', banner: p.banner_path || '' };

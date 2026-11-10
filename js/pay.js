@@ -21,7 +21,7 @@
 
   // The price list: data/products.json plus the For Projects deposits from
   // data/business/ (the same rule as the payment server).
-  function businessProducts(toy, test, ads) {
+  function businessProducts(toy, test, ads, pages) {
     var out = [];
     var add = function (kind, file, label) {
       if (!file || !Array.isArray(file.tiers)) return;
@@ -44,14 +44,17 @@
       if (Number(ads.siteWide) > 0) out.push({ id: 'ad-site', type: 'ad', perItem: true, usd: Number(ads.siteWide), title: 'Sponsor a Toy: site-wide, one month' });
       if (Number(ads.newsletter) > 0) out.push({ id: 'ad-newsletter', type: 'ad', perItem: true, usd: Number(ads.newsletter), title: 'Sponsor a Toy: one newsletter issue' });
     }
+    // Pro page for a year (pages.json pro.yearly), only while switched on. The page id is the item.
+    var y = pages && pages.pro && pages.pro.yearly;
+    if (y && y.on === true && Number(y.usd) > 0) out.push({ id: 'pro-year', type: 'pro', perItem: true, usd: Number(y.usd), title: 'Pro page: one year' });
     return out;
   }
 
   function products() {
     if (!list) {
       var get = function (f) { return fetch(site.root + f).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); };
-      list = Promise.all([get('data/products.json'), get('data/business/toy_tiers.json'), get('data/business/test_tiers.json'), get('data/business/ad_slots.json')]).then(function (r) {
-        return r[0].products.concat(businessProducts(r[1], r[2], r[3]));
+      list = Promise.all([get('data/products.json'), get('data/business/toy_tiers.json'), get('data/business/test_tiers.json'), get('data/business/ad_slots.json'), get('data/business/pages.json')]).then(function (r) {
+        return r[0].products.concat(businessProducts(r[1], r[2], r[3], r[4]));
       });
     }
     return list;

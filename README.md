@@ -478,8 +478,11 @@ footer. Prices, tiers and rules: `data/business/` (`toy_tiers.json`,
 - Profile pages: web3.toys/@handle (`p/`, `js/page-view.js`, rewritten by
   `vercel.json`), the owner editor `my-page/` (`js/page-edit.js`), admin
   Pages tab (`js/admin-pages.js`). Settings and wording:
-  `data/business/pages.json`. Database: `supabase/019_pages.sql`. Setup:
-  `docs/setup/pages.md`.
+  `data/business/pages.json`. Database: `supabase/019_pages.sql`,
+  `020_page_content.sql` (what pages show) and `021_pages_pro.sql`
+  (consent, Pro, directory). Consent question `js/consent-ask.js`,
+  directory `pages/` (`js/pages-dir.js`), Pro reminders `page-emails`.
+  Setup: `docs/setup/pages.md`.
 - Operations home (admin, first tab): `js/admin-ops.js`, settings and your
   to-do list in `data/ops.json`. Queues, This week, last 7 days, Site health,
   Inbox (refunds, contact messages, failed or disputed payments, X posts,

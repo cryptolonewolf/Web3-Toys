@@ -64,3 +64,11 @@ Deno.test('webhook: a dispute marks the order and a bad signature is recorded', 
     globalThis.fetch = realFetch;
   }
 });
+
+Deno.test('page-emails: the Pro reminder names the end date and the ways to renew', async () => {
+  const { reminder } = await import('./page-emails/index.ts');
+  const m = reminder({ handle: 'LumenFi', name: 'Lumen', pro_until: '2026-12-01T10:00:00Z', days: 3 }, 'https://web3.toys');
+  assertEquals(m.subject, 'Your web3.toys Pro ends in 3 days');
+  assert(m.html.includes('1 December 2026') && m.html.includes('/launch-your-toy/') && m.html.includes('/academy/list-your-project/') && m.html.includes('/test-your-product/'));
+  assert(!m.html.includes('<script'));
+});

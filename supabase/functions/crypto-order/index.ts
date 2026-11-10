@@ -9,7 +9,7 @@
 
 const env = (k: string) => Deno.env.get(k) || '';
 const FN = 'crypto-order';
-const VERSION = 2; // raise when this file changes in a way the admin to-do list should know about
+const VERSION = 3; // raise when this file changes in a way the admin to-do list should know about
 
 const API = 'https://api.paymento.io';
 const CORS = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type', 'Access-Control-Allow-Methods': 'POST, OPTIONS' };
@@ -73,7 +73,7 @@ async function confirm(order: Record<string, any>) {
 
 // For Projects deposits, worked out from data/business/ (US dollars only).
 // The same rule as create-order and js/pay.js (the checks compare them).
-export function businessProducts(toy: any, test: any, ads?: any) {
+export function businessProducts(toy: any, test: any, ads?: any, pages?: any) {
   const out: Array<Record<string, unknown>> = [];
   const add = (kind: string, file: any, label: string) => {
     if (!file || !Array.isArray(file.tiers)) return;
@@ -98,6 +98,9 @@ export function businessProducts(toy: any, test: any, ads?: any) {
     if (Number(ads.siteWide) > 0) out.push({ id: 'ad-site', type: 'ad', perItem: true, usd: Number(ads.siteWide), title: 'Sponsor a Toy: site-wide, one month' });
     if (Number(ads.newsletter) > 0) out.push({ id: 'ad-newsletter', type: 'ad', perItem: true, usd: Number(ads.newsletter), title: 'Sponsor a Toy: one newsletter issue' });
   }
+  // Pro page for a year (pages.json pro.yearly), only while switched on. The page id is the item.
+  const y = pages && pages.pro && pages.pro.yearly;
+  if (y && y.on === true && Number(y.usd) > 0) out.push({ id: 'pro-year', type: 'pro', perItem: true, usd: Number(y.usd), title: 'Pro page: one year' });
   return out;
 }
 
@@ -126,8 +129,8 @@ export async function handle(req: Request): Promise<Response> {
   const list = await fetch(`${site()}/data/products.json`);
   if (!list.ok) return json(502, { error: 'Could not load the price list. Try again.' });
   const get = (f: string) => fetch(`${site()}/data/business/${f}`).then((x) => (x.ok ? x.json() : null)).catch(() => null);
-  const [toyTiers, testTiers, adSlots] = await Promise.all([get('toy_tiers.json'), get('test_tiers.json'), get('ad_slots.json')]);
-  const product = (await list.json()).products.concat(businessProducts(toyTiers, testTiers, adSlots)).find((p: Record<string, unknown>) => p.id === b.product);
+  const [toyTiers, testTiers, adSlots, pagesFile] = await Promise.all([get('toy_tiers.json'), get('test_tiers.json'), get('ad_slots.json'), get('pages.json')]);
+  const product = (await list.json()).products.concat(businessProducts(toyTiers, testTiers, adSlots, pagesFile)).find((p: Record<string, unknown>) => p.id === b.product);
   if (!product) return json(404, { error: 'Unknown product.' });
   if (product.perItem && !item) return json(400, { error: 'Which one is this for?' });
   const usd = Number(product.usd);

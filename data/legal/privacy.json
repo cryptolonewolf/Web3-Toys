@@ -2,7 +2,7 @@
   "_help": "The Privacy page. Plain-English draft: have a lawyer check it before taking payments. Keep it matching what the site really collects. Lines starting with TODO are placeholders.",
   "review": true,
   "title": "Privacy policy",
-  "updated": "9 November 2026",
+  "updated": "10 November 2026",
   "intro": "web3.toys is built so you can play without telling us anything. This page lists exactly what we collect, why, who helps us store it, and how to delete it.",
   "sections": [
     {
@@ -86,6 +86,18 @@
       "title": "Your rights",
       "list": [
         "You can ask to see, correct or delete the data we hold about you, and withdraw your consent at any time, by emailing us from the Contact page."
+      ]
+    },
+    {
+      "id": "pages",
+      "title": "Sharing with project and creator pages",
+      "list": [
+        "Projects, creators and web3 personalities can have a page on web3.toys. Pages about people are only ever made by those people, by logging in with their own X account.",
+        "When you earn a project's Pro badge, or join web3.toys with a creator's invite link, we ask once: share your X handle and badges with them? Nothing is shared unless you say yes.",
+        "If you say yes, that page's owner can see your display name, your X handle (if you logged in with X) and your badges for their toys and courses, and your display name may appear on their page. If you also tick the email box, they get your email address for their updates.",
+        "Owners only ever see players who said yes, and only what each player agreed to share, with the date they agreed. Everyone else is just counted, and shows as \"A player\" on page leaderboards.",
+        "You can stop sharing, or change the email tick, any time in My Progress, Settings. Once you stop, the owner no longer sees you. They are responsible for any copy they exported before, and must let you unsubscribe from their emails.",
+        "Page views and plays that start from a page are counted without names, so owners can see how their page is doing."
       ]
     },
     {

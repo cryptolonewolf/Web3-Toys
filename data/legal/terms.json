@@ -2,7 +2,7 @@
   "_help": "The Terms page. Plain-English draft: have a lawyer check it before taking payments. Lines starting with TODO are placeholders.",
   "review": true,
   "title": "Terms of use",
-  "updated": "9 November 2026",
+  "updated": "10 November 2026",
   "intro": "By using web3.toys you agree to these terms. They are written to be short and readable.",
   "sections": [
     {
@@ -86,6 +86,17 @@
         "You are responsible for any taxes on what you are paid. Payments sent to the address and network you gave us cannot be reversed, so check them carefully.",
         "Coins for tests are site points with no cash value. web3.toys never pays in or promotes tokens.",
         "What you write and your screenshots are shared with the project that asked for the test. Do not include personal details in them."
+      ]
+    },
+    {
+      "id": "pages",
+      "title": "Profile pages",
+      "list": [
+        "A page lives at web3.toys/@handle, where the handle is an X handle. You may only claim or make a page for an X account you control. Pages about people are made only by those people.",
+        "We may make a page for a project from public information; it is marked \"Not claimed yet\" until the project claims it with its X account. We vet every project first.",
+        "We approve every page before it is first published, and we may hide, suspend, move or delete a page that breaks these rules. No token promotion: no presales, airdrops, price talk or calls to buy.",
+        "Pages are free. Pro (extra analytics, the fan export, directory placement, embed codes and a page without other sponsors) comes with toys and courses bought from web3.toys, for the time listed on the page, and ends on its end date unless renewed.",
+        "If you export fans who agreed to share with you, use their details only for your own updates about your project, honour unsubscribe requests, and follow the privacy laws that apply to you."
       ]
     },
     {

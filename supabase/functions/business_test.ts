@@ -77,3 +77,13 @@ Deno.test('crypto payments are refunded by hand, then marked', async () => {
   assertEquals(marked.status, 200);
   assertEquals(orders['22222222-2222-2222-2222-222222222222'].status, 'refunded');
 });
+
+Deno.test('the yearly Pro plan exists only while pages.json switches it on, the same in both functions', () => {
+  const pages = JSON.parse(Deno.readTextFileSync(new URL('../../data/business/pages.json', import.meta.url)));
+  const off = create.businessProducts(null, null, null, pages);
+  assertEquals(off.some((p: any) => p.id === 'pro-year'), pages.pro.yearly.on === true);
+  const on = { pro: { yearly: { on: true, usd: 199 } } };
+  const a: any = create.businessProducts(null, null, null, on).find((p: any) => p.id === 'pro-year');
+  assertEquals(a && a.usd, 199);
+  assertEquals(JSON.stringify(crypto.businessProducts(null, null, null, on)), JSON.stringify(create.businessProducts(null, null, null, on)));
+});

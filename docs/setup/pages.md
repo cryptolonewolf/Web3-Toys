@@ -66,3 +66,63 @@ Test it: open a project page with a featured course and toys; tap Play (the
 toy address ends in `?via=handle`) and play a card; as the owner, refresh
 the page: Plays from your page goes up. On a creator page, the Join button
 carries their invite code.
+
+## Parts C, D and E: consent, Pro and the directory (10 minutes)
+
+1. Supabase, **SQL Editor**: run `supabase/017_ops.sql` again (safe), then
+   `supabase/021_pages_pro.sql`.
+2. **Edge Functions**: deploy `page-emails` (paste
+   `supabase/functions/page-emails/index.ts`, Verify JWT OFF). Paste
+   `create-order` and `crypto-order` again (they know the yearly plan, which
+   stays off). Secrets: it uses RESEND_API_KEY and CRON_SECRET (already
+   there); optional PAGES_FROM for the sender.
+3. Run `supabase/018_ops_schedule.sql` again with your project and password
+   filled in: it now also sends the Pro reminders every day at 10:00 India time.
+
+### C. Consent
+- A player who earned a project's Pro badge (passed its Academy course), or
+  joined with a creator's invite link, is asked once on their next ordinary
+  page: "Share my X handle and badges with [name]?" Yes or No, with an
+  optional tick to share their email. "Ask me later" asks again next visit.
+- Players see and change every answer in **My Progress, Settings, Sharing
+  with pages** (Stop sharing, Share, email tick).
+- Owners only ever see players who said yes, and only what each agreed to.
+  The privacy and terms pages explain this.
+
+### D. Pro
+- Turns on by itself when a project's purchase is paid, matched by the X
+  handle on the request: Mini Toy 3 months, Full Game 6, Launch Tournament
+  12, any Academy course 3 (`pages.json`, pro.months). Buying again adds
+  time on top; a refund takes that purchase's months back. If the page does
+  not exist yet, the months wait and are added when you make it (or give
+  them to a page in admin, **Pages, ⭐ Pro**).
+- **Grant or extend by hand** for partners in **Pages, ⭐ Pro** (minus months
+  shorten it). Every change is in the audit log.
+- Pro adds: detailed analytics (30 days by day, plays by toy, sharing
+  numbers), the fan CSV export (with consent dates), Featured in the
+  directory, embed codes for their toys (`?embed=1`, plays still count), and
+  no site-wide sponsor card on their page. Owners see "⭐ Pro until [date]" on
+  their page and in `/my-page/`.
+- Emails 14 and 3 days before Pro ends, offering a new toy, course or test.
+- **Yearly plan:** $199 a year for projects, built but off. To switch it on,
+  set `"on": true` under pro.yearly in `data/business/pages.json`; a
+  "Pro for a year" button then appears for project owners (Razorpay).
+
+### E. Directory
+- `/pages/`: All, Projects, Creators, Personalities, search, Verified only.
+  Pro pages come first (⭐ Featured), pages not claimed yet come last.
+- Admin, **Pages, Consent**: how many were asked, said yes, shared email,
+  said no or stopped later, per page (counts only), with CSV.
+
+### Test it (Razorpay test mode, preview on)
+1. As a player, pass a project's Academy course (the project page features
+   that course). Open any ordinary page: the question appears. Say yes with
+   the email tick. Open My Progress, Settings: stop sharing, then share again.
+2. As the owner, open `/my-page/`. Without Pro: see what Pro adds. In admin,
+   Pages, ⭐ Pro, grant 3 months. Back in `/my-page/`: analytics, Export CSV
+   (only the sharing player, with the date), and embed codes.
+3. Make a toy request with the page's X handle and pay the deposit in test
+   mode: Pro gains the months. Refund it in admin: the months go away.
+4. Open `/pages/`: try the filters, search and Verified only.
+5. Open a free page while a site-wide sponsor is booked: the sponsor card
+   shows; on a Pro page it does not.

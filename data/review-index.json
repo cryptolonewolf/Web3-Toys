@@ -27,7 +27,7 @@
    "item": "(whole file)",
    "label": "data/business/pages.json",
    "note": "Profile pages at web3.toys/@handle (js/page-view.js, js/page-edit.js, supabase/019_pages.sql). Edit the wording freely. reserved: handles nobody can use (every folder of the site is added automaticall",
-   "hash": "0219e66dd724"
+   "hash": "09182a13f6b4"
   },
   {
    "file": "data/business/sponsored_rounds.json",
@@ -825,7 +825,7 @@
    "item": "(whole file)",
    "label": "Privacy policy",
    "note": "The Privacy page. Plain-English draft: have a lawyer check it before taking payments. Keep it matching what the site really collects. Lines starting with TODO are placeholders.",
-   "hash": "4226131f2b2f"
+   "hash": "3de2d1070c20"
   },
   {
    "file": "data/legal/refunds.json",
@@ -839,7 +839,7 @@
    "item": "(whole file)",
    "label": "Terms of use",
    "note": "The Terms page. Plain-English draft: have a lawyer check it before taking payments. Lines starting with TODO are placeholders.",
-   "hash": "0e78f2285ae9"
+   "hash": "68ace487b05a"
   },
   {
    "file": "data/prices/ADA.json",

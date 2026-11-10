@@ -404,6 +404,7 @@ begin
     'sql-018', public.ops_cron_job('web3toys-ops-digest'),
     'sql-019', to_regclass('public.pages') is not null,
     'sql-020', to_regclass('public.page_consents') is not null,
+    'sql-021', to_regclass('public.page_pro_log') is not null,
     'books', (select count(*) from storage.objects where bucket_id = 'paid-files'),
     'todos', coalesce((select jsonb_object_agg(key, done_at) from public.ops_todos where done_at is not null), '{}')
   );
