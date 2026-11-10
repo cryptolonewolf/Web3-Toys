@@ -7327,3 +7327,15 @@ body.has-sheet { overflow: hidden; }
   .pg-pics { grid-template-columns: auto 1fr; }
   .pg-avatar { width: 112px; height: 112px; }
 }
+.pg-cta { margin-top: 2px; width: auto; }
+.pg-fans { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.pg-fans li { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px 3px 3px; font-size: 14px; font-weight: 700; background: var(--cream); border: var(--line-thin); border-radius: 999px; }
+.pg-face { width: 32px; height: 32px; flex: none; border-radius: 50%; }
+.pg-face--anon { display: inline-grid; place-items: center; font-size: 18px; background: var(--track); }
+.pg-board { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.pg-board li { display: grid; grid-template-columns: 28px auto 1fr; gap: 2px 8px; align-items: center; }
+.pg-board .small-print { grid-column: 3; margin: -4px 0 0; }
+.pg-rank { grid-row: span 2; font: 700 18px var(--font-display); text-align: center; }
+.pg-board .pg-face { grid-row: span 2; }
+.pg-name { font-weight: 800; overflow-wrap: anywhere; }
+.pg-badges { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }

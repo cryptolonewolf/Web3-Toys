@@ -42,7 +42,12 @@
     Promise.all([A.client.rpc('my_x').then(must), A.client.rpc('my_pages').then(must)]).then(function (r) {
       me = (r[0] || [])[0] || null;
       pages = r[1] || [];
-      if (pages.length) { current = pages.filter(function (p) { return current && p.id === current.id; })[0] || pages[0]; return editor(); }
+      if (pages.length) {
+        // Creators get an invite code for their page's "Join with my link" button.
+        if (pages.some(function (p) { return p.type === 'creator'; })) A.client.rpc('my_page_ref_code').then(function () {}, function () {});
+        current = pages.filter(function (p) { return current && p.id === current.id; })[0] || pages[0];
+        return editor();
+      }
       if (!me) {
         shell('<section class="card stack stack--tight"><h2 class="title-md">Pages need Log in with X</h2><p class="text">You are logged in another way. Log out, then continue with X, so your page is tied to your X account.</p>' +
           '<button type="button" class="btn btn--ink" data-switch>Log out and continue with X</button></section>' + rules() + requestBox());

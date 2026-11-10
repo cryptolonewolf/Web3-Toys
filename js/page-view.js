@@ -60,12 +60,12 @@
     var byId = {};
     home.shelves.forEach(function (s) { s.cards.forEach(function (c) { byId[c.id] = c; }); });
     return ids.map(function (id) { return byId[id]; }).filter(function (c) { return c && c.path; }).map(function (c) {
-      return '<li><a class="card pg-toy is-' + esc(c.color || 'yellow') + '" href="' + R + esc(c.path) + '"><b>' + esc(c.title) + '</b><span class="small-print">' + esc(c.topic || c.blurb || '') + '</span><span class="pg-play">▶ Play</span></a></li>';
+      return '<li><a class="card pg-toy is-' + esc(c.color || 'yellow') + '" href="' + R + esc(c.path) + '?via=' + esc(page.handle) + '"><b>' + esc(c.title) + '</b><span class="small-print">' + esc(c.topic || c.blurb || '') + '</span><span class="pg-play">▶ Play</span></a></li>';
     }).join('');
   }
   function courseCards(ids) {
     return ids.map(function (id) { return courses[id] ? [id, courses[id]] : null; }).filter(Boolean).map(function (x) {
-      return '<li><a class="card pg-toy" href="' + R + 'academy/course/?c=' + esc(x[0]) + '"><b>🎓 ' + esc(x[1].name) + '</b><span class="small-print">' + esc(x[1].tagline || '') + '</span><span class="pg-play">Start the course</span></a></li>';
+      return '<li><a class="card pg-toy" href="' + R + 'academy/course/?c=' + esc(x[0]) + '&via=' + esc(page.handle) + '"><b>🎓 ' + esc(x[1].name) + '</b><span class="small-print">' + esc(x[1].tagline || '') + '</span><span class="pg-play">Start the course</span></a></li>';
     }).join('');
   }
 
@@ -91,7 +91,8 @@
       '<div class="chips pg-chips"><span class="chip is-white">' + T.icon + ' ' + esc(T.label) + '</span>' +
       (p.verified ? '<span class="chip is-mint pg-verified">✓ ' + esc(P.copy.verified) + '</span>' : !p.claimed ? '<span class="chip is-white pg-unclaimed">' + esc(P.copy.notClaimed) + '</span>' : '') + '</div>' +
       (p.bio ? '<p class="text text--ink pg-bio">' + esc(p.bio) + '</p>' : '') +
-      (socials.length ? '<div class="btn-row pg-links">' + socials.join('') + '</div>' : '') + '</section>' +
+      (socials.length ? '<div class="btn-row pg-links">' + socials.join('') + '</div>' : '') +
+      (p.type === 'project' && firstPlay(p) ? '<a class="btn btn--ink btn--block pg-cta" href="' + esc(firstPlay(p)) + '">▶ Play</a>' : '') + '</section>' +
       (!p.claimed ? '<section class="card card--yellow stack stack--tight pg-claim"><b>' + esc(P.copy.notClaimedLine) + '</b><p class="small-print">' + esc(fill(P.copy.claimHow)) + '</p>' +
         '<button type="button" class="btn btn--ink" data-claim>' + esc(P.copy.claim) + '</button><p class="small-print" data-claim-msg aria-live="polite"></p></section>' : '') +
       ((p.featured_toys || []).length ? '<section class="stack stack--tight"><h2 class="section-title">' + (p.type === 'project' ? 'Our toys' : 'Toys I recommend') + '</h2><ul class="pg-toys">' + toyCards(p.featured_toys) + '</ul></section>' : '') +
@@ -103,7 +104,73 @@
     if (c) c.addEventListener('click', claim);
     app.querySelector('[data-report]').addEventListener('click', report);
     showClaim();
+    more(app.querySelector('[data-more]'));
     document.dispatchEvent(new CustomEvent('web3page:render', { detail: { page: p, box: app.querySelector('[data-more]') } }));
+  }
+
+  // The first featured toy (or course) to play.
+  function firstPlay(p) {
+    var byId = {};
+    home.shelves.forEach(function (s) { s.cards.forEach(function (c) { byId[c.id] = c; }); });
+    var t = (p.featured_toys || []).map(function (id) { return byId[id]; }).filter(function (c) { return c && c.path; })[0];
+    if (t) return R + t.path + '?via=' + p.handle;
+    var c = (p.featured_courses || []).filter(function (id) { return courses[id]; })[0];
+    return c ? R + 'academy/course/?c=' + c + '&via=' + p.handle : '';
+  }
+
+  // ---------- Part B: what each page shows ----------
+  var ranks = null;
+  function face(f) {
+    var src = f && f.avatar_seed && window.Web3Avatar ? window.Web3Avatar.dataUri(f.avatar_seed) : '';
+    return src ? '<img class="acct-avatar pg-face' + (f.badge_frame ? ' ' + esc(f.badge_frame) : '') + '" src="' + src + '" alt="" width="32" height="32" />' : '<span class="pg-face pg-face--anon" aria-hidden="true">🙂</span>';
+  }
+  function names(list) {
+    return '<ul class="pg-fans">' + list.map(function (f) { return '<li>' + face(f) + '<span>' + esc(f.display_name) + '</span></li>'; }).join('') + '</ul>';
+  }
+  function rankFor(n) {
+    var r = (ranks || []).filter(function (x) { return n >= x.min; }).pop();
+    return r ? r.name : '';
+  }
+  function more(box) {
+    if (!box) return;
+    var p = page;
+    var need = [rpc('page_showcase', { p_handle: p.handle }), ranks ? Promise.resolve(null) : C.loadJson(R + 'data/ranks.json').then(function (j) { ranks = j.ranks; }, function () { ranks = []; })];
+    if (p.is_owner || p.flags) need.push(rpc('page_stats', { p_id: p.id }).catch(function () { return null; }));
+    Promise.all(need).then(function (r) {
+      var S = r[0] || {};
+      var stats = r[2];
+      var html = '';
+      if (p.type === 'project') {
+        html += '<section class="card stack stack--tight"><h2 class="title-md">🎓 ' + esc(p.name) + ' Pro players</h2>' +
+          '<p class="text"><b>' + Number(S.pro_count || 0).toLocaleString('en-US') + '</b> ' + (Number(S.pro_count) === 1 ? 'player has' : 'players have') + ' earned the Pro badge' + ((p.featured_courses || []).length ? ' in the Academy course.' : '.') + '</p>' +
+          ((S.pro_fans || []).length ? names(S.pro_fans) : '') +
+          '<p class="small-print">Only players who chose to share with ' + esc(p.name) + ' are shown by name.</p></section>';
+        if ((S.leaderboard || []).length) {
+          html += '<section class="card stack stack--tight"><h2 class="title-md">🏆 Leaderboard</h2><ol class="pg-board">' + S.leaderboard.map(function (x, i) {
+            return '<li><span class="pg-rank">' + (i + 1) + '</span>' + face(x.display_name ? x : null) + '<span class="pg-name">' + (x.display_name ? esc(x.display_name) : '<i>A player</i>') + '</span><span class="small-print">' + x.certificates + ' ' + (x.certificates === 1 ? 'certificate' : 'certificates') + ' · ' + x.score + '%</span></li>';
+          }).join('') + '</ol><p class="small-print">From certificates in ' + esc(p.name) + '\'s toys and courses. Names show only for players who chose to share with this page.</p></section>';
+        }
+      }
+      if (p.type === 'creator' && p.claimed) {
+        html += '<section class="card card--yellow stack stack--tight"><h2 class="title-md">🎮 Play with ' + esc(p.name) + '</h2>' +
+          (S.ref_code ? '<a class="btn btn--ink" href="' + R + '?ref=' + esc(S.ref_code) + '&via=' + esc(p.handle) + '">Join web3.toys with my link</a>' : '') +
+          '<p class="text"><b>' + Number(S.joined || 0).toLocaleString('en-US') + '</b> ' + (Number(S.joined) === 1 ? 'player has' : 'players have') + ' joined with ' + esc(p.name) + '\'s link.</p>' +
+          ((S.joined_fans || []).length ? names(S.joined_fans) : '') + '<p class="small-print">Only players who chose to share with ' + esc(p.name) + ' are shown by name.</p></section>';
+      }
+      if ((p.type === 'creator' || p.type === 'personality') && S.certificates) {
+        var n = S.certificates.length;
+        html += '<section class="card stack stack--tight"><h2 class="title-md">🏅 Badges</h2>' +
+          '<div class="chips"><span class="chip is-yellow">' + esc(rankFor(n) || 'Player') + '</span><span class="chip is-white">' + n + ' ' + (n === 1 ? 'certificate' : 'certificates') + '</span></div>' +
+          (n ? '<ul class="pg-badges">' + S.certificates.map(function (c) { return '<li class="chip ' + (c.pro ? 'is-mint' : 'is-white') + '">' + (c.pro ? '🎓 ' : '✅ ') + esc(c.title) + (c.pro ? ' · Pro' : '') + '</li>'; }).join('') + '</ul>'
+            : '<p class="small-print">No certificates yet.</p>') + '</section>';
+      }
+      if (stats) {
+        var row = function (label, v) { return '<li class="card"><span class="small-print">' + label + '</span><b>' + Number(v[0]).toLocaleString('en-US') + '</b><span class="small-print">' + Number(v[1]).toLocaleString('en-US') + ' all time</span></li>'; };
+        html += '<section class="stack stack--tight pg-stats"><h2 class="title-sm">📊 Your page, last 30 days <span class="small-print">(only you see this)</span></h2><ul class="ops-nums">' +
+          row('👀 Views', stats.views) + row('🎮 Plays from your page', stats.plays) + row(p.type === 'creator' ? '🙋 Joined with your link' : '🎓 Players', stats.players) + '</ul></section>';
+      }
+      box.innerHTML = html;
+    }).catch(function () { box.innerHTML = ''; });
   }
 
   function loginWithX() {

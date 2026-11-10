@@ -335,7 +335,9 @@
     var app = document.getElementById('app');
     if (!app || !e.target.closest || !e.target.closest('#app button, #app [role="button"]')) return;
     played = true;
-    logEvent('play', document.body.getAttribute('data-toy'));
+    var via = '';
+    try { via = sessionStorage.getItem('web3toys.via.v1') || ''; } catch (err) { /* private mode */ }
+    logEvent('play', document.body.getAttribute('data-toy') + (via ? '@' + via : ''));
   }, true);
   var errorsSent = 0;
   function logError(msg) {
@@ -551,6 +553,14 @@
 
   // Invite links (?ref=CODE): remember the first one; js/sync.js links the
   // new player to their inviter after they log in.
+  // Play links on profile pages add ?via=handle, so the page's owner sees
+  // plays that came from their page (counted without names).
+  function keepVia() {
+    var m = /[?&]via=@?([A-Za-z0-9_]{1,15})\b/.exec(location.search);
+    if (!m) return;
+    try { sessionStorage.setItem('web3toys.via.v1', m[1].toLowerCase()); } catch (e) { /* private mode */ }
+  }
+
   function keepReferral() {
     var m = /[?&]ref=([a-z0-9]{6,12})\b/i.exec(location.search);
     if (!m) return;
@@ -592,6 +602,7 @@
 
   function start() {
     keepReferral();
+    keepVia();
     loadOffers();
     loadEarlyBird();
     loadSponsor();

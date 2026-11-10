@@ -41,3 +41,28 @@ Test it (preview on, use two X accounts if you can):
 5. Report the page from a logged-out browser; handle it in Pages, Reports.
 6. On another X account, open `/my-page/`, make a Creator page, send it for
    review, approve it in admin.
+
+## Part B: what each page shows (2 minutes)
+
+Supabase, **SQL Editor**: run `supabase/020_page_content.sql` (safe to run again).
+
+- **Project pages:** a big **Play** button, the project's toys and courses,
+  "Pro players" (how many earned the Academy course badge, with names only
+  of those who chose to share with that project), and a leaderboard of its
+  toys and courses (others show as "A player").
+- **Creator pages:** "Join web3.toys with my link" (their invite link), how
+  many joined with it (names only of those who chose to share), and their
+  rank and certificates.
+- **Personality pages:** bio, links, rank and certificates, recommended toys.
+- **Owners** see their own stats on their page: views, plays that started
+  from the page, and players (last 30 days and all time). Nobody else does.
+- Plays are credited to a page because its Play links add `?via=handle`.
+  The count has no names.
+
+Names appear once players say yes in part C (the consent question); until
+then the lists show counts only.
+
+Test it: open a project page with a featured course and toys; tap Play (the
+toy address ends in `?via=handle`) and play a card; as the owner, refresh
+the page: Plays from your page goes up. On a creator page, the Join button
+carries their invite code.

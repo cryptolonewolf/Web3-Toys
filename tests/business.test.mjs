@@ -189,3 +189,27 @@ describe('Profile pages', () => {
     assert.equal(P.pro.yearly.on, false);
   });
 });
+
+describe('Profile pages: what each page shows', () => {
+  const sql = read('supabase/020_page_content.sql');
+  const view = read('js/page-view.js');
+
+  it('names players only when they said yes to that page', () => {
+    const named = sql.match(/pr\.display_name/g).length;
+    const guarded = (sql.match(/public\.page_consented\(/g) || []).length;
+    assert.ok(guarded >= 4, 'every list of names checks consent');
+    assert.match(sql, /case when public\.page_consented\(pr\.id, pg\.id\) then pr\.display_name end/);
+    assert.ok(named > 0);
+    assert.ok(!/create policy[^;]*page_consents for (insert|update|delete|all)/i.test(sql));
+  });
+
+  it('stats are for the owner only, including pages nobody owns yet', () => {
+    assert.match(sql, /coalesce\(pg\.owner_id = auth\.uid\(\), false\) or public\.is_admin\(\)/);
+  });
+
+  it('play links credit the page, and the site counts them without names', () => {
+    assert.ok(view.includes("'?via=' + esc(page.handle)"));
+    const site = read('js/site.js');
+    assert.ok(site.includes('function keepVia()') && site.includes("'@' + via"));
+  });
+});
