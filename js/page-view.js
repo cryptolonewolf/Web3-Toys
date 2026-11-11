@@ -244,7 +244,7 @@
 
   function report() {
     var box = document.createElement('div');
-    box.className = 'pay-modal';
+    box.className = 'modal pay-modal';
     box.innerHTML = '<div class="pay-box card stack stack--tight" role="dialog" aria-modal="true" aria-label="' + esc(P.copy.report) + '"><h2 class="title-md">' + esc(P.copy.report) + '</h2>' +
       '<label class="label" for="pg-reason">What is wrong?</label><select class="field" id="pg-reason">' + P.copy.reportReasons.map(function (r) { return '<option>' + esc(r) + '</option>'; }).join('') + '</select>' +
       '<label class="label" for="pg-details">Details (optional)</label><textarea class="field field--area" id="pg-details" rows="3" maxlength="1000"></textarea>' +

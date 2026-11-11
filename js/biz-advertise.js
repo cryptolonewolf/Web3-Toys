@@ -73,34 +73,45 @@
   }).catch(function (err) { app.innerHTML = C.loadError(err); });
 
   function render() {
-    var minToy = Math.min.apply(null, Object.keys(ADS.toyMonth).map(function (k) { return ADS.toyMonth[k]; }));
-    var slotPrice = { toy: money(minToy) + ' to ' + money(Math.max.apply(null, Object.keys(ADS.toyMonth).map(function (k) { return ADS.toyMonth[k]; }))), round: money(ADS.sponsoredRound), site: money(ADS.siteWide), newsletter: money(ADS.newsletter) };
+    var K = window.Web3BizKit;
+    var prices = Object.keys(ADS.toyMonth).map(function (k) { return ADS.toyMonth[k]; });
+    var slotPrice = { toy: money(Math.min.apply(null, prices)) + ' to ' + money(Math.max.apply(null, prices)), round: '+' + money(ADS.sponsoredRound), site: money(ADS.siteWide), newsletter: money(ADS.newsletter) };
     app.innerHTML =
-      '<section class="biz-hero stack"><p class="label">' + esc(P.label) + '</p><h1 class="biz-title">' + esc(P.title) + '</h1><p class="text text--ink">' + esc(P.intro) + '</p>' +
-      '<div class="btn-row"><a class="btn btn--ink" href="#book">Book a slot</a><a class="btn" href="#calendar">See free slots</a></div></section>' +
-
-      '<section class="stack stack--tight"><h2 class="section-title">' + esc(P.audienceTitle) + '</h2><ul class="ad-audience">' + P.audience.map(function (a) {
-        return '<li class="card"><span aria-hidden="true">' + a.icon + '</span><b>' + esc(a.big) + '</b><span class="small-print">' + esc(a.label) + '</span></li>';
-      }).join('') + '</ul></section>' +
-
-      '<section class="stack stack--tight"><h2 class="section-title">' + esc(P.slotsTitle) + '</h2><ul class="biz-tiers ad-slots">' + P.slots.map(function (s) {
-        return '<li class="card biz-tier"><h3 class="title-sm">' + s.icon + ' ' + esc(s.name) + '</h3><p class="biz-price ad-price">' + slotPrice[s.id] + '</p><p class="small-print">' + esc(s.priceNote) + '</p><p class="text">' + esc(s.text) + '</p></li>';
+      K.pair(K.hero(P, '<a class="btn" href="#calendar">See free slots</a>'), K.list(P.audienceTitle, P.audience.map(function (a) { return [a.icon, a.big + ' ' + a.label]; }))) +
+      K.section(esc(P.slotsTitle), '<ul class="bk-slots">' + P.slots.map(function (x) {
+        return '<li><span class="bk-slot-icon" aria-hidden="true">' + x.icon + '</span><div><b>' + esc(x.name) + '</b><span class="biz-price ad-price">' + slotPrice[x.id] + '</span><span class="small-print">' + esc(x.priceNote) + '</span></div></li>';
       }).join('') + '</ul>' +
-      '<details class="card ad-prices"><summary><b>Price for each toy</b></summary><ul>' + toys.map(function (t) { return '<li><span>' + esc(t.title) + '</span><b>' + money(ADS.toyMonth[t.id]) + '</b></li>'; }).join('') + '</ul></details></section>' +
-
-      '<section class="stack stack--tight" id="calendar"><h2 class="section-title">' + esc(P.calendarTitle) + '</h2><p class="small-print">' + esc(P.calendarLine) + '</p>' + calendar() + '</section>' +
-
-      '<section class="card stack stack--tight ad-rules"><h2 class="title-md">' + esc(P.rulesTitle) + '</h2><ul class="lesson-points">' + ADS.rules.map(function (r) { return '<li>' + esc(r) + '</li>'; }).join('') + '</ul>' +
-      '<p class="small-print"><b>' + esc(P.categoriesLine) + '</b> ' + ADS.allowedCategories.map(esc).join(', ') + '.</p></section>' +
-
-      '<section class="stack stack--tight"><h2 class="section-title">' + esc(P.howTitle) + '</h2><ol class="biz-steps">' + P.how.map(function (h, i) {
-        return '<li class="card"><span class="biz-step-n">' + (i + 1) + '</span><span class="small-print">' + esc(h) + '</span></li>';
-      }).join('') + '</ol></section>' +
-
-      '<section class="stack stack--tight" id="book"><h2 class="section-title">' + esc(P.formTitle) + '</h2>' + form() + '<div data-mine></div></section>' +
+        '<details class="ad-prices"><summary class="small-print"><b>Price for each toy</b></summary><ul>' + toys.map(function (t) { return '<li><span>' + esc(t.title) + '</span><b>' + money(ADS.toyMonth[t.id]) + '</b></li>'; }).join('') + '</ul></details>' +
+        '<p class="bk-guarantee">✅ ' + esc(P.guarantee) + '</p>', 'bk-pricing', 'pricing') +
+      K.section(esc(P.calendarTitle), '<p class="small-print">' + esc(P.calendarLine) + '</p>' + calendar(), '', 'calendar') +
+      K.pair(K.steps(P.howTitle, P.how), K.list(P.rulesTitle, ADS.rules.map(function (r) { return ['📌', r]; }).concat([['🏷️', P.categoriesLine + ' ' + ADS.allowedCategories.join(', ') + '.']]))) +
+      K.pair(K.video(P.video), K.who(P.who)) +
+      K.cases(P.caseTitle, P.caseStudies) +
+      K.pair(K.faq(P.faqTitle, P.faq), K.section(esc(P.formTitle), form() + '<div class="bk-submit"><p class="small-print">' + esc(P.reply) + '</p><a class="text-button" href="' + esc(K.calUrl()) + '" target="_blank" rel="noopener">' + esc(P.callLink) + ' →</a></div><div data-mine></div>', 'bk-request', 'request')) +
       '<p class="tool-disclaimer">Every sponsored item is labelled "Sponsored". web3.toys does not endorse sponsors or any token.</p>';
     bind();
     mine();
+    K.sticky(app, P.stickyCta);
+  }
+
+  // Funnel counts without names (biz_tier, biz_start, biz_submit) and the
+  // lead saved once a name and email are in (save_biz_lead, kind 'ad').
+  var startedAd = false, leadSaved = '';
+  function trackForm(f) {
+    var K = window.Web3BizKit;
+    f.addEventListener('focusin', function () {
+      if (startedAd) return;
+      startedAd = true;
+      try { if (sessionStorage.getItem('web3toys.bizStart.ad')) return; sessionStorage.setItem('web3toys.bizStart.ad', '1'); } catch (e) { /* ok */ }
+      K.log('biz_start', 'ad');
+    });
+    f.addEventListener('focusout', function () {
+      keep();
+      var email = (state.email || '').trim(), name = (state.sponsor || '').trim();
+      if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || leadSaved === email) return;
+      leadSaved = email;
+      K.rpc('save_biz_lead', { p_kind: 'ad', p_name: name, p_email: email, p_tier: productFor(state) }).then(function () { K.log('biz_step1', 'ad'); }, function () { leadSaved = ''; });
+    });
   }
 
   function calendar() {
@@ -118,7 +129,7 @@
     var s = state;
     var free = function (m) { return !taken[key(s.kind, s.kind === 'toy' ? s.toy : null, m)]; };
     var canRound = s.kind === 'toy' && ADS.roundToys.indexOf(s.toy) >= 0;
-    return '<form class="card stack biz-form ad-form" novalidate>' +
+    return '<form class="stack biz-form ad-form" novalidate>' +
       '<div class="ad-row"><div class="stack stack--tight"><label class="label" for="ad-kind">Slot</label><select class="field" id="ad-kind" data-s="kind">' +
       [['toy', 'One toy, one month'], ['site', 'Site-wide, one month'], ['newsletter', 'Newsletter issue']].map(function (o) { return '<option value="' + o[0] + '"' + (o[0] === s.kind ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select></div>' +
       (s.kind === 'toy' ? '<div class="stack stack--tight"><label class="label" for="ad-toy">Toy</label><select class="field" id="ad-toy" data-s="toy">' + toys.map(function (t) {
@@ -180,6 +191,7 @@
       f.querySelector('[data-preview]').innerHTML = preview();
     });
     f.addEventListener('submit', submit);
+    trackForm(f);
   }
 
   function bind() {
@@ -192,7 +204,8 @@
         state.month = b.getAttribute('data-pick-month');
         state.round = false;
         redrawForm();
-        document.getElementById('book').scrollIntoView({ behavior: site.fx.calm() ? 'auto' : 'smooth', block: 'start' });
+        window.Web3BizKit.log('biz_tier', 'ad');
+        document.getElementById('request').scrollIntoView({ behavior: site.fx.calm() ? 'auto' : 'smooth', block: 'start' });
       });
     });
   }
@@ -235,6 +248,7 @@
     }).then(function (r) {
       if (r.error) throw r.error;
       taken[key(state.kind, state.kind === 'toy' ? state.toy : null, state.month)] = true;
+      window.Web3BizKit.log('biz_submit', 'ad');
       msg.textContent = 'Slot held for 30 minutes. Opening payment…';
       btn.disabled = false;
       mine();

@@ -1,22 +1,62 @@
 {
-  "_help": "Words for /advertise/ (js/biz-advertise.js). Prices, toys that take rounds, allowed categories and rules are in ad_slots.json. audience: fill in real numbers from admin, Toy stats before going live (they are marked for review).",
+  "_help": "Words for /advertise/ (js/biz-advertise.js). Prices, toys that take rounds, allowed categories and rules are in ad_slots.json. audience: fill in real numbers from admin, Toy stats before going live (they are marked for review). Built with js/biz-kit.js: subtitle, guarantee, how (steps), who, faq, video, caseStudies (hidden while empty; real ones only), reply and callLink.",
   "review": true,
   "label": "For projects",
   "title": "Sponsor a toy people actually play.",
-  "intro": "One small, clearly labelled card on a toy's start and result screens, seen by people who are learning web3 right now. No pop-ups, no tracking pixels, never inside the game.",
+  "intro": "Seen on start and result screens by people learning web3 right now.",
   "audienceTitle": "Who you reach",
   "audience": [
-    { "icon": "🎮", "big": "11+", "label": "free toys, a new one every Tuesday" },
-    { "icon": "🌍", "big": "TBD", "label": "monthly players (fill in from admin before launch)" },
-    { "icon": "🎓", "big": "TBD", "label": "certificates earned (fill in from admin before launch)" },
-    { "icon": "🧠", "big": "5 min", "label": "average play: people are paying attention" }
+    {
+      "icon": "🎮",
+      "big": "11+",
+      "label": "free toys, a new one every Tuesday"
+    },
+    {
+      "icon": "🌍",
+      "big": "TBD",
+      "label": "monthly players (fill in from admin before launch)"
+    },
+    {
+      "icon": "🎓",
+      "big": "TBD",
+      "label": "certificates earned (fill in from admin before launch)"
+    },
+    {
+      "icon": "🧠",
+      "big": "5 min",
+      "label": "average play: people are paying attention"
+    }
   ],
   "slotsTitle": "Slots and prices",
   "slots": [
-    { "id": "toy", "icon": "🧸", "name": "One toy, one month", "text": "Your card on the start and result screens of one toy for a calendar month.", "priceNote": "from" },
-    { "id": "round", "icon": "🎯", "name": "Sponsored round", "text": "Add one round inside a learning toy or Spot the Scam, written with you and marked \"Sponsored round by [your name]\". Educational only.", "priceNote": "extra a month" },
-    { "id": "site", "icon": "🌐", "name": "Site-wide", "text": "Your card on every toy that has no sponsor of its own that month.", "priceNote": "a month" },
-    { "id": "newsletter", "icon": "✉️", "name": "Newsletter", "text": "One sponsor spot in a web3.toys newsletter issue.", "priceNote": "an issue" }
+    {
+      "id": "toy",
+      "icon": "🧸",
+      "name": "One toy, one month",
+      "text": "Your card on the start and result screens of one toy for a calendar month.",
+      "priceNote": "from"
+    },
+    {
+      "id": "round",
+      "icon": "🎯",
+      "name": "Sponsored round",
+      "text": "Add one round inside a learning toy or Spot the Scam, written with you and marked \"Sponsored round by [your name]\". Educational only.",
+      "priceNote": "extra a month"
+    },
+    {
+      "id": "site",
+      "icon": "🌐",
+      "name": "Site-wide",
+      "text": "Your card on every toy that has no sponsor of its own that month.",
+      "priceNote": "a month"
+    },
+    {
+      "id": "newsletter",
+      "icon": "✉️",
+      "name": "Newsletter",
+      "text": "One sponsor spot in a web3.toys newsletter issue.",
+      "priceNote": "an issue"
+    }
   ],
   "calendarTitle": "Free slots",
   "calendarLine": "Tap a free month to book it.",
@@ -24,12 +64,63 @@
   "categoriesLine": "Allowed categories:",
   "howTitle": "How booking works",
   "how": [
-    "Pick a toy and month, upload your logo and write one line.",
-    "Pay with Razorpay (US dollars).",
-    "We review it, usually within 2 working days. If we reject it, you get a full refund.",
-    "It goes live on the 1st of your month, and you get a private stats link with views and clicks."
+    {
+      "title": "Pick and write",
+      "text": "A toy and month, your logo and one line."
+    },
+    {
+      "title": "Pay",
+      "text": "In US dollars, by card."
+    },
+    {
+      "title": "Review",
+      "text": "Usually within 2 working days."
+    },
+    {
+      "title": "Live",
+      "text": "All month, with a private stats link."
+    }
   ],
   "formTitle": "Book a slot",
   "agree": "My card follows the rules: no token promotions, price claims or \"buy now\", and it is in an allowed category. I understand it is reviewed first and refunded in full if rejected.",
-  "loginNote": "Log in first so you can follow your booking and get your stats link."
+  "loginNote": "Log in first so you can follow your booking and get your stats link.",
+  "subtitle": "One small, labelled card. Never inside the game.",
+  "ctaPrimary": "Book a slot",
+  "guarantee": "Every card is reviewed first. Rejected? Full refund.",
+  "who": {
+    "title": "Who runs this",
+    "name": "Run by Aki, building in web3 since 2019",
+    "line": "I review every card myself before it goes live.",
+    "talk": "Talk to Aki"
+  },
+  "faq": [
+    {
+      "q": "Where does my card show?",
+      "a": "On the toy's start and result screens. Never during play and never on certificates."
+    },
+    {
+      "q": "What can I promote?",
+      "a": "Allowed categories only. No token promotions, price claims or \"buy now\"."
+    },
+    {
+      "q": "How do I see results?",
+      "a": "Your private stats link shows views and clicks, counted by us without trackers."
+    },
+    {
+      "q": "What if you reject my card?",
+      "a": "Full refund. You can also change it and book again."
+    }
+  ],
+  "video": {
+    "title": "See a sponsor card in 60 seconds",
+    "src": "",
+    "poster": "",
+    "placeholder": "A 60 second walkthrough is coming soon."
+  },
+  "caseTitle": "Case studies",
+  "caseStudies": [],
+  "reply": "We review your card within 2 working days and email you.",
+  "callLink": "Not sure which slot? Book a 15 minute call",
+  "stickyCta": "Book a slot",
+  "faqTitle": "Questions"
 }

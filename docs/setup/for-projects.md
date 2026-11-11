@@ -119,3 +119,26 @@ What changed for things already running:
 - Admin, **Test requests** shows the funnel at the top: page views, tier
   clicks, form started, step 1 done, request sent, deposit paid, plus the
   leads list.
+
+## All For Projects pages now share one kit
+
+Launch Your Own Toy, Test Your Product, List your Quest
+(academy/list-your-project/) and Advertise are built with `js/biz-kit.js`:
+each section is one bordered card, pairs of sections sit side by side on wide
+screens, copy is short, and each page has a guarantee line, a Who runs this
+block (Talk to Aki uses social.x / social.telegram from config.js), a video
+placeholder (`video.src` in the page's JSON), FAQ, case studies (hidden until
+you add real ones), a sticky button on phones, and funnel counts.
+
+- Launch, Test and Quest pages use the two step form: step 1 is saved as a
+  lead, step 2 sends the request, then a thank-you view with Book the call,
+  pay, and Copy link. Quests now have their own request form again (with For
+  Projects on, the old Work with us page sent everyone to Launch Your Own Toy,
+  so Quests could not be requested).
+- Advertise keeps its booking form (calendar, logo, line); a lead is saved
+  once the project name and email are filled in.
+- The funnel shows at the top of admin: Toy requests, Test requests, Project
+  requests (Quests) and Sponsor bookings.
+- Follow-up emails (day 1 and day 3) go to leads from every page who did not
+  pay. Run `supabase/022_test_funnel.sql` again (safe) and paste
+  `lead-emails` again after this update.

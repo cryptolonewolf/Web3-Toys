@@ -1,60 +1,199 @@
 {
-  "_help": "Words for /launch-your-toy/ (js/biz-launch.js). Prices and tiers are in toy_tiers.json. examples: made-up concepts shown as small playable demos, always labelled as examples. form: the request form questions.",
+  "_help": "Words for /launch-your-toy/ (js/biz-launch.js, built with js/biz-kit.js). Prices, the guarantee and add-ons: toy_tiers.json. examples: made-up concepts with 30 second demos (js/biz-demos.js). video.src: a video file to replace the placeholder. caseStudies: hidden while empty; real ones only. who: Talk to Aki uses social.x and social.telegram from config.js.",
   "review": true,
   "label": "For projects",
-  "title": "Don't pay someone to post about your product. Let people play it.",
-  "why": [
-    { "icon": "📣", "title": "KOLs sell impressions", "text": "A paid post is seen for a second and forgotten." },
-    { "icon": "🌾", "title": "Quests attract farmers", "text": "People click through tasks for rewards, then leave." },
-    { "icon": "🎮", "title": "Toys make people learn", "text": "They play, understand what you do, and share it because it was fun." }
-  ],
-  "examplesTitle": "Three example concepts",
-  "examplesLine": "Made up for illustration. Tap Play to try a 30 second version.",
+  "title": "Don't pay for posts. Let people play your product.",
+  "examplesTitle": "Try an example",
+  "examplesLine": "Made up for illustration. Tap Play.",
   "examples": [
-    { "id": "liquidation", "name": "Don't Get Liquidated", "for": "for a lending protocol", "color": "coral", "icon": "📉", "pitch": "Borrow against your ETH, then survive a price drop. Players learn health factor and liquidation by feeling it." },
-    { "id": "slippage", "name": "Beat the Slippage", "for": "for a DEX", "color": "mint", "icon": "🔄", "pitch": "Pick a slippage setting before the market moves. Players learn why trades fail or get front-run." },
-    { "id": "bridge", "name": "Bridge Puzzle", "for": "for a bridge", "color": "blue", "icon": "🌉", "pitch": "Put the bridge steps in the right order, starting with checking you are on the real site. Players learn to bridge safely." }
-  ],
-  "benefitsTitle": "What you get",
-  "benefits": [
-    { "icon": "🧠", "title": "Real users who understand your product", "text": "Every player learns how it works, not just its name." },
-    { "icon": "🔁", "title": "Organic shares", "text": "Share cards and certificates people post because they want to." },
-    { "icon": "🚫", "title": "No farming", "text": "No token rewards, so there is nothing to farm. Prizes are merch or product perks only." },
-    { "icon": "🚀", "title": "Launch week reach", "text": "Posts on @web3toys and a spot in the newsletter in your launch week." },
-    { "icon": "📊", "title": "An analytics dashboard", "text": "Plays, finishes, quiz scores and shares, on a private link." },
-    { "icon": "🧩", "title": "Embed code", "text": "Put the toy on your own site with one line of code (Full Game and up)." }
+    {
+      "id": "liquidation",
+      "name": "Don't Get Liquidated",
+      "for": "for a lending protocol",
+      "color": "coral",
+      "icon": "📉",
+      "pitch": "Borrow against your ETH, then survive a price drop. Players learn health factor and liquidation by feeling it."
+    },
+    {
+      "id": "slippage",
+      "name": "Beat the Slippage",
+      "for": "for a DEX",
+      "color": "mint",
+      "icon": "🔄",
+      "pitch": "Pick a slippage setting before the market moves. Players learn why trades fail or get front-run."
+    },
+    {
+      "id": "bridge",
+      "name": "Bridge Puzzle",
+      "for": "for a bridge",
+      "color": "blue",
+      "icon": "🌉",
+      "pitch": "Put the bridge steps in the right order, starting with checking you are on the real site. Players learn to bridge safely."
+    }
   ],
   "pricingTitle": "Pick your toy",
   "stepsTitle": "How it works",
   "steps": [
-    { "title": "Request", "text": "Send the form below and, if you like, pay a 50% deposit to reserve a build slot." },
-    { "title": "20 minute call", "text": "We agree the idea, the key thing players should learn and your launch date." },
-    { "title": "We build, you review", "text": "You see it before anyone else and ask for changes." },
-    { "title": "Launch", "text": "It goes live on web3.toys with launch posts, timed to your date." }
+    {
+      "title": "Request",
+      "text": "Send the short form."
+    },
+    {
+      "title": "20 minute call",
+      "text": "We agree the idea and date."
+    },
+    {
+      "title": "We build, you review",
+      "text": "Two rounds of changes."
+    },
+    {
+      "title": "Launch",
+      "text": "Live on web3.toys, with posts."
+    }
   ],
   "faqTitle": "Questions",
   "faq": [
-    { "q": "How long does it take?", "a": "About 1 week for a Mini Toy, 2 weeks for a Full Game and 3 weeks for a Launch Tournament, from the call. Tell us your launch date early." },
-    { "q": "What do you need from us?", "a": "Your logo and colours, the one thing players should understand, links to your docs, and a person to answer questions during the build." },
-    { "q": "How many revisions do we get?", "a": "Two rounds of changes are included. Bigger changes after that are quoted first." },
-    { "q": "Who owns the game?", "a": "You can use it, embed it and share it as much as you like. web3.toys keeps the code and hosts it, so it stays fast and safe." },
-    { "q": "Can we give prizes?", "a": "Yes, merch or product perks like fee discounts. Never tokens or crypto through web3.toys, and never anything that promises returns." },
-    { "q": "Will you build for any project?", "a": "No. Every project passes our vetting checklist first: a real product, a public or verifiable team, and no promises of returns. If we decline, your deposit is refunded in full." }
+    {
+      "q": "How long does it take?",
+      "a": "About 1, 2 or 3 weeks by tier, from the call."
+    },
+    {
+      "q": "What do you need from us?",
+      "a": "Logo, colours, the one thing players should learn, and a contact for questions."
+    },
+    {
+      "q": "How many changes?",
+      "a": "Two rounds included. Bigger changes are quoted first."
+    },
+    {
+      "q": "Who owns the game?",
+      "a": "Embed and share it freely. We host it and keep the code, so it stays fast and safe."
+    },
+    {
+      "q": "Can we give prizes?",
+      "a": "Merch or product perks, yes. Never tokens, and nothing that promises returns."
+    },
+    {
+      "q": "Do you build for any project?",
+      "a": "No. Every project is vetted first. Declined? Full deposit refund."
+    }
   ],
   "formTitle": "Request your toy",
   "form": {
+    "step1": "About you",
+    "step2": "About your product",
+    "name": "Your name",
+    "email": "Contact email",
+    "tier": "Package",
+    "next": "Next",
+    "back": "Back",
     "project": "Project name",
     "website": "Website",
-    "x": "X handle",
-    "email": "Contact email",
-    "product": "What does your product do, in two sentences?",
-    "launch": "Launch date (if you have one)",
-    "tier": "Package",
-    "idea": "Your idea, in your own words (optional)",
-    "agree": "I understand every project is vetted first, there are no token rewards, and the deposit is refunded in full if you decline.",
-    "submit": "Send request"
+    "x": "Project X handle",
+    "launch": "Launch date (if you know it)",
+    "idea": "Your idea, in a sentence or two",
+    "submit": "Send request",
+    "callLink": "Not sure which package? Book a 15 minute call",
+    "reply": "We reply within 24 hours and book a 20 minute call to plan your toy."
   },
-  "afterTitle": "Request received",
-  "afterLine": "Reserve your build slot with a 50% deposit, or book a call first.",
-  "loginNote": "Log in first so you can follow your request. Your answers stay on this page."
+  "loginNote": "Log in first so you can follow your request. Your answers stay on this page.",
+  "subtitle": "A small game that teaches your product.",
+  "intro": "Players learn how it works, earn a certificate, and share it.",
+  "ctaPrimary": "Request your toy",
+  "getTitle": "What you get",
+  "get": [
+    [
+      "🧠",
+      "Players who understand your product"
+    ],
+    [
+      "🔁",
+      "Shares people make because it was fun"
+    ],
+    [
+      "🚫",
+      "No farming: no token rewards"
+    ],
+    [
+      "📣",
+      "Launch posts and a newsletter spot"
+    ],
+    [
+      "📊",
+      "A live stats dashboard"
+    ],
+    [
+      "🧩",
+      "Embed code (Full Game and up)"
+    ]
+  ],
+  "compareTitle": "Why a toy?",
+  "compare": {
+    "columns": [
+      "web3.toys toy",
+      "KOL posts",
+      "Quest platforms"
+    ],
+    "rows": [
+      {
+        "label": "Attention",
+        "cells": [
+          "Minutes of play",
+          "A second of scrolling",
+          "Clicks for rewards"
+        ]
+      },
+      {
+        "label": "What people learn",
+        "cells": [
+          "How your product works",
+          "Your name",
+          "Which button to press"
+        ]
+      },
+      {
+        "label": "Who you reach",
+        "cells": [
+          "Curious players",
+          "Followers of the KOL",
+          "Reward farmers"
+        ]
+      },
+      {
+        "label": "After the campaign",
+        "cells": [
+          "The toy keeps working",
+          "Gone",
+          "Gone"
+        ]
+      }
+    ]
+  },
+  "video": {
+    "title": "See a toy in 60 seconds",
+    "src": "",
+    "poster": "",
+    "placeholder": "A 60 second walkthrough is coming soon."
+  },
+  "who": {
+    "title": "Who runs this",
+    "name": "Run by Aki, building in web3 since 2019",
+    "line": "I design every toy with you and review it before it goes live.",
+    "talk": "Talk to Aki"
+  },
+  "caseTitle": "Case studies",
+  "caseStudies": [],
+  "thanks": {
+    "title": "Request received",
+    "next": [
+      "Book your 20 minute call.",
+      "We agree the idea and your launch date.",
+      "We build it and you review it."
+    ],
+    "book": "Book the call",
+    "deposit": "Reserve your slot",
+    "share": "Copy link to share with a co-founder",
+    "copied": "Link copied"
+  },
+  "stickyCta": "Request your toy"
 }

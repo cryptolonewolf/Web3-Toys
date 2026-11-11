@@ -428,7 +428,7 @@
             '<p class="small-print" data-msg aria-live="polite"></p></article>';
         }).join('') : '<p class="text">No requests yet. They arrive from the ' + (kind === 'toy' ? 'Launch Your Own Toy' : 'Test Your Product') + ' page.</p>');
       bindCsv(panel);
-      if (kind === 'test') funnel(panel, kind);
+      funnel(panel, kind);
       panel.querySelectorAll('[data-biz]').forEach(function (card) {
         var msg = card.querySelector('[data-msg]');
         var save = function (status) {
@@ -660,6 +660,7 @@
             '<button type="button" class="btn btn--small" data-book-note>Save note</button></div><p class="small-print" data-msg aria-live="polite"></p></article>';
         }).join('') : '<p class="text">No bookings yet. They arrive from the Advertise page.</p>');
       bindCsv(panel);
+      funnel(panel, 'ad');
       panel.querySelectorAll('[data-booking]').forEach(function (card) {
         var id = card.getAttribute('data-booking');
         var msg = card.querySelector('[data-msg]');
@@ -730,6 +731,7 @@
             '<p class="small-print" data-msg aria-live="polite"></p></article>';
         }).join('') : '<p class="text">No project requests yet. They arrive from the Work with us page (Part 7).</p>');
       bindCsv(panel);
+      funnel(panel, 'course');
       panel.querySelectorAll('[data-req]').forEach(function (card) {
         var save = function (status) {
           var checklist = {};

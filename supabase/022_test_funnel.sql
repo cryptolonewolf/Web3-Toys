@@ -14,7 +14,7 @@
 -- ---------- Leads ----------
 create table if not exists public.biz_leads (
   id uuid primary key default gen_random_uuid(),
-  kind text not null check (kind in ('toy', 'test')),
+  kind text not null,
   name text not null check (length(name) between 1 and 100),
   email text not null check (length(email) <= 200 and email ~ '^[^@\s]+@[^@\s]+\.[^@\s]+$'),
   tier text check (tier ~ '^[a-z0-9-]{2,40}$'),
@@ -25,6 +25,9 @@ create table if not exists public.biz_leads (
   created_at timestamptz not null default now()
 );
 create index if not exists biz_leads_email on public.biz_leads (lower(email), kind);
+-- Leads for every For Projects page: toy, test, course (Quests) and ad.
+alter table public.biz_leads drop constraint if exists biz_leads_kind_check;
+alter table public.biz_leads add constraint biz_leads_kind_check check (kind in ('toy', 'test', 'course', 'ad'));
 alter table public.biz_leads enable row level security;
 drop policy if exists "admins read leads" on public.biz_leads;
 create policy "admins read leads" on public.biz_leads for select using (public.is_admin());
@@ -37,7 +40,7 @@ declare
   m text := lower(btrim(coalesce(p_email, '')));
   v_id uuid;
 begin
-  if p_kind not in ('toy', 'test') then raise exception 'Unknown product.'; end if;
+  if p_kind not in ('toy', 'test', 'course', 'ad') then raise exception 'Unknown product.'; end if;
   if length(btrim(coalesce(p_name, ''))) < 1 then raise exception 'Add your name.'; end if;
   if m !~ '^[^@\s]+@[^@\s]+\.[^@\s]+$' then raise exception 'Add an email we can reply to.'; end if;
   select id into v_id from public.biz_leads where lower(email) = m and kind = p_kind and created_at > now() - interval '1 day' order by created_at desc limit 1;
@@ -51,6 +54,19 @@ begin
 end; $$;
 grant execute on function public.save_biz_lead(text, text, text, text) to anon, authenticated;
 
+-- Has this email paid for this kind of product (or been handled)? Then no follow-ups.
+create or replace function public.lead_converted(p_kind text, p_email text)
+returns boolean language sql stable security definer set search_path = '' as $$
+  select case
+    when p_kind in ('toy', 'test') then exists (select 1 from public.biz_requests r where lower(r.email) = lower(p_email) and r.kind = p_kind
+      and r.status in ('paid', 'in_review', 'approved', 'building', 'live', 'declined', 'refunded'))
+    when p_kind = 'course' then exists (select 1 from public.project_requests r where lower(r.email) = lower(p_email) and r.kind = 'course'
+      and r.status in ('paid', 'in_review', 'approved', 'live', 'declined'))
+    when p_kind = 'ad' then exists (select 1 from public.sponsor_bookings b where lower(b.email) = lower(p_email) and b.status not in ('pending_payment', 'cancelled'))
+    else false end
+$$;
+revoke all on function public.lead_converted(text, text) from public, anon, authenticated;
+
 -- Leads due a follow-up (for the lead-emails function, service key only):
 -- no paid deposit for that product from that email, not unsubscribed.
 create or replace function public.leads_due_emails()
@@ -62,8 +78,7 @@ language sql stable security definer set search_path = '' as $$
   where l.unsubscribed_at is null
     and ((l.emailed_day1 is null and l.created_at < now() - interval '1 day' and l.created_at > now() - interval '3 days')
       or (l.emailed_day3 is null and l.created_at < now() - interval '3 days' and l.created_at > now() - interval '6 days'))
-    and not exists (select 1 from public.biz_requests r where lower(r.email) = lower(l.email) and r.kind = l.kind
-      and r.status in ('paid', 'in_review', 'approved', 'building', 'live', 'declined', 'refunded'))
+    and not public.lead_converted(l.kind, l.email)
     -- only the newest lead per email and product
     and l.created_at = (select max(x.created_at) from public.biz_leads x where lower(x.email) = lower(l.email) and x.kind = l.kind)
   limit 200;
@@ -87,18 +102,24 @@ grant execute on function public.log_event(text, text, text) to anon, authentica
 -- product over the last p_days days.
 create or replace function public.admin_biz_funnel(p_kind text, p_days int default 30)
 returns jsonb language plpgsql stable security definer set search_path = '' as $$
-declare since timestamptz := now() - make_interval(days => greatest(1, least(coalesce(p_days, 30), 365)));
+declare
+  since timestamptz := now() - make_interval(days => greatest(1, least(coalesce(p_days, 30), 365)));
+  path text := case p_kind when 'test' then '/test-your-product%' when 'toy' then '/launch-your-toy%' when 'course' then '/academy/list-your-project%' else '/advertise%' end;
 begin
   if not public.is_admin() then raise exception 'Admins only'; end if;
   return jsonb_build_object(
-    'views', (select count(*) from public.events where name = 'page_view' and page like case when p_kind = 'test' then '/test-your-product%' else '/launch-your-toy%' end and created_at > since),
+    'views', (select count(*) from public.events where name = 'page_view' and page like path and created_at > since),
     'tier', (select count(*) from public.events where name = 'biz_tier' and item = p_kind and created_at > since),
     'start', (select count(*) from public.events where name = 'biz_start' and item = p_kind and created_at > since),
     'step1', (select count(*) from public.biz_leads where kind = p_kind and created_at > since),
-    'submit', (select count(*) from public.biz_requests where kind = p_kind and created_at > since),
-    'paid', (select count(*) from public.orders where product_id like 'deposit-' || p_kind || '-%' and status in ('paid', 'refunded') and paid_at > since),
+    'submit', case p_kind
+      when 'course' then (select count(*) from public.project_requests where kind = 'course' and created_at > since)
+      when 'ad' then (select count(*) from public.sponsor_bookings where created_at > since)
+      else (select count(*) from public.biz_requests where kind = p_kind and created_at > since) end,
+    'paid', (select count(*) from public.orders where status in ('paid', 'refunded') and paid_at > since and product_id like
+      case p_kind when 'course' then 'course-%' when 'ad' then 'ad-%' else 'deposit-' || p_kind || '-%' end),
     'leads', coalesce((select jsonb_agg(x) from (select l.name, l.email, l.tier, l.created_at, l.emailed_day1, l.emailed_day3, l.unsubscribed_at,
-        exists (select 1 from public.biz_requests r where lower(r.email) = lower(l.email) and r.kind = l.kind) as requested
+        public.lead_converted(l.kind, l.email) as requested
       from public.biz_leads l where l.kind = p_kind and l.created_at > since order by l.created_at desc limit 100) x), '[]'));
 end; $$;
 grant execute on function public.admin_biz_funnel(text, int) to authenticated;

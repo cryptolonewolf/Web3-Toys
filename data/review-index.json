@@ -2,6 +2,13 @@
  "_help": "Made by tools/review-index.mjs from every \"review\": true in data/. Do not edit by hand.",
  "items": [
   {
+   "file": "data/academy/listing.json",
+   "item": "(whole file)",
+   "label": "Turn your product into a Quest.",
+   "note": "Words for the List your Quest page (academy/list-your-project/, js/academy-list.js, built with js/biz-kit.js). Packages and prices: data/work.json (points) and data/products.json (course-4, course-6, ",
+   "hash": "587eb5bf697c"
+  },
+  {
    "file": "data/business/ad_slots.json",
    "item": "(whole file)",
    "label": "data/business/ad_slots.json",
@@ -13,14 +20,14 @@
    "item": "(whole file)",
    "label": "Sponsor a toy people actually play.",
    "note": "Words for /advertise/ (js/biz-advertise.js). Prices, toys that take rounds, allowed categories and rules are in ad_slots.json. audience: fill in real numbers from admin, Toy stats before going live (t",
-   "hash": "625dbbf3fc72"
+   "hash": "5208901ad40a"
   },
   {
    "file": "data/business/launch_page.json",
    "item": "(whole file)",
-   "label": "Don't pay someone to post about your product. Let people play it.",
-   "note": "Words for /launch-your-toy/ (js/biz-launch.js). Prices and tiers are in toy_tiers.json. examples: made-up concepts shown as small playable demos, always labelled as examples. form: the request form qu",
-   "hash": "89d6d701dc33"
+   "label": "Don't pay for posts. Let people play your product.",
+   "note": "Words for /launch-your-toy/ (js/biz-launch.js, built with js/biz-kit.js). Prices, the guarantee and add-ons: toy_tiers.json. examples: made-up concepts with 30 second demos (js/biz-demos.js). video.sr",
+   "hash": "341d1136d15a"
   },
   {
    "file": "data/business/pages.json",
@@ -41,7 +48,7 @@
    "item": "(whole file)",
    "label": "Test it before launch.",
    "note": "Words for /test-your-product/ (js/biz-test.js). Prices, deposits, the guarantee and the founding offer are in test_tiers.json. sample: made-up data for the preview and the full sample report (always l",
-   "hash": "00a6a75cfca2"
+   "hash": "ec43d496df2d"
   },
   {
    "file": "data/business/test_tiers.json",
@@ -62,7 +69,7 @@
    "item": "(whole file)",
    "label": "data/business/toy_tiers.json",
    "note": "Launch Your Own Toy prices and tiers (US dollars only). Shown on /launch-your-toy/ and charged by the payment server: the deposit is price x deposit. Edit freely; keep each id the same once people hav",
-   "hash": "2fd6ff649bc3"
+   "hash": "a81e7eec39ce"
   },
   {
    "file": "data/dead_projects.json",

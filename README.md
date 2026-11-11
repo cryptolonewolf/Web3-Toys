@@ -452,7 +452,7 @@ footer. Prices, tiers and rules: `data/business/` (`toy_tiers.json`,
 `test_tiers.json`, `ad_slots.json`, `sponsored_rounds.json`), US dollars only.
 - Launch Your Own Toy: `launch-your-toy/` (`js/biz-launch.js`, words in
   `data/business/launch_page.json`, three example demos in `js/biz-demos.js`,
-  the shared request form `js/biz-request.js`). Requests: `biz_requests`
+  the For Projects page kit `js/biz-kit.js`). Requests: `biz_requests`
   (`supabase/014_business.sql`); 50% deposits are products
   `deposit-toy-TIER` and `deposit-test-TIER`, worked out from the price files
   by `create-order`, `crypto-order` and `js/pay.js`. Admin, Toy requests:

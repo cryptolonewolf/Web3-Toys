@@ -35,7 +35,7 @@
   function show(A, p) {
     var why = p.source === 'pro' ? 'You earned the ' + p.name + ' Pro badge.' : 'You joined web3.toys with ' + p.name + '\'s invite link.';
     var box = document.createElement('div');
-    box.className = 'pay-modal consent-modal';
+    box.className = 'modal pay-modal consent-modal';
     box.innerHTML = '<div class="pay-box card stack stack--tight" role="dialog" aria-modal="true" aria-labelledby="consent-title">' +
       '<p class="label">' + esc(why) + '</p>' +
       '<h2 class="title-md" id="consent-title">Share my X handle and badges with ' + esc(p.name) + '?</h2>' +

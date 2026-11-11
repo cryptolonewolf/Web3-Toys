@@ -28,6 +28,8 @@ async function sign(text: string) {
 const WHAT: Record<string, { name: string; path: string }> = {
   test: { name: 'your product test', path: 'test-your-product/' },
   toy: { name: 'your toy', path: 'launch-your-toy/' },
+  course: { name: 'your Quest', path: 'academy/list-your-project/' },
+  ad: { name: 'your sponsor slot', path: 'advertise/' },
 };
 
 export function email(lead: { name: string; kind: string; which: string }, site: string, unsub: string) {

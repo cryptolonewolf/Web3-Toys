@@ -286,7 +286,7 @@ describe('Test Your Product page', () => {
     assert.deepEqual(P.caseStudies, []);
     assert.equal(P.sampleLabel, 'Sample data');
     const js = read('js/biz-test.js');
-    assert.ok(js.includes("if (!(P.caseStudies || []).length) return '';"));
+    assert.ok(read('js/biz-kit.js').includes("if (!(items || []).length) return '';"));
     assert.ok(js.includes("Number(f.left) > 0"));
   });
 });

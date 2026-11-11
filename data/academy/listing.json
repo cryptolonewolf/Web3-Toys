@@ -1,32 +1,53 @@
 {
-  "_help": "The List your project page for the Quests. The Apply button opens the Work with us page (work-with-us/), where the request form and payment live. Prices come from data/products.json (course-4, course-6, course-8); priceEmpty is shown when config.js academy.price is empty.",
-  "title": "List your project in Quests",
-  "intro": "Teach people what your project does with a short, playful course. They learn it, pass a quiz, and share a certificate in your colours.",
-  "benefitsTitle": "What you get",
-  "benefits": [
+  "_help": "Words for the List your Quest page (academy/list-your-project/, js/academy-list.js, built with js/biz-kit.js). Packages and prices: data/work.json (points) and data/products.json (course-4, course-6, course-8). checklist: what we vet. caseStudies: hidden while empty; real ones only.",
+  "review": true,
+  "label": "For projects",
+  "title": "Turn your product into a Quest.",
+  "subtitle": "Players learn it, pass the quiz, and wear your Pro badge.",
+  "intro": "Short lessons and a quiz about your project, in your colours.",
+  "ctaPrimary": "List your Quest",
+  "getTitle": "What you get",
+  "get": [
+    [
+      "📚",
+      "Players who actually learn your product"
+    ],
+    [
+      "🏅",
+      "A Pro badge and certificate in your colours"
+    ],
+    [
+      "🐦",
+      "Share on X that tags you"
+    ],
+    [
+      "📄",
+      "A ready template, filled in with us"
+    ]
+  ],
+  "pricingTitle": "Pick your Quest",
+  "popularLabel": "Recommended",
+  "guarantee": "Every Quest is vetted first. Declined? Full refund.",
+  "stepsTitle": "How it works",
+  "steps": [
     {
-      "icon": "book",
-      "title": "People who actually learn your product",
-      "text": "Tap through lessons and a quiz, not a banner people scroll past."
+      "title": "Request",
+      "text": "Send the short form and pay."
     },
     {
-      "icon": "star",
-      "title": "A Pro tag and a certificate in your colours",
-      "text": "Everyone who passes gets one, with a Share on X button that tags you."
+      "title": "Vetting",
+      "text": "We check your project."
     },
     {
-      "icon": "check",
-      "title": "Checkable results",
-      "text": "Every certificate has a code anyone can check at web3.toys/verify."
+      "title": "We write it with you",
+      "text": "Lessons and quiz, from our template."
     },
     {
-      "icon": "rocket",
-      "title": "Made with you, in our style",
-      "text": "You send the content, we turn it into a course that fits web3.toys."
+      "title": "Live",
+      "text": "Players learn and earn your badge."
     }
   ],
-  "checklistTitle": "Vetting checklist",
-  "checklistLine": "We only list projects that meet all of these. We check before a course goes live, and we can remove a course at any time.",
+  "checkTitle": "What we check",
   "checklist": [
     "A public team, or well known backers.",
     "An audit or an independent security review.",
@@ -35,14 +56,69 @@
   ],
   "rulesTitle": "House rules",
   "rules": [
-    "Every course says \"Sponsored course by [your project]. web3.toys does not endorse any token. Not financial advice.\"",
-    "No token, money or airdrop rewards for taking the course. The reward is the Pro tag and the certificate.",
-    "Courses run until the date you sponsor them for, then come down."
+    "Every Quest is labelled Sponsored. We do not endorse any token.",
+    "No token, money or airdrop rewards. The reward is the Pro badge.",
+    "Your Quest runs until the date you sponsor it for."
   ],
-  "templateTitle": "The course template",
-  "templateLine": "This is exactly what we need from you. Fill it in and send it with your application.",
-  "priceTitle": "Price",
-  "priceEmpty": "From $199",
-  "applyButton": "Apply to list your project",
-  "priceLine": "4, 6 or 8 lessons: $199, $349 or $499. Payment does not guarantee listing. Every project passes our vetting checklist first, and we refund in full if we decline."
+  "templateTitle": "The template",
+  "templateLine": "See exactly what we need, before you apply.",
+  "who": {
+    "title": "Who runs this",
+    "name": "Run by Aki, building in web3 since 2019",
+    "line": "I write every Quest with the team and check every question.",
+    "talk": "Talk to Aki"
+  },
+  "caseTitle": "Case studies",
+  "caseStudies": [],
+  "faqTitle": "Questions",
+  "faq": [
+    {
+      "q": "How long does it take?",
+      "a": "About a week after vetting, depending on how fast we agree the lessons."
+    },
+    {
+      "q": "What do you need from us?",
+      "a": "Your docs, logo, colours, and someone to check the lessons."
+    },
+    {
+      "q": "Can players win tokens?",
+      "a": "No. The reward is your Pro badge and a certificate. No token rewards, ever."
+    },
+    {
+      "q": "What if you decline us?",
+      "a": "Full refund. Payment never guarantees listing."
+    }
+  ],
+  "formTitle": "List your Quest",
+  "form": {
+    "step1": "About you",
+    "step2": "About your project",
+    "name": "Your name",
+    "email": "Contact email",
+    "tier": "Quest",
+    "next": "Next",
+    "back": "Back",
+    "project": "Project name",
+    "website": "Website",
+    "x": "Project X handle",
+    "note": "What should players learn? A sentence or two.",
+    "submit": "Send request",
+    "callLink": "Not sure which Quest? Book a 15 minute call",
+    "reply": "We reply within 24 hours and start vetting your project."
+  },
+  "thanks": {
+    "title": "Request received",
+    "next": [
+      "Pay to reserve your Quest (refunded in full if we decline).",
+      "We vet your project.",
+      "We write the lessons and quiz with you."
+    ],
+    "book": "Book a call",
+    "deposit": "Pay",
+    "share": "Copy link to share with a co-founder",
+    "copied": "Link copied",
+    "payNote": "Payment does not guarantee listing. Refunded in full if we decline."
+  },
+  "loginNote": "Log in so you can follow your request and pay. Your answers stay on this page.",
+  "stickyCta": "List your Quest"
 }
