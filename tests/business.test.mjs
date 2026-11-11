@@ -256,3 +256,12 @@ describe('Profile pages: consent, Pro and the directory', () => {
     assert.deepEqual(P.pro.remindDays, [14, 3]);
   });
 });
+
+describe('Finish screen notes', () => {
+  it('the Early Bird line and the sponsor card each look past the other, so they never multiply', () => {
+    const eb = read('js/earlybird.js');
+    const sp = read('js/sponsor.js');
+    assert.match(eb, /classList\.contains\('eb-line'\) \|\| el\.classList\.contains\('sponsor-result'\)/);
+    assert.match(sp, /classList\.contains\('sponsor-result'\) \|\| el\.classList\.contains\('eb-line'\)/);
+  });
+});

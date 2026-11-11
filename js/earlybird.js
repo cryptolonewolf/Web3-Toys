@@ -117,10 +117,15 @@
     }
     // Finish screens: a line above the offers.
     document.querySelectorAll('[data-offers]').forEach(function (box) {
-      var prev = box.previousElementSibling;
-      var line = prev && prev.classList.contains('eb-line') ? prev : null;
+      // Look through the notes stacked right above the offers (the sponsor
+      // card sits there too), so neither keeps adding a new one.
+      var line = null;
+      for (var el = box.previousElementSibling; el && (el.classList.contains('eb-line') || el.classList.contains('sponsor-result')); el = el.previousElementSibling) {
+        if (el.classList.contains('eb-line')) { line = el; break; }
+      }
       if (!line) { line = document.createElement('p'); line.className = 'eb-line'; box.parentNode.insertBefore(line, box); }
-      line.textContent = text(toy);
+      var t = text(toy);
+      if (line.textContent !== t) line.textContent = t;
       line.classList.toggle('is-mine', info(toy).state === 'mine');
     });
   }

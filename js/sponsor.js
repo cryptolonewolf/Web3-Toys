@@ -78,8 +78,11 @@
     } else if (start) start.remove();
     // Result screens: above the offers box (never on certificates).
     resultBoxes.forEach(function (box) {
-      var prev = box.previousElementSibling;
-      if (prev && prev.classList.contains('sponsor-result')) return;
+      // Already placed in the notes stacked right above the offers (the Early
+      // Bird line sits there too)? Then nothing to add.
+      for (var el = box.previousElementSibling; el && (el.classList.contains('sponsor-result') || el.classList.contains('eb-line')); el = el.previousElementSibling) {
+        if (el.classList.contains('sponsor-result')) return;
+      }
       var html = card('result');
       if (!html) return;
       var el = document.createElement('div');
