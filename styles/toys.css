@@ -7376,3 +7376,61 @@ html.is-embed body { padding-top: 0; }
   .dir-filters { grid-column: 1 / -1; }
 }
 body:has(.pay-modal) .earn-fab { display: none; }
+
+/* ---------- The full report PDF (js/quiz.js report(), printed) ---------- */
+@media print {
+  @page { size: A4; margin: 12mm 12mm 16mm; }
+  #print-sheet .rp, #print-sheet .rp * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  #print-sheet .rp { --rp-accent: #FFD93D; font: 600 11.5px/1.45 'Nunito', sans-serif; color: #1f1b2e; }
+  #print-sheet .rp-cover { position: relative; padding: 16px 18px 18px; background: #FFD93D; border: 3px solid #1f1b2e; border-radius: 18px; box-shadow: 5px 5px 0 #1f1b2e; margin-bottom: 14px; break-inside: avoid; }
+  #print-sheet .rp-top { display: flex; justify-content: space-between; align-items: center; }
+  #print-sheet .rp-logo { height: 42px; width: auto; }
+  #print-sheet .rp-tag { padding: 4px 12px; font: 800 11px 'Nunito', sans-serif; letter-spacing: 1px; text-transform: uppercase; color: #FFD93D; background: #1f1b2e; border-radius: 999px; }
+  #print-sheet .rp-hero { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: end; margin-top: 8px; }
+  #print-sheet .rp-kicker { margin: 0; font: 800 11px 'Nunito', sans-serif; letter-spacing: 1px; text-transform: uppercase; }
+  #print-sheet h1.rp-title { margin: 2px 0 4px; font: 700 28px/1.05 'Fredoka', 'Nunito', sans-serif; }
+  #print-sheet .rp-meta { margin: 0; font-size: 12px; }
+  #print-sheet .rp-aki { width: 110px; height: 110px; object-fit: contain; }
+  #print-sheet .rp-stats { display: grid; grid-template-columns: auto 1fr 1fr 1fr; gap: 8px; margin-top: 10px; }
+  #print-sheet .rp-score, #print-sheet .rp-stat { display: grid; align-content: center; padding: 8px 12px; background: #fff; border: 2px solid #1f1b2e; border-radius: 12px; }
+  #print-sheet .rp-score { background: #1f1b2e; color: #FFD93D; text-align: center; min-width: 90px; }
+  #print-sheet .rp-score b { font: 700 30px/1 'Fredoka', sans-serif; }
+  #print-sheet .rp-stat b { font: 700 16px/1.15 'Fredoka', sans-serif; }
+  #print-sheet .rp-score span, #print-sheet .rp-stat span { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; }
+  #print-sheet .rp-cert { display: grid; grid-template-columns: 300px 1fr; gap: 12px; align-items: center; margin-top: 10px; padding: 8px; background: #fff; border: 2px solid #1f1b2e; border-radius: 12px; }
+  #print-sheet .rp-cert img { width: 300px; height: auto; border-radius: 8px; border: 1px solid #ddd; }
+  #print-sheet .rp-cert p { margin: 0; font-size: 11px; }
+  #print-sheet .rp-intro { margin: 0 0 6px; font-size: 12px; }
+  #print-sheet h2.rp-h2 { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin: 14px 0 8px; padding-bottom: 4px; font: 700 17px 'Fredoka', sans-serif; border-bottom: 3px solid var(--rp-accent); }
+  #print-sheet h2.rp-h2 span { font: 700 11px 'Nunito', sans-serif; color: #5a5470; }
+  #print-sheet ol.rp-qs { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  #print-sheet .rp-q { padding: 9px 12px; background: #fff; border: 2px solid #1f1b2e; border-left-width: 8px; border-radius: 12px; break-inside: avoid; }
+  #print-sheet .rp-q.is-right { border-left-color: #6BCB77; }
+  #print-sheet .rp-q.is-wrong { border-left-color: #FF6B6B; background: #fff7f6; }
+  #print-sheet .rp-q-head { display: grid; grid-template-columns: auto 1fr auto; gap: 8px; align-items: start; }
+  #print-sheet .rp-n { display: grid; place-items: center; width: 22px; height: 22px; font: 700 12px 'Fredoka', sans-serif; background: var(--rp-accent); border: 2px solid #1f1b2e; border-radius: 50%; }
+  #print-sheet .rp-mark { font: 800 10px 'Nunito', sans-serif; text-transform: uppercase; white-space: nowrap; }
+  #print-sheet .rp-q.is-right .rp-mark { color: #1e8449; }
+  #print-sheet .rp-q.is-wrong .rp-mark { color: #c0392b; }
+  #print-sheet .rp-ans { margin: 5px 0 0 30px; }
+  #print-sheet .rp-chip { display: inline-block; padding: 1px 8px; margin-right: 4px; font: 800 9.5px 'Nunito', sans-serif; text-transform: uppercase; border: 1.5px solid #1f1b2e; border-radius: 999px; }
+  #print-sheet .rp-chip.is-right { background: #ddf3df; }
+  #print-sheet .rp-chip.is-wrong { background: #ffe3df; }
+  #print-sheet .rp-why { margin: 6px 0 0 30px; padding: 6px 10px; background: #fff8e1; border-radius: 8px; }
+  #print-sheet .rp-box { margin-top: 6px; padding: 4px 14px 12px; background: #fff; border: 2px solid #1f1b2e; border-radius: 14px; break-inside: avoid; }
+  #print-sheet ul.rp-check { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+  #print-sheet .rp-check li { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; }
+  #print-sheet .rp-tick { width: 14px; height: 14px; margin-top: 1px; border: 2px solid #1f1b2e; border-radius: 4px; background: #fff; }
+  #print-sheet .rp-next ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  #print-sheet .rp-next li { display: grid; padding: 8px 10px; background: var(--rp-accent); border: 2px solid #1f1b2e; border-radius: 10px; }
+  #print-sheet .rp-next li span { font-size: 10px; }
+  #print-sheet .rp-close { margin: 14px 0 0; font-size: 12px; text-align: center; }
+  #print-sheet .rp-foot { position: fixed; bottom: -10mm; left: 0; right: 0; display: flex; justify-content: space-between; font-size: 9px; color: #5a5470; border-top: 1px solid #d9d4e4; padding-top: 3px; }
+}
+
+/* Compact "Take it further" rows (one line each, button on the right). */
+.offer { grid-template-columns: auto minmax(0, 1fr) auto; gap: 4px 10px; padding: 8px 10px; }
+.offer-icon { font-size: 20px; }
+.offer > .btn { grid-column: auto; justify-self: end; white-space: nowrap; }
+.offer div > .small-print { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.offer-price { font-size: 13px; }

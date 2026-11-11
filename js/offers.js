@@ -66,7 +66,8 @@
     var forItem = p.perItem ? item : null;
     var have = has(p.id, forItem);
     var icon = { book: '📘', report: '📄', certificate: '🏅', export: '🎨' }[p.type] || '✨';
-    var label = have ? (data.owned[o.kind === 'book' ? 'book' : p.id] || 'Open') : (data.buttons[o.kind === 'book' ? 'book' : p.id] || 'Get it');
+    // Short labels keep each offer on one compact line.
+    var label = have ? (data.owned[o.kind === 'book' ? 'book' : p.id] || 'Open') : 'Get it';
     return '<li class="offer' + (have ? ' is-owned' : '') + '"><span class="offer-icon" aria-hidden="true">' + icon + '</span><div><b>' + esc(p.title) + '</b>' +
       '<span class="small-print">' + esc(p.line || '') + '</span>' +
       (have ? '<span class="offer-price">Yours ✓</span>' : '<span class="offer-price">' + esc(price(p)) + (p.coins ? ' <span class="small-print">or ' + p.coins.toLocaleString('en-US') + ' coins</span>' : '') + '</span>') + '</div>' +
@@ -164,7 +165,15 @@
     document.body.classList.add('is-printing');
     var done = function () { document.body.classList.remove('is-printing'); window.removeEventListener('afterprint', done); };
     window.addEventListener('afterprint', done);
-    setTimeout(function () { window.print(); }, 50);
+    // Wait for the logo and pictures (at most 2.5 seconds) so the PDF is complete.
+    var imgs = Array.prototype.slice.call(sheet.querySelectorAll('img'));
+    var loaded = Promise.all(imgs.map(function (im) {
+      return im.complete ? null : new Promise(function (ok) { im.addEventListener('load', ok); im.addEventListener('error', ok); });
+    }));
+    var waited = false;
+    var go = function () { if (waited) return; waited = true; window.print(); };
+    loaded.then(function () { setTimeout(go, 50); });
+    setTimeout(go, 2500);
   }
 
   window.Web3Offers = {

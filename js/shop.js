@@ -52,7 +52,8 @@
   fetch(site.root + 'data/shop.json', { cache: 'no-cache' })
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(function (shop) {
-      var items = shop.toys[box.getAttribute('data-toy')] || shop['default'] || [];
+      // Only things people can get now: items without a link (Coming soon) stay hidden.
+      var items = (shop.toys[box.getAttribute('data-toy')] || shop['default'] || []).filter(function (item) { return item.url; });
       if (!items.length) return;
       box.innerHTML = akiBox() +
         '<div class="shop-head">' + site.icon('bag', 'icon--lg') + '<div><h2 class="section-title">' + esc(shop.heading) + '</h2>' +

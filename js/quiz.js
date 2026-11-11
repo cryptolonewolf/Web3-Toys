@@ -540,25 +540,67 @@
     try { return (JSON.parse(localStorage.getItem(RESULTS_KEY)) || {})[id] || null; } catch (e) { return null; }
   }
 
-  // The full report: every answer explained, then a checklist.
+  // The full report: a branded, print-ready PDF (the browser's Save as PDF):
+  // a cover with the score and the player's certificate, every question
+  // explained, a checklist and what to play next. Styles: .rp-* in toys.css.
   function report(id) {
     var r = savedResult(id);
     if (!r) return Promise.reject(new Error('Take the quiz on this device first, then download your report here.'));
-    return C.loadJson('../data/reports.json').then(function (R) {
+    var cert = savedCert(id);
+    var progress = Web3Progress.load(window.localStorage);
+    return Promise.all([
+      C.loadJson('../data/reports.json'),
+      C.loadJson('../data/home.json').catch(function () { return { shelves: [] }; }),
+      C.loadJson('../data/ranks.json').catch(function () { return { ranks: [{ min: 0, name: 'Player' }] }; }),
+    ]).then(function (all) {
+      var R = all[0], home = all[1], ranks = all[2].ranks;
       var extra = R.toys[id] || { checklist: [], next: [] };
-      window.Web3Offers.print(
-        '<h1>' + esc(r.title) + ': your full report</h1>' +
-        '<p><b>Score ' + r.score + '%</b> · ' + r.correct + ' of ' + r.total + ' right · ' + esc(r.date) + (r.passed ? ' · Passed' : '') + '</p>' +
-        '<p>' + esc(R.intro) + '</p>' +
-        '<h2>Every question explained</h2><ol class="report-qs">' + r.review.map(function (q) {
-          return '<li><p><b>' + (q.correct ? '✓ ' : '✗ ') + esc(q.question) + '</b></p>' +
-            (q.correct ? '' : '<p>Your answer: ' + esc(q.chosen == null ? 'no answer' : q.chosen) + '</p>') +
-            '<p>Right answer: <b>' + esc(q.answer) + '</b></p><p>' + esc(q.explain) + '</p></li>';
-        }).join('') + '</ol>' +
-        (extra.checklist.length ? '<h2>Your checklist</h2><ul class="report-check">' + extra.checklist.map(function (c) { return '<li>☐ ' + esc(c) + '</li>'; }).join('') + '</ul>' : '') +
-        (extra.next.length ? '<h2>Try next</h2><p>' + extra.next.map(function (n) { return 'web3.toys/' + esc(n) + '/'; }).join(' · ') + '</p>' : '') +
-        '<p class="print-foot">' + esc(R.close) + ' Made with web3.toys.</p>'
-      );
+      var cards = {};
+      home.shelves.forEach(function (sh) { sh.cards.forEach(function (c) { cards[c.id] = c; }); });
+      var rank = Web3Progress.rankFor(Web3Progress.count(progress), ranks).name;
+      var accent = getComputedStyle(document.body).getPropertyValue('--accent').trim() || '#FFD93D';
+      // A small copy of the certificate on the cover (when earned on this device).
+      var certImg = cert ? (function () {
+        var canvas = document.createElement('canvas');
+        return drawCertificate(canvas, cert, rank, {}).then(function () { return canvas.toDataURL('image/png'); }).catch(function () { return ''; });
+      })() : Promise.resolve('');
+      return certImg.then(function (src) {
+        var right = r.review.filter(function (q) { return q.correct; }).length;
+        var dateLabel = new Date(r.date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+        var who = cert && cert.name ? cert.name : '';
+        var html =
+          '<div class="rp" style="--rp-accent:' + esc(accent) + '">' +
+          '<header class="rp-cover">' +
+          '<div class="rp-top"><img class="rp-logo" src="' + site.root + 'images/brand/web3toys-logo.svg" alt="web3.toys" width="180" height="58" /><span class="rp-tag">Full report</span></div>' +
+          '<div class="rp-hero"><div><p class="rp-kicker">Your results</p><h1 class="rp-title">' + esc(r.title) + '</h1>' +
+          '<p class="rp-meta">' + (who ? 'Prepared for <b>' + esc(who) + '</b> · ' : '') + esc(dateLabel) + '</p></div>' +
+          site.mascotImg('celebrating', 'rp-aki', 120, '') + '</div>' +
+          '<div class="rp-stats"><div class="rp-score"><b>' + r.score + '%</b><span>score</span></div>' +
+          '<div class="rp-stat"><b>' + r.correct + ' / ' + r.total + '</b><span>right answers</span></div>' +
+          '<div class="rp-stat"><b>' + (r.passed ? 'Passed ✓' : 'Not yet') + '</b><span>pass mark 70%</span></div>' +
+          '<div class="rp-stat"><b>' + esc(rank) + '</b><span>your rank</span></div></div>' +
+          (src ? '<div class="rp-cert"><img src="' + src + '" alt="Your certificate" /><p>Certificate code <b>' + esc(cert.code) + '</b><br />Anyone can check it at web3.toys/verify</p></div>' : '') +
+          '</header>' +
+          '<p class="rp-intro">' + esc(R.intro) + '</p>' +
+          '<h2 class="rp-h2">Every question explained <span>' + right + ' right · ' + (r.review.length - right) + ' to review</span></h2>' +
+          '<ol class="rp-qs">' + r.review.map(function (q, i) {
+            return '<li class="rp-q ' + (q.correct ? 'is-right' : 'is-wrong') + '"><div class="rp-q-head"><span class="rp-n">' + (i + 1) + '</span><b>' + esc(q.question) + '</b><span class="rp-mark">' + (q.correct ? '✓ Right' : '✗ Review') + '</span></div>' +
+              (q.correct ? '<p class="rp-ans"><span class="rp-chip is-right">Your answer</span> ' + esc(q.answer) + '</p>'
+                : '<p class="rp-ans"><span class="rp-chip is-wrong">Your answer</span> ' + esc(q.chosen == null ? 'No answer' : q.chosen) + '</p><p class="rp-ans"><span class="rp-chip is-right">Right answer</span> ' + esc(q.answer) + '</p>') +
+              '<p class="rp-why">💡 ' + esc(q.explain) + '</p></li>';
+          }).join('') + '</ol>' +
+          (extra.checklist.length ? '<section class="rp-box"><h2 class="rp-h2">Your checklist</h2><ul class="rp-check">' + extra.checklist.map(function (c) { return '<li><span class="rp-tick"></span>' + esc(c) + '</li>'; }).join('') + '</ul></section>' : '') +
+          (extra.next.length ? '<section class="rp-box rp-next"><h2 class="rp-h2">Play next</h2><ul>' + extra.next.map(function (n) {
+            var c = cards[n] || {};
+            return '<li><b>' + esc(c.title || n) + '</b><span>web3.toys/' + esc(c.path || n + '/') + '</span></li>';
+          }).join('') + '</ul></section>' : '') +
+          '<p class="rp-close">' + esc(R.close) + '</p>' +
+          '<footer class="rp-foot"><span>web3.toys · ' + esc(r.title) + (who ? ' · ' + esc(who) : '') + '</span><span>Educational only. Not financial advice.</span></footer></div>';
+        var before = document.title;
+        document.title = 'web3toys-' + id + '-report';
+        window.Web3Offers.print(html);
+        setTimeout(function () { document.title = before; }, 3000);
+      });
     });
   }
 
@@ -590,5 +632,5 @@
   site.deliver('cert-hd', function (id) { return downloadCert(id, { scale: 2 }, 'hd'); });
   site.deliver('cert-premium', function (id) { return downloadCert(id, { scale: 2, premium: true }, 'premium'); });
 
-  window.ToyQuiz = { start: start, showSaved: showSaved, drawCertificate: drawCertificate };
+  window.ToyQuiz = { start: start, showSaved: showSaved, drawCertificate: drawCertificate, report: report };
 })();
