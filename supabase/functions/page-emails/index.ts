@@ -31,13 +31,13 @@ export function reminder(r: { handle: string; name: string; pro_until: string; d
 <p style="font-size:15px;line-height:1.5">Pro comes with what you build on web3.toys. Keep it going with:</p>
 <ul style="font-size:15px;line-height:1.6">
 <li><a href="${link('launch-your-toy/')}">A new toy</a> (Mini Toy 3 months, Full Game 6, Launch Tournament 12)</li>
-<li><a href="${link('academy/list-your-project/')}">An Academy course</a> (3 months)</li>
+<li><a href="${link('academy/list-your-project/')}">A Quest</a> (3 months)</li>
 <li><a href="${link('test-your-product/')}">A product test</a> with real players</li>
 </ul>
 <p style="margin:20px 0"><a href="${link('book-a-call/')}" style="background:#1F1B2E;color:#FFD93D;text-decoration:none;font-weight:bold;padding:12px 22px;border-radius:999px;display:inline-block">Book a call</a></p>
 <p style="font-size:12px;color:#5A5470">You get this because you own web3.toys/@${esc(r.handle)} and it has Pro. Build With Aki, Dehradun, Uttarakhand, India.</p>
 </div></body></html>`;
-  const text = `Pro for ${r.name} ends on ${end}.\n\nAfter that, web3.toys/@${r.handle} stays free and live, but the Pro extras switch off.\nKeep it going with a new toy (${link('launch-your-toy/')}), an Academy course (${link('academy/list-your-project/')}) or a product test (${link('test-your-product/')}).\n\nBook a call: ${link('book-a-call/')}`;
+  const text = `Pro for ${r.name} ends on ${end}.\n\nAfter that, web3.toys/@${r.handle} stays free and live, but the Pro extras switch off.\nKeep it going with a new toy (${link('launch-your-toy/')}), a Quest (${link('academy/list-your-project/')}) or a product test (${link('test-your-product/')}).\n\nBook a call: ${link('book-a-call/')}`;
   return { subject, html, text };
 }
 

@@ -1,4 +1,4 @@
-// Project Academy: which courses to show, and the progress kept in this
+// Quests: which courses to show, and the progress kept in this
 // browser (lessons seen, retry lock). Shared by the Academy pages.
 
 (function (root, factory) {

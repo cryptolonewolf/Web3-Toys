@@ -690,7 +690,7 @@
       panel.innerHTML = '<div class="btn-row"><button type="button" class="btn btn--small" data-csv>Export CSV</button><span class="small-print">' + rows.length + ' requests</span></div>' +
         (rows.length ? rows.map(function (q) {
           var o = orders[q.order_id];
-          return '<article class="card stack stack--tight adm-req" data-req="' + q.id + '"><div class="cap-row"><h3 class="title-sm">' + esc(q.project) + ' · ' + esc(q.kind === 'toy' ? 'Custom toy' : 'Academy course') + (q.tier ? ' (' + esc(q.tier) + ')' : '') + '</h3>' +
+          return '<article class="card stack stack--tight adm-req" data-req="' + q.id + '"><div class="cap-row"><h3 class="title-sm">' + esc(q.project) + ' · ' + esc(q.kind === 'toy' ? 'Custom toy' : 'Quest') + (q.tier ? ' (' + esc(q.tier) + ')' : '') + '</h3>' +
             '<span class="chip ' + (q.status === 'declined' ? 'is-white' : 'is-yellow') + '">' + esc(settings.statusNames[q.status] || q.status) + '</span></div>' +
             '<p class="small-print">' + esc(date(q.created_at)) + ' · ' + esc(q.email || '') + (q.website ? ' · ' + esc(q.website) : '') + (q.x_handle ? ' · ' + esc(q.x_handle) : '') +
             ' · Payment: ' + (o ? esc(o.status) + ' ' + money(o.amount, o.currency) : 'not paid yet') + '</p>' +

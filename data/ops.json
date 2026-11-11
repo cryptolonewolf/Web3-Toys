@@ -8,7 +8,7 @@
     { "id": "testreq", "icon": "🧪", "label": "Test requests", "open": "testreq" },
     { "id": "testruns", "icon": "📝", "label": "Tester reports to review", "open": "tests" },
     { "id": "sponsors", "icon": "📣", "label": "Sponsor bookings to approve", "open": "sponsors" },
-    { "id": "courses", "icon": "🎓", "label": "Academy course submissions", "open": "requests" },
+    { "id": "courses", "icon": "🎓", "label": "Quest submissions", "open": "requests" },
     { "id": "contact", "icon": "✉️", "label": "Contact form messages", "open": "inbox:contact" },
     { "id": "posts", "icon": "🐦", "label": "Post to unlock reviews", "open": "inbox:posts" },
     { "id": "referrals", "icon": "🚩", "label": "Flagged referrals", "open": "inbox:referrals" },

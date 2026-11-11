@@ -341,11 +341,17 @@
     var fonts = document.fonts
       ? Promise.all([document.fonts.load('700 60px Fredoka'), document.fonts.load('800 40px Nunito')]).catch(function () {})
       : Promise.resolve();
+    // The player's own cartoon avatar (the one on their account, or one made
+    // from their name), not Aki: the certificate is theirs.
     var mascot = new Promise(function (resolve) {
+      var A = window.Web3Auth;
+      var prof = A && A.profile && A.profile();
+      var seed = (prof && prof.avatar_seed) || ('cert:' + String(cert.name || cert.code || 'player').toLowerCase());
+      if (!window.Web3Avatar) return resolve(null);
       var img = new Image();
       img.onload = function () { resolve(img); };
       img.onerror = function () { resolve(null); };
-      img.src = CELEBRATE;
+      img.src = window.Web3Avatar.dataUri(seed);
     });
     var mark = new Promise(function (resolve) {
       var m = new Image();
@@ -420,12 +426,15 @@
       // Early Bird: a round stamp with the spot number.
       if (opts.earlyBird) earlyStamp(ctx, W - 300, 330, opts.earlyBird);
 
-      // Fit the mascot inside a 380 by 380 box, keeping its shape.
+      // The avatar in a round white badge with an ink ring.
       if (img) {
-        var k = Math.min(380 / img.width, 380 / img.height);
-        var w = img.width * k;
-        var h = img.height * k;
-        ctx.drawImage(img, W - 120 - 190 - w / 2, H - 110 - h, w, h);
+        var R = 165, cx = W - 120 - 190, cy = H - 110 - 200;
+        ctx.save();
+        ctx.beginPath(); ctx.arc(cx, cy, R + 10, 0, Math.PI * 2); ctx.fillStyle = INK; ctx.fill();
+        ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.fillStyle = '#FFFFFF'; ctx.fill();
+        ctx.clip();
+        ctx.drawImage(img, cx - R, cy - R, R * 2, R * 2);
+        ctx.restore();
       }
       return canvas;
     });
@@ -466,15 +475,14 @@
     var file = 'web3toys-certificate-' + cert.toy + '.png';
 
     render(
-      '<section class="card card--hero stack stack--tight">' + peek('celebrating') +
+      '<section class="card card--hero stack stack--tight">' +
       '<p class="label">Certificate earned</p><h1 class="title-lg">' + esc(cert.title) + '</h1>' +
       (rankUp ? '<p class="text text--ink">New rank unlocked: ' + C.rankBadge(rankUp, Web3Progress.level(rankUp, ranks)) + '</p>' : '') +
       '</section>' +
       '<img class="share-preview certificate-preview" data-preview alt="Certificate for ' + esc(cert.name) + ', ' + esc(cert.title) + ', score ' + cert.score + ' percent" />' +
       '<div class="btn-row"><a class="btn btn--ink" data-download download="' + esc(file) + '" href="#">Download PNG</a>' +
       '<a class="btn" data-share href="' + esc(intent) + '" target="_blank" rel="noopener">Share on X</a></div>' +
-      '<p class="tip"><strong>Tip:</strong> ' + esc(funnel.shareTip) + '</p>' +
-      '<p class="small-print center">Code ' + esc(cert.code) + ' · <a href="' + esc(link) + '">Anyone can check it here</a></p>' +
+      '<p class="small-print center">💡 ' + esc(funnel.shareTip) + '<br />Code ' + esc(cert.code) + ' · <a href="' + esc(link) + '">Anyone can check it here</a></p>' +
       '<div class="btn-row"><a class="btn" href="../">All toys</a><a class="btn" href="../progress/">My Progress</a></div>' +
       funnelHtml('certificate', cert.toy),
       'Certificate', 'mint'
@@ -574,7 +582,7 @@
           '<div class="rp-top"><img class="rp-logo" src="' + site.root + 'images/brand/web3toys-logo.svg" alt="web3.toys" width="180" height="58" /><span class="rp-tag">Full report</span></div>' +
           '<div class="rp-hero"><div><p class="rp-kicker">Your results</p><h1 class="rp-title">' + esc(r.title) + '</h1>' +
           '<p class="rp-meta">' + (who ? 'Prepared for <b>' + esc(who) + '</b> · ' : '') + esc(dateLabel) + '</p></div>' +
-          site.mascotImg('celebrating', 'rp-aki', 120, '') + '</div>' +
+          (window.Web3Avatar ? '<img class="rp-aki rp-avatar" src="' + window.Web3Avatar.dataUri(((window.Web3Auth && window.Web3Auth.profile && window.Web3Auth.profile()) || {}).avatar_seed || ('cert:' + String(who || 'player').toLowerCase())) + '" alt="" width="110" height="110" />' : '') + '</div>' +
           '<div class="rp-stats"><div class="rp-score"><b>' + r.score + '%</b><span>score</span></div>' +
           '<div class="rp-stat"><b>' + r.correct + ' / ' + r.total + '</b><span>right answers</span></div>' +
           '<div class="rp-stat"><b>' + (r.passed ? 'Passed ✓' : 'Not yet') + '</b><span>pass mark 70%</span></div>' +

@@ -215,7 +215,7 @@
         '<label class="label" for="ap-logo">Logo (PNG, JPG or WebP, up to 2 MB)</label><input type="file" id="ap-logo" accept="image/png,image/jpeg,image/webp" />' +
         '<fieldset><legend class="label">Their toys and courses on web3.toys</legend><div class="pg-picks">' + toys.map(function (t) {
           return '<label class="mk-check"><input type="checkbox" data-toy="' + esc(t.id) + '"' + (p.featured_toys.indexOf(t.id) >= 0 ? ' checked' : '') + ' /> <span>' + esc(t.title) + '</span></label>';
-        }).join('') + '</div><input class="field" data-courses placeholder="Academy course ids, comma separated" value="' + esc((p.featured_courses || []).join(', ')) + '" /></fieldset>' +
+        }).join('') + '</div><input class="field" data-courses placeholder="Quest ids, comma separated" value="' + esc((p.featured_courses || []).join(', ')) + '" /></fieldset>' +
         '<label class="label" for="ap-color">Brand colour</label><input type="color" id="ap-color" value="' + esc(p.color) + '" />' +
         '<button type="submit" class="btn btn--ink">' + (existing ? 'Save' : 'Make the page') + '</button><p class="small-print" data-msg></p></form>';
       bindNav();

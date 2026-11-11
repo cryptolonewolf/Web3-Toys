@@ -1,4 +1,4 @@
-// The Work with us page: pick a package (custom toy or Academy course),
+// The Work with us page: pick a package (custom toy or Quest),
 // send the request form (saved in Supabase by submit_request), then pay for
 // it with Web3Pay. Paid requests move to Paid by themselves (a database
 // trigger in supabase/009_work_with_us.sql); the admin dashboard moves them

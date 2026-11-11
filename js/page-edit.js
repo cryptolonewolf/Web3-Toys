@@ -102,7 +102,7 @@
       if (!on) {
         var yearly = P.pro.yearly && P.pro.yearly.on === true && p.type === P.pro.yearly.for;
         box.innerHTML = '<h2 class="title-md">⭐ Pro</h2><p class="text">Your page is on the free plan: your link, Verified via X badge, featured toys and basic stats. Pro adds:</p>' + feats +
-          '<p class="small-print">' + (p.type === 'project' ? 'Pro turns on by itself when your project buys a toy (Mini Toy ' + P.pro.months['deposit-toy-mini'] + ' months, Full Game ' + P.pro.months['deposit-toy-full'] + ', Launch Tournament ' + P.pro.months['deposit-toy-tournament'] + ') or an Academy course (' + P.pro.months.course + ' months). Use your page\'s X handle on the request form.' : 'Creator pages are free forever.') + '</p>' +
+          '<p class="small-print">' + (p.type === 'project' ? 'Pro turns on by itself when your project buys a toy (Mini Toy ' + P.pro.months['deposit-toy-mini'] + ' months, Full Game ' + P.pro.months['deposit-toy-full'] + ', Launch Tournament ' + P.pro.months['deposit-toy-tournament'] + ') or a Quest (' + P.pro.months.course + ' months). Use your page\'s X handle on the request form.' : 'Creator pages are free forever.') + '</p>' +
           (p.type === 'project' ? '<div class="btn-row"><a class="btn btn--small btn--ink" href="' + R + 'launch-your-toy/">Launch a toy</a><a class="btn btn--small" href="' + R + 'academy/list-your-project/">List a course</a>' + (yearly ? '<button type="button" class="btn btn--small btn--yellow" data-yearly>Pro for a year · $' + esc(P.pro.yearly.usd) + '</button>' : '') + '</div><p class="small-print" data-pmsg></p>' : '');
         var yb = box.querySelector('[data-yearly]');
         if (yb) yb.addEventListener('click', function () {
@@ -199,7 +199,7 @@
       '<fieldset><legend class="label">Toys to feature (up to ' + P.maxFeatured + ')</legend><div class="pg-picks">' + toys.map(function (t) {
         return '<label class="mk-check"><input type="checkbox" data-toy="' + esc(t.id) + '"' + (p.featured_toys.indexOf(t.id) >= 0 ? ' checked' : '') + ' /> <span>' + esc(t.title) + '</span></label>';
       }).join('') + '</div></fieldset>' +
-      (courses.length ? '<fieldset><legend class="label">Academy courses to feature</legend><div class="pg-picks">' + courses.map(function (c) {
+      (courses.length ? '<fieldset><legend class="label">Quests to feature</legend><div class="pg-picks">' + courses.map(function (c) {
         return '<label class="mk-check"><input type="checkbox" data-course="' + esc(c.id) + '"' + (p.featured_courses.indexOf(c.id) >= 0 ? ' checked' : '') + ' /> <span>' + esc(c.name) + '</span></label>';
       }).join('') + '</div></fieldset>' : '') +
       '<fieldset><legend class="label">Brand colour</legend><div class="pg-swatches">' + P.colors.map(function (c) {

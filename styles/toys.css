@@ -7434,3 +7434,46 @@ body:has(.pay-modal) .earn-fab { display: none; }
 .offer > .btn { grid-column: auto; justify-self: end; white-space: nowrap; }
 .offer div > .small-print { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
 .offer-price { font-size: 13px; }
+
+/* ---------- Simpler layout: wider main column, sidebar only when it has something ---------- */
+.page { max-width: 1080px; }
+.shop[hidden] { display: none !important; }
+@media (min-width: 980px) {
+  .toy-layout { grid-template-columns: minmax(0, 1fr) 280px; gap: 32px; }
+  .toy-layout:has(> .shop[hidden]), .toy-layout:has(> .shop:empty) { grid-template-columns: minmax(0, 760px); justify-content: center; }
+}
+.topnav-link, .topnav-group summary { white-space: nowrap; }
+
+/* ---------- Calmer pages: one level of boxes ----------
+   Only the main cards keep the thick cartoon outline and shadow. Things
+   inside a card are soft tinted rows; notes are plain lines. */
+.card .card, .card .qs-row, .card .offer, .card .shop-item, .card .tk-row, .card .biz-req, .card .pg-toy, .card .pf-share li {
+  border: 0;
+  box-shadow: none;
+  background: rgba(31, 27, 46, .045);
+}
+.qs-row, .offer { border: 0; background: rgba(31, 27, 46, .045); }
+.offer.is-owned { background: var(--mint-tint); }
+.offers { background: var(--white); }
+.tip { padding: 0; background: transparent; border: 0; font-size: 14px; color: var(--ink-soft); }
+.eb-line { padding: 8px 12px; background: #fff3c4; border: 0; font-size: 15px; }
+.eb-line.is-mine { background: var(--mint-tint); }
+.certificate-preview { border: 0; border-radius: 0; }
+.pf-action { box-shadow: none; border-width: 2px; }
+.pf-action:hover { background: var(--cream); }
+/* Smaller shadows on second-level things (chips, small buttons, pills). */
+.btn--small { box-shadow: 2px 2px 0 var(--ink); }
+.pf-card { box-shadow: 3px 3px 0 var(--ink); }
+/* Lists of points (benefits, how it works, perks, audience): icon and text,
+   no box each. Questions: lines between them, not a box each. */
+.perk-grid .card, .biz-why .card, .biz-steps .card, .ad-audience .card, .tst-list .card.perk {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 6px 0;
+}
+.biz-why .card:last-child { background: transparent; }
+.perk-grid .icon-badge { box-shadow: none; }
+.biz-faq { gap: 0; border-top: 2px solid rgba(31, 27, 46, .15); }
+.biz-faq details.card { background: transparent; border: 0; border-bottom: 2px solid rgba(31, 27, 46, .15); border-radius: 0; box-shadow: none; padding: 12px 2px; }
+body:has([data-offers]) .earn-fab { display: none; }

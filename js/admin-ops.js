@@ -40,7 +40,7 @@
     if (/^pro-/.test(id)) return 'Pro pages';
     var p = catalog[id];
     var t = p && p.type;
-    return { report: 'Reports', cert: 'Certificates', book: 'Books', call: 'Calls', project: 'Work with us', course: 'Academy' }[t] || (p ? p.title : id);
+    return { report: 'Reports', cert: 'Certificates', book: 'Books', call: 'Calls', project: 'Work with us', course: 'Quests' }[t] || (p ? p.title : id);
   }
 
   // ---------- Sample data ----------

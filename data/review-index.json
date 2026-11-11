@@ -832,7 +832,7 @@
    "item": "(whole file)",
    "label": "Refunds and delivery",
    "note": "The Refunds and delivery page (Razorpay asks for refund and delivery policies). Plain-English draft: have a lawyer check it.",
-   "hash": "ff22695c6e98"
+   "hash": "85a61872e1e8"
   },
   {
    "file": "data/legal/terms.json",
@@ -958,7 +958,7 @@
    "item": "(whole file)",
    "label": "data/products.json",
    "note": "Everything that can be bought. id: short, no spaces. type: book, report, certificate, export, call or project (what it is; project is a Work with us request, paid after the request form). usd and inr:",
-   "hash": "145fb60d571b"
+   "hash": "2515ff79b1da"
   },
   {
    "file": "data/releases.json",

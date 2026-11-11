@@ -163,7 +163,7 @@
   }
 
   function ranksHtml(s) {
-    return '<h3 class="pf-h">Ranks</h3><p class="small-print">Every certificate and Pro tag (from the <a href="../academy/">Project Academy</a>) counts toward your rank.</p><ol class="rank-ladder">' + ranks.map(function (r, i) {
+    return '<h3 class="pf-h">Ranks</h3><p class="small-print">Every certificate and Pro tag (from the <a href="../academy/">Quests</a>) counts toward your rank.</p><ol class="rank-ladder">' + ranks.map(function (r, i) {
       return '<li class="' + (r === s.rank ? 'is-current' : s.n >= r.min ? 'is-done' : '') + '">' + C.rankBadge(r, i + 1) + '<span class="small-print">' + r.min + (r.min === 1 ? ' certificate' : ' certificates') + '</span></li>';
     }).join('') + '</ol>';
   }

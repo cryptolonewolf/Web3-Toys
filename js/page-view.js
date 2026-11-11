@@ -97,7 +97,7 @@
       (!p.claimed ? '<section class="card card--yellow stack stack--tight pg-claim"><b>' + esc(P.copy.notClaimedLine) + '</b><p class="small-print">' + esc(fill(P.copy.claimHow)) + '</p>' +
         '<button type="button" class="btn btn--ink" data-claim>' + esc(P.copy.claim) + '</button><p class="small-print" data-claim-msg aria-live="polite"></p></section>' : '') +
       ((p.featured_toys || []).length ? '<section class="stack stack--tight"><h2 class="section-title">' + (p.type === 'project' ? 'Our toys' : 'Toys I recommend') + '</h2><ul class="pg-toys">' + toyCards(p.featured_toys) + '</ul></section>' : '') +
-      ((p.featured_courses || []).length ? '<section class="stack stack--tight"><h2 class="section-title">Academy courses</h2><ul class="pg-toys">' + courseCards(p.featured_courses) + '</ul></section>' : '') +
+      ((p.featured_courses || []).length ? '<section class="stack stack--tight"><h2 class="section-title">Quests</h2><ul class="pg-toys">' + courseCards(p.featured_courses) + '</ul></section>' : '') +
       '<div data-more></div>' +
       '<p class="small-print pg-foot">Pages are made by their owners' + (!p.claimed ? ' (this one by web3.toys, from public information)' : '') + '. web3.toys does not endorse any token. Not financial advice. ' +
       '<button type="button" class="text-button" data-report>' + esc(P.copy.report) + '</button></p>';
@@ -156,7 +156,7 @@
       if (!pro.pro) sponsorCard(box);
       if (p.type === 'project') {
         html += '<section class="card stack stack--tight"><h2 class="title-md">🎓 ' + esc(p.name) + ' Pro players</h2>' +
-          '<p class="text"><b>' + Number(S.pro_count || 0).toLocaleString('en-US') + '</b> ' + (Number(S.pro_count) === 1 ? 'player has' : 'players have') + ' earned the Pro badge' + ((p.featured_courses || []).length ? ' in the Academy course.' : '.') + '</p>' +
+          '<p class="text"><b>' + Number(S.pro_count || 0).toLocaleString('en-US') + '</b> ' + (Number(S.pro_count) === 1 ? 'player has' : 'players have') + ' earned the Pro badge' + ((p.featured_courses || []).length ? ' in the Quest.' : '.') + '</p>' +
           ((S.pro_fans || []).length ? names(S.pro_fans) : '') +
           '<p class="small-print">Only players who chose to share with ' + esc(p.name) + ' are shown by name.</p></section>';
         if ((S.leaderboard || []).length) {

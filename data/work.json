@@ -9,7 +9,7 @@
       "id": "course-4",
       "kind": "course",
       "product": "course-4",
-      "name": "Academy course: Starter",
+      "name": "Quest: Starter",
       "points": [
         "4 lessons",
         "15 quiz questions",
@@ -20,7 +20,7 @@
       "id": "course-6",
       "kind": "course",
       "product": "course-6",
-      "name": "Academy course: Standard",
+      "name": "Quest: Standard",
       "points": [
         "6 lessons",
         "25 quiz questions",
@@ -31,11 +31,11 @@
       "id": "course-8",
       "kind": "course",
       "product": "course-8",
-      "name": "Academy course: Featured",
+      "name": "Quest: Featured",
       "points": [
         "8 lessons",
         "30 quiz questions",
-        "30 days featured on the Academy page"
+        "30 days featured on the Quests page"
       ]
     },
     {

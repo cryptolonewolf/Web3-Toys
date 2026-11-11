@@ -80,12 +80,12 @@
     },
     {
       "id": "academy",
-      "title": "Academy",
+      "title": "Quests",
       "icon": "🎓",
       "color": "violet",
       "blurb": "Short sponsored courses about web3 projects. Earn Pro tags.",
       "cards": [
-        {"id": "academy", "status": "live", "kind": "academy", "path": "academy/", "title": "Project Academy", "time": "Courses", "blurb": "Short sponsored courses about web3 projects, with a quiz, a Pro tag and a certificate."}
+        {"id": "academy", "status": "live", "kind": "academy", "path": "academy/", "title": "Quests", "time": "Courses", "blurb": "Short sponsored courses about web3 projects, with a quiz, a Pro tag and a certificate."}
       ]
     }
   ],

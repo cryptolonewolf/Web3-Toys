@@ -1,6 +1,6 @@
 {
-  "_help": "The List your project page for the Project Academy. The Apply button opens the Work with us page (work-with-us/), where the request form and payment live. Prices come from data/products.json (course-4, course-6, course-8); priceEmpty is shown when config.js academy.price is empty.",
-  "title": "List your project in the Academy",
+  "_help": "The List your project page for the Quests. The Apply button opens the Work with us page (work-with-us/), where the request form and payment live. Prices come from data/products.json (course-4, course-6, course-8); priceEmpty is shown when config.js academy.price is empty.",
+  "title": "List your project in Quests",
   "intro": "Teach people what your project does with a short, playful course. They learn it, pass a quiz, and share a certificate in your colours.",
   "benefitsTitle": "What you get",
   "benefits": [

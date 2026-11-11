@@ -1,4 +1,4 @@
-// The List your project page for the Project Academy. Words come from
+// The List your project page for the Quests. Words come from
 // data/academy/listing.json; the price and the form link from config.js.
 
 (function () {
@@ -11,7 +11,7 @@
   C.loadJson('../../data/academy/listing.json').then(function (L) {
     var apply = '<a class="btn btn--ink btn--block" href="../../work-with-us/?kind=course" data-apply>' + esc(L.applyButton) + '</a>';
     app.innerHTML =
-      '<section class="tool-head stack stack--tight"><p class="label">Project Academy</p><h1 class="tool-title">' + esc(L.title) + '</h1>' +
+      '<section class="tool-head stack stack--tight"><p class="label">Quests</p><h1 class="tool-title">' + esc(L.title) + '</h1>' +
       '<p class="text text--ink">' + esc(L.intro) + '</p></section>' +
       '<h2 class="section-title">' + esc(L.benefitsTitle) + '</h2><ul class="perk-grid">' + L.benefits.map(function (b) {
         return '<li><div class="card perk"><span class="icon-badge">' + site.icon(b.icon) + '</span><div class="stack stack--tight"><h3 class="title-sm">' + esc(b.title) + '</h3><p class="text">' + esc(b.text) + '</p></div></div></li>';

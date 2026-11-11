@@ -8,12 +8,12 @@
   var me = document.currentScript && document.currentScript.src;
   var ROOT = me ? me.replace(/js\/site\.js(\?.*)?$/, '') : '/';
 
+  // Kept short on purpose. My Progress opens from the avatar (or Log in);
+  // My Progress and Real Toys are also in the footer.
   var MENU = [
     { label: 'Toys', href: '' },
     { label: 'Tools', href: 'builder/' },
-    { label: 'Academy', href: 'academy/' },
-    { label: 'Real Toys', href: 'real-toys/' },
-    { label: 'My Progress', href: 'progress/' },
+    { label: 'Quests', href: 'academy/' },
   ];
   var CALL = { label: 'Book a Call', href: 'book-a-call/' };
   // For Projects (switched on by business.live in config.js, planned for
@@ -27,8 +27,10 @@
     { label: 'Pages directory', href: 'pages/' },
     { label: 'Book a Call', href: 'book-a-call/' },
   ];
-  // Books and About live in the footer and in the About Aki box on the side.
+  // Everything else lives in the footer.
   var FOOTER_EXTRA = [
+    { label: 'My Progress', href: 'progress/' },
+    { label: 'Real Toys', href: 'real-toys/' },
     { label: 'Books', href: 'books/' },
     { label: 'About Aki', href: 'about/' },
     { label: 'Work with us', href: 'work-with-us/' },

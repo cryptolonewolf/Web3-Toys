@@ -1,9 +1,9 @@
 {
-  "_help": "A Project Academy course (public part). The questions and answers live privately in quizzes/academy/<id>.json. Only courses with vetted true and a sponsored_until date that has not passed are shown. colors: primary (background), accent (highlights), text (on primary). logo and lesson images live in assets/academy/<id>/. x: the project's X handle without @, tagged in Share on X (leave empty to not tag anyone).",
+  "_help": "A Quest (public part). The questions and answers live privately in quizzes/academy/<id>.json. Only courses with vetted true and a sponsored_until date that has not passed are shown. colors: primary (background), accent (highlights), text (on primary). logo and lesson images live in assets/academy/<id>/. x: the project's X handle without @, tagged in Share on X (leave empty to not tag anyone).",
   "id": "lumen",
   "name": "Lumen Protocol",
   "fictional": true,
-  "tagline": "A made up lending app, for testing the Academy.",
+  "tagline": "A made up lending app, for testing Quests.",
   "logo": "assets/academy/lumen/logo.svg",
   "colors": {
     "primary": "#1B2A6B",
