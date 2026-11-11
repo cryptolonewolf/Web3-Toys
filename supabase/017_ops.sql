@@ -245,7 +245,8 @@ create policy "admins read health" on public.ops_health for select using (public
 create or replace function public.log_event(p_name text, p_page text, p_item text)
 returns void language plpgsql security definer set search_path = '' as $$
 begin
-  if p_name not in ('page_view', 'finish', 'share', 'call_click', 'buy_click', 'purchase', 'signup', 'offer_view', 'play', 'js_error', 'page_load') then return; end if;
+  if p_name not in ('page_view', 'finish', 'share', 'call_click', 'buy_click', 'purchase', 'signup', 'offer_view', 'play', 'js_error', 'page_load',
+    'biz_tier', 'biz_start', 'biz_step1', 'biz_submit') then return; end if;
   if p_name = 'page_load' and coalesce(p_item, '') !~ '^[0-9]{1,6}$' then return; end if;
   if p_name = 'js_error' and (select count(*) from public.events where name = 'js_error' and created_at > now() - interval '1 hour') >= 500 then return; end if;
   insert into public.events (name, page, item) values (p_name, left(p_page, 120), left(p_item, 80));
@@ -405,6 +406,7 @@ begin
     'sql-019', to_regclass('public.pages') is not null,
     'sql-020', to_regclass('public.page_consents') is not null,
     'sql-021', to_regclass('public.page_pro_log') is not null,
+    'sql-022', to_regclass('public.biz_leads') is not null,
     'books', (select count(*) from storage.objects where bucket_id = 'paid-files'),
     'todos', coalesce((select jsonb_object_agg(key, done_at) from public.ops_todos where done_at is not null), '{}')
   );

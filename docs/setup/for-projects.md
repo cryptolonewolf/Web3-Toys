@@ -87,3 +87,35 @@ Set them back to `false` afterwards.
 All in US dollars, in `data/business/`. The deposit is `price x deposit`
 (50%). Payments read these files directly, so a price change is live as soon
 as the site updates.
+
+## Test Your Product: the new sales flow (10 minutes)
+
+1. Supabase, **SQL Editor**: run `supabase/017_ops.sql` again (safe), then
+   `supabase/022_test_funnel.sql`.
+2. **Edge Functions**: paste `create-order` and `crypto-order` again (round
+   deposits $250 / $750 / $1,500 and the founding offer deposits). Until you
+   do, checkout still charges the old $249.50 / $749.50 / $1,499.50.
+3. Deploy the new `lead-emails` function (Verify JWT off). Run
+   `supabase/018_ops_schedule.sql` again with your project and password: it
+   now also sends the day 1 and day 3 follow-ups (11:00 India time). They go
+   out only once `RESEND_API_KEY` is set.
+
+Settings you control (no code):
+- `data/business/test_tiers.json`: prices, `depositUsd`, `popularLabel`,
+  `guarantee`, and `foundingOffer` (set `left` to the slots still open; at 0
+  the banner hides and the discounted deposits stop being sold).
+- `data/business/test_page.json`: all words, the FAQ, the comparison table,
+  the video (`video.src`), and `caseStudies` (hidden while empty; real ones
+  only).
+- `config.js` `social.x` and `social.telegram`: the Talk to Aki buttons
+  (until they are set, the button opens your call booking link).
+
+What changed for things already running:
+- Step 1 of the form (name, email, test) is saved as a lead at once; the
+  request itself (step 2) still needs a login, so the deposit can be paid.
+- Tasks and network are no longer on the form: agree them on the setup call
+  and type them when you make the test in admin (Tests & payouts, New test).
+- Testers now also tick a confidentiality rule before each test.
+- Admin, **Test requests** shows the funnel at the top: page views, tier
+  clicks, form started, step 1 done, request sent, deposit paid, plus the
+  leads list.

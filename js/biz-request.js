@@ -24,7 +24,7 @@
 
   function money(n) { var f = Number(n) % 1 ? 2 : 0; return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: f, maximumFractionDigits: f }); }
   function tier(id) { return opts.tiers.tiers.filter(function (t) { return t.id === id; })[0]; }
-  function deposit(t) { return Math.round(t.price * (Number(opts.tiers.deposit) || 0.5) * 100) / 100; }
+  function deposit(t) { return Number(t.depositUsd) > 0 ? Number(t.depositUsd) : Math.round(t.price * (Number(opts.tiers.deposit) || 0.5) * 100) / 100; }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(draft)); } catch (e) { /* private mode */ } }
 
   function field(k, label, type, req, extra) {
@@ -33,7 +33,9 @@
     var input = type === 'area'
       ? '<textarea class="field field--area" rows="3" id="' + id + '" data-f="' + k + '" maxlength="' + (k === 'idea' ? 2000 : 1200) + '"' + (req ? ' required' : '') + '>' + esc(v) + '</textarea>'
       : '<input class="field" id="' + id + '" data-f="' + k + '" type="' + type + '"' + (req ? ' required' : '') + (extra || '') + ' value="' + esc(v) + '" />';
-    return '<div class="stack stack--tight"><label class="label" for="' + id + '">' + esc(label) + (req ? '' : ' <span class="small-print">(optional)</span>') + '</label>' + input + '</div>';
+    // Labels that already say "(optional)" or "(if you know)" do not get it twice.
+    var optional = req || /\((optional|if you)/i.test(label) ? '' : ' <span class="small-print">(optional)</span>';
+    return '<div class="stack stack--tight"><label class="label" for="' + id + '">' + esc(label) + optional + '</label>' + input + '</div>';
   }
 
   function render() {

@@ -369,6 +369,28 @@
       });
   }
 
+  // The sales funnel for a For Projects page (supabase/022_test_funnel.sql):
+  // tier clicks, form starts, step 1 (saved leads), submitted, deposit paid.
+  function funnel(panel, kind) {
+    db().rpc('admin_biz_funnel', { p_kind: kind, p_days: days }).then(must).then(function (f) {
+      var stages = [['Page views', f.views], ['Tier clicks', f.tier], ['Form started', f.start], ['Step 1 done', f.step1], ['Request sent', f.submit], ['Deposit paid', f.paid]];
+      var top = Math.max(1, f.views || 0, f.tier || 0, f.start || 0);
+      var box = document.createElement('section');
+      box.className = 'card stack stack--tight adm-funnel';
+      box.innerHTML = '<h3 class="title-sm">Funnel, last ' + days + ' days</h3><ol class="adm-funnel-list">' + stages.map(function (st, i) {
+        var prev = i ? stages[i - 1][1] : null;
+        return '<li><span>' + st[0] + '</span><span class="adm-funnel-bar"><i style="width:' + Math.round((Number(st[1]) || 0) / top * 100) + '%"></i></span><b>' + (Number(st[1]) || 0) + '</b>' +
+          '<span class="small-print">' + (prev ? Math.round((Number(st[1]) || 0) / prev * 100) + '%' : '') + '</span></li>';
+      }).join('') + '</ol>' +
+        ((f.leads || []).length ? '<details><summary class="small-print">Leads from step 1 (' + f.leads.length + ')</summary><ul class="ops-detail">' + f.leads.map(function (l) {
+          return '<li><b>' + esc(l.name) + '</b> · <a href="mailto:' + esc(l.email) + '">' + esc(l.email) + '</a> · ' + esc(l.tier || '') + ' · ' + esc(date(l.created_at)) +
+            (l.requested ? ' · sent the request' : l.unsubscribed_at ? ' · unsubscribed' : l.emailed_day3 ? ' · followed up twice' : l.emailed_day1 ? ' · followed up once' : '') + '</li>';
+        }).join('') + '</ul></details>' : '') +
+        '<p class="small-print">Tier clicks and form starts are counted without names. Step 1 counts saved leads; deposits count paid orders.</p>';
+      panel.insertBefore(box, panel.firstChild);
+    }).catch(function () { /* runs once 022_test_funnel.sql is in */ });
+  }
+
   function bizRequests(panel, kind) {
     return Promise.all([
       load('biz-' + kind, function () { return db().from('biz_requests').select('*').eq('kind', kind).order('created_at', { ascending: false }).then(must); }),
@@ -406,6 +428,7 @@
             '<p class="small-print" data-msg aria-live="polite"></p></article>';
         }).join('') : '<p class="text">No requests yet. They arrive from the ' + (kind === 'toy' ? 'Launch Your Own Toy' : 'Test Your Product') + ' page.</p>');
       bindCsv(panel);
+      if (kind === 'test') funnel(panel, kind);
       panel.querySelectorAll('[data-biz]').forEach(function (card) {
         var msg = card.querySelector('[data-msg]');
         var save = function (status) {

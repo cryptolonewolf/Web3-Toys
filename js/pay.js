@@ -26,10 +26,16 @@
     var add = function (kind, file, label) {
       if (!file || !Array.isArray(file.tiers)) return;
       var share = Number(file.deposit) || 0.5;
+      // Founding offer: discounted deposits, sold only while slots are left.
+      var fo = file.foundingOffer;
+      var founding = fo && fo.on === true && Number(fo.left) > 0 && Number(fo.discount) > 0 && Number(fo.discount) < 1;
       file.tiers.forEach(function (t) {
         if (!(Number(t.price) > 0)) return;
-        out.push({ id: 'deposit-' + kind + '-' + t.id, type: 'project', perItem: true, usd: Math.round(Number(t.price) * share * 100) / 100,
-          title: label + ': ' + t.name + ' deposit (' + Math.round(share * 100) + '%)' });
+        var dep = Number(t.depositUsd) > 0 ? Number(t.depositUsd) : Math.round(Number(t.price) * share * 100) / 100;
+        out.push({ id: 'deposit-' + kind + '-' + t.id, type: 'project', perItem: true, usd: dep,
+          title: Number(t.depositUsd) > 0 ? label + ': ' + t.name + ' deposit' : label + ': ' + t.name + ' deposit (' + Math.round(share * 100) + '%)' });
+        if (founding) out.push({ id: 'deposit-' + kind + '-' + t.id + '-founding', type: 'project', perItem: true, usd: Math.round(dep * (1 - Number(fo.discount)) * 100) / 100,
+          title: label + ': ' + t.name + ' deposit (founding offer, ' + Math.round(Number(fo.discount) * 100) + '% off)' });
       });
     };
     add('toy', toy, 'Launch Your Own Toy');

@@ -15,6 +15,11 @@
       "text": "Coins for every approved test (site points, no cash value)."
     },
     {
+      "icon": "🧪",
+      "title": "A Tester badge",
+      "text": "Shown on your My Progress page after your first approved test."
+    },
+    {
       "icon": "📄",
       "title": "Free full reports",
       "text": "Every toy's full report is free while you are a tester."
@@ -45,6 +50,10 @@
     {
       "id": "stop",
       "text": "If anything asks for a recovery phrase, I stop and report it."
+    },
+    {
+      "id": "confidential",
+      "text": "I will keep everything about this product confidential, and take screenshots only inside the report, never to share elsewhere."
     }
   ],
   "safetyTitle": "Before you start",

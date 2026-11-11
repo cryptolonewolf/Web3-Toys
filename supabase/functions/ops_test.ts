@@ -72,3 +72,12 @@ Deno.test('page-emails: the Pro reminder names the end date and the ways to rene
   assert(m.html.includes('1 December 2026') && m.html.includes('/launch-your-toy/') && m.html.includes('/academy/list-your-project/') && m.html.includes('/test-your-product/'));
   assert(!m.html.includes('<script'));
 });
+
+Deno.test('lead-emails: short, one link back to the form, unsubscribe link, no promises', async () => {
+  const { email } = await import('./lead-emails/index.ts');
+  const d1 = email({ name: 'Ann Tester', kind: 'test', which: 'day1' }, 'https://web3.toys', 'https://u/x');
+  assert(d1.html.includes('Hi Ann,') && d1.html.includes('https://web3.toys/test-your-product/?resume=1#request') && d1.html.includes('https://u/x'));
+  assertEquals((d1.html.match(/href="https:\/\/web3\.toys/g) || []).length, 1);
+  const d3 = email({ name: '', kind: 'test', which: 'day3' }, 'https://web3.toys', 'https://u/x');
+  assert(d3.subject.includes('Still want') && d3.html.includes('Hi there,'));
+});

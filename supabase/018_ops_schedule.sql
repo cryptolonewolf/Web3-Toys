@@ -55,6 +55,21 @@ select cron.schedule(
   $$
 );
 
+-- Follow-ups to leads who did not pay the deposit (11:00 India time).
+select cron.unschedule('web3toys-lead-emails')
+where exists (select 1 from cron.job where jobname = 'web3toys-lead-emails');
+select cron.schedule(
+  'web3toys-lead-emails',
+  '30 5 * * *',
+  $$
+  select net.http_post(
+    url := 'https://YOUR-PROJECT.supabase.co/functions/v1/lead-emails',
+    headers := jsonb_build_object('Content-Type', 'application/json', 'x-cron-key', 'CRON-PASSWORD'),
+    body := '{}'::jsonb
+  );
+  $$
+);
+
 -- Old site-health rows are removed after 90 days (every day at 4:00 UTC).
 select cron.unschedule('web3toys-ops-tidy')
 where exists (select 1 from cron.job where jobname = 'web3toys-ops-tidy');

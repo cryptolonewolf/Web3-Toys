@@ -1,70 +1,117 @@
 {
-  "_help": "Words for /test-your-product/ (js/biz-test.js). Prices and tiers: test_tiers.json. sample: the made-up sample report (always labelled as a sample).",
+  "_help": "Words for /test-your-product/ (js/biz-test.js). Prices, deposits, the guarantee and the founding offer are in test_tiers.json. sample: made-up data for the preview and the full sample report (always labelled Sample data). video: set src to a video file path (for example assets/video/test-walkthrough.mp4) to replace the placeholder. caseStudies: stays hidden while empty; add real ones only, as { project, quote, who, result, link } (no made-up logos, quotes or numbers). who: the Talk to Aki buttons use social.x and social.telegram from config.js.",
   "review": true,
   "label": "For projects",
-  "title": "Test it before launch. Real people, real confusion, real fixes.",
+  "title": "Test it before launch.",
+  "subtitle": "Real people, real confusion, real fixes.",
   "intro": "Real web3 players try your product on a testnet, task by task, with a timer. You see where they finish, where they get stuck and what they say, before your users do.",
-  "benefitsTitle": "What you get",
-  "benefits": [
-    { "icon": "🧑‍🤝‍🧑", "title": "Real players, not bots", "text": "Every tester has earned web3.toys certificates, so they know the basics." },
-    { "icon": "⏱️", "title": "Where people get stuck", "text": "Completion rate and time for every task, and exactly where people gave up." },
-    { "icon": "💬", "title": "Their words, their screenshots", "text": "Short comments and screenshots you can hand straight to your team." },
-    { "icon": "🔁", "title": "A retest", "text": "Fix the worst problem, then we test it again (Standard and up)." },
-    { "icon": "🛡️", "title": "Safe by design", "text": "Testnets or fresh empty wallets only. Testers never use real funds or recovery phrases." },
-    { "icon": "📄", "title": "A branded report", "text": "A PDF report you can share with your team and investors." }
-  ],
-  "sampleTitle": "See a sample report",
-  "sampleLine": "Made-up data, to show what you get.",
+  "previewTitle": "What you get back",
+  "previewLine": "A report like this, for your own tasks.",
+  "sampleLabel": "Sample data",
+  "sampleLink": "Open the full sample report",
   "sample": {
     "test": {
       "project": "ExampleSwap",
       "title": "First swap on testnet",
       "network_note": "Sepolia testnet",
       "tasks": [
-        { "id": "t1", "title": "Create an account and connect a wallet" },
-        { "id": "t2", "title": "Get test tokens from the faucet" },
+        { "id": "t1", "title": "Connect a wallet" },
+        { "id": "t2", "title": "Get test tokens" },
         { "id": "t3", "title": "Make a test swap" },
         { "id": "t4", "title": "Find the slippage setting" }
       ]
     },
     "runs": [
-      { "status": "approved", "results": [ { "outcome": "done", "seconds": 62, "rating": 4, "comment": "Easy, the connect button is clear." }, { "outcome": "done", "seconds": 140, "rating": 3, "comment": "The faucet link was hard to find." }, { "outcome": "done", "seconds": 75, "rating": 4, "comment": "" }, { "outcome": "stuck", "seconds": 180, "rating": 2, "comment": "I looked everywhere. It is hidden behind the gear icon?" } ] },
-      { "status": "approved", "results": [ { "outcome": "done", "seconds": 48, "rating": 5, "comment": "" }, { "outcome": "gave_up", "seconds": 300, "rating": 1, "comment": "Faucet said 'rate limited' and nothing explained why." }, { "outcome": "done", "seconds": 90, "rating": 4, "comment": "Swap worked, the confirmation screen was nice." }, { "outcome": "done", "seconds": 120, "rating": 3, "comment": "Found it after a while." } ] },
+      { "status": "approved", "results": [ { "outcome": "done", "seconds": 62, "rating": 4, "comment": "Easy, the connect button is clear." }, { "outcome": "done", "seconds": 140, "rating": 3, "comment": "The faucet link was hard to find." }, { "outcome": "done", "seconds": 75, "rating": 4, "comment": "" }, { "outcome": "stuck", "seconds": 180, "rating": 2, "comment": "I looked everywhere. Is it hidden behind the gear icon?" } ] },
+      { "status": "approved", "results": [ { "outcome": "done", "seconds": 48, "rating": 5, "comment": "" }, { "outcome": "gave_up", "seconds": 300, "rating": 1, "comment": "The faucet said 'rate limited' and nothing explained why." }, { "outcome": "done", "seconds": 90, "rating": 4, "comment": "Swap worked, the confirmation screen was nice." }, { "outcome": "done", "seconds": 120, "rating": 3, "comment": "Found it after a while." } ] },
       { "status": "approved", "results": [ { "outcome": "done", "seconds": 85, "rating": 4, "comment": "" }, { "outcome": "done", "seconds": 95, "rating": 3, "comment": "" }, { "outcome": "stuck", "seconds": 210, "rating": 2, "comment": "Kept getting 'insufficient gas', did not know what that meant." }, { "outcome": "gave_up", "seconds": 240, "rating": 1, "comment": "Could not find any settings." } ] }
-    ]
+    ],
+    "quotes": [2, 5, 1]
+  },
+  "video": {
+    "title": "See a test in 60 seconds",
+    "src": "",
+    "poster": "",
+    "placeholder": "A 60 second walkthrough is coming soon."
   },
   "pricingTitle": "Pick your test",
   "stepsTitle": "How it works",
   "steps": [
-    { "title": "Request", "text": "Send the form with your testnet link and the tasks you want tested. Pay a 50% deposit to reserve a slot." },
-    { "title": "We set it up", "text": "We check your project, write clear tasks with you and open the test to testers who qualify." },
-    { "title": "People test", "text": "Testers work through each task with a timer, rate it and tell us where they got stuck." },
-    { "title": "Your report", "text": "You get the report with numbers, quotes and screenshots, and a retest on Standard and up." }
+    { "title": "Request", "text": "Send the short form. Pay the deposit to reserve your slot, or book a call first." },
+    { "title": "15 minute setup call", "text": "We check your project and write the tasks with you." },
+    { "title": "Players test", "text": "Checked players work through each task with a timer and tell us where they got stuck." },
+    { "title": "Your report", "text": "Numbers, quotes and screenshots, ready to share with your team." }
   ],
-  "rulesTitle": "The safety rules every tester follows",
-  "rules": [
-    "Tests use a testnet or a fresh, empty wallet only.",
-    "Never use real funds.",
-    "Never enter a recovery (seed) phrase anywhere.",
-    "Stop and report it if anything asks for one."
-  ],
-  "testerTitle": "Are you a player? Become a tester",
-  "testerLine": "Test new web3 products on testnets, get paid in stablecoins for each approved test, plus coins and free full reports. Explorer rank and up.",
-  "form": {
-    "project": "Project name",
-    "website": "Website",
-    "x": "X handle",
-    "email": "Contact email",
-    "product": "What does your product do, in two sentences?",
-    "launch": "When do you launch? (if you know)",
-    "tier": "Test",
-    "idea": "Anything else we should know (optional)",
-    "agree": "I understand every project is vetted first, testers only ever use testnets or empty wallets, and the deposit is refunded in full if you decline.",
-    "submit": "Send request"
+  "compareTitle": "Why not just…",
+  "compare": {
+    "columns": ["web3.toys test", "KOL posts", "Quest platforms", "Asking friends"],
+    "rows": [
+      { "label": "Real users", "cells": ["Checked players who passed our quizzes", "Followers scrolling past", "People chasing rewards", "People who already like you"] },
+      { "label": "Useful insight", "cells": ["Where people get stuck, timed, with quotes and screenshots", "Likes and views", "Clicks and wallet counts", "Polite feedback"] },
+      { "label": "Cost", "cells": ["Fixed price, from $499", "Paid per post", "Rewards pool plus platform fees", "Free, but costs favours"] },
+      { "label": "Speed", "cells": ["Results in 5 to 14 days", "Fast, but no answers", "Days to weeks", "Whenever they have time"] }
+    ]
   },
-  "testLink": "Link testers should use (testnet or staging)",
-  "testTasks": "Tasks you want tested, one per line (for example: create an account, make a test swap, find the settings)",
-  "afterTitle": "Request received",
-  "afterLine": "Reserve your test slot with a 50% deposit, or book a call first.",
-  "loginNote": "Log in first so you can follow your request. Your answers stay on this page."
+  "safeTitle": "Safe and confidential",
+  "confidential": [
+    "Before every test, each tester agrees to keep what they see confidential.",
+    "Testers agree to take screenshots only inside the report, and never to share them anywhere else.",
+    "Standard and Launch Ready can add your own NDA, which testers accept before they start.",
+    "Screenshots are stored privately: only you and our team can see them."
+  ],
+  "rules": [
+    "Testnets or fresh, empty wallets only. Never real funds.",
+    "Testers never enter a recovery phrase, and stop and report anything that asks for one."
+  ],
+  "caseTitle": "Case studies",
+  "caseStudies": [],
+  "who": {
+    "title": "Who runs this",
+    "name": "Run by Aki, building in web3 since 2019",
+    "line": "I test every product myself before it goes to players, and I read every report before you do.",
+    "talk": "Talk to Aki"
+  },
+  "faqTitle": "Questions",
+  "faq": [
+    { "q": "How are testers chosen and checked?", "a": "Testers are web3.toys players aged 18 or over with Explorer rank, which means they passed at least two of our quizzes. Before every test they accept the safety and confidentiality rules. Every task is timed, and we review each test before it counts: rushed or copied tests are rejected and replaced." },
+    { "q": "What if too few testers join?", "a": "If fewer testers finish than your tier promises, we extend the test until they do, or refund the difference. You choose." },
+    { "q": "How long does it take?", "a": "Quick Test about 5 days, Standard about a week, Launch Ready about 2 weeks including a retest of your fixes. The clock starts after the setup call." },
+    { "q": "Can we get a refund?", "a": "Your deposit is refunded in full if we decline your project after vetting. Once your test is running, the guarantee above applies." },
+    { "q": "What do you need from us?", "a": "A link testers can use (testnet or staging), test tokens or a faucet if your product needs them, and 15 minutes on a call to agree the tasks. We write the tasks with you." },
+    { "q": "Can we use our own NDA?", "a": "Yes, on Standard and Launch Ready. Send it before the test opens and every tester accepts it before they start." }
+  ],
+  "formTitle": "Request a test",
+  "form": {
+    "step1": "About you",
+    "step2": "About your product",
+    "name": "Your name",
+    "email": "Contact email",
+    "tier": "Test",
+    "next": "Next",
+    "back": "Back",
+    "project": "Project name",
+    "link": "Website or testnet link",
+    "launch": "Launch date (if you know it)",
+    "note": "Anything we should know? A sentence or two is plenty.",
+    "founding": "Apply for the founding offer (40% off in exchange for a case study)",
+    "submit": "Send request",
+    "callLink": "Not sure which test? Book a 15 minute call",
+    "reply": "We reply within 24 hours, book a 15 minute setup call, and your test opens within 3 days."
+  },
+  "thanks": {
+    "title": "Request received",
+    "next": [
+      "Book your 15 minute setup call below (or we will email you within 24 hours).",
+      "On the call we check your project and write the tasks with you.",
+      "Your test opens within 3 days of the call."
+    ],
+    "book": "Book the setup call",
+    "deposit": "Reserve your slot now",
+    "share": "Copy link to share with a co-founder",
+    "copied": "Link copied"
+  },
+  "loginNote": "Log in so you can follow your request and pay the deposit. Your answers stay on this page.",
+  "stickyCta": "Request a test",
+  "testerTitle": "Are you a player? Become a tester",
+  "testerLine": "Test new web3 products before anyone else. Earn coins, a Tester badge and free full reports. No token rewards, ever."
 }

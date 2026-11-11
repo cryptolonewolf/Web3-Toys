@@ -9,7 +9,7 @@
 
 const env = (k: string) => Deno.env.get(k) || '';
 const FN = 'crypto-order';
-const VERSION = 3; // raise when this file changes in a way the admin to-do list should know about
+const VERSION = 4; // raise when this file changes in a way the admin to-do list should know about
 
 const API = 'https://api.paymento.io';
 const CORS = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type', 'Access-Control-Allow-Methods': 'POST, OPTIONS' };
@@ -78,10 +78,16 @@ export function businessProducts(toy: any, test: any, ads?: any, pages?: any) {
   const add = (kind: string, file: any, label: string) => {
     if (!file || !Array.isArray(file.tiers)) return;
     const share = Number(file.deposit) || 0.5;
+    // Founding offer: discounted deposits, sold only while slots are left.
+    const fo = file.foundingOffer;
+    const founding = fo && fo.on === true && Number(fo.left) > 0 && Number(fo.discount) > 0 && Number(fo.discount) < 1;
     file.tiers.forEach((t: any) => {
       if (!(Number(t.price) > 0)) return;
-      out.push({ id: `deposit-${kind}-${t.id}`, type: 'project', perItem: true, usd: Math.round(Number(t.price) * share * 100) / 100,
-        title: `${label}: ${t.name} deposit (${Math.round(share * 100)}%)` });
+      const dep = Number(t.depositUsd) > 0 ? Number(t.depositUsd) : Math.round(Number(t.price) * share * 100) / 100;
+      out.push({ id: `deposit-${kind}-${t.id}`, type: 'project', perItem: true, usd: dep,
+        title: Number(t.depositUsd) > 0 ? `${label}: ${t.name} deposit` : `${label}: ${t.name} deposit (${Math.round(share * 100)}%)` });
+      if (founding) out.push({ id: `deposit-${kind}-${t.id}-founding`, type: 'project', perItem: true, usd: Math.round(dep * (1 - Number(fo.discount)) * 100) / 100,
+        title: `${label}: ${t.name} deposit (founding offer, ${Math.round(Number(fo.discount) * 100)}% off)` });
     });
   };
   add('toy', toy, 'Launch Your Own Toy');

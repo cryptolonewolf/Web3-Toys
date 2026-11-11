@@ -26,10 +26,11 @@ describe('Test Your Product', () => {
     tiers.tiers.forEach((t) => { assert.ok(t.price > 0 && t.testers > 0, t.id); });
   });
 
-  it('asks for all four safety rules on the page and in the database', () => {
+  it('asks for the safety rules and the confidentiality rule on the page and in the database', () => {
     const page = json('data/business/testers_page.json');
-    assert.deepEqual(page.safety.map((s) => s.id).sort(), ['noFunds', 'noSeed', 'stop', 'testnet']);
-    ['testnet', 'noFunds', 'noSeed', 'stop'].forEach((k) => assert.ok(sql.includes(`p_safety ->> '${k}'`), k));
+    assert.deepEqual(page.safety.map((s) => s.id).sort(), ['confidential', 'noFunds', 'noSeed', 'stop', 'testnet']);
+    const latest = read('supabase/022_test_funnel.sql');
+    ['testnet', 'noFunds', 'noSeed', 'stop', 'confidential'].forEach((k) => assert.ok(latest.includes(`p_safety ->> '${k}'`), k));
   });
 
   it('refuses recovery phrases and private keys in the page and the database', () => {
@@ -263,5 +264,29 @@ describe('Finish screen notes', () => {
     const sp = read('js/sponsor.js');
     assert.match(eb, /classList\.contains\('eb-line'\) \|\| el\.classList\.contains\('sponsor-result'\)/);
     assert.match(sp, /classList\.contains\('sponsor-result'\) \|\| el\.classList\.contains\('eb-line'\)/);
+  });
+});
+
+describe('Test Your Product page', () => {
+  const P = json('data/business/test_page.json');
+  const T = json('data/business/test_tiers.json');
+  it('promises no stablecoins or tokens to testers on this page', () => {
+    const all = JSON.stringify(P).toLowerCase();
+    assert.ok(!/stablecoin|usdc|usdt/.test(all));
+    assert.match(P.testerLine, /No token rewards, ever\./);
+    assert.match(P.testerLine, /Tester badge/);
+  });
+  it('has round deposits, a Recommended badge, a guarantee and a founding offer you control', () => {
+    assert.deepEqual(T.tiers.map((t) => t.depositUsd), [250, 750, 1500]);
+    assert.equal(T.popularLabel, 'Recommended');
+    assert.match(T.guarantee, /extend the test or refund the difference/);
+    assert.equal(typeof T.foundingOffer.left, 'number');
+  });
+  it('shows case studies only when real ones are added, and labels the sample', () => {
+    assert.deepEqual(P.caseStudies, []);
+    assert.equal(P.sampleLabel, 'Sample data');
+    const js = read('js/biz-test.js');
+    assert.ok(js.includes("if (!(P.caseStudies || []).length) return '';"));
+    assert.ok(js.includes("Number(f.left) > 0"));
   });
 });

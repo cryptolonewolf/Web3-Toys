@@ -466,6 +466,13 @@
       A.deleteAccount().then(function () { location.reload(); }, function (err) { msg('Could not delete: ' + err.message + '. Email us from the Contact page and we will do it.'); });
     });
     consents(A);
+    // Tester badge: after a first approved product test (is_tester, 016_tests.sql).
+    if (s.user && A && A.client && !app.querySelector('.pf-tester')) {
+      A.client.rpc('is_tester').then(function (r) {
+        var who = app.querySelector('.pf-who');
+        if (!r.error && r.data === true && who && !who.querySelector('.pf-tester')) who.insertAdjacentHTML('beforeend', '<span class="chip is-mint pf-tester" title="Tested a web3 product before launch">🧪 Tester</span>');
+      }, function () {});
+    }
     app.querySelectorAll('[data-refund-order]').forEach(function (b) {
       b.addEventListener('click', function () {
         var why = window.prompt('Why would you like a refund? (A few words is fine. See Refunds and delivery for what we can refund.)');

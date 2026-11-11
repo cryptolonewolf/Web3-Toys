@@ -15,12 +15,14 @@ const toy = JSON.parse(await Deno.readTextFile(new URL('../../data/business/toy_
 const test = JSON.parse(await Deno.readTextFile(new URL('../../data/business/test_tiers.json', import.meta.url)));
 const ads = JSON.parse(await Deno.readTextFile(new URL('../../data/business/ad_slots.json', import.meta.url)));
 
-Deno.test('deposits come from the price files, half the price, in dollars', () => {
+Deno.test('deposits come from the price files: half the price, or the exact depositUsd, in dollars', () => {
   const list = create.businessProducts(toy, test);
   const by = Object.fromEntries(list.map((p: any) => [p.id, p]));
   assertEquals(by['deposit-toy-mini'].usd, 499.5);
   assertEquals(by['deposit-toy-full'].usd, 1249.5);
-  assertEquals(by['deposit-test-quick'].usd, 249.5);
+  assertEquals(by['deposit-test-quick'].usd, 250);
+  assertEquals(by['deposit-test-standard'].usd, 750);
+  assertEquals(by['deposit-test-launch-ready'].usd, 1500);
   assert(list.every((p: any) => p.perItem && !p.inr));
   assertEquals(JSON.stringify(crypto.businessProducts(toy, test)), JSON.stringify(list));
 });
@@ -86,4 +88,16 @@ Deno.test('the yearly Pro plan exists only while pages.json switches it on, the 
   const a: any = create.businessProducts(null, null, null, on).find((p: any) => p.id === 'pro-year');
   assertEquals(a && a.usd, 199);
   assertEquals(JSON.stringify(crypto.businessProducts(null, null, null, on)), JSON.stringify(create.businessProducts(null, null, null, on)));
+});
+
+Deno.test('founding offer deposits exist only while slots are left, the same in both functions', () => {
+  const on = structuredClone(test);
+  on.foundingOffer = { on: true, left: 2, discount: 0.4 };
+  const by = Object.fromEntries(create.businessProducts(null, on).map((p: any) => [p.id, p]));
+  assertEquals(by['deposit-test-quick-founding'].usd, 150);
+  assertEquals(by['deposit-test-launch-ready-founding'].usd, 900);
+  assertEquals(JSON.stringify(crypto.businessProducts(null, on)), JSON.stringify(create.businessProducts(null, on)));
+  const off = structuredClone(test);
+  off.foundingOffer = { on: true, left: 0, discount: 0.4 };
+  assert(!create.businessProducts(null, off).some((p: any) => /founding/.test(p.id)));
 });

@@ -1,5 +1,5 @@
 {
-  "_help": "Test Your Product prices and tiers (US dollars only). deposit: share paid upfront to reserve a slot. testerShare: share of the price paid out to testers in stablecoins, split between the testers whose work is approved. testerCoins: site coins (no cash value) for each approved test. minRank: the rank a player needs to become a tester (from data/ranks.json).",
+  "_help": "Test Your Product prices and tiers (US dollars only). deposit: share paid upfront (used only when a tier has no depositUsd). depositUsd: the exact deposit for a tier. popularLabel: the badge on the tier marked popular. guarantee: the line under the prices. foundingOffer: the founding banner; set left to how many slots are still open (the banner hides at 0, and the discounted deposits stop being sold), discount is the share taken off the deposit (0.4 = 40%). testerShare: share of the price paid out to testers, split between the testers whose work is approved. testerCoins: site coins (no cash value) for each approved test. minRank: the rank a player needs to become a tester (from data/ranks.json).",
   "review": true,
   "currency": "USD",
   "deposit": 0.5,
@@ -14,7 +14,13 @@
       "price": 499,
       "testers": 10,
       "time": "5 days",
-      "features": ["10 testers", "Results in 5 days", "Completion rate and time per task", "Where people got stuck"]
+      "features": [
+        "10 testers",
+        "Results in 5 days",
+        "Completion rate and time per task",
+        "Where people got stuck"
+      ],
+      "depositUsd": 250
     },
     {
       "id": "standard",
@@ -23,7 +29,14 @@
       "testers": 30,
       "time": "About 1 week",
       "popular": true,
-      "features": ["30 testers", "A mix of beginners and experienced users", "Screenshots and tester quotes", "A retest of your first fix"]
+      "features": [
+        "30 testers",
+        "A mix of beginners and experienced users",
+        "Screenshots and tester quotes",
+        "A retest of your first fix",
+        "Add your own NDA for testers"
+      ],
+      "depositUsd": 750
     },
     {
       "id": "launch-ready",
@@ -31,7 +44,23 @@
       "price": 2999,
       "testers": 75,
       "time": "About 2 weeks",
-      "features": ["75 testers", "A full retest after your fixes", "A 30 minute review call", "Everything in Standard"]
+      "features": [
+        "75 testers",
+        "A full retest after your fixes",
+        "A 30 minute review call",
+        "Everything in Standard",
+        "Add your own NDA for testers"
+      ],
+      "depositUsd": 1500
     }
-  ]
+  ],
+  "popularLabel": "Recommended",
+  "guarantee": "If fewer testers finish than promised, we extend the test or refund the difference.",
+  "foundingOffer": {
+    "on": true,
+    "total": 5,
+    "left": 5,
+    "discount": 0.4,
+    "line": "First 5 projects get 40% off in exchange for a case study."
+  }
 }

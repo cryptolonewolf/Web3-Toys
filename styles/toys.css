@@ -7477,3 +7477,77 @@ body:has(.pay-modal) .earn-fab { display: none; }
 .biz-faq { gap: 0; border-top: 2px solid rgba(31, 27, 46, .15); }
 .biz-faq details.card { background: transparent; border: 0; border-bottom: 2px solid rgba(31, 27, 46, .15); border-radius: 0; box-shadow: none; padding: 12px 2px; }
 body:has([data-offers]) .earn-fab { display: none; }
+
+/* ---------- For Projects pages: no floating Earn button ---------- */
+body:is([data-page="launch-your-toy"], [data-page="test-your-product"], [data-page="advertise"], [data-page="list-your-project"]) .earn-fab { display: none !important; }
+
+/* ---------- Test Your Product (js/biz-test.js) ---------- */
+.tp-founding { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; padding: 10px 14px; font-size: 15px; background: var(--yellow); border: var(--line-thin); border-radius: 14px; }
+.tp-hero { gap: 10px; }
+.tp-hero .biz-title { font-size: clamp(34px, 8vw, 56px); }
+.tp-sub { margin: -4px 0 0; font: 700 clamp(19px, 4.4vw, 24px) / 1.25 var(--font-display); color: var(--ink); }
+.tp-preview .title-md { margin: 0; }
+.tp-sample { padding: 2px 10px; font: 800 11px var(--font-body); letter-spacing: .6px; text-transform: uppercase; background: var(--coral-tint); border: 2px solid var(--ink); border-radius: 999px; white-space: nowrap; }
+.tp-bars { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.tp-bars li { display: grid; grid-template-columns: minmax(0, 1fr) 46px 64px; grid-template-areas: "task task task" "bar pct time"; gap: 2px 8px; align-items: center; }
+.tp-task { grid-area: task; font-weight: 800; font-size: 14px; }
+.tp-bar { grid-area: bar; height: 12px; background: var(--track); border-radius: 999px; overflow: hidden; }
+.tp-bar i { display: block; height: 100%; background: var(--mint); border-right: 2px solid var(--ink); }
+.tp-bars b { grid-area: pct; font-size: 14px; text-align: right; }
+.tp-bars .small-print { grid-area: time; margin: 0; text-align: right; }
+.tp-quotes { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 6px; }
+.tp-quotes li { display: grid; gap: 1px; padding: 8px 10px; font-weight: 700; background: rgba(31, 27, 46, .045); border-radius: 12px; }
+.tp-quotes .small-print { margin: 0; font-weight: 600; }
+.tp-preview .text-button { justify-self: start; }
+.tp-video-ph { display: grid; place-items: center; gap: 4px; aspect-ratio: 16 / 9; max-height: 260px; background: rgba(31, 27, 46, .06); border: 2px dashed rgba(31, 27, 46, .3); border-radius: 16px; font-size: 36px; text-align: center; }
+.tp-video-ph p { margin: 0; }
+.tp-video video { width: 100%; border: var(--line-thin); border-radius: 16px; }
+.tp-guarantee { margin: 0; font-weight: 800; }
+.tp-compare-wrap { overflow-x: auto; margin: 0 -16px; padding: 0 16px 4px; }
+.tp-compare { width: 100%; min-width: 560px; border-collapse: separate; border-spacing: 0; font-size: 14px; }
+.tp-compare th, .tp-compare td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid rgba(31, 27, 46, .12); }
+.tp-compare thead th { font: 800 13px var(--font-body); }
+.tp-compare .is-us { background: #fff7d1; font-weight: 700; }
+.tp-compare thead .is-us { border-radius: 12px 12px 0 0; }
+.tp-safe .title-md { margin: 0; }
+.tp-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.tp-list li { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; }
+.tp-who { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center; }
+.tp-who .label, .tp-who .small-print { margin: 0; }
+.tp-face { width: 72px; height: 72px; border-radius: 50%; border: var(--line-thin); background: var(--yellow); object-fit: cover; }
+.tp-cases { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.tp-progress { height: 8px; background: var(--track); border-radius: 999px; overflow: hidden; }
+.tp-progress span { display: block; height: 100%; background: var(--ink); transition: width .3s; }
+.tp-form [data-steplabel] { margin: -4px 0 0; font-weight: 800; }
+.tp-submit { display: grid; gap: 6px; }
+.tp-submit .small-print { margin: 0; }
+.tp-submit .text-button { justify-self: start; }
+.tp-msg { margin: 0; }
+.tp-next { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+.tp-mine { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.tp-mine li { display: flex; gap: 10px; align-items: center; justify-content: space-between; padding: 8px 10px; background: rgba(31, 27, 46, .045); border-radius: 12px; }
+.tp-mine li div { display: grid; min-width: 0; }
+.tp-tester { padding-top: 6px; border-top: 2px solid rgba(31, 27, 46, .12); }
+.tp-tester .title-sm, .tp-tester .small-print { margin: 0; }
+.tp-tester .text-button { justify-self: start; }
+.tp-modal .pay-box { max-width: 680px; max-height: 88vh; overflow-y: auto; }
+.tp-close { justify-self: end; }
+.tp-sticky { position: fixed; left: 16px; right: 16px; bottom: max(14px, env(safe-area-inset-bottom)); z-index: 25; text-align: center; box-shadow: 4px 4px 0 var(--ink), 0 6px 24px rgba(0, 0, 0, .18); }
+@media (min-width: 700px) {
+  .tp-tiers { grid-template-columns: repeat(3, 1fr); }
+  .tp-sticky { display: none !important; }
+  .tp-bars li { grid-template-columns: 200px minmax(0, 1fr) 46px 64px; grid-template-areas: "task bar pct time"; }
+}
+.pf-tester { justify-self: start; font-weight: 800; }
+.adm-funnel-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.adm-funnel-list li { display: grid; grid-template-columns: 110px minmax(0, 1fr) 44px 40px; gap: 8px; align-items: center; font-size: 14px; }
+.adm-funnel-bar { height: 12px; background: var(--track); border-radius: 999px; overflow: hidden; }
+.adm-funnel-bar i { display: block; height: 100%; background: var(--ink); }
+.adm-funnel-list b { text-align: right; }
+.tp-video-ph, .tp-video video { max-width: 560px; }
+.tp-video-ph { max-height: 220px; }
+.tp-who .btn-row { justify-content: flex-start; }
+.tp-who .btn-row .btn { flex: 0 0 auto; width: auto; }
+.tp-bars li { grid-template-columns: minmax(0, 1fr) 46px 84px; }
+.tp-bars .small-print { white-space: nowrap; }
+@media (min-width: 700px) { .tp-bars li { grid-template-columns: 200px minmax(0, 1fr) 46px 84px; } }
