@@ -277,7 +277,11 @@ describe('Test Your Product page', () => {
     assert.match(P.testerLine, /Tester badge/);
   });
   it('has round deposits, a Recommended badge, a guarantee and a founding offer you control', () => {
-    assert.deepEqual(T.tiers.map((t) => t.depositUsd), [250, 750, 1500]);
+    // 40% off for now: the deposit and price before the sale are kept in wasDeposit and was.
+    assert.deepEqual(T.tiers.map((t) => t.depositUsd), [150, 450, 900]);
+    assert.deepEqual(T.tiers.map((t) => t.wasDeposit), [250, 750, 1500]);
+    T.tiers.forEach((t) => assert.ok(t.price <= t.was * 0.6 + 0.5, t.id));
+    assert.equal(T.foundingOffer.on, false, 'the founding offer is off while the sale runs');
     assert.equal(T.popularLabel, 'Recommended');
     assert.match(T.guarantee, /extend the test or refund the difference/);
     assert.equal(typeof T.foundingOffer.left, 'number');

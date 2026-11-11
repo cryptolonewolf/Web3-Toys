@@ -1,29 +1,29 @@
 {
-  "_help": "Sponsor a Toy prices (US dollars only) and rules. toyMonth: price for one toy for one calendar month, by toy id (new toys start at the newToy price; raise them here after their first month). roundToys: toys that can take a sponsored round (+sponsoredRound per month). siteWide: a sponsor card on every toy without its own sponsor that month. newsletter: one newsletter issue (the first issue of the month you pick). Allowed categories and rules are shown on /advertise/ and checked when you approve a booking.",
+  "_help": "Sponsor a Toy prices (US dollars only) and rules. toyMonth: price for one toy for one calendar month, by toy id (new toys start at the newToy price; raise them here after their first month). roundToys: toys that can take a sponsored round (+sponsoredRound per month). siteWide: a sponsor card on every toy without its own sponsor that month. newsletter: one newsletter issue (the first issue of the month you pick). Allowed categories and rules are shown on /advertise/ and checked when you approve a booking. sale: while set, every price here is already 40% lower and the page shows the old price (price / 0.6) crossed out. To end the sale, divide every price by 0.6 and remove sale.",
   "review": true,
   "currency": "USD",
   "toyMonth": {
-    "scam": 500,
-    "crypto-in-5": 500,
-    "getting-started": 350,
-    "dont-lose-money": 350,
-    "web3-hacks": 350,
-    "earn-small": 350,
-    "dead-projects": 350,
-    "invest-100": 350,
-    "token-split": 350,
-    "token-simulator": 350,
-    "hall-of-fame": 350,
-    "web3-roles": 200,
-    "tokenomics-basics": 200,
-    "ways-to-moon": 200,
-    "first-job": 200,
-    "raise-first-round": 200
+    "scam": 300,
+    "crypto-in-5": 300,
+    "getting-started": 210,
+    "dont-lose-money": 210,
+    "web3-hacks": 210,
+    "earn-small": 210,
+    "dead-projects": 210,
+    "invest-100": 210,
+    "token-split": 210,
+    "token-simulator": 210,
+    "hall-of-fame": 210,
+    "web3-roles": 120,
+    "tokenomics-basics": 120,
+    "ways-to-moon": 120,
+    "first-job": 120,
+    "raise-first-round": 120
   },
-  "newToy": 200,
-  "sponsoredRound": 300,
-  "siteWide": 1500,
-  "newsletter": 150,
+  "newToy": 120,
+  "sponsoredRound": 180,
+  "siteWide": 900,
+  "newsletter": 90,
   "lineMax": 80,
   "logoMaxKb": 300,
   "monthsAhead": 6,
@@ -48,5 +48,9 @@
     "earn-small",
     "web3-roles",
     "scam"
-  ]
+  ],
+  "sale": {
+    "off": 0.4,
+    "line": "40% off for now"
+  }
 }

@@ -33,20 +33,20 @@
   }
 
   function render() {
-    var addons = (T.addons || []).map(function (a) { return esc(a.name) + ' ' + (a.price ? K.money(a.price) : '(' + esc(a.note || 'quoted') + ')'); }).join(' · ');
+    var addons = (T.addons || []).map(function (a) { return esc(a.name) + ' ' + (a.price ? (a.was ? '<s>' + K.money(a.was) + '</s> ' : '') + K.money(a.price) : '(' + esc(a.note || 'quoted') + ')'); }).join(' · ');
     app.innerHTML =
       K.pair(K.hero(P, '<a class="btn" href="#pricing">See prices</a>'), K.list(P.getTitle, P.get)) +
-      examples() +
-      K.pricing(P.pricingTitle, T.tiers, {
-        label: T.popularLabel, guarantee: T.guarantee,
-        note: function (t) { return K.money(deposit(t)) + ' deposit reserves your slot.'; },
-        extra: addons ? '<p class="small-print"><b>Add-ons:</b> ' + addons + '</p>' : '',
-      }) +
-      K.pair(K.steps(P.stepsTitle, P.steps), K.video(P.video)) +
-      K.compare(P.compareTitle, P.compare) +
-      K.who(P.who) +
-      K.cases(P.caseTitle, P.caseStudies) +
-      K.pair(K.faq(P.faqTitle, P.faq), K.section(esc(P.formTitle), '<div data-form></div><div data-mine></div>', 'bk-request', 'request')) +
+      K.tabs([
+        { id: 'prices', label: 'Prices', html: K.pricing(P.pricingTitle, T.tiers, {
+          label: T.popularLabel, guarantee: T.guarantee, sale: T.sale,
+          note: function (t) { return K.money(deposit(t)) + ' deposit reserves your slot.'; },
+          extra: addons ? '<p class="small-print"><b>Add-ons:</b> ' + addons + '</p>' : '',
+        }) + K.compare(P.compareTitle, P.compare) },
+        { id: 'examples', label: 'Examples', html: examples() },
+        { id: 'how', label: 'How it works', html: K.pair(K.steps(P.stepsTitle, P.steps), K.video(P.video)) },
+        { id: 'about', label: 'Who we are', html: K.who(P.who) + K.cases(P.caseTitle, P.caseStudies) },
+        { id: 'start', label: 'Get started', html: K.pair(K.section(esc(P.formTitle), '<div data-form></div><div data-mine></div>', 'bk-request', 'request'), K.faq(P.faqTitle, P.faq)) },
+      ]) +
       '<p class="tool-disclaimer">web3.toys does not endorse any token. No token rewards, ever. Not financial advice.</p>';
 
     ctl = K.form(app.querySelector('[data-form]'), {
@@ -78,6 +78,7 @@
     });
     mine();
     K.sticky(app, P.stickyCta);
+    K.bindTabs(app);
   }
 
   function pay(t, id, msg) {

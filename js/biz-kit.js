@@ -22,7 +22,7 @@
   function money(n) { var f = Number(n) % 1 ? 2 : 0; return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: f, maximumFractionDigits: f }); }
   function log(name, kind) { if (site.log) site.log(name, kind); }
   function calUrl() { return (CFG.call || {}).calUrl || (site.root + 'book-a-call/'); }
-  function scrollTo(el) { if (el) el.scrollIntoView({ behavior: site.fx && site.fx.calm() ? 'auto' : 'smooth', block: 'start' }); }
+  function scrollTo(el) { reveal(el); if (el) el.scrollIntoView({ behavior: site.fx && site.fx.calm() ? 'auto' : 'smooth', block: 'start' }); }
 
   // The database, as the logged-in player when there is one, else as a visitor.
   function rpc(fn, args) {
@@ -40,7 +40,7 @@
   function pair(a, b) { return a && b ? '<div class="bk-pair">' + a + b + '</div>' : (a || b || ''); }
 
   function hero(P, extra) {
-    return '<section class="bk-hero stack stack--tight"><p class="label">' + esc(P.label) + '</p><h1 class="biz-title">' + esc(P.title) + '</h1>' +
+    return '<section class="card bk-sec bk-hero"><p class="label">' + esc(P.label) + '</p><h1 class="biz-title">' + esc(P.title) + '</h1>' +
       (P.subtitle ? '<p class="bk-sub">' + esc(P.subtitle) + '</p>' : '') + (P.intro ? '<p class="text">' + esc(P.intro) + '</p>' : '') +
       '<div class="btn-row"><a class="btn btn--ink" href="#request" data-cta>' + esc(P.ctaPrimary || 'Get started') + '</a>' + (extra || '') + '</div></section>';
   }
@@ -50,11 +50,11 @@
     return '<aside class="bk-banner" role="note"><span>🎉 <b>Founding offer:</b> ' + esc(offer.line) + ' <b>' + offer.left + ' of ' + offer.total + ' slots left.</b></span><button type="button" class="btn btn--small btn--ink" data-apply-founding>Apply</button></aside>';
   }
 
-  // tiers: [{ id, name, price, time, features, popular }]; o: { label, deposit(t), note(t), guarantee, choose }
+  // tiers: [{ id, name, price, was (the price before a sale), time, features, popular }]; o: { label, sale (tag next to the title), note(t), guarantee, choose }
   function pricing(title, tiers, o) {
-    return section(esc(title), '<ul class="biz-tiers bk-tiers">' + tiers.map(function (t) {
+    return section(esc(title) + (o.sale ? ' <span class="bk-tag bk-off">' + esc(o.sale) + '</span>' : ''), '<ul class="biz-tiers bk-tiers">' + tiers.map(function (t) {
       return '<li class="bk-tier' + (t.popular ? ' is-popular' : '') + '">' + (t.popular ? '<span class="chip is-yellow biz-popular">' + esc(o.label || 'Recommended') + '</span>' : '') +
-        '<h3 class="title-md">' + esc(t.name) + '</h3><p class="biz-price">' + money(t.price) + '</p>' + (t.time ? '<p class="small-print">' + esc(t.time) + '</p>' : '') +
+        '<h3 class="title-md">' + esc(t.name) + '</h3><p class="biz-price">' + (Number(t.was) > Number(t.price) ? '<s class="bk-was">' + money(t.was) + '</s> ' : '') + money(t.price) + '</p>' + (t.time ? '<p class="small-print">' + esc(t.time) + '</p>' : '') +
         '<ul class="biz-feats">' + (t.features || []).map(function (x) { return '<li>' + site.icon('check') + '<span>' + esc(x) + '</span></li>'; }).join('') + '</ul>' +
         '<button type="button" class="btn btn--block' + (t.popular ? ' btn--ink' : '') + '" data-tier="' + esc(t.id) + '">' + esc(o.choose || 'Choose') + ' ' + esc(t.name) + '</button>' +
         (o.note ? '<p class="small-print">' + o.note(t) + '</p>' : '') + '</li>';
@@ -246,6 +246,67 @@
     if (o.after) o.after();
   }
 
+  // ---------- Tabs: long pages show one group of sections at a time ----------
+  // items: [{ id, label, html }]. Links to anything inside a hidden tab
+  // (#pricing, #request, the sticky button) open that tab first.
+  function tabs(items) {
+    items = items.filter(function (x) { return x.html; });
+    return '<div class="bk-tabs-top" data-tabs-top></div><nav class="bk-tabs" role="tablist" aria-label="Sections">' + items.map(function (x, i) {
+      return '<button type="button" role="tab" class="bk-tab" id="bk-tab-' + x.id + '" aria-controls="bk-panel-' + x.id + '" aria-selected="' + (i === 0) + '"' + (i ? ' tabindex="-1"' : '') + ' data-tab="' + x.id + '">' + esc(x.label) + '</button>';
+    }).join('') + '</nav>' + items.map(function (x, i) {
+      return '<div class="bk-panel" role="tabpanel" id="bk-panel-' + x.id + '" aria-labelledby="bk-tab-' + x.id + '" data-panel="' + x.id + '"' + (i ? ' hidden' : '') + '>' + x.html + '</div>';
+    }).join('');
+  }
+  function openTab(id, focus) {
+    var bar = document.querySelector('.bk-tabs');
+    if (!bar) return;
+    bar.querySelectorAll('[data-tab]').forEach(function (b) {
+      var on = b.getAttribute('data-tab') === id;
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+      b.tabIndex = on ? 0 : -1;
+      if (on && focus) b.focus();
+      if (on && b.scrollIntoView && bar.scrollWidth > bar.clientWidth) bar.scrollLeft = b.offsetLeft - 16;
+    });
+    document.querySelectorAll('[data-panel]').forEach(function (p) { p.hidden = p.getAttribute('data-panel') !== id; });
+  }
+  function reveal(el) {
+    var p = el && el.closest && el.closest('[data-panel]');
+    if (p && p.hidden) openTab(p.getAttribute('data-panel'));
+  }
+  function bindTabs(app) {
+    var bar = app.querySelector('.bk-tabs');
+    if (!bar) return;
+    var top = app.querySelector('[data-tabs-top]');
+    var tabsOf = function () { return Array.prototype.slice.call(bar.querySelectorAll('[data-tab]')); };
+    bar.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-tab]');
+      if (!b) return;
+      openTab(b.getAttribute('data-tab'));
+      if (top && top.getBoundingClientRect().top < 0) top.scrollIntoView({ block: 'start' });
+    });
+    bar.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      var all = tabsOf();
+      var i = all.indexOf(document.activeElement);
+      if (i < 0) return;
+      var n = all[(i + (e.key === 'ArrowRight' ? 1 : all.length - 1)) % all.length];
+      openTab(n.getAttribute('data-tab'), true);
+      e.preventDefault();
+    });
+    app.addEventListener('click', function (e) {
+      var a = e.target.closest('a[href^="#"]');
+      if (!a || a.getAttribute('href').length < 2) return;
+      var t = document.getElementById(a.getAttribute('href').slice(1));
+      if (!t || !t.closest('[data-panel]')) return;
+      e.preventDefault();
+      scrollTo(t);
+    });
+    if (location.hash.length > 1) {
+      var t = document.getElementById(location.hash.slice(1));
+      if (t) reveal(t);
+    }
+  }
+
   // ---------- Sticky "Request" button on phones ----------
   function sticky(app, label) {
     var a = document.createElement('a');
@@ -264,5 +325,5 @@
   }
 
   window.Web3BizKit = { money: money, log: log, rpc: rpc, calUrl: calUrl, scrollTo: scrollTo, section: section, pair: pair, hero: hero, banner: banner, pricing: pricing,
-    steps: steps, list: list, compare: compare, video: video, who: who, faq: faq, cases: cases, modal: modal, form: form, sticky: sticky };
+    steps: steps, list: list, compare: compare, video: video, who: who, faq: faq, cases: cases, modal: modal, form: form, sticky: sticky, tabs: tabs, bindTabs: bindTabs, openTab: openTab };
 })();

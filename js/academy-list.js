@@ -10,15 +10,16 @@
   var site = window.WEB3TOYS;
   var K = window.Web3BizKit;
   var app = document.getElementById('app');
-  var L, tiers, ctl;
+  var L, tiers, ctl, sale;
 
   Promise.all([C.loadJson('../../data/academy/listing.json'), C.loadJson('../../data/work.json'), C.loadJson('../../data/products.json')]).then(function (r) {
     L = r[0];
     var prices = {};
     r[2].products.forEach(function (p) { prices[p.id] = p; });
     tiers = r[1].packages.filter(function (p) { return p.kind === 'course' && prices[p.product]; }).map(function (p, i, all) {
-      return { id: p.product, name: p.name.replace(/^Quest:\s*/, ''), price: prices[p.product].usd, features: p.points || [], popular: i === Math.floor(all.length / 2) };
+      return { id: p.product, name: p.name.replace(/^Quest:\s*/, ''), price: prices[p.product].usd, was: prices[p.product].was, features: p.points || [], popular: i === Math.floor(all.length / 2) };
     });
+    sale = tiers.some(function (t) { return Number(t.was) > Number(t.price); }) ? (L.sale || '40% off for now') : '';
     render();
   }).catch(function (err) { app.innerHTML = C.loadError(err); });
 
@@ -27,13 +28,14 @@
   function render() {
     app.innerHTML =
       K.pair(K.hero(L, '<a class="btn" href="#pricing">See prices</a>'), K.list(L.getTitle, L.get)) +
-      K.pricing(L.pricingTitle, tiers, { label: L.popularLabel, guarantee: L.guarantee, note: function () { return 'Paid upfront, refunded in full if we decline.'; } }) +
-      K.pair(K.steps(L.stepsTitle, L.steps), K.list(L.checkTitle, L.checklist.map(function (x) { return ['✔️', x]; }))) +
-      K.pair(K.list(L.rulesTitle, L.rules.map(function (x) { return ['📌', x]; })),
-        K.section(esc(L.templateTitle), '<p class="small-print">' + esc(L.templateLine) + '</p><div class="btn-row"><a class="btn btn--small" href="../../assets/academy/course-template.md" download>Template (text)</a><a class="btn btn--small" href="../../assets/academy/course-template.json" download>Template (JSON)</a></div>')) +
-      K.pair(K.who(L.who), K.faq(L.faqTitle, L.faq)) +
-      K.cases(L.caseTitle, L.caseStudies) +
-      K.section(esc(L.formTitle), '<div data-form></div><div data-mine></div>', 'bk-request', 'request') +
+      K.tabs([
+        { id: 'prices', label: 'Prices', html: K.pricing(L.pricingTitle, tiers, { label: L.popularLabel, guarantee: L.guarantee, sale: sale, note: function () { return 'Paid upfront, refunded in full if we decline.'; } }) },
+        { id: 'how', label: 'How it works', html: K.pair(K.steps(L.stepsTitle, L.steps), K.list(L.checkTitle, L.checklist.map(function (x) { return ['✔️', x]; }))) +
+          K.pair(K.list(L.rulesTitle, L.rules.map(function (x) { return ['📌', x]; })),
+            K.section(esc(L.templateTitle), '<p class="small-print">' + esc(L.templateLine) + '</p><div class="btn-row"><a class="btn btn--small" href="../../assets/academy/course-template.md" download>Template (text)</a><a class="btn btn--small" href="../../assets/academy/course-template.json" download>Template (JSON)</a></div>')) },
+        { id: 'about', label: 'Who we are', html: K.who(L.who) + K.cases(L.caseTitle, L.caseStudies) },
+        { id: 'start', label: 'Get started', html: K.pair(K.section(esc(L.formTitle), '<div data-form></div><div data-mine></div>', 'bk-request', 'request'), K.faq(L.faqTitle, L.faq)) },
+      ]) +
       '<p class="tool-disclaimer">web3.toys does not endorse any token. No token rewards, ever. Not financial advice.</p>';
 
     ctl = K.form(app.querySelector('[data-form]'), {
@@ -61,6 +63,7 @@
     });
     mine();
     K.sticky(app, L.stickyCta);
+    K.bindTabs(app);
   }
 
   function pay(t, id, msg) {

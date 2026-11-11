@@ -72,7 +72,9 @@ describe('Work with us (Part 7)', () => {
 
   it('has the agreed prices', () => {
     const usd = Object.fromEntries(projects.map((p) => [p.id, p.usd]));
-    assert.deepEqual(usd, { 'project-toy': 999, 'course-4': 199, 'course-6': 349, 'course-8': 499 });
+    // Quests are 40% off for now; was keeps the price before the sale.
+    assert.deepEqual(usd, { 'project-toy': 999, 'course-4': 119, 'course-6': 209, 'course-8': 299 });
+    assert.deepEqual(Object.fromEntries(projects.filter((p) => p.was).map((p) => [p.id, p.was])), { 'course-4': 199, 'course-6': 349, 'course-8': 499 });
     projects.forEach((p) => { assert.ok(p.perItem, p.id); assert.ok(!p.coins, p.id); });
   });
 

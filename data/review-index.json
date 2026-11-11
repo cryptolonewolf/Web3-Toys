@@ -13,7 +13,7 @@
    "item": "(whole file)",
    "label": "data/business/ad_slots.json",
    "note": "Sponsor a Toy prices (US dollars only) and rules. toyMonth: price for one toy for one calendar month, by toy id (new toys start at the newToy price; raise them here after their first month). roundToys",
-   "hash": "08ca80cab1b3"
+   "hash": "212af265af65"
   },
   {
    "file": "data/business/advertise_page.json",
@@ -48,14 +48,14 @@
    "item": "(whole file)",
    "label": "Test it before launch.",
    "note": "Words for /test-your-product/ (js/biz-test.js). Prices, deposits, the guarantee and the founding offer are in test_tiers.json. sample: made-up data for the preview and the full sample report (always l",
-   "hash": "ec43d496df2d"
+   "hash": "49e6510db852"
   },
   {
    "file": "data/business/test_tiers.json",
    "item": "(whole file)",
    "label": "data/business/test_tiers.json",
    "note": "Test Your Product prices and tiers (US dollars only). deposit: share paid upfront (used only when a tier has no depositUsd). depositUsd: the exact deposit for a tier. popularLabel: the badge on the ti",
-   "hash": "09405eea8d6c"
+   "hash": "d6cc5f39cbac"
   },
   {
    "file": "data/business/testers_page.json",
@@ -69,7 +69,7 @@
    "item": "(whole file)",
    "label": "data/business/toy_tiers.json",
    "note": "Launch Your Own Toy prices and tiers (US dollars only). Shown on /launch-your-toy/ and charged by the payment server: the deposit is price x deposit. Edit freely; keep each id the same once people hav",
-   "hash": "a81e7eec39ce"
+   "hash": "e0cf79b18d62"
   },
   {
    "file": "data/dead_projects.json",
@@ -965,7 +965,7 @@
    "item": "(whole file)",
    "label": "data/products.json",
    "note": "Everything that can be bought. id: short, no spaces. type: book, report, certificate, export, call or project (what it is; project is a Work with us request, paid after the request form). usd and inr:",
-   "hash": "2515ff79b1da"
+   "hash": "00cb487ae645"
   },
   {
    "file": "data/releases.json",

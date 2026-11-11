@@ -1,5 +1,5 @@
 {
-  "_help": "Launch Your Own Toy prices and tiers (US dollars only). Shown on /launch-your-toy/ and charged by the payment server: the deposit is price x deposit. Edit freely; keep each id the same once people have paid for it. price null means quoted on request (no online payment). popularLabel: the badge on the tier marked popular. guarantee: the line under the prices.",
+  "_help": "Launch Your Own Toy prices and tiers (US dollars only). Shown on /launch-your-toy/ and charged by the payment server: the deposit is price x deposit. Edit freely; keep each id the same once people have paid for it. price null means quoted on request (no online payment). popularLabel: the badge on the tier marked popular. guarantee: the line under the prices. was: the price before the sale (shown crossed out); sale: the tag next to the prices. To end the sale, put each was back into price and remove was and sale.",
   "review": true,
   "currency": "USD",
   "deposit": 0.5,
@@ -8,7 +8,7 @@
     {
       "id": "mini",
       "name": "Mini Toy",
-      "price": 999,
+      "price": 599,
       "time": "About 1 week",
       "features": [
         "One game mechanic",
@@ -16,12 +16,14 @@
         "A share card",
         "Listed for 30 days",
         "One launch post on @web3toys"
-      ]
+      ],
+      "was": 999,
+      "depositUsd": 300
     },
     {
       "id": "full",
       "name": "Full Game",
-      "price": 2499,
+      "price": 1499,
       "time": "About 2 weeks",
       "popular": true,
       "features": [
@@ -32,12 +34,14 @@
         "An analytics dashboard",
         "Featured for 90 days",
         "Embed code for your own site"
-      ]
+      ],
+      "was": 2499,
+      "depositUsd": 750
     },
     {
       "id": "tournament",
       "name": "Launch Tournament",
-      "price": 4999,
+      "price": 2999,
       "time": "About 3 weeks",
       "features": [
         "Everything in Full Game",
@@ -45,14 +49,17 @@
         "A live leaderboard",
         "A creator push",
         "A recap report"
-      ]
+      ],
+      "was": 4999,
+      "depositUsd": 1500
     }
   ],
   "addons": [
     {
       "id": "featured-month",
       "name": "Extra featured month",
-      "price": 199
+      "price": 119,
+      "was": 199
     },
     {
       "id": "white-label",
@@ -62,5 +69,6 @@
     }
   ],
   "popularLabel": "Recommended",
-  "guarantee": "Two rounds of changes included. Full deposit refund if we decline your project."
+  "guarantee": "Two rounds of changes included. Full deposit refund if we decline your project.",
+  "sale": "40% off for now"
 }

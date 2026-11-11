@@ -57,7 +57,7 @@
       '<section class="tool-head stack stack--tight"><h1 class="tool-title">Quests</h1>' +
       '<p class="text text--ink">Pick a real web3 project, learn how it works in 5 minutes, then beat the quiz to unlock its Pro badge and a certificate you can share.</p>' +
       '<p class="tool-disclaimer">Quests are sponsored by the projects. web3.toys does not endorse any token. Not financial advice.</p></section>' +
-      (courses.length ? chips('Chain', 'chain', chain) + chips('Category', 'category', category) : '') +
+      (courses.length ? '<div class="ac-filters">' + chips('Chain', 'chain', chain) + chips('Category', 'category', category) + '</div>' : '') +
       (list.length ? '<ul class="ac-grid">' + list.map(card).join('') + '</ul>' : '<p class="card text">No quests match. Try All.</p>') +
       '<a class="card ac-list" href="list-your-project/"><span class="title-sm">Run a web3 project?</span><span class="text">Turn it into a Quest players love. See how it works →</span></a>';
     app.querySelectorAll('[data-chain]').forEach(function (b) {

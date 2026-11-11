@@ -7559,6 +7559,7 @@ body:is([data-page="launch-your-toy"], [data-page="test-your-product"], [data-pa
 .bk-h { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font: 700 20px / 1.15 var(--font-display); color: var(--ink); }
 .bk-pair { display: grid; gap: 20px; align-items: stretch; }
 .bk-hero { gap: 10px; align-content: center; }
+.bk-hero .label { margin: 0; }
 .bk-hero .biz-title { font-size: clamp(32px, 7.5vw, 54px); margin: 0; }
 .bk-sub { margin: 0; font: 700 clamp(18px, 4.2vw, 23px) / 1.25 var(--font-display); color: var(--ink); }
 .bk-hero .text { margin: 0; }
@@ -7647,5 +7648,39 @@ body:is([data-page="launch-your-toy"], [data-page="test-your-product"], [data-pa
 .bk-slot-icon { font-size: 24px; }
 .bk-sec .ad-cal-wrap { margin: 0 -18px; padding: 0 18px 6px; }
 @media (min-width: 700px) { .bk-slots { grid-template-columns: repeat(4, 1fr); } }
-.bk-pair { align-items: start; }
 .bk-who .btn-row { display: flex; flex-wrap: wrap; gap: 8px; } .bk-who .btn-row .btn { flex: 0 0 auto; width: auto; min-width: 0; padding-inline: 18px; }
+
+/* Paired cards are the same height. In the shorter one the title stays at
+   the top and the list below it spreads out to fill the card evenly.
+   Forms and FAQs stay at the top. */
+.bk-pair > .bk-sec { display: flex; flex-direction: column; gap: 12px; }
+.bk-pair > .bk-hero { justify-content: center; }
+.bk-pair > .bk-sec > .bk-list, .bk-pair > .bk-sec > .bk-steps { flex: 1; align-content: space-around; gap: 14px; }
+.bk-pair > .bk-sec > .bk-video-ph { flex: 1; }
+/* Prices during a sale */
+.bk-was { margin-right: 4px; font-size: .62em; font-weight: 700; color: var(--ink-muted); text-decoration-thickness: 2px; }
+.bk-off { background: var(--mint-tint); }
+/* Tabs: one group of sections at a time on long pages */
+.bk-tabs-top { height: 0; scroll-margin-top: 8px; }
+.bk-tabs { position: sticky; top: 0; z-index: 20; display: flex; gap: 8px; margin: 0 -18px; padding: 10px 18px; overflow-x: auto; scrollbar-width: none; background: var(--cream); border-bottom: 2px solid rgba(31, 27, 46, .12); }
+.bk-tabs::-webkit-scrollbar { display: none; }
+.bk-tab { flex: none; min-height: 44px; padding: 0 18px; font: 700 16px var(--font-display); color: var(--ink); background: var(--white); border: var(--line-thin); border-radius: 999px; cursor: pointer; }
+.bk-tab[aria-selected="true"] { background: var(--ink); color: var(--yellow); }
+.bk-panel { display: grid; gap: 20px; }
+.bk-panel[hidden] { display: none; }
+#app > .bk-tabs + .bk-panel { margin-top: -6px; }
+@media (min-width: 700px) {
+  .bk-tabs { justify-content: center; margin: 0; padding-inline: 0; }
+  .bk-tab { padding: 0 22px; font-size: 17px; }
+}
+/* Readable titles and descriptions across the site: page titles use the
+   rounded font instead of the all-capitals one, and body text is a touch
+   bigger and darker. The logo and the toys keep their own fonts. */
+.tool-title, .biz-title { font-family: var(--font-display); font-weight: 700; letter-spacing: 0; line-height: 1.1; }
+.text { font-size: 15px; line-height: 1.45; }
+.small-print { font-size: 13px; line-height: 1.45; color: #4d4764; }
+.tool-disclaimer { color: #4d4764; }
+/* Quests: the two filters sit on one row. */
+.ac-filters { display: flex; flex-wrap: wrap; gap: 14px 36px; }
+.bk-hero .biz-title { font-size: clamp(32px, 6.5vw, 46px); }
+.bk-pair > .bk-sec > .bk-list li { font-size: 16px; }

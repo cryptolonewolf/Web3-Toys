@@ -15,26 +15,27 @@ const toy = JSON.parse(await Deno.readTextFile(new URL('../../data/business/toy_
 const test = JSON.parse(await Deno.readTextFile(new URL('../../data/business/test_tiers.json', import.meta.url)));
 const ads = JSON.parse(await Deno.readTextFile(new URL('../../data/business/ad_slots.json', import.meta.url)));
 
+// Prices are 40% off for now (the sale prices are in the price files).
 Deno.test('deposits come from the price files: half the price, or the exact depositUsd, in dollars', () => {
   const list = create.businessProducts(toy, test);
   const by = Object.fromEntries(list.map((p: any) => [p.id, p]));
-  assertEquals(by['deposit-toy-mini'].usd, 499.5);
-  assertEquals(by['deposit-toy-full'].usd, 1249.5);
-  assertEquals(by['deposit-test-quick'].usd, 250);
-  assertEquals(by['deposit-test-standard'].usd, 750);
-  assertEquals(by['deposit-test-launch-ready'].usd, 1500);
+  assertEquals(by['deposit-toy-mini'].usd, 300);
+  assertEquals(by['deposit-toy-full'].usd, 750);
+  assertEquals(by['deposit-test-quick'].usd, 150);
+  assertEquals(by['deposit-test-standard'].usd, 450);
+  assertEquals(by['deposit-test-launch-ready'].usd, 900);
   assert(list.every((p: any) => p.perItem && !p.inr));
   assertEquals(JSON.stringify(crypto.businessProducts(toy, test)), JSON.stringify(list));
 });
 
 Deno.test('ad slots come from ad_slots.json, with rounds only where allowed', () => {
   const by = Object.fromEntries(create.businessProducts(toy, test, ads).map((p: any) => [p.id, p]));
-  assertEquals(by['ad-toy-scam'].usd, 500);
-  assertEquals(by['ad-toy-scam-round'].usd, 800);
-  assertEquals(by['ad-toy-web3-roles'].usd, 200);
+  assertEquals(by['ad-toy-scam'].usd, 300);
+  assertEquals(by['ad-toy-scam-round'].usd, 480);
+  assertEquals(by['ad-toy-web3-roles'].usd, 120);
   assert(!by['ad-toy-invest-100-round']);
-  assertEquals(by['ad-site'].usd, 1500);
-  assertEquals(by['ad-newsletter'].usd, 150);
+  assertEquals(by['ad-site'].usd, 900);
+  assertEquals(by['ad-newsletter'].usd, 90);
   assertEquals(JSON.stringify(crypto.businessProducts(toy, test, ads)), JSON.stringify(create.businessProducts(toy, test, ads)));
 });
 
@@ -94,8 +95,8 @@ Deno.test('founding offer deposits exist only while slots are left, the same in 
   const on = structuredClone(test);
   on.foundingOffer = { on: true, left: 2, discount: 0.4 };
   const by = Object.fromEntries(create.businessProducts(null, on).map((p: any) => [p.id, p]));
-  assertEquals(by['deposit-test-quick-founding'].usd, 150);
-  assertEquals(by['deposit-test-launch-ready-founding'].usd, 900);
+  assertEquals(by['deposit-test-quick-founding'].usd, 90);
+  assertEquals(by['deposit-test-launch-ready-founding'].usd, 540);
   assertEquals(JSON.stringify(crypto.businessProducts(null, on)), JSON.stringify(create.businessProducts(null, on)));
   const off = structuredClone(test);
   off.foundingOffer = { on: true, left: 0, discount: 0.4 };

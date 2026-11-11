@@ -45,15 +45,15 @@
     app.innerHTML =
       K.banner(T.foundingOffer) +
       K.pair(K.hero(P, '<a class="btn" href="#pricing">See prices</a>'), preview()) +
-      K.pricing(P.pricingTitle, T.tiers, {
-        label: T.popularLabel, guarantee: T.guarantee,
-        note: function (t) { return K.money(deposit(t)) + ' deposit reserves your slot.' + (found ? ' Founding: ' + K.money(foundingDeposit(t)) + '.' : ''); },
-      }) +
-      K.pair(K.steps(P.stepsTitle, P.steps), K.list('🔒 ' + P.safeTitle, P.confidential.map(function (x) { return ['🤐', x]; }).concat(P.rules.map(function (x) { return ['🛡️', x]; })))) +
-      K.compare(P.compareTitle, P.compare) +
-      K.pair(K.video(P.video), K.who(P.who)) +
-      K.cases(P.caseTitle, P.caseStudies) +
-      K.pair(K.faq(P.faqTitle, P.faq), K.section(esc(P.formTitle), '<div data-form></div><div data-mine></div>', 'bk-request', 'request')) +
+      K.tabs([
+        { id: 'prices', label: 'Prices', html: K.pricing(P.pricingTitle, T.tiers, {
+          label: T.popularLabel, guarantee: T.guarantee, sale: T.sale,
+          note: function (t) { return K.money(deposit(t)) + ' deposit reserves your slot.' + (found ? ' Founding: ' + K.money(foundingDeposit(t)) + '.' : ''); },
+        }) + K.compare(P.compareTitle, P.compare) },
+        { id: 'how', label: 'How it works', html: K.pair(K.steps(P.stepsTitle, P.steps), K.list('🔒 ' + P.safeTitle, P.confidential.map(function (x) { return ['🤐', x]; }).concat(P.rules.map(function (x) { return ['🛡️', x]; })))) },
+        { id: 'about', label: 'Who we are', html: K.pair(K.video(P.video), K.who(P.who)) + K.cases(P.caseTitle, P.caseStudies) },
+        { id: 'start', label: 'Get started', html: K.pair(K.section(esc(P.formTitle), '<div data-form></div><div data-mine></div>', 'bk-request', 'request'), K.faq(P.faqTitle, P.faq)) },
+      ]) +
       '<p class="bk-foot">🧪 <b>' + esc(P.testerTitle) + '.</b> ' + esc(P.testerLine) + ' <a href="../testers/">Become a tester →</a></p>';
 
     ctl = K.form(app.querySelector('[data-form]'), {
@@ -82,6 +82,7 @@
     bind();
     mine();
     K.sticky(app, P.stickyCta);
+    K.bindTabs(app);
   }
 
   function pay(t, id, founding, msg) {

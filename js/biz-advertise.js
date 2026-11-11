@@ -75,23 +75,28 @@
   function render() {
     var K = window.Web3BizKit;
     var prices = Object.keys(ADS.toyMonth).map(function (k) { return ADS.toyMonth[k]; });
-    var slotPrice = { toy: money(Math.min.apply(null, prices)) + ' to ' + money(Math.max.apply(null, prices)), round: '+' + money(ADS.sponsoredRound), site: money(ADS.siteWide), newsletter: money(ADS.newsletter) };
+    // While a sale runs (ad_slots.json sale), the old price is shown crossed out.
+    var was = function (p) { var off = ADS.sale && Number(ADS.sale.off); return off > 0 && off < 1 ? '<s class="bk-was">' + money(Math.round(p / (1 - off))) + '</s> ' : ''; };
+    var lo = Math.min.apply(null, prices), hi = Math.max.apply(null, prices);
+    var slotPrice = { toy: was(lo) + money(lo), round: '+' + money(ADS.sponsoredRound), site: was(ADS.siteWide) + money(ADS.siteWide), newsletter: was(ADS.newsletter) + money(ADS.newsletter) };
     app.innerHTML =
       K.pair(K.hero(P, '<a class="btn" href="#calendar">See free slots</a>'), K.list(P.audienceTitle, P.audience.map(function (a) { return [a.icon, a.big + ' ' + a.label]; }))) +
-      K.section(esc(P.slotsTitle), '<ul class="bk-slots">' + P.slots.map(function (x) {
-        return '<li><span class="bk-slot-icon" aria-hidden="true">' + x.icon + '</span><div><b>' + esc(x.name) + '</b><span class="biz-price ad-price">' + slotPrice[x.id] + '</span><span class="small-print">' + esc(x.priceNote) + '</span></div></li>';
-      }).join('') + '</ul>' +
-        '<details class="ad-prices"><summary class="small-print"><b>Price for each toy</b></summary><ul>' + toys.map(function (t) { return '<li><span>' + esc(t.title) + '</span><b>' + money(ADS.toyMonth[t.id]) + '</b></li>'; }).join('') + '</ul></details>' +
-        '<p class="bk-guarantee">✅ ' + esc(P.guarantee) + '</p>', 'bk-pricing', 'pricing') +
-      K.section(esc(P.calendarTitle), '<p class="small-print">' + esc(P.calendarLine) + '</p>' + calendar(), '', 'calendar') +
-      K.pair(K.steps(P.howTitle, P.how), K.list(P.rulesTitle, ADS.rules.map(function (r) { return ['📌', r]; }).concat([['🏷️', P.categoriesLine + ' ' + ADS.allowedCategories.join(', ') + '.']]))) +
-      K.pair(K.video(P.video), K.who(P.who)) +
-      K.cases(P.caseTitle, P.caseStudies) +
-      K.pair(K.faq(P.faqTitle, P.faq), K.section(esc(P.formTitle), form() + '<div class="bk-submit"><p class="small-print">' + esc(P.reply) + '</p><a class="text-button" href="' + esc(K.calUrl()) + '" target="_blank" rel="noopener">' + esc(P.callLink) + ' →</a></div><div data-mine></div>', 'bk-request', 'request')) +
+      K.tabs([
+        { id: 'prices', label: 'Prices', html: K.section(esc(P.slotsTitle) + (ADS.sale ? ' <span class="bk-tag bk-off">' + esc(ADS.sale.line) + '</span>' : ''), '<ul class="bk-slots">' + P.slots.map(function (x) {
+          return '<li><span class="bk-slot-icon" aria-hidden="true">' + x.icon + '</span><div><b>' + esc(x.name) + '</b><span class="biz-price ad-price">' + slotPrice[x.id] + '</span><span class="small-print">' + esc(x.priceNote) + '</span></div></li>';
+        }).join('') + '</ul>' +
+          '<details class="ad-prices"><summary class="small-print"><b>Price for each toy</b></summary><ul>' + toys.map(function (t) { return '<li><span>' + esc(t.title) + '</span><b>' + was(ADS.toyMonth[t.id]) + money(ADS.toyMonth[t.id]) + '</b></li>'; }).join('') + '</ul></details>' +
+          '<p class="bk-guarantee">✅ ' + esc(P.guarantee) + '</p>', 'bk-pricing', 'pricing') },
+        { id: 'how', label: 'How it works', html: K.pair(K.steps(P.howTitle, P.how), K.list(P.rulesTitle, ADS.rules.map(function (r) { return ['📌', r]; }).concat([['🏷️', P.categoriesLine + ' ' + ADS.allowedCategories.join(', ') + '.']]))) },
+        { id: 'about', label: 'Who we are', html: K.pair(K.video(P.video), K.who(P.who)) + K.cases(P.caseTitle, P.caseStudies) },
+        { id: 'book', label: 'Book a slot', html: K.section(esc(P.calendarTitle), '<p class="small-print">' + esc(P.calendarLine) + '</p>' + calendar(), '', 'calendar') +
+          K.pair(K.section(esc(P.formTitle), form() + '<div class="bk-submit"><p class="small-print">' + esc(P.reply) + '</p><a class="text-button" href="' + esc(K.calUrl()) + '" target="_blank" rel="noopener">' + esc(P.callLink) + ' →</a></div><div data-mine></div>', 'bk-request', 'request'), K.faq(P.faqTitle, P.faq)) },
+      ]) +
       '<p class="tool-disclaimer">Every sponsored item is labelled "Sponsored". web3.toys does not endorse sponsors or any token.</p>';
     bind();
     mine();
     K.sticky(app, P.stickyCta);
+    K.bindTabs(app);
   }
 
   // Funnel counts without names (biz_tier, biz_start, biz_submit) and the
@@ -205,7 +210,7 @@
         state.round = false;
         redrawForm();
         window.Web3BizKit.log('biz_tier', 'ad');
-        document.getElementById('request').scrollIntoView({ behavior: site.fx.calm() ? 'auto' : 'smooth', block: 'start' });
+        window.Web3BizKit.scrollTo(document.getElementById('request'));
       });
     });
   }

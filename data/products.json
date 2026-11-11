@@ -13,8 +13,8 @@
     {"id": "book-launch-week", "type": "book", "title": "Launch Week Playbook", "line": "For web3 teams: how to plan and run a token or product launch week.", "usd": 29, "inr": 2399, "file": "books/launch-week-playbook.pdf", "coins": 3000},
     {"id": "call-30", "type": "call", "title": "30 minute call with Aki", "line": "A focused marketing and growth call for your web3 project, with a written summary afterwards.", "usd": 49, "inr": 3999},
     {"id": "project-toy", "type": "project", "title": "Custom toy for your project", "line": "A playful web3.toys game or quiz about your project, made with you. Refunded in full if we decline your project.", "usd": 999, "inr": 82999, "perItem": true},
-    {"id": "course-4", "type": "project", "title": "Quest: Starter (4 lessons)", "line": "4 lessons and a 15 question quiz, with a certificate in your colours. Refunded in full if we decline your project.", "usd": 199, "inr": 16499, "perItem": true},
-    {"id": "course-6", "type": "project", "title": "Quest: Standard (6 lessons)", "line": "6 lessons and a 25 question quiz, with a certificate in your colours. Refunded in full if we decline your project.", "usd": 349, "inr": 28999, "perItem": true},
-    {"id": "course-8", "type": "project", "title": "Quest: Featured (8 lessons)", "line": "8 lessons, a 30 question quiz and 30 days featured on the Quests page. Refunded in full if we decline your project.", "usd": 499, "inr": 41499, "perItem": true}
+    {"id": "course-4", "type": "project", "title": "Quest: Starter (4 lessons)", "line": "4 lessons and a 15 question quiz, with a certificate in your colours. Refunded in full if we decline your project.", "usd": 119, "inr": 9899, "was": 199, "wasInr": 16499, "perItem": true},
+    {"id": "course-6", "type": "project", "title": "Quest: Standard (6 lessons)", "line": "6 lessons and a 25 question quiz, with a certificate in your colours. Refunded in full if we decline your project.", "usd": 209, "inr": 17399, "was": 349, "wasInr": 28999, "perItem": true},
+    {"id": "course-8", "type": "project", "title": "Quest: Featured (8 lessons)", "line": "8 lessons, a 30 question quiz and 30 days featured on the Quests page. Refunded in full if we decline your project.", "usd": 299, "inr": 24899, "was": 499, "wasInr": 41499, "perItem": true}
   ]
 }
