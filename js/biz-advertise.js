@@ -80,7 +80,7 @@
     var lo = Math.min.apply(null, prices), hi = Math.max.apply(null, prices);
     var slotPrice = { toy: was(lo) + money(lo), round: '+' + money(ADS.sponsoredRound), site: was(ADS.siteWide) + money(ADS.siteWide), newsletter: was(ADS.newsletter) + money(ADS.newsletter) };
     app.innerHTML =
-      K.pair(K.hero(P, '<a class="btn" href="#calendar">See free slots</a>'), K.list(P.audienceTitle, P.audience.map(function (a) { return [a.icon, a.big + ' ' + a.label]; }))) +
+      K.pair(K.hero(P, '<a class="btn" href="#calendar">See free slots</a>'), K.list(P.audienceTitle, P.audience.filter(function (a) { return a.big && a.big !== 'TBD'; }).map(function (a) { return [a.icon, a.big + ' ' + a.label]; }))) +
       K.tabs([
         { id: 'prices', label: 'Prices', html: K.section(esc(P.slotsTitle) + (ADS.sale ? ' <span class="bk-tag bk-off">' + esc(ADS.sale.line) + '</span>' : ''), '<ul class="bk-slots">' + P.slots.map(function (x) {
           return '<li><span class="bk-slot-icon" aria-hidden="true">' + x.icon + '</span><div><b>' + esc(x.name) + '</b><span class="biz-price ad-price">' + slotPrice[x.id] + '</span><span class="small-print">' + esc(x.priceNote) + '</span></div></li>';
