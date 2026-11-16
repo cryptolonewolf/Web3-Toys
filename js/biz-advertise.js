@@ -81,9 +81,9 @@
     var lo = Math.min.apply(null, prices), hi = Math.max.apply(null, prices);
     var slotPrice = { toy: was(lo) + money(lo), round: '+' + money(ADS.sponsoredRound), site: was(ADS.siteWide) + money(ADS.siteWide), newsletter: was(ADS.newsletter) + money(ADS.newsletter) };
     app.innerHTML =
-      // Who you reach sits beside the intro once it has 3 or more real lines
-      // (lines still marked TBD are hidden); until then it goes inside it.
-      (aud.length >= 3 ? K.pair(K.hero(P, '<a class="btn" href="#calendar">See free slots</a>'), K.list(P.audienceTitle, aud))
+      // Who you reach gets its own card once it has 3 or more real lines
+      // (lines still marked TBD are hidden); until then it goes inside the intro.
+      (aud.length >= 3 ? K.hero(P, '<a class="btn" href="#calendar">See free slots</a>') + K.list(P.audienceTitle, aud)
         : K.hero(P, '<a class="btn" href="#calendar">See free slots</a>').replace('<div class="btn-row">', '<ul class="bk-list bk-aud">' + aud.map(function (x) { return '<li><span aria-hidden="true">' + x[0] + '</span><span>' + esc(x[1]) + '</span></li>'; }).join('') + '</ul><div class="btn-row">')) +
       K.tabs([
         { id: 'prices', label: 'Prices', html: K.section(esc(P.slotsTitle) + (ADS.sale ? ' <span class="bk-tag bk-off">' + esc(ADS.sale.line) + '</span>' : ''), '<ul class="bk-slots">' + P.slots.map(function (x) {

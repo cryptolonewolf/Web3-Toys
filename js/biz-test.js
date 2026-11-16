@@ -44,7 +44,7 @@
     var found = foundingOn();
     app.innerHTML =
       K.banner(T.foundingOffer) +
-      K.pair(K.hero(P, '<a class="btn" href="#pricing">See prices</a>'), preview()) +
+      K.hero(P, '<a class="btn" href="#pricing">See prices</a>') + preview() +
       K.tabs([
         { id: 'prices', label: 'Prices', html: K.pricing(P.pricingTitle, T.tiers, {
           label: T.popularLabel, guarantee: T.guarantee, sale: T.sale,

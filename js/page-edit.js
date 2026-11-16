@@ -23,14 +23,19 @@
       '<p class="text text--ink">' + esc(K.line) + '</p>' + (intro && P && P.claimPage ? '<div class="btn-row"><a class="btn btn--ink" href="#claim">' + esc(K.title) + '</a></div>' : '') + '</section>' + (intro && P && P.claimPage ? introHtml() : '') + body;
     var go = app.querySelector('a[href="#claim"]');
     if (go) go.addEventListener('click', function (e) { var t = document.getElementById('claim'); if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'center' }); } });
-    if (intro && P && P.claimPage) bindSample();
+    if (intro && P && P.claimPage) {
+      // The claim box and house rules go under the list, beside the sample.
+      var left = app.querySelector('.cm-left');
+      ['#claim', '[data-rules]'].forEach(function (q) { var el = app.querySelector(q); if (el && left) left.appendChild(el); });
+      bindSample();
+    }
   }
 
   function introHtml() {
     var K = P.claimPage;
-    return '<div class="bk-pair cm-intro"><section class="card bk-sec"><h2 class="bk-h">' + esc(K.canTitle) + '</h2><ul class="bk-list">' +
+    return '<div class="bk-pair cm-intro"><div class="cm-left"><section class="card bk-sec"><h2 class="bk-h">' + esc(K.canTitle) + '</h2><ul class="bk-list">' +
       K.can.map(function (x, i) { return '<li><span class="cm-pin" aria-hidden="true">' + (i + 1) + '</span><span>' + x[0] + ' ' + esc(x[1]) + '</span></li>'; }).join('') + '</ul>' +
-      '<p class="small-print">⭐ ' + esc(K.proLine) + '</p></section>' +
+      '<p class="small-print">⭐ ' + esc(K.proLine) + '</p></section></div>' +
       '<section class="card bk-sec cm-sample"><h2 class="bk-h">' + esc(K.sampleTitle) + ' <span class="bk-tag">' + esc(K.sampleLabel) + '</span></h2>' +
       '<div class="cm-switch" role="tablist" aria-label="Kind of page"><button type="button" role="tab" aria-selected="true" data-sample="project">🧩 Project</button><button type="button" role="tab" aria-selected="false" data-sample="creator">🎙️ Creator</button></div>' +
       '<div class="cm-frame" data-sample-box>' + sample('project') + '</div><p class="small-print">' + esc(K.sampleNote) + '</p></section></div>';
@@ -119,7 +124,7 @@
     }).catch(function (err) { shell(C.loadError(err)); });
   }
 
-  function rules() { return '<section class="card stack stack--tight"><h2 class="title-sm">House rules</h2><ul class="biz-feats">' + P.copy.rules.map(function (r) { return '<li>' + site.icon('check') + '<span>' + esc(r) + '</span></li>'; }).join('') + '</ul></section>'; }
+  function rules() { return '<section class="card stack stack--tight" data-rules><h2 class="title-sm">House rules</h2><ul class="biz-feats">' + P.copy.rules.map(function (r) { return '<li>' + site.icon('check') + '<span>' + esc(r) + '</span></li>'; }).join('') + '</ul></section>'; }
 
   function requestBox() {
     return '<section class="card stack stack--tight" id="request"><h2 class="title-md">' + esc(P.copy.requestTitle) + '</h2><p class="small-print">' + esc(P.copy.requestLine) + '</p>' +

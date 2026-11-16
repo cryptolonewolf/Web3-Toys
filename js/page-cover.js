@@ -1,7 +1,8 @@
 // The banner at the top of a page that is not a toy (the For Projects pages
 // and Become a tester): <body data-cover="ID" data-cover-title="Title">, with
-// its drawing in js/home-cards.js. It goes inside the page's hero card when
-// there is one (the For Projects kit), otherwise first on the page. Pages
+// its drawing in js/home-cards.js. It goes inside the page's first block
+// (the hero card on the For Projects kit pages), beside the title on wide
+// screens. Pages
 // draw themselves after loading, so it is added again whenever it is missing.
 
 (function () {
@@ -18,8 +19,12 @@
     if (!first || first.tagName === 'NOSCRIPT' || first.classList.contains('page-loader')) return;
     busy = true;
     var html = window.Web3Cards.cover(id, title, esc);
-    if (first.classList.contains('bk-hero')) first.insertAdjacentHTML('afterbegin', html);
-    else first.insertAdjacentHTML('beforebegin', html);
+    // Inside the page's first block: beside the title on wide screens,
+    // above it on phones.
+    first.insertAdjacentHTML('afterbegin', html);
+    first.classList.add('has-cover');
+    // Beside exactly as many rows as the text uses (no gap at the bottom).
+    first.style.setProperty('--cover-rows', String(Math.max(1, first.children.length - 1)));
     busy = false;
   }
   new MutationObserver(place).observe(app, { childList: true });

@@ -35,7 +35,7 @@
   function render() {
     var addons = (T.addons || []).map(function (a) { return esc(a.name) + ' ' + (a.price ? (a.was ? '<s>' + K.money(a.was) + '</s> ' : '') + K.money(a.price) : '(' + esc(a.note || 'quoted') + ')'); }).join(' · ');
     app.innerHTML =
-      K.pair(K.hero(P, '<a class="btn" href="#pricing">See prices</a>'), K.list(P.getTitle, P.get)) +
+      K.hero(P, '<a class="btn" href="#pricing">See prices</a>') + K.list(P.getTitle, P.get) +
       K.tabs([
         { id: 'prices', label: 'Prices', html: K.pricing(P.pricingTitle, T.tiers, {
           label: T.popularLabel, guarantee: T.guarantee, sale: T.sale,

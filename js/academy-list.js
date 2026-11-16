@@ -27,7 +27,7 @@
 
   function render() {
     app.innerHTML =
-      K.pair(K.hero(L, '<a class="btn" href="#pricing">See prices</a>'), K.list(L.getTitle, L.get)) +
+      K.hero(L, '<a class="btn" href="#pricing">See prices</a>') + K.list(L.getTitle, L.get) +
       K.tabs([
         { id: 'prices', label: 'Prices', html: K.pricing(L.pricingTitle, tiers, { label: L.popularLabel, guarantee: L.guarantee, sale: sale, note: function () { return 'Paid upfront, refunded in full if we decline.'; } }) },
         { id: 'how', label: 'How it works', html: K.pair(K.steps(L.stepsTitle, L.steps), K.list(L.checkTitle, L.checklist.map(function (x) { return ['✔️', x]; }))) +
