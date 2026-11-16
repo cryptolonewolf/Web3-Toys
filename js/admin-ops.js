@@ -115,7 +115,7 @@
       ctx.load('opsJson', function () { return window.Web3Common.loadJson('../data/ops.json'); }),
       ctx.load('reviewIndex', function () { return window.Web3Common.loadJson('../data/review-index.json'); }),
       ctx.load('approvals', function () { return db().from('review_approvals').select('*').then(ctx.must); }),
-      ctx.load('releasesJson', function () { return window.Web3Common.loadJson('../data/releases.json'); }),
+      ctx.load('releasesJson', function () { return window.Web3Common.loadJson('../data/releases.json').then(function (r) { return window.Web3Releases ? window.Web3Releases.expand(r) : r; }); }),
     ]).then(function (r) {
       var O = r[0];
       var done = {};

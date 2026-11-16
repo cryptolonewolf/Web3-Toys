@@ -6,21 +6,15 @@ A simple rhythm for each drop: teaser 3 days before, sneak peek the day before, 
 
 | Date | Toy | Status |
 |---|---|---|
-| Tue 10 Nov | [Genesis Block](crypto-in-5.md) | launch day |
-| Tue 10 Nov | [Not Your Keys](getting-started.md) | launch day |
-| Tue 10 Nov | [Don't Get Rekt](dont-lose-money.md) | launch day |
-| Tue 10 Nov | [Famous Web3 Hacks](web3-hacks.md) | launch day |
-| Tue 10 Nov | [Stack Sats](earn-small.md) | launch day |
-| Tue 10 Nov | [Spot the Scam](scam.md) | launch day |
-| Tue 10 Nov | [Fish the Dead Projects](dead-projects.md) | launch day |
-| Tue 10 Nov | [What If You Invested $100](invest-100.md) | launch day |
-| Tue 10 Nov | [Read the Token Split](token-split.md) | launch day |
-| Tue 10 Nov | [Launch a Token Simulator](token-simulator.md) | launch day |
-| Tue 10 Nov | [Web3 Hall of Famers](hall-of-fame.md) | launch day |
-| Tue 17 Nov | [Roles in Web3, Explained](web3-roles.md) | ready |
-| Tue 24 Nov | [Tokenomics Basics](tokenomics-basics.md) | not built yet |
-| Tue 1 Dec | [Ways to the Moon](ways-to-moon.md) | not built yet |
-| Tue 8 Dec | [Land Your First Web3 Job](first-job.md) | not built yet |
-| Tue 15 Dec | [Raise Your First Round](raise-first-round.md) | not built yet |
+| Mon 16 Nov | [Genesis Block](crypto-in-5.md) | ready |
+| Mon 16 Nov | [Spot the Scam](scam.md) | ready |
+| Mon 16 Nov | [What If You Invested $100](invest-100.md) | ready |
+| Mon 16 Nov | [Fish the Dead Projects](dead-projects.md) | ready |
+| Thu 19 Nov | [Famous Web3 Hacks](web3-hacks.md) | ready |
+| Mon 23 Nov | [Don't Get Rekt](dont-lose-money.md) | ready |
+| Mon 30 Nov | [Read the Token Split](token-split.md) | ready |
+| Thu 3 Dec | [Not Your Keys](getting-started.md) | ready |
+| Mon 7 Dec | [Stack Sats](earn-small.md) | ready |
+| Mon 14 Dec | [Roles in Web3, Explained](web3-roles.md) | ready |
 
 Remake after changing dates or hooks: `node tools/launch-kit.mjs`, and for pictures `node tools/launch-images.mjs` then `python3 tools/shrink-png.py marketing/launches/img`.

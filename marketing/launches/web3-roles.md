@@ -1,6 +1,6 @@
 # Roles in Web3, Explained (Every role in a web3 team)
 
-Launch: **Tuesday 17 November, 10:00 India time**  
+Launch: **Monday 14 December, 10:00 India time**  
 Hook: Every role in a web3 team, explained, so you know where you fit.  
 For: Career switcher exploring web3 jobs  
 Link: https://web3.toys/web3-roles/ (before launch it shows the teaser page with Notify me: https://web3.toys/soon/?toy=web3-roles)  
@@ -10,12 +10,12 @@ Pictures: img/web3-roles-teaser-x.png and img/web3-roles-teaser-story.png before
 
 Check every fact and number in the toy before posting. Never promise returns.
 
-## 1. Teaser post (@web3toys, Sat 14 Nov)
+## 1. Teaser post (@web3toys, Fri 11 Dec)
 
 Picture: img/web3-roles-teaser-x.png
 
 ```
-Something new lands on web3.toys this Tue 👀
+Something new lands on web3.toys this Mon 👀
 
 Every role in a web3 team, explained, so you know where you fit.
 
@@ -25,7 +25,7 @@ The first 1,000 to earn it get 2x coins 🐣
 Get a reminder: https://web3.toys/soon/?toy=web3-roles
 ```
 
-## 2. Sneak peek (@web3toys, Mon 16 Nov)
+## 2. Sneak peek (@web3toys, Sun 13 Dec)
 
 Picture: img/web3-roles-teaser-story.png (stories) or a 10 second screen recording of the first screen
 
@@ -39,7 +39,7 @@ The roles in a web3 team, explained.
 Tap Notify me and we email you when it opens: https://web3.toys/soon/?toy=web3-roles
 ```
 
-## 3. Launch thread (@web3toys, Tue 17 Nov 10:00)
+## 3. Launch thread (@web3toys, Mon 14 Dec 10:00)
 
 Picture on the first post: img/web3-roles-launch-x.png
 

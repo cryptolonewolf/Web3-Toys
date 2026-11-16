@@ -1,31 +1,31 @@
 # Read the Token Split
 
-Launch: **Tuesday 10 November, 10:00 India time** (launch day: one of the first toys)  
+Launch: **Monday 30 November, 10:00 India time**  
 Hook: Read a token split like a pro: who holds what, and when they can sell.  
 For: Investor checking a new token before buying  
-Link: https://web3.toys/token-split/  
+Link: https://web3.toys/token-split/ (before launch it shows the teaser page with Notify me: https://web3.toys/soon/?toy=token-split)  
 Time to play: 4 min · Free · Ends with a certificate · Early Bird: first 1,000 certificates get 2x coins
 
 Pictures: img/token-split-teaser-x.png and img/token-split-teaser-story.png before launch; img/token-split-launch-x.png and img/token-split-launch-story.png on launch day.
 
 Check every fact and number in the toy before posting. Never promise returns.
 
-## 1. Teaser post (@web3toys, Sat 7 Nov)
+## 1. Teaser post (@web3toys, Fri 27 Nov)
 
 Picture: img/token-split-teaser-x.png
 
 ```
-Something new lands on web3.toys this Tue 👀
+Something new lands on web3.toys this Mon 👀
 
 Read a token split like a pro: who holds what, and when they can sell.
 
 Read the Token Split. 4 min, free, ends with a certificate.
 The first 1,000 to earn it get 2x coins 🐣
 
-Get a reminder: https://web3.toys/token-split/
+Get a reminder: https://web3.toys/soon/?toy=token-split
 ```
 
-## 2. Sneak peek (@web3toys, Mon 9 Nov)
+## 2. Sneak peek (@web3toys, Sun 29 Nov)
 
 Picture: img/token-split-teaser-story.png (stories) or a 10 second screen recording of the first screen
 
@@ -36,10 +36,10 @@ Here is a peek at Read the Token Split 👇
 
 Read a token split like a pro.
 
-Tap Notify me and we email you when it opens: https://web3.toys/token-split/
+Tap Notify me and we email you when it opens: https://web3.toys/soon/?toy=token-split
 ```
 
-## 3. Launch thread (@web3toys, Tue 10 Nov 10:00)
+## 3. Launch thread (@web3toys, Mon 30 Nov 10:00)
 
 Picture on the first post: img/token-split-launch-x.png
 

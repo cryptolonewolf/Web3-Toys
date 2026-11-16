@@ -9,7 +9,8 @@
 -- A spot doubles every coin earned on that toy: coins already earned on it
 -- are matched at once (an "Early Bird 2x bonus" line), and later ones count
 -- double. Starts and spot counts are below; keep them in step with
--- data/releases.json (the automatic checks compare them).
+-- data/releases.json (the automatic checks compare them). A toy with no
+-- date yet starts in 2099 (no Early Bird until it gets one).
 
 create table if not exists public.early_bird_toys (
   toy text primary key,
@@ -22,22 +23,22 @@ drop policy if exists "early bird toys public" on public.early_bird_toys;
 create policy "early bird toys public" on public.early_bird_toys for select using (true);
 
 insert into public.early_bird_toys (toy, starts_at, spots, aliases) values
-  ('crypto-in-5', '2026-11-10 10:00:00+05:30', 1000, '{}'),
-  ('getting-started', '2026-11-10 10:00:00+05:30', 1000, '{}'),
-  ('dont-lose-money', '2026-11-10 10:00:00+05:30', 1000, '{}'),
-  ('web3-hacks', '2026-11-10 10:00:00+05:30', 1000, '{}'),
-  ('earn-small', '2026-11-10 10:00:00+05:30', 1000, '{}'),
-  ('scam', '2026-11-10 10:00:00+05:30', 1000, '{}'),
-  ('dead-projects', '2026-11-10 10:00:00+05:30', 1000, '{dead-projects-dive}'),
-  ('invest-100', '2026-11-10 10:00:00+05:30', 1000, '{}'),
-  ('token-split', '2026-11-10 10:00:00+05:30', 1000, '{}'),
+  ('crypto-in-5', '2026-11-16 10:00:00+05:30', 1000, '{}'),
+  ('getting-started', '2026-12-03 10:00:00+05:30', 1000, '{}'),
+  ('dont-lose-money', '2026-11-23 10:00:00+05:30', 1000, '{}'),
+  ('web3-hacks', '2026-11-19 10:00:00+05:30', 1000, '{}'),
+  ('earn-small', '2026-12-07 10:00:00+05:30', 1000, '{}'),
+  ('scam', '2026-11-16 10:00:00+05:30', 1000, '{}'),
+  ('dead-projects', '2026-11-16 10:00:00+05:30', 1000, '{dead-projects-dive}'),
+  ('invest-100', '2026-11-16 10:00:00+05:30', 1000, '{}'),
+  ('token-split', '2026-11-30 10:00:00+05:30', 1000, '{}'),
   ('token-simulator', '2026-11-10 10:00:00+05:30', 1000, '{simulator}'),
   ('hall-of-fame', '2026-11-10 10:00:00+05:30', 1000, '{}'),
-  ('web3-roles', '2026-11-17 10:00:00+05:30', 1000, '{}'),
-  ('tokenomics-basics', '2026-11-24 10:00:00+05:30', 1000, '{}'),
-  ('ways-to-moon', '2026-12-01 10:00:00+05:30', 1000, '{}'),
-  ('first-job', '2026-12-08 10:00:00+05:30', 1000, '{}'),
-  ('raise-first-round', '2026-12-15 10:00:00+05:30', 1000, '{}')
+  ('web3-roles', '2026-12-14 10:00:00+05:30', 1000, '{}'),
+  ('tokenomics-basics', '2099-01-01 10:00:00+05:30', 1000, '{}'),
+  ('ways-to-moon', '2099-01-01 10:00:00+05:30', 1000, '{}'),
+  ('first-job', '2099-01-01 10:00:00+05:30', 1000, '{}'),
+  ('raise-first-round', '2099-01-01 10:00:00+05:30', 1000, '{}')
 on conflict (toy) do update set starts_at = excluded.starts_at, spots = excluded.spots, aliases = excluded.aliases;
 
 create table if not exists public.early_birds (

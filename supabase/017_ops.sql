@@ -407,6 +407,7 @@ begin
     'sql-020', to_regclass('public.page_consents') is not null,
     'sql-021', to_regclass('public.page_pro_log') is not null,
     'sql-022', to_regclass('public.biz_leads') is not null,
+    'sql-023', to_regprocedure('public.admin_set_ready(text, boolean)') is not null,
     'books', (select count(*) from storage.objects where bucket_id = 'paid-files'),
     'todos', coalesce((select jsonb_object_agg(key, done_at) from public.ops_todos where done_at is not null), '{}')
   );

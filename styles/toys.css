@@ -7684,3 +7684,8 @@ body:is([data-page="launch-your-toy"], [data-page="test-your-product"], [data-pa
 .ac-filters { display: flex; flex-wrap: wrap; gap: 14px 36px; }
 .bk-hero .biz-title { font-size: clamp(32px, 6.5vw, 46px); }
 .bk-pair > .bk-sec > .bk-list li { font-size: 16px; }
+/* Your date preview (admin): a small bar at the bottom of every page. */
+.rel-preview { position: fixed; left: 50%; bottom: 12px; transform: translateX(-50%); z-index: 60; display: flex; gap: 10px; align-items: center; padding: 8px 12px; font-size: 14px; font-weight: 800; color: var(--yellow); background: var(--ink); border-radius: 999px; box-shadow: var(--shadow); }
+.rel-preview button { font: inherit; font-size: 13px; padding: 4px 10px; color: var(--ink); background: var(--yellow); border: 0; border-radius: 999px; cursor: pointer; }
+.adm-preview .btn-row { align-items: center; }
+.adm-preview .field { max-width: 200px; }

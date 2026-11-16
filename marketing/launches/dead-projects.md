@@ -1,31 +1,31 @@
 # Fish the Dead Projects
 
-Launch: **Tuesday 10 November, 10:00 India time** (launch day: one of the first toys)  
+Launch: **Monday 16 November, 10:00 India time**  
 Hook: Fish up dead chains and rugged tokens, and learn why they died.  
 For: Beginner investor who wants to spot dying projects early  
-Link: https://web3.toys/dead-projects/  
+Link: https://web3.toys/dead-projects/ (before launch it shows the teaser page with Notify me: https://web3.toys/soon/?toy=dead-projects)  
 Time to play: 5 min · Free · Ends with a certificate · Early Bird: first 1,000 certificates get 2x coins
 
 Pictures: img/dead-projects-teaser-x.png and img/dead-projects-teaser-story.png before launch; img/dead-projects-launch-x.png and img/dead-projects-launch-story.png on launch day.
 
 Check every fact and number in the toy before posting. Never promise returns.
 
-## 1. Teaser post (@web3toys, Sat 7 Nov)
+## 1. Teaser post (@web3toys, Fri 13 Nov)
 
 Picture: img/dead-projects-teaser-x.png
 
 ```
-Something new lands on web3.toys this Tue 👀
+Something new lands on web3.toys this Mon 👀
 
 Fish up dead chains and rugged tokens, and learn why they died.
 
 Fish the Dead Projects. 5 min, free, ends with a certificate.
 The first 1,000 to earn it get 2x coins 🐣
 
-Get a reminder: https://web3.toys/dead-projects/
+Get a reminder: https://web3.toys/soon/?toy=dead-projects
 ```
 
-## 2. Sneak peek (@web3toys, Mon 9 Nov)
+## 2. Sneak peek (@web3toys, Sun 15 Nov)
 
 Picture: img/dead-projects-teaser-story.png (stories) or a 10 second screen recording of the first screen
 
@@ -36,10 +36,10 @@ Here is a peek at Fish the Dead Projects 👇
 
 Fish up dead chains, rugged tokens and abandoned projects, and learn why they died.
 
-Tap Notify me and we email you when it opens: https://web3.toys/dead-projects/
+Tap Notify me and we email you when it opens: https://web3.toys/soon/?toy=dead-projects
 ```
 
-## 3. Launch thread (@web3toys, Tue 10 Nov 10:00)
+## 3. Launch thread (@web3toys, Mon 16 Nov 10:00)
 
 Picture on the first post: img/dead-projects-launch-x.png
 

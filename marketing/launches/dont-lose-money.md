@@ -1,31 +1,31 @@
 # Don't Get Rekt (How Not to Lose Money)
 
-Launch: **Tuesday 10 November, 10:00 India time** (launch day: one of the first toys)  
+Launch: **Monday 23 November, 10:00 India time**  
 Hook: The simple rules that keep beginners from losing money in their first year.  
 For: Beginner who just bought a little crypto and is tempted by quick wins  
-Link: https://web3.toys/dont-lose-money/  
+Link: https://web3.toys/dont-lose-money/ (before launch it shows the teaser page with Notify me: https://web3.toys/soon/?toy=dont-lose-money)  
 Time to play: 5 min · Free · Ends with a certificate · Early Bird: first 1,000 certificates get 2x coins
 
 Pictures: img/dont-lose-money-teaser-x.png and img/dont-lose-money-teaser-story.png before launch; img/dont-lose-money-launch-x.png and img/dont-lose-money-launch-story.png on launch day.
 
 Check every fact and number in the toy before posting. Never promise returns.
 
-## 1. Teaser post (@web3toys, Sat 7 Nov)
+## 1. Teaser post (@web3toys, Fri 20 Nov)
 
 Picture: img/dont-lose-money-teaser-x.png
 
 ```
-Something new lands on web3.toys this Tue 👀
+Something new lands on web3.toys this Mon 👀
 
 The simple rules that keep beginners from losing money in their first year.
 
 Don't Get Rekt. 5 min, free, ends with a certificate.
 The first 1,000 to earn it get 2x coins 🐣
 
-Get a reminder: https://web3.toys/dont-lose-money/
+Get a reminder: https://web3.toys/soon/?toy=dont-lose-money
 ```
 
-## 2. Sneak peek (@web3toys, Mon 9 Nov)
+## 2. Sneak peek (@web3toys, Sun 22 Nov)
 
 Picture: img/dont-lose-money-teaser-story.png (stories) or a 10 second screen recording of the first screen
 
@@ -36,10 +36,10 @@ Here is a peek at Don't Get Rekt 👇
 
 Start small, skip perps, avoid meme gambling, pick good sources and spot scams.
 
-Tap Notify me and we email you when it opens: https://web3.toys/dont-lose-money/
+Tap Notify me and we email you when it opens: https://web3.toys/soon/?toy=dont-lose-money
 ```
 
-## 3. Launch thread (@web3toys, Tue 10 Nov 10:00)
+## 3. Launch thread (@web3toys, Mon 23 Nov 10:00)
 
 Picture on the first post: img/dont-lose-money-launch-x.png
 

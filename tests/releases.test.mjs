@@ -11,36 +11,94 @@ const require = createRequire(import.meta.url);
 const browser = require('../js/releases.js');
 const mw = await import('data:text/javascript;base64,' + Buffer.from(read('middleware.js')).toString('base64'));
 
-const rel = json('data/releases.json');
+const rel = browser.expand(json('data/releases.json'));
 const cards = {};
 json('data/home.json').shelves.forEach((s) => s.cards.forEach((c) => { cards[c.id] = c; }));
 
 describe('Release schedule', () => {
-  it('lists real toys with a 10:00 India time date, a hook and a persona', () => {
+  it('has the agreed schedule (16 Nov 2026), each item once, with a hook and a persona', () => {
+    const want = [
+      ['2026-11-16', ['crypto-in-5', 'scam', 'invest-100', 'dead-projects', 'builder/tokenomics']],
+      ['2026-11-19', ['web3-hacks']],
+      ['2026-11-23', ['dont-lose-money']],
+      ['2026-11-26', ['builder/pitch-deck', 'builder/launch-budget']],
+      ['2026-11-30', ['token-split', 'builder/kol-scorecard']],
+      ['2026-12-03', ['getting-started', 'builder/links-checker']],
+      ['2026-12-07', ['earn-small', 'builder/launch-checklist']],
+      ['2026-12-10', ['builder/cap-table', 'builder/agreements', 'builder/airdrop-planner', 'builder/mcap-fdv', 'builder/gas-converter', 'builder/meme-kit']],
+      ['2026-12-14', ['roles-in-web3']],
+    ];
+    assert.deepEqual(rel.schedule.map((s) => [s.date, s.items]), want);
+    assert.deepEqual(rel.schedule.filter((s) => s.onlyIfReady).map((s) => s.date), ['2026-12-14']);
     assert.equal(new Set(rel.toys.map((t) => t.id)).size, rel.toys.length);
+    const names = rel.toys.map((t) => t.name);
+    rel.schedule.forEach((s) => s.items.forEach((n) => assert.ok(names.includes(n), n + ' needs an entry in toys')));
     rel.toys.forEach((t) => {
       assert.ok(cards[t.id], t.id + ' has a card in data/home.json');
-      assert.match(t.date, /^\d{4}-\d{2}-\d{2}T10:00:00\+05:30$/, t.id);
+      if (t.date) assert.match(t.date, /^\d{4}-\d{2}-\d{2}T10:00:00\+05:30$/, t.id);
       assert.ok(t.hook && t.persona, t.id);
       assert.equal(typeof t.ready, 'boolean', t.id);
     });
+    // No date: Coming soon, except the two that stay open.
+    const undated = rel.toys.filter((t) => !t.date).map((t) => t.name).sort();
+    assert.deepEqual(undated, ['first-web3-job', 'hall-of-fame', 'raise-your-first-round', 'token-simulator', 'tokenomics-basics', 'ways-to-the-moon']);
+    assert.deepEqual(rel.toys.filter((t) => t.playableNow).map((t) => t.id).sort(), ['hall-of-fame', 'token-simulator']);
   });
 
-  it('launch day toys stay playable and are live on the home page', () => {
-    const live = rel.toys.filter((t) => t.playableNow);
-    assert.equal(live.length, 11);
-    live.forEach((t) => {
-      assert.equal(t.date, rel.launch, t.id);
-      assert.ok(t.ready && cards[t.id].path, t.id);
-    });
+  it('never locks the For Projects, Quests, account and info pages or the home page', () => {
+    const never = ['launch-your-toy', 'test-your-product', 'advertise', 'academy', 'academy/list-your-project', 'book-a-call', 'leaderboard', 'progress', 'verify', 'books', 'about', 'real-toys', 'privacy', 'terms', 'refunds', 'contact', 'builder', 'soon', 'admin'];
+    const hit = (p) => mw.config.matcher.some((m) => ('/' + p + '/').startsWith(m.replace(':path*', '')) || m === '/' || m.startsWith('/:'));
+    never.forEach((p) => assert.ok(!hit(p), p + ' must never be locked'));
+    assert.ok(!mw.config.matcher.some((m) => m === '/' || m === '/:path*'), 'the home page is never locked');
+    rel.toys.forEach((t) => never.forEach((p) => assert.notEqual(t.path.replace(/\/$/, ''), p, p + ' is in the schedule')));
   });
 
-  it('a ready toy has a page, and every scheduled toy folder is locked on the server', () => {
+  it('a ready item has a page, and every scheduled folder is locked on the server', () => {
     rel.toys.filter((t) => t.ready).forEach((t) => assert.ok(cards[t.id].path, t.id + ' needs a path in data/home.json'));
     rel.toys.filter((t) => !t.playableNow).forEach((t) => {
       assert.ok(t.path, t.id + ' needs a path in releases.json');
+      assert.equal(t.path, cards[t.id].path || t.path, t.id + ' path matches data/home.json');
       assert.ok(mw.config.matcher.includes('/' + t.path + ':path*'), 'add /' + t.path + ':path* to the matcher in middleware.js');
     });
+  });
+
+  it('the browser, the server and the launch emails fill in dates the same way', () => {
+    const fresh = () => json('data/releases.json');
+    const a = browser.expand(fresh()), b = mw.expand(fresh());
+    assert.deepEqual(a, b);
+    const ts = read('supabase/functions/launch-emails/index.ts');
+    assert.ok(ts.includes("s.date + 'T10:00:00+05:30', only: s.onlyIfReady === true"));
+    assert.ok(ts.includes('const on = Boolean(toy.ready) && (!toy.onlyIfReady || Boolean(o && (o.ready === true || o.action === \'release\')));'));
+    assert.ok(ts.includes('.then(expand)'));
+  });
+
+  it('onlyIfReady items wait for Switch on, even after their date', () => {
+    const t = rel.toys.find((x) => x.name === 'roles-in-web3');
+    assert.equal(t.id, 'web3-roles');
+    assert.equal(t.onlyIfReady, true);
+    const after = Date.parse(t.date) + 864e5, before = Date.parse(t.date) - 864e5;
+    [browser, mw].forEach((m) => {
+      assert.equal(m.decide(t, after, null, 7).status, 'delayed');
+      assert.equal(m.decide(t, before, { ready: true, action: null }, 7).status, 'locked');
+      assert.equal(m.decide(t, after, { ready: true, action: null }, 7).status, 'live');
+      assert.equal(m.decide(t, before, { action: 'release' }, 7).status, 'live');
+    });
+    const sql = read('supabase/023_release_schedule.sql');
+    assert.ok(sql.includes('create or replace function public.admin_set_ready'));
+    assert.ok(sql.includes("if not public.is_admin() then raise exception 'Admins only'"));
+  });
+
+  it('unlocks at 10:00 India time on its day, with a New sticker for 7 days', () => {
+    const t = rel.toys.find((x) => x.name === 'web3-hacks');
+    const at = Date.parse('2026-11-19T04:30:00Z');
+    assert.equal(Date.parse(t.date), at);
+    assert.equal(browser.decide(t, at - 1000, null, 7).status, 'locked');
+    const open = browser.decide(t, at, null, 7);
+    assert.equal(open.status, 'live');
+    assert.equal(open.isNew, true);
+    assert.equal(browser.decide(t, at + 7 * 864e5, null, 7).isNew, false);
+    assert.equal(browser.decide(rel.toys.find((x) => x.id === 'tokenomics-basics'), at + 365 * 864e5, null, 7).status, 'locked');
+    assert.equal(browser.decide(rel.toys.find((x) => x.id === 'hall-of-fame'), at, null, 7).status, 'live');
   });
 
   it('the browser and the server use the same rule', () => {
@@ -57,6 +115,10 @@ describe('Release schedule', () => {
       [toy, Date.parse('2026-11-20T10:00:00+05:30'), { action: 'delay', until: '2026-11-20T10:00:00+05:30' }, 'live', true],
       [toy, at + 1000, { action: 'delay', until: null }, 'delayed', false],
       [{ ...toy, playableNow: true }, at - 864e5, null, 'live', false],
+      [{ ...toy, date: null }, at, null, 'locked', false],
+      [{ ...toy, date: null }, at, { action: 'release', updated_at: new Date(at).toISOString() }, 'live', true],
+      [{ ...toy, onlyIfReady: true }, at + 1000, null, 'delayed', false],
+      [{ ...toy, onlyIfReady: true }, at + 1000, { ready: true, action: null }, 'live', true],
     ];
     cases.forEach(([t, now, o, status, isNew], i) => {
       const a = browser.decide(t, now, o, 7);
@@ -136,11 +198,14 @@ describe('Release schedule', () => {
     assert.ok(!/create policy[^;]*for (insert|update|delete|all)/i.test(sql));
   });
 
-  it('Early Bird starts match the release dates, and every scheduled toy ends with a certificate', () => {
+  it('Early Bird starts on each toy\'s own unlock date, and every scheduled toy ends with a certificate', () => {
     const sql = read('supabase/012_early_bird.sql');
+    const upd = read('supabase/023_release_schedule.sql');
     const quizIds = json('quizzes/index.json').toys.map((t) => t.id);
-    rel.toys.forEach((t) => {
-      assert.ok(sql.includes(`('${t.id}', '${t.date.replace('T', ' ')}', 1000,`), t.id + ': Early Bird start in 012_early_bird.sql must match releases.json');
+    rel.toys.filter((t) => !/^tool-/.test(t.id)).forEach((t) => {
+      const start = (t.playableNow ? rel.launch : t.date || '2099-01-01T10:00:00+05:30').replace('T', ' ');
+      assert.ok(sql.includes(`('${t.id}', '${start}', 1000,`), t.id + ': Early Bird start in 012_early_bird.sql must match releases.json');
+      assert.ok(upd.includes(`('${t.id}', '${start}')`), t.id + ': Early Bird start in 023_release_schedule.sql must match releases.json');
       if (t.ready) {
         assert.ok(quizIds.includes(t.id), t.id + ' needs a quiz and certificate (quizzes/index.json)');
         const q = json(`quizzes/${t.id}.json`).questions;
@@ -148,6 +213,7 @@ describe('Release schedule', () => {
         q.forEach((x) => assert.equal(x.options.filter((o) => o === x.answer).length, 1, t.id + ' ' + x.id));
       }
     });
+    assert.ok(!/delete from public.early_birds/i.test(upd), 'spots players already earned are kept');
     assert.ok(sql.includes('for update'), 'spots are handed out one at a time');
     assert.ok(sql.includes('unique (toy, user_id)'));
   });
@@ -155,7 +221,7 @@ describe('Release schedule', () => {
   it('launch kits are up to date with every picture (node tools/launch-kit.mjs, tools/launch-images.mjs)', async () => {
     const { build } = await import('../tools/launch-kit.mjs');
     Object.entries(build(false)).forEach(([f, body]) => assert.equal(read(f), body, f + ' is out of date: run node tools/launch-kit.mjs'));
-    rel.toys.forEach((t) => ['teaser-x', 'launch-x', 'teaser-story', 'launch-story'].forEach((k) =>
+    rel.toys.filter((t) => t.date && !/^tool-/.test(t.id)).forEach((t) => ['teaser-x', 'launch-x', 'teaser-story', 'launch-story'].forEach((k) =>
       assert.ok(existsSync(new URL(`../marketing/launches/img/${t.id}-${k}.png`, import.meta.url)), `${t.id}-${k}.png: run node tools/launch-images.mjs`)));
   });
 });

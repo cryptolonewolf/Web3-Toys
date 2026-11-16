@@ -7,10 +7,14 @@
 // Pictures: tools/launch-images.mjs.
 
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
-const rel = JSON.parse(readFileSync(root + 'data/releases.json', 'utf8'));
+const { expand } = createRequire(import.meta.url)('../js/releases.js');
+// Toys with an unlock date (builder tools and Coming soon toys have no kit).
+const rel = expand(JSON.parse(readFileSync(root + 'data/releases.json', 'utf8')));
+rel.toys = rel.toys.filter((t) => t.date && !/^tool-/.test(t.id));
 const home = JSON.parse(readFileSync(root + 'data/home.json', 'utf8'));
 const SITE = 'https://web3.toys';
 const cards = {};

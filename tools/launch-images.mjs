@@ -18,7 +18,10 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const base = process.argv[2] || 'http://localhost:3001';
 const require = createRequire(import.meta.url);
 const { chromium } = require(execSync('npm root -g').toString().trim() + '/playwright');
-const rel = JSON.parse(readFileSync(root + 'data/releases.json', 'utf8'));
+const { expand } = createRequire(import.meta.url)('../js/releases.js');
+// Toys with an unlock date (builder tools and Coming soon toys have no kit).
+const rel = expand(JSON.parse(readFileSync(root + 'data/releases.json', 'utf8')));
+rel.toys = rel.toys.filter((t) => t.date && !/^tool-/.test(t.id));
 const home = JSON.parse(readFileSync(root + 'data/home.json', 'utf8'));
 const cards = {};
 home.shelves.forEach((s) => s.cards.forEach((c) => { cards[c.id] = c; }));

@@ -1,27 +1,45 @@
 # Scheduled releases: setup
 
-About 2 minutes.
+About 3 minutes.
 
 ## Step 1. Database
 
-Supabase, **SQL Editor**, **New query**: paste all of
-`supabase/010_releases.sql` and click **Run**. Safe to run again.
+Supabase, **SQL Editor**, **New query**, one at a time (all safe to run again):
 
-It adds:
+1. `supabase/010_releases.sql` (if not run before)
+2. `supabase/017_ops.sql` (again, for the admin to-do tick)
+3. `supabase/023_release_schedule.sql`: the **Switch on** button and the
+   Early Bird start dates (spots players already earned are kept)
 
-- the server clock, so a wrong clock on a visitor's phone cannot unlock a toy;
-- your **Release now** and **Delay** buttons (admin, Releases tab);
-- the **Notify me** list.
+Then **Edge Functions**, `launch-emails`: paste the new
+`supabase/functions/launch-emails/index.ts` and deploy (Verify JWT off).
 
-Nothing to add in Vercel: the server lock (`middleware.js`) uses
-`SUPABASE_URL` and `SUPABASE_SECRET_KEY`, which are already there.
+Nothing else to add in Vercel for the lock: the server lock
+(`middleware.js`) uses `SUPABASE_URL` and `SUPABASE_SECRET_KEY`, which are
+already there.
+
+## Your preview (optional)
+
+Vercel, **Settings**, **Environment Variables**: add `PREVIEW_KEY` with a
+long password you make up (at least 12 characters; never send it to
+anyone), then redeploy. Open any page once with `?preview=YOUR_KEY` at the
+end of the address. After that, in admin, **Releases**, pick a date under
+**Preview a date**: the whole site in your browser shows that day, locked
+pages included. **Exit preview** goes back to today. Only a logged-in
+admin sees the preview; without the key, locked pages stay locked even for
+you.
 
 ## Changing the schedule
 
-Edit `data/releases.json`: each toy has a `date` (10:00 India time). Set
-`ready` to `true` only once the toy is built and its card in
-`data/home.json` has a `path`; until then it shows Coming soon, even after
-its date.
+Edit `schedule` in `data/releases.json`: each date unlocks its items at
+10:00 India time (server time, never the visitor's clock). Items not in
+the schedule show Coming soon with no date (Hall of Fame and the Token
+Simulator have `openNow` and are always open). Items marked `onlyIfReady`
+wait for **Switch on** in admin, even after their date.
+
+A new item also needs an entry in `toys` and its folder in the matcher at
+the top of `middleware.js` (the automatic checks remind you).
 
 To release early or delay without editing the file: **web3.toys/admin/**,
-**Releases** tab. **Back to schedule** removes your change.
+**Releases** tab. **Back to schedule** removes your change (a Switch on
+stays).

@@ -1,31 +1,31 @@
 # Not Your Keys (Getting Started in Crypto)
 
-Launch: **Tuesday 10 November, 10:00 India time** (launch day: one of the first toys)  
+Launch: **Thursday 3 December, 10:00 India time**  
 Hook: Wallets, swaps, fees and stablecoins, explained before you press your first button.  
 For: New crypto user about to set up a first wallet  
-Link: https://web3.toys/getting-started/  
+Link: https://web3.toys/getting-started/ (before launch it shows the teaser page with Notify me: https://web3.toys/soon/?toy=getting-started)  
 Time to play: 6 min · Free · Ends with a certificate · Early Bird: first 1,000 certificates get 2x coins
 
 Pictures: img/getting-started-teaser-x.png and img/getting-started-teaser-story.png before launch; img/getting-started-launch-x.png and img/getting-started-launch-story.png on launch day.
 
 Check every fact and number in the toy before posting. Never promise returns.
 
-## 1. Teaser post (@web3toys, Sat 7 Nov)
+## 1. Teaser post (@web3toys, Mon 30 Nov)
 
 Picture: img/getting-started-teaser-x.png
 
 ```
-Something new lands on web3.toys this Tue 👀
+Something new lands on web3.toys this Thu 👀
 
 Wallets, swaps, fees and stablecoins, explained before you press your first button.
 
 Not Your Keys. 6 min, free, ends with a certificate.
 The first 1,000 to earn it get 2x coins 🐣
 
-Get a reminder: https://web3.toys/getting-started/
+Get a reminder: https://web3.toys/soon/?toy=getting-started
 ```
 
-## 2. Sneak peek (@web3toys, Mon 9 Nov)
+## 2. Sneak peek (@web3toys, Wed 2 Dec)
 
 Picture: img/getting-started-teaser-story.png (stories) or a 10 second screen recording of the first screen
 
@@ -36,10 +36,10 @@ Here is a peek at Not Your Keys 👇
 
 Wallets, stablecoins, tokens, exchanges, swaps, fees, blockchains, perps and options.
 
-Tap Notify me and we email you when it opens: https://web3.toys/getting-started/
+Tap Notify me and we email you when it opens: https://web3.toys/soon/?toy=getting-started
 ```
 
-## 3. Launch thread (@web3toys, Tue 10 Nov 10:00)
+## 3. Launch thread (@web3toys, Thu 3 Dec 10:00)
 
 Picture on the first post: img/getting-started-launch-x.png
 

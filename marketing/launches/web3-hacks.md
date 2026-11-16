@@ -1,31 +1,31 @@
 # Famous Web3 Hacks
 
-Launch: **Tuesday 10 November, 10:00 India time** (launch day: one of the first toys)  
+Launch: **Thursday 19 November, 10:00 India time**  
 Hook: Crack the vault: the biggest hacks in web3, what went wrong and the lesson from each.  
 For: Crypto holder who wants to keep funds safe  
-Link: https://web3.toys/web3-hacks/  
+Link: https://web3.toys/web3-hacks/ (before launch it shows the teaser page with Notify me: https://web3.toys/soon/?toy=web3-hacks)  
 Time to play: 5 min · Free · Ends with a certificate · Early Bird: first 1,000 certificates get 2x coins
 
 Pictures: img/web3-hacks-teaser-x.png and img/web3-hacks-teaser-story.png before launch; img/web3-hacks-launch-x.png and img/web3-hacks-launch-story.png on launch day.
 
 Check every fact and number in the toy before posting. Never promise returns.
 
-## 1. Teaser post (@web3toys, Sat 7 Nov)
+## 1. Teaser post (@web3toys, Mon 16 Nov)
 
 Picture: img/web3-hacks-teaser-x.png
 
 ```
-Something new lands on web3.toys this Tue 👀
+Something new lands on web3.toys this Thu 👀
 
 Crack the vault: the biggest hacks in web3, what went wrong and the lesson from each.
 
 Famous Web3 Hacks. 5 min, free, ends with a certificate.
 The first 1,000 to earn it get 2x coins 🐣
 
-Get a reminder: https://web3.toys/web3-hacks/
+Get a reminder: https://web3.toys/soon/?toy=web3-hacks
 ```
 
-## 2. Sneak peek (@web3toys, Mon 9 Nov)
+## 2. Sneak peek (@web3toys, Wed 18 Nov)
 
 Picture: img/web3-hacks-teaser-story.png (stories) or a 10 second screen recording of the first screen
 
@@ -36,10 +36,10 @@ Here is a peek at Famous Web3 Hacks 👇
 
 A timeline of the biggest hacks, what went wrong and the lesson from each.
 
-Tap Notify me and we email you when it opens: https://web3.toys/web3-hacks/
+Tap Notify me and we email you when it opens: https://web3.toys/soon/?toy=web3-hacks
 ```
 
-## 3. Launch thread (@web3toys, Tue 10 Nov 10:00)
+## 3. Launch thread (@web3toys, Thu 19 Nov 10:00)
 
 Picture on the first post: img/web3-hacks-launch-x.png
 

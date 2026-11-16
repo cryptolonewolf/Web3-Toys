@@ -48,7 +48,7 @@
       (delayed
         ? '<h2 class="title-md">Coming soon</h2><p class="text">We are putting the finishing touches on it. Tap Notify me and we will email you the day it is out.</p>'
         : '<h2 class="title-md">Unlocks ' + esc(R.dayLabel(info.at)) + ' at 10:00 India time</h2><div class="soon-count" data-count aria-live="off"></div>') +
-      '<p class="small-print">Early Bird: the first 1,000 players to earn its certificate get 2x coins.</p></section>' +
+      (/^tool-/.test(card.id) ? '' : '<p class="small-print">Early Bird: the first 1,000 players to earn its certificate get 2x coins.</p>') + '</section>' +
       '<section class="card stack stack--tight" id="notify">' + notifyBox() + '</section>' +
       '<p class="text"><a href="../">Play a live toy while you wait →</a></p>';
     bindNotify();

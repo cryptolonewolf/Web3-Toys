@@ -1,31 +1,31 @@
 # Stack Sats (Ways to Earn Small)
 
-Launch: **Tuesday 10 November, 10:00 India time** (launch day: one of the first toys)  
+Launch: **Monday 7 December, 10:00 India time**  
 Hook: Real ways to earn your first crypto: content, airdrops, writing, videos and internships.  
 For: Student or creator looking for a first income in web3  
-Link: https://web3.toys/earn-small/  
+Link: https://web3.toys/earn-small/ (before launch it shows the teaser page with Notify me: https://web3.toys/soon/?toy=earn-small)  
 Time to play: 5 min · Free · Ends with a certificate · Early Bird: first 1,000 certificates get 2x coins
 
 Pictures: img/earn-small-teaser-x.png and img/earn-small-teaser-story.png before launch; img/earn-small-launch-x.png and img/earn-small-launch-story.png on launch day.
 
 Check every fact and number in the toy before posting. Never promise returns.
 
-## 1. Teaser post (@web3toys, Sat 7 Nov)
+## 1. Teaser post (@web3toys, Fri 4 Dec)
 
 Picture: img/earn-small-teaser-x.png
 
 ```
-Something new lands on web3.toys this Tue 👀
+Something new lands on web3.toys this Mon 👀
 
 Real ways to earn your first crypto: content, airdrops, writing, videos and internships.
 
 Stack Sats. 5 min, free, ends with a certificate.
 The first 1,000 to earn it get 2x coins 🐣
 
-Get a reminder: https://web3.toys/earn-small/
+Get a reminder: https://web3.toys/soon/?toy=earn-small
 ```
 
-## 2. Sneak peek (@web3toys, Mon 9 Nov)
+## 2. Sneak peek (@web3toys, Sun 6 Dec)
 
 Picture: img/earn-small-teaser-story.png (stories) or a 10 second screen recording of the first screen
 
@@ -36,10 +36,10 @@ Here is a peek at Stack Sats 👇
 
 Content, airdrops, writing, videos and internships.
 
-Tap Notify me and we email you when it opens: https://web3.toys/earn-small/
+Tap Notify me and we email you when it opens: https://web3.toys/soon/?toy=earn-small
 ```
 
-## 3. Launch thread (@web3toys, Tue 10 Nov 10:00)
+## 3. Launch thread (@web3toys, Mon 7 Dec 10:00)
 
 Picture on the first post: img/earn-small-launch-x.png
 

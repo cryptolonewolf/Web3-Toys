@@ -1,31 +1,31 @@
 # Spot the Scam (Scam or legit?)
 
-Launch: **Tuesday 10 November, 10:00 India time** (launch day: one of the first toys)  
+Launch: **Monday 16 November, 10:00 India time**  
 Hook: Scam or legit? Ten rounds to train your eye before a scammer finds you.  
 For: Anyone who gets DMs, airdrops and links in crypto chats  
-Link: https://web3.toys/scam/  
+Link: https://web3.toys/scam/ (before launch it shows the teaser page with Notify me: https://web3.toys/soon/?toy=scam)  
 Time to play: 5 min · Free · Ends with a certificate · Early Bird: first 1,000 certificates get 2x coins
 
 Pictures: img/scam-teaser-x.png and img/scam-teaser-story.png before launch; img/scam-launch-x.png and img/scam-launch-story.png on launch day.
 
 Check every fact and number in the toy before posting. Never promise returns.
 
-## 1. Teaser post (@web3toys, Sat 7 Nov)
+## 1. Teaser post (@web3toys, Fri 13 Nov)
 
 Picture: img/scam-teaser-x.png
 
 ```
-Something new lands on web3.toys this Tue 👀
+Something new lands on web3.toys this Mon 👀
 
 Scam or legit? Ten rounds to train your eye before a scammer finds you.
 
 Spot the Scam. 5 min, free, ends with a certificate.
 The first 1,000 to earn it get 2x coins 🐣
 
-Get a reminder: https://web3.toys/scam/
+Get a reminder: https://web3.toys/soon/?toy=scam
 ```
 
-## 2. Sneak peek (@web3toys, Mon 9 Nov)
+## 2. Sneak peek (@web3toys, Sun 15 Nov)
 
 Picture: img/scam-teaser-story.png (stories) or a 10 second screen recording of the first screen
 
@@ -36,10 +36,10 @@ Here is a peek at Spot the Scam 👇
 
 Scam or legit? Play 10 rounds, or paste a message you got and see how risky it looks.
 
-Tap Notify me and we email you when it opens: https://web3.toys/scam/
+Tap Notify me and we email you when it opens: https://web3.toys/soon/?toy=scam
 ```
 
-## 3. Launch thread (@web3toys, Tue 10 Nov 10:00)
+## 3. Launch thread (@web3toys, Mon 16 Nov 10:00)
 
 Picture on the first post: img/scam-launch-x.png
 

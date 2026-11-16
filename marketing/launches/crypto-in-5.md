@@ -1,31 +1,31 @@
 # Genesis Block (Crypto in 5 Minutes)
 
-Launch: **Tuesday 10 November, 10:00 India time** (launch day: one of the first toys)  
+Launch: **Monday 16 November, 10:00 India time**  
 Hook: Crypto in 5 minutes: how it started, what moves it, and what everyone is talking about right now.  
 For: Curious beginner who has heard of Bitcoin but never bought any  
-Link: https://web3.toys/crypto-in-5/  
+Link: https://web3.toys/crypto-in-5/ (before launch it shows the teaser page with Notify me: https://web3.toys/soon/?toy=crypto-in-5)  
 Time to play: 5 min · Free · Ends with a certificate · Early Bird: first 1,000 certificates get 2x coins
 
 Pictures: img/crypto-in-5-teaser-x.png and img/crypto-in-5-teaser-story.png before launch; img/crypto-in-5-launch-x.png and img/crypto-in-5-launch-story.png on launch day.
 
 Check every fact and number in the toy before posting. Never promise returns.
 
-## 1. Teaser post (@web3toys, Sat 7 Nov)
+## 1. Teaser post (@web3toys, Fri 13 Nov)
 
 Picture: img/crypto-in-5-teaser-x.png
 
 ```
-Something new lands on web3.toys this Tue 👀
+Something new lands on web3.toys this Mon 👀
 
 Crypto in 5 minutes: how it started, what moves it, and what everyone is talking about right now.
 
 Genesis Block. 5 min, free, ends with a certificate.
 The first 1,000 to earn it get 2x coins 🐣
 
-Get a reminder: https://web3.toys/crypto-in-5/
+Get a reminder: https://web3.toys/soon/?toy=crypto-in-5
 ```
 
-## 2. Sneak peek (@web3toys, Mon 9 Nov)
+## 2. Sneak peek (@web3toys, Sun 15 Nov)
 
 Picture: img/crypto-in-5-teaser-story.png (stories) or a 10 second screen recording of the first screen
 
@@ -36,10 +36,10 @@ Here is a peek at Genesis Block 👇
 
 How it started, narratives, the 4 year cycle, memes and what is trending.
 
-Tap Notify me and we email you when it opens: https://web3.toys/crypto-in-5/
+Tap Notify me and we email you when it opens: https://web3.toys/soon/?toy=crypto-in-5
 ```
 
-## 3. Launch thread (@web3toys, Tue 10 Nov 10:00)
+## 3. Launch thread (@web3toys, Mon 16 Nov 10:00)
 
 Picture on the first post: img/crypto-in-5-launch-x.png
 

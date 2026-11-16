@@ -13,7 +13,7 @@
 
 const env = (k: string) => Deno.env.get(k) || '';
 const FN = 'launch-emails';
-const VERSION = 2; // raise when this file changes in a way the admin to-do list should know about
+const VERSION = 3; // raise when this file changes in a way the admin to-do list should know about
 
 const HOUR = 36e5;
 
@@ -34,17 +34,30 @@ async function hmac(text: string) {
 
 const esc = (s: string) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c] as string);
 
-// The same rule as decide() in js/releases.js.
+// The same as expand() and decide() in js/releases.js (the checks compare them).
+export function expand(rel: any) {
+  const when: Record<string, { date: string; only: boolean }> = {};
+  (rel.schedule || []).forEach((s: any) => (s.items || []).forEach((n: string) => { when[n] = { date: s.date + 'T10:00:00+05:30', only: s.onlyIfReady === true }; }));
+  (rel.toys || []).forEach((t: any) => {
+    const w = when[t.name || t.id];
+    if (rel.schedule) t.date = w ? w.date : null;
+    t.onlyIfReady = Boolean(w && w.only);
+    t.playableNow = t.openNow === true || (!rel.schedule && t.playableNow === true);
+  });
+  return rel;
+}
+
 export function decide(toy: any, nowMs: number, o: any) {
-  let at = Date.parse(toy.date);
+  let at = toy.date ? Date.parse(toy.date) : NaN;
   if (o && o.action === 'delay') at = o.until ? Date.parse(o.until) : NaN;
+  const on = Boolean(toy.ready) && (!toy.onlyIfReady || Boolean(o && (o.ready === true || o.action === 'release')));
   let released: boolean;
-  if (!toy.ready) released = false;
+  if (!on) released = false;
   else if (o && o.action === 'release') released = true;
   else if (o && o.action === 'delay') released = !isNaN(at) && nowMs >= at;
-  else released = toy.playableNow || nowMs >= at;
-  const liveAt = o && o.action === 'release' ? Math.min(Date.parse(o.updated_at || toy.date) || at, at) : at;
-  return { released, at, liveAt };
+  else released = Boolean(toy.playableNow) || (!isNaN(at) && nowMs >= at);
+  const liveAt = o && o.action === 'release' ? Math.min(Date.parse(o.updated_at || '') || at, isNaN(at) ? Infinity : at) : at;
+  return { released, at, liveAt, on };
 }
 
 function dayLabel(ms: number) {
@@ -65,12 +78,12 @@ export function email(kind: 'day_before' | 'launch', t: { id: string; title: str
   const html = `<!doctype html><html><body style="margin:0;background:#FFF8E1;font-family:Arial,Helvetica,sans-serif;color:#1F1B2E">
 <div style="max-width:560px;margin:0 auto;padding:24px 16px">
 <p style="font-size:20px;font-weight:bold;margin:0 0 16px">web3.toys</p>
-<img src="${img}" width="528" alt="${esc(t.title)}" style="width:100%;max-width:528px;height:auto;border:3px solid #1F1B2E;border-radius:16px;display:block" />
+${/^tool-/.test(t.id) ? '' : `<img src="${img}" width="528" alt="${esc(t.title)}" style="width:100%;max-width:528px;height:auto;border:3px solid #1F1B2E;border-radius:16px;display:block" />`}
 <h1 style="font-size:24px;margin:20px 0 8px">${esc(t.title)}</h1>
 <p style="font-size:16px;line-height:1.5;margin:0 0 8px">${esc(t.hook)}</p>
 <p style="font-size:15px;line-height:1.5;margin:0 0 8px">${lead}</p>
 ${bird ? `<p style="font-size:15px;line-height:1.5;margin:0 0 16px;font-weight:bold">${esc(bird)}</p>` : ''}
-<p style="margin:20px 0"><a href="${t.link}" style="background:#1F1B2E;color:#FFD93D;text-decoration:none;font-weight:bold;padding:12px 22px;border-radius:999px;display:inline-block">${kind === 'day_before' ? 'See the toy' : 'Play now'}</a></p>
+<p style="margin:20px 0"><a href="${t.link}" style="background:#1F1B2E;color:#FFD93D;text-decoration:none;font-weight:bold;padding:12px 22px;border-radius:999px;display:inline-block">${kind === 'day_before' ? 'See it' : /^tool-/.test(t.id) ? 'Open it' : 'Play now'}</a></p>
 <p style="font-size:12px;color:#5A5470;line-height:1.5;margin-top:28px">Educational only. Not financial advice.<br>You get this because you tapped Notify me for this toy. <a href="${unsub}" style="color:#5A5470">Unsubscribe</a>.<br>Build With Aki, Dehradun, Uttarakhand, India.</p>
 </div></body></html>`;
   const text = `${t.title}\n\n${t.hook}\n\n${lead.replace(/&[a-z]+;/g, ' ')}\n${bird}\n\n${t.link}\n\nUnsubscribe: ${unsub}`;
@@ -99,9 +112,9 @@ export async function handle(req: Request): Promise<Response> {
   const fnUrl = `${env('SUPABASE_URL')}/functions/v1/launch-emails`;
   const now = env('WEB3TOYS_TEST') && url.searchParams.get('now') ? Number(url.searchParams.get('now')) : Date.now();
   const [rel, home, overrides, counts] = await Promise.all([
-    fetch(`${site}/data/releases.json`).then((r) => r.json()),
+    fetch(`${site}/data/releases.json`).then((r) => r.json()).then(expand),
     fetch(`${site}/data/home.json`).then((r) => r.json()),
-    db('release_overrides?select=toy_id,action,until,updated_at').then((r) => r.ok ? r.json() : []),
+    db('release_overrides?select=*').then((r) => r.ok ? r.json() : []),
     db('rpc/early_bird_counts', { method: 'POST', body: '{}' }).then((r) => r.ok ? r.json() : []).catch(() => []),
   ]);
   const cards: Record<string, any> = {};
@@ -117,7 +130,7 @@ export async function handle(req: Request): Promise<Response> {
     if (toy.playableNow) continue;
     const d = decide(toy, now, over[toy.id]);
     let kind: 'day_before' | 'launch' | null = null;
-    if (toy.ready && !d.released && !isNaN(d.at) && d.at > now && d.at - now <= 26 * HOUR) kind = 'day_before';
+    if (d.on && !d.released && !isNaN(d.at) && d.at > now && d.at - now <= 26 * HOUR) kind = 'day_before';
     if (d.released && now >= d.liveAt && now - d.liveAt < 12 * HOUR) kind = 'launch';
     if (!kind) continue;
     const col = kind === 'day_before' ? 'sent_day_before' : 'sent_launch';

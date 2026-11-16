@@ -314,22 +314,47 @@
         var onPage = function (e) { return String(e.page || '').replace(/index\.html$/, '').replace(/\/$/, '').split('/').pop() === key; };
         var mine = function (e) { return e.item === t.id || e.item === key; };
         var b = birds[t.id];
-        return { t: t, i: i, o: o, row: [(cards[t.id] || {}).title || t.id, when(new Date(Date.parse(t.date))), i.status + (i.isNew ? ' (new)' : ''),
-          o ? (o.action === 'release' ? 'Released early' : 'Delayed' + (o.until ? ' to ' + when(new Date(o.until)) : '')) : '', t.ready ? 'yes' : 'not built yet', asked[t.id] || 0,
+        var mineO = o && o.action ? (o.action === 'release' ? 'Released early' : 'Delayed' + (o.until ? ' to ' + when(new Date(o.until)) : '')) : '';
+        var built = !t.ready ? 'not built yet' : t.onlyIfReady ? (o && o.ready ? 'yes, switched on' : 'yes, waits for Switch on') : 'yes';
+        return { t: t, i: i, o: o, row: [(cards[t.id] || {}).title || t.id, t.name || t.id, t.date ? when(new Date(Date.parse(t.date))) : t.playableNow ? 'Always open' : 'No date (Coming soon)', i.status + (i.isNew ? ' (new)' : ''),
+          mineO, built, asked[t.id] || 0,
           count('page_view', onPage), count('finish', mine), certs[t.id] || 0, b ? b.used + ' / ' + b.spots : '', count('share', mine)] };
       });
-      var head = ['Toy', 'Date in releases.json', 'Status now', 'Your override', 'Built', 'Notify me', 'Plays', 'Finishes', 'Certificates', 'Early Bird used', 'Shares'];
-      panel.innerHTML = '<p class="small-print">Server time: ' + esc(R.now().toLocaleString('en-GB', { timeZone: 'Asia/Kolkata' })) + ' India time. Plays, finishes and shares are counted over the last ' + sinceDays + ' day' + (sinceDays === 1 ? '' : 's') + ' (since launch day). Change dates in data/releases.json; use these buttons to release early or delay without editing it.</p>' +
+      var head = ['Item', 'Name in schedule', 'Unlocks (10:00 India time)', 'Status now', 'Your override', 'Built', 'Notify me', 'Plays', 'Finishes', 'Certificates', 'Early Bird used', 'Shares'];
+      var pv = R.previewAt && R.previewAt();
+      var pvBox = '<div class="card stack stack--tight adm-preview"><b>👀 Preview a date</b><p class="small-print">See the whole site in this browser as it will look on that day at 10:00 India time (cards, locks, New stickers, order). Only you see it. Locked pages also follow it once you have opened any page with ?preview=YOUR_KEY (PREVIEW_KEY in Vercel).</p>' +
+        '<div class="btn-row"><input class="field" type="date" data-pv-date value="' + (pv ? esc(pv.toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' })) : '') + '" aria-label="Preview date" />' +
+        '<button type="button" class="btn btn--small btn--ink" data-pv-go>Preview</button>' + (pv ? '<button type="button" class="btn btn--small" data-pv-off>Exit preview</button>' : '') + '</div></div>';
+      panel.innerHTML = pvBox + '<p class="small-print">' + (pv ? 'Preview time: ' : 'Server time: ') + esc(R.now().toLocaleString('en-GB', { timeZone: 'Asia/Kolkata' })) + ' India time. Plays, finishes and shares are counted over the last ' + sinceDays + ' day' + (sinceDays === 1 ? '' : 's') + ' (since launch day). Change dates in data/releases.json (schedule); use these buttons to release early, delay, or switch on an item marked onlyIfReady, without editing it.</p>' +
         grid('releases', head, rows.map(function (x) { return x.row; }), rows.map(function (x) {
           return '<tr>' + x.row.map(function (c) { return '<td>' + esc(String(c)) + '</td>'; }).join('') +
             '<td><div class="btn-row">' +
             (x.i.status !== 'live' && x.t.ready ? '<button type="button" class="btn btn--small btn--yellow" data-rel="release" data-toy="' + esc(x.t.id) + '">Release now</button>' : '') +
             (!x.t.playableNow ? '<button type="button" class="btn btn--small" data-rel="delay" data-toy="' + esc(x.t.id) + '">Delay…</button>' : '') +
-            (x.o ? '<button type="button" class="btn btn--small" data-rel="clear" data-toy="' + esc(x.t.id) + '">Back to schedule</button>' : '') +
+            (x.o && x.o.action ? '<button type="button" class="btn btn--small" data-rel="clear" data-toy="' + esc(x.t.id) + '">Back to schedule</button>' : '') +
+            (x.t.onlyIfReady && x.t.ready ? '<button type="button" class="btn btn--small' + (x.o && x.o.ready ? '' : ' btn--ink') + '" data-ready="' + (x.o && x.o.ready ? 'off' : 'on') + '" data-toy="' + esc(x.t.id) + '">' + (x.o && x.o.ready ? 'Switch off' : 'Switch on') + '</button>' : '') +
             '</div></td></tr>';
         }));
       panel.querySelector('thead tr').insertAdjacentHTML('beforeend', '<th>Change</th>');
       bindCsv(panel);
+      var go = panel.querySelector('[data-pv-go]');
+      go.addEventListener('click', function () {
+        var v = panel.querySelector('[data-pv-date]').value;
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(v)) { window.alert('Pick a date first.'); return; }
+        R.setPreview(Date.parse(v + 'T10:00:00+05:30'));
+        location.href = '../';
+      });
+      var off = panel.querySelector('[data-pv-off]');
+      if (off) off.addEventListener('click', function () { R.setPreview(null); location.reload(); });
+      panel.querySelectorAll('[data-ready]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var on = b.getAttribute('data-ready') === 'on';
+          if (on && !window.confirm('Switch on ' + b.getAttribute('data-toy') + '? It unlocks on its date (or straight away if the date has passed).')) return;
+          b.disabled = true;
+          db().rpc('admin_set_ready', { p_toy: b.getAttribute('data-toy'), p_on: on }).then(must)
+            .then(function () { render(); }, function (err) { b.disabled = false; window.alert('Could not save: ' + err.message + ' (run supabase/023_release_schedule.sql first).'); });
+        });
+      });
       panel.querySelectorAll('[data-rel]').forEach(function (b) {
         b.addEventListener('click', function () {
           var act = b.getAttribute('data-rel');
