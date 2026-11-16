@@ -27,21 +27,7 @@
     { label: 'Pages directory', href: 'pages/' },
     { label: 'Book a Call', href: 'book-a-call/' },
   ];
-  // Everything else lives in the footer.
-  var FOOTER_EXTRA = [
-    { label: 'My Progress', href: 'progress/' },
-    { label: 'Real Toys', href: 'real-toys/' },
-    { label: 'Books', href: 'books/' },
-    { label: 'About Aki', href: 'about/' },
-    { label: 'Work with us', href: 'work-with-us/' },
-    { label: 'List your project', href: 'academy/list-your-project/' },
-    { label: 'Leaderboard', href: 'leaderboard/' },
-    { label: 'Check a certificate', href: 'verify/' },
-    { label: 'Privacy', href: 'privacy/' },
-    { label: 'Terms', href: 'terms/' },
-    { label: 'Refunds', href: 'refunds/' },
-    { label: 'Contact', href: 'contact/' },
-  ];
+  // Everything else lives in the footer (FOOTER_COLS below).
 
   function config() {
     return window.WEB3TOYS_CONFIG || {};
@@ -176,24 +162,41 @@
     });
   }
 
+  // The footer: the logo, one line about the site and the social links,
+  // then the links in labelled columns, then the small print the page
+  // already has (Educational only, by BuildWithAki).
+  var FOOTER_COLS = [
+    { title: 'Play and learn', links: [['Toys', ''], ['Tools', 'builder/'], ['Quests', 'academy/'], ['Real Toys', 'real-toys/'], ['Books', 'books/'], ['Leaderboard', 'leaderboard/']] },
+    { title: 'You', links: [['My Progress', 'progress/'], ['Check a certificate', 'verify/'], ['Become a tester', 'testers/', 'biz'], ['Claim My Page', 'my-page/', 'biz']] },
+    { title: 'For projects', links: [['Launch Your Own Toy', 'launch-your-toy/', 'biz'], ['Test Your Product', 'test-your-product/', 'biz'], ['Advertise', 'advertise/', 'biz'], ['List your Quest', 'academy/list-your-project/'], ['Pages directory', 'pages/', 'biz'], ['Work with us', 'work-with-us/', 'nobiz'], ['Book a Call', 'book-a-call/']] },
+    { title: 'About', links: [['About Aki', 'about/'], ['Contact', 'contact/'], ['Privacy', 'privacy/'], ['Terms', 'terms/'], ['Refunds', 'refunds/']] },
+  ];
+
   function buildFooter() {
     var foot = document.querySelector('.site-footer');
     if (!foot || foot.querySelector('.footer-nav')) return;
-    var nav = document.createElement('nav');
-    nav.className = 'footer-nav';
-    nav.setAttribute('aria-label', 'Footer');
-    var mark = document.createElement('a');
-    mark.className = 'footer-mark';
-    mark.href = ROOT;
-    mark.innerHTML = '<img src="' + iconSrc() + '" alt="web3.toys" width="44" height="44" loading="lazy" />';
-    foot.insertBefore(mark, foot.firstChild);
     var biz = businessOn();
-    var extra = biz ? FOOTER_EXTRA.filter(function (m) { return m.href !== 'work-with-us/' && m.href !== 'academy/list-your-project/'; }) : FOOTER_EXTRA;
-    nav.innerHTML = menuLinks('footer-link') +
-      (biz ? '' : '<a class="footer-link" href="' + ROOT + CALL.href + '">' + CALL.label + '</a>') +
-      extra.map(function (m) { return '<a class="footer-link" href="' + ROOT + m.href + '">' + m.label + '</a>'; }).join('') +
-      (biz ? '<span class="footer-group"><b>For projects:</b> ' + PROJECTS.map(function (m) { return '<a class="footer-link" href="' + ROOT + m.href + '">' + m.label + '</a>'; }).join('') + '</span>' : '');
-    foot.insertBefore(nav, mark.nextSibling);
+    var social = config().social || {};
+    var small = Array.prototype.slice.call(foot.children);
+    var top = document.createElement('div');
+    top.className = 'footer-top';
+    var brand = '<div class="footer-brand"><a class="footer-mark" href="' + ROOT + '"><img src="' + iconSrc() + '" alt="web3.toys" width="44" height="44" loading="lazy" /><b>web3.toys</b></a>' +
+      '<p>Little web3 toys that teach you something. Free, five minutes each.</p>' +
+      ((social.x || social.telegram) ? '<p class="footer-social">' +
+        (social.x ? '<a href="' + social.x + '" target="_blank" rel="noopener">𝕏 Follow</a>' : '') +
+        (social.telegram ? '<a href="' + social.telegram + '" target="_blank" rel="noopener">✈️ Telegram</a>' : '') + '</p>' : '') + '</div>';
+    var cols = FOOTER_COLS.map(function (c) {
+      var links = c.links.filter(function (l) { return !l[2] || (l[2] === 'biz') === biz; });
+      return '<div class="footer-col"><b>' + c.title + '</b>' + links.map(function (l) {
+        return '<a class="footer-link" href="' + ROOT + l[1] + '"' + (here(l[1] || '/') && l[1] ? ' aria-current="page"' : '') + '>' + l[0] + '</a>';
+      }).join('') + '</div>';
+    }).join('');
+    top.innerHTML = brand + '<nav class="footer-nav" aria-label="Footer">' + cols + '</nav>';
+    foot.insertBefore(top, foot.firstChild);
+    var bottom = document.createElement('div');
+    bottom.className = 'footer-bottom';
+    small.forEach(function (el) { bottom.appendChild(el); });
+    foot.appendChild(bottom);
   }
 
   // ---------- Fun effects ----------

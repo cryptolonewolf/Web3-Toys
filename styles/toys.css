@@ -7764,3 +7764,28 @@ body:is([data-page="launch-your-toy"], [data-page="test-your-product"], [data-pa
 /* Claim My Page: the list, the claim box and the rules beside the sample. */
 .cm-left { display: grid; gap: 20px; align-content: start; }
 .cm-intro .bk-list { gap: 8px; }
+
+/* ---------- Footer: brand, link columns, small print ---------- */
+.site-footer { margin-top: 28px; padding-top: 24px; gap: 18px; text-align: left; border-top: 2px solid rgba(31, 27, 46, .12); }
+.footer-top { display: grid; gap: 22px; }
+.footer-brand { display: grid; gap: 8px; align-content: start; font-size: 14px; color: var(--ink-soft); }
+.footer-brand p { margin: 0; max-width: 300px; }
+.footer-brand .footer-mark { align-self: start; justify-self: start; display: inline-flex; align-items: center; gap: 10px; font: 700 20px var(--font-display); color: var(--ink); text-decoration: none; }
+.footer-social { display: flex; flex-wrap: wrap; gap: 8px; }
+.footer-social a { padding: 6px 12px; font-size: 13px; font-weight: 800; color: var(--ink); text-decoration: none; background: var(--white); border: 2px solid var(--ink); border-radius: 999px; }
+.footer-social a:hover { background: var(--yellow); }
+.footer-nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 16px; margin: 0; justify-content: stretch; }
+.footer-col { display: grid; gap: 2px; align-content: start; }
+.footer-col > b { margin-bottom: 4px; font: 700 14px var(--font-display); color: var(--ink); letter-spacing: .2px; }
+.footer-col .footer-link { padding: 4px 0; font-size: 14px; }
+.footer-col .footer-link[aria-current] { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.footer-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; padding-top: 14px; border-top: 1px solid rgba(31, 27, 46, .1); }
+.footer-bottom p { margin: 0; }
+@media (min-width: 860px) {
+  .footer-top { grid-template-columns: minmax(200px, 1fr) 3fr; gap: 32px; }
+  .footer-nav { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (max-width: 699px) {
+  .footer-bottom { padding-bottom: 64px; }
+  .footer-col .footer-link { padding: 3px 0; }
+}
