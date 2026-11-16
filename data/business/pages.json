@@ -208,5 +208,50 @@
       14,
       3
     ]
+  },
+  "claimPage": {
+    "_help": "The Claim My Page intro on /my-page/: what you can do, and the sample page (made up, labelled Sample). Edit freely; keep each feature true to what pages really do.",
+    "title": "Claim My Page",
+    "label": "Free for everyone",
+    "line": "One link for your project or your content: web3.toys/@yourname, verified with your X account.",
+    "canTitle": "What you can do with it",
+    "can": [
+      [
+        "🔗",
+        "Share one link: web3.toys/@yourname"
+      ],
+      [
+        "✅",
+        "Show a Verified via X badge, so people know it is really you"
+      ],
+      [
+        "🎨",
+        "Add your banner, photo, colour, a short bio and up to 7 links (X, Telegram, Discord, YouTube, GitHub, Farcaster, LinkedIn)"
+      ],
+      [
+        "🎮",
+        "Feature up to 6 toys and your Quests. Plays from your page count for you"
+      ],
+      [
+        "🏆",
+        "Projects: a Play button, your Pro players and a leaderboard"
+      ],
+      [
+        "🙋",
+        "Creators: a Join with my link button and how many joined. Free forever"
+      ],
+      [
+        "🏅",
+        "Show the badges and certificates you earned"
+      ],
+      [
+        "📊",
+        "See your views, plays and players (only you see these)"
+      ]
+    ],
+    "proLine": "Projects get Pro with a toy or Quest: detailed analytics, an export of fans who agreed to share, a spot in the directory, embed codes and no other sponsors on the page.",
+    "sampleTitle": "See a sample page",
+    "sampleLabel": "Sample",
+    "sampleNote": "A made-up page, to show what yours can look like."
   }
 }

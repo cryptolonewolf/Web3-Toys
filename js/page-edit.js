@@ -15,8 +15,60 @@
 
   function img(path) { return SB.url.replace(/\/$/, '') + '/storage/v1/object/public/page-images/' + path; }
   function must(r) { if (r.error) throw r.error; return r.data; }
-  function shell(body) { app.innerHTML = '<section class="biz-hero stack stack--tight"><p class="label">Free for everyone</p><h1 class="biz-title">Your web3.toys page</h1>' +
-    '<p class="text text--ink">One link for your project or your content: web3.toys/@yourname, with a Verified via X badge and the toys you love.</p></section>' + body; }
+  // The top of the page. intro: what you can do with a page, and a sample
+  // page (shown until you have a page of your own).
+  function shell(body, intro) {
+    var K = (P && P.claimPage) || { title: 'Claim My Page', label: 'Free for everyone', line: '' };
+    app.innerHTML = '<section class="biz-hero stack stack--tight"><p class="label">' + esc(K.label) + '</p><h1 class="biz-title">' + esc(K.title) + '</h1>' +
+      '<p class="text text--ink">' + esc(K.line) + '</p>' + (intro && P && P.claimPage ? '<div class="btn-row"><a class="btn btn--ink" href="#claim">' + esc(K.title) + '</a></div>' : '') + '</section>' + (intro && P && P.claimPage ? introHtml() : '') + body;
+    var go = app.querySelector('a[href="#claim"]');
+    if (go) go.addEventListener('click', function (e) { var t = document.getElementById('claim'); if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'center' }); } });
+    if (intro && P && P.claimPage) bindSample();
+  }
+
+  function introHtml() {
+    var K = P.claimPage;
+    return '<div class="bk-pair cm-intro"><section class="card bk-sec"><h2 class="bk-h">' + esc(K.canTitle) + '</h2><ul class="bk-list">' +
+      K.can.map(function (x, i) { return '<li><span class="cm-pin" aria-hidden="true">' + (i + 1) + '</span><span>' + x[0] + ' ' + esc(x[1]) + '</span></li>'; }).join('') + '</ul>' +
+      '<p class="small-print">⭐ ' + esc(K.proLine) + '</p></section>' +
+      '<section class="card bk-sec cm-sample"><h2 class="bk-h">' + esc(K.sampleTitle) + ' <span class="bk-tag">' + esc(K.sampleLabel) + '</span></h2>' +
+      '<div class="cm-switch" role="tablist" aria-label="Kind of page"><button type="button" role="tab" aria-selected="true" data-sample="project">🧩 Project</button><button type="button" role="tab" aria-selected="false" data-sample="creator">🎙️ Creator</button></div>' +
+      '<div class="cm-frame" data-sample-box>' + sample('project') + '</div><p class="small-print">' + esc(K.sampleNote) + '</p></section></div>';
+  }
+
+  // A made-up page drawn with the real page's styles. The numbers in the
+  // pins match the list on the left.
+  function sample(kind) {
+    var pin = function (n) { return '<span class="cm-pin" aria-hidden="true">' + n + '</span>'; };
+    var project = kind === 'project';
+    var name = project ? 'Lumen Protocol' : 'Mira Builds';
+    var handle = project ? 'lumenprotocol' : 'mirabuilds';
+    var color = project ? '#4D9DE0' : '#A98BFF';
+    var toyList = toys.slice(0, 2);
+    return '<div class="cm-url">' + pin(1) + 'web3.toys/@' + handle + '</div>' +
+      '<section class="pg-hero" style="--pg-color:' + color + '"><div class="pg-banner cm-banner">' + pin(3) + '</div>' +
+      '<div class="pg-head"><span class="pg-avatar pg-avatar--letter" aria-hidden="true">' + name.charAt(0) + '</span><div class="pg-names"><b class="title-md">' + name + '</b><p class="small-print">@' + handle + '</p></div></div>' +
+      '<div class="chips pg-chips"><span class="chip is-white">' + (project ? '🧩 Project' : '🎙️ Creator') + '</span><span class="chip is-mint pg-verified">✓ ' + esc(P.copy.verified) + '</span>' + pin(2) + (project ? '<span class="chip is-yellow">⭐ Pro</span>' : '') + '</div>' +
+      '<p class="small-print cm-bio">' + (project ? 'A made-up lending app. Learn how lending works in 5 minutes, then try it on testnet.' : 'Threads and videos that explain web3 in plain words. Sample page.') + '</p>' +
+      '<div class="btn-row cm-links"><span class="btn btn--small">X</span><span class="btn btn--small">Telegram</span><span class="btn btn--small">' + (project ? 'Discord' : 'YouTube') + '</span></div>' +
+      (project ? '<span class="btn btn--ink btn--block cm-play">▶ Play' + pin(5) + '</span>' : '') + '</section>' +
+      '<div class="cm-block"><b>' + (project ? 'Our toys' : 'Toys I recommend') + pin(4) + '</b><ul class="cm-toys">' + toyList.map(function (t) { return '<li>' + esc(t.title) + '<span>▶ Play</span></li>'; }).join('') + '</ul></div>' +
+      (project
+        ? '<div class="cm-block"><b>🏆 Leaderboard' + pin(5) + '</b><ol class="cm-board"><li>Player one<span>3 certificates</span></li><li>Player two<span>2 certificates</span></li><li>Player three<span>2 certificates</span></li></ol></div>'
+        : '<div class="cm-block cm-join"><b>🎮 Play with ' + name + pin(6) + '</b><span class="btn btn--small btn--ink">Join web3.toys with my link</span></div>' +
+          '<div class="cm-block"><b>🏅 Badges' + pin(7) + '</b><div class="chips"><span class="chip is-yellow">Explorer</span><span class="chip is-white">✅ Genesis Block</span><span class="chip is-mint">🎓 Spot the Scam</span></div></div>') +
+      '<div class="cm-block cm-stats"><b>📊 Your stats' + pin(8) + '</b><span class="small-print">Views · Plays · ' + (project ? 'Players' : 'Joined') + ' (only you see these)</span></div>';
+  }
+
+  function bindSample() {
+    var box = app.querySelector('[data-sample-box]');
+    app.querySelectorAll('[data-sample]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        app.querySelectorAll('[data-sample]').forEach(function (x) { x.setAttribute('aria-selected', x === b ? 'true' : 'false'); });
+        box.innerHTML = sample(b.getAttribute('data-sample'));
+      });
+    });
+  }
 
   if (!site.businessOn()) { shell('<p class="card text">Pages open in December.</p>'); return; }
 
@@ -33,8 +85,8 @@
 
   function refresh() {
     if (!A.user()) {
-      shell('<section class="card stack stack--tight"><h2 class="title-md">Log in with X to start</h2><p class="text">Your page lives at your X handle, so we check your X account. Nothing is posted to X.</p>' +
-        '<button type="button" class="btn btn--ink" data-x>Continue with X</button></section>' + rules() + requestBox());
+      shell('<section class="card stack stack--tight" id="claim"><h2 class="title-md">Claim your page with X</h2><p class="text">Your page lives at your X handle, so we check your X account. Nothing is posted to X.</p>' +
+        '<button type="button" class="btn btn--ink" data-x>Claim my page with X</button></section>' + rules() + requestBox(), true);
       app.querySelector('[data-x]').addEventListener('click', loginX);
       bindRequest();
       return;
@@ -49,8 +101,8 @@
         return editor();
       }
       if (!me) {
-        shell('<section class="card stack stack--tight"><h2 class="title-md">Pages need Log in with X</h2><p class="text">You are logged in another way. Log out, then continue with X, so your page is tied to your X account.</p>' +
-          '<button type="button" class="btn btn--ink" data-switch>Log out and continue with X</button></section>' + rules() + requestBox());
+        shell('<section class="card stack stack--tight" id="claim"><h2 class="title-md">Pages need Log in with X</h2><p class="text">You are logged in another way. Log out, then continue with X, so your page is tied to your X account.</p>' +
+          '<button type="button" class="btn btn--ink" data-switch>Log out and continue with X</button></section>' + rules() + requestBox(), true);
         app.querySelector('[data-switch]').addEventListener('click', function () { Promise.resolve(A.signOut()).then(loginX, loginX); });
         bindRequest();
         return;
@@ -157,13 +209,13 @@
   }
 
   function createForm() {
-    shell('<form class="card stack create-page" novalidate><h2 class="title-md">Make your page: web3.toys/@' + esc(me.handle) + '</h2>' +
+    shell('<form class="card stack create-page" id="claim" novalidate><h2 class="title-md">Claim web3.toys/@' + esc(me.handle) + '</h2>' +
       '<fieldset class="pg-types"><legend class="label">What kind of page?</legend>' + Object.keys(P.types).map(function (k, i) {
         var t = P.types[k];
         return '<label class="card pg-type"><input type="radio" name="pg-type" value="' + k + '"' + (i === 1 ? ' checked' : '') + ' /> <span><b>' + t.icon + ' ' + esc(t.label) + '</b><span class="small-print">' + esc(t.line) + '</span></span></label>';
       }).join('') + '</fieldset>' +
       '<label class="label" for="cp-name">Name on the page</label><input class="field" id="cp-name" maxlength="80" />' +
-      '<button type="submit" class="btn btn--ink">Make my page</button><p class="small-print" data-msg aria-live="polite"></p></form>' + rules() + requestBox());
+      '<button type="submit" class="btn btn--ink">Claim my page</button><p class="small-print" data-msg aria-live="polite"></p></form>' + rules() + requestBox(), true);
     var f = app.querySelector('.create-page');
     f.addEventListener('submit', function (e) {
       e.preventDefault();

@@ -23,7 +23,7 @@
     { label: 'Test Your Product', href: 'test-your-product/' },
     { label: 'Advertise', href: 'advertise/' },
     { label: 'List your course', href: 'academy/list-your-project/' },
-    { label: 'Your free page', href: 'my-page/' },
+    { label: 'Claim My Page', href: 'my-page/' },
     { label: 'Pages directory', href: 'pages/' },
     { label: 'Book a Call', href: 'book-a-call/' },
   ];

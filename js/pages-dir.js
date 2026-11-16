@@ -27,7 +27,7 @@
       '<input class="field" type="search" placeholder="Search by name or @handle" aria-label="Search pages" data-q value="' + esc(state.q) + '" />' +
       '<label class="mk-check"><input type="checkbox" data-verified' + (state.verified ? ' checked' : '') + ' /> <span>✓ Verified only</span></label></div>' +
       '<ul class="dir-grid" data-list aria-live="polite"><li class="small-print">Loading…</li></ul>' +
-      '<section class="card card--yellow stack stack--tight"><h2 class="title-md">Get your free page</h2><p class="text">One link for your project or your content, with a Verified via X badge.</p><a class="btn btn--ink" href="' + R + 'my-page/">Make your page</a></section>';
+      '<section class="card card--yellow stack stack--tight"><h2 class="title-md">Claim My Page</h2><p class="text">One link for your project or your content, with a Verified via X badge.</p><a class="btn btn--ink" href="' + R + 'my-page/">Claim my page</a></section>';
     app.querySelectorAll('[data-type]').forEach(function (b) { b.addEventListener('click', function () { state.type = b.getAttribute('data-type'); shell(); load(); }); });
     app.querySelector('[data-q]').addEventListener('input', function (e) { state.q = e.target.value.trim(); clearTimeout(timer); timer = setTimeout(load, 250); });
     app.querySelector('[data-verified]').addEventListener('change', function (e) { state.verified = e.target.checked; load(); });

@@ -46,7 +46,7 @@
       if (mine !== asked) return;
       if (Array.isArray(p)) p = p[0] || null;
       page = p;
-      if (!p) return say('<h1 class="title-md">No page at @' + esc(handle) + ' right now</h1><p class="text">Want your own free page? Make one with Log in with X: it lives at your own X handle.</p><div class="btn-row"><a class="btn btn--ink" href="' + R + 'my-page/">Make your page</a><a class="btn" href="' + R + '">Play the toys</a></div>');
+      if (!p) return say('<h1 class="title-md">No page at @' + esc(handle) + ' right now</h1><p class="text">Want a page like this? Claim yours free with Log in with X: it lives at your own X handle.</p><div class="btn-row"><a class="btn btn--ink" href="' + R + 'my-page/">Claim my page</a><a class="btn" href="' + R + '">Play the toys</a></div>');
       render();
       var pending = null;
       try { pending = sessionStorage.getItem(CLAIM_KEY); } catch (e) { /* private mode */ }

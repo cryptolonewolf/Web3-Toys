@@ -556,7 +556,7 @@
     },
     'my-page': {
       font: 'Pacifico',
-      title: function () { return 'Your Free<br>Page'; },
+      title: function () { return 'Claim My<br>Page'; },
       art: function () {
         return svg(
           '<rect width="270" height="100" fill="#DDEEFF"/>' +

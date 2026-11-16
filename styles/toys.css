@@ -7728,3 +7728,24 @@ body:is([data-page="launch-your-toy"], [data-page="test-your-product"], [data-pa
 .xcard--testers:hover .ts-flask { animation: nudge .5s ease; }
 #app > .bk-hero .page-cover { max-width: 520px; }
 .bk-aud { margin: 2px 0 4px; }
+
+/* ---------- Claim My Page: what you can do, and the sample page ---------- */
+.cm-pin { display: inline-grid; place-items: center; flex: none; width: 20px; height: 20px; margin: 0 4px; font: 800 11px/1 var(--font-body); color: var(--ink); background: var(--yellow); border: 2px solid var(--ink); border-radius: 50%; vertical-align: middle; }
+.cm-intro .bk-list li { grid-template-columns: auto 1fr; align-items: start; }
+.cm-intro .bk-list .cm-pin { margin: 1px 0 0; }
+.cm-switch { display: flex; gap: 8px; }
+.cm-switch button { min-height: 40px; padding: 0 14px; font: 700 15px var(--font-display); color: var(--ink); background: var(--white); border: var(--line-thin); border-radius: 999px; cursor: pointer; }
+.cm-switch [aria-selected="true"] { color: var(--yellow); background: var(--ink); }
+.cm-frame { display: grid; gap: 10px; padding: 12px; background: var(--cream); border: 2px dashed rgba(31, 27, 46, .3); border-radius: 16px; pointer-events: none; user-select: none; }
+.cm-url { justify-self: start; display: flex; align-items: center; padding: 4px 12px 4px 4px; font: 800 13px var(--font-body); background: var(--white); border: 2px solid var(--ink); border-radius: 999px; }
+.cm-frame .pg-hero { margin: 0; }
+.cm-banner { position: relative; display: flex; justify-content: flex-end; align-items: flex-start; padding: 6px; }
+.cm-bio { margin: 0; }
+.cm-links .btn { width: auto; min-height: 34px; padding: 0 12px; }
+.cm-play { position: relative; }
+.cm-block { display: grid; gap: 6px; padding: 10px 12px; background: var(--white); border: 2px solid rgba(31, 27, 46, .15); border-radius: 14px; }
+.cm-block > b { display: flex; align-items: center; }
+.cm-toys, .cm-board { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.cm-toys li, .cm-board li { display: flex; justify-content: space-between; gap: 8px; padding: 6px 10px; font-size: 14px; background: rgba(31, 27, 46, .045); border-radius: 10px; }
+.cm-toys span, .cm-board span { font-size: 12px; color: var(--ink-muted); }
+.cm-join .btn { justify-self: start; width: auto; }
