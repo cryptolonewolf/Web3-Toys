@@ -491,6 +491,125 @@
         );
       },
     },
+
+    // ---------- For Projects pages (banners at the top of each page) ----------
+    'launch-your-toy': {
+      font: 'Lilita One',
+      title: function () { return 'Launch Your<br>Own Toy'; },
+      art: function () {
+        return svg(
+          '<rect width="270" height="100" fill="#7B5CFF"/>' +
+          range(14, function (i) { return '<rect x="' + ((i * 41) % 260) + '" y="' + ((i * 29) % 92) + '" width="5" height="9" rx="1.5" fill="' + ['#FFD93D', '#FF6B6B', '#6BCB77', '#FFFFFF'][i % 4] + '" transform="rotate(' + (i * 37 % 90) + ' ' + ((i * 41) % 260) + ' ' + ((i * 29) % 92) + ')" opacity=".8"/>'; }) +
+          '<g class="lt-pad" stroke="' + INK + '" stroke-width="3" stroke-linejoin="round">' +
+          '<path d="M178 52 q0 -16 18 -16 h40 q18 0 18 16 l4 22 q2 12 -10 12 q-8 0 -12 -8 l-4 -6 h-32 l-4 6 q-4 8 -12 8 q-12 0 -10 -12z" fill="#FFD93D"/>' +
+          '<path d="M196 50 v12 M190 56 h12" stroke-width="4" stroke-linecap="round"/>' +
+          '<circle cx="232" cy="52" r="4.5" fill="#FF6B6B"/><circle cx="242" cy="62" r="4.5" fill="#6BCB77"/></g>' +
+          '<g class="lt-rocket" transform="translate(222 6) rotate(30)" stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round"><path d="M10 0 c8 6 10 16 6 26 h-12 c-4 -10 -2 -20 6 -26z" fill="#FFFFFF"/><circle cx="10" cy="11" r="3" fill="#4D9DE0"/><path d="M5 26 q5 10 10 0" fill="#FF6B6B"/></g>'
+        );
+      },
+    },
+    'test-your-product': {
+      font: 'Space Grotesk',
+      weight: 700,
+      title: function () { return 'Test Your<br>Product'; },
+      art: function () {
+        var bar = function (y, w, c) { return '<rect x="176" y="' + y + '" width="70" height="8" rx="4" fill="#E3F4E5" stroke="' + INK + '" stroke-width="2"/><rect x="176" y="' + y + '" width="' + w + '" height="8" rx="4" fill="' + c + '" stroke="' + INK + '" stroke-width="2"/>'; };
+        return svg(
+          '<rect width="270" height="100" fill="#E8FFF1"/>' +
+          '<defs><pattern id="tyg" width="14" height="14" patternUnits="userSpaceOnUse"><path d="M14 0 H0 V14" fill="none" stroke="#BFE8C9" stroke-width="1"/></pattern></defs><rect width="270" height="100" fill="url(#tyg)"/>' +
+          '<rect x="166" y="14" width="90" height="70" rx="8" fill="#FFFFFF" stroke="' + INK + '" stroke-width="3"/>' +
+          bar(26, 70, '#6BCB77') + bar(42, 46, '#6BCB77') + bar(58, 22, '#FF6B6B') +
+          '<g class="ty-glass" stroke="' + INK + '" stroke-width="3"><circle cx="236" cy="66" r="13" fill="rgba(255,255,255,.65)"/><path d="M245 75 l12 12" stroke-width="6" stroke-linecap="round"/></g>' +
+          '<g transform="translate(150 70)" stroke="' + INK + '" stroke-width="2"><circle r="10" fill="#FFD93D"/><path d="M0 -6 V0 L4 3" fill="none" stroke-linecap="round"/></g>'
+        );
+      },
+    },
+    'advertise': {
+      font: 'Rubik Mono One',
+      title: function () { return 'Sponsor<br>a Toy'; },
+      art: function () {
+        return svg(
+          '<rect width="270" height="100" fill="#FF6B6B"/>' +
+          range(6, function (i) { return '<circle cx="' + (186 + i * 14) + '" cy="' + (i % 2 ? 90 : 10) + '" r="3" fill="#FFD93D"/>'; }) +
+          '<g class="ad-horn" stroke="' + INK + '" stroke-width="3" stroke-linejoin="round">' +
+          '<path d="M184 44 h14 l40 -22 v56 l-40 -22 h-14z" fill="#FFF8E1"/><rect x="190" y="56" width="10" height="18" rx="3" fill="#FFD93D"/>' +
+          '<path d="M246 38 q8 12 0 24 M254 32 q12 18 0 36" fill="none" stroke-linecap="round"/></g>' +
+          '<g transform="translate(150 70) rotate(-8)"><rect width="64" height="16" rx="8" fill="#FFFFFF" stroke="' + INK + '" stroke-width="2"/><text x="32" y="11.5" text-anchor="middle" font-size="8" font-family="Arial" font-weight="700" fill="' + INK + '" letter-spacing="1">SPONSORED</text></g>'
+        );
+      },
+    },
+    'list-your-project': {
+      font: 'Cinzel Decorative',
+      weight: 700,
+      title: function () { return 'List Your<br>Quest'; },
+      art: function () {
+        return svg(
+          '<rect width="270" height="100" fill="#1F4D3A"/>' +
+          range(18, function (i) { return '<circle cx="' + ((i * 47) % 270) + '" cy="' + (6 + (i * 23) % 88) + '" r="' + (i % 3 ? 1 : 1.8) + '" fill="#FFE9A8"/>'; }) +
+          '<g class="lq-map" stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round">' +
+          '<path d="M172 24 l26 -8 l26 8 l26 -8 v58 l-26 8 l-26 -8 l-26 8z" fill="#F4E2B0"/><path d="M198 16 v58 M224 24 v58" fill="none"/>' +
+          '<path d="M182 62 q12 -24 28 -10 t28 -22" fill="none" stroke="#C0392B" stroke-dasharray="4 4"/>' +
+          '<path d="M232 26 l6 6 M238 26 l-6 6" stroke="#C0392B" stroke-width="3" stroke-linecap="round"/></g>' +
+          '<g transform="translate(150 66)" stroke="' + INK + '" stroke-width="2"><path d="M0 8 l16 -8 l16 8 l-16 8z" fill="' + INK + '"/><path d="M8 12 v8 q8 5 16 0 v-8" fill="#2B2B40"/><path d="M30 9 v10" stroke="#FFD93D" stroke-width="2.5"/></g>'
+        );
+      },
+    },
+    'my-page': {
+      font: 'Pacifico',
+      title: function () { return 'Your Free<br>Page'; },
+      art: function () {
+        return svg(
+          '<rect width="270" height="100" fill="#DDEEFF"/>' +
+          '<g class="mp-card" stroke="' + INK + '" stroke-width="3"><rect x="170" y="14" width="86" height="72" rx="10" fill="#FFFFFF"/>' +
+          '<circle cx="190" cy="36" r="11" fill="#FFD93D"/><circle cx="187" cy="34" r="1.6" fill="' + INK + '" stroke="none"/><circle cx="193" cy="34" r="1.6" fill="' + INK + '" stroke="none"/><path d="M186 40 q4 3 8 0" fill="none" stroke-width="1.6"/>' +
+          '<rect x="206" y="28" width="38" height="6" rx="3" fill="' + INK + '" stroke="none"/><rect x="206" y="40" width="26" height="5" rx="2.5" fill="#A9B4C8" stroke="none"/>' +
+          '<rect x="180" y="56" width="66" height="10" rx="5" fill="#FFD93D" stroke-width="2"/><rect x="180" y="70" width="66" height="10" rx="5" fill="#E8F0FF" stroke-width="2"/></g>' +
+          '<g transform="translate(238 8)"><circle cx="10" cy="10" r="10" fill="#4D9DE0" stroke="' + INK + '" stroke-width="2"/><path d="M5 10 l3.5 3.5 l6.5 -7" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>'
+        );
+      },
+    },
+    'pages': {
+      font: 'Archivo Black',
+      title: function () { return 'Web3<br>Pages'; },
+      art: function () {
+        var mini = function (x, y, r, c) {
+          return '<g transform="translate(' + x + ' ' + y + ') rotate(' + r + ')" stroke="' + INK + '" stroke-width="2.5"><rect width="54" height="66" rx="8" fill="#FFFFFF"/><circle cx="27" cy="22" r="10" fill="' + c + '"/><rect x="11" y="40" width="32" height="5" rx="2.5" fill="' + INK + '" stroke="none"/><rect x="15" y="50" width="24" height="4" rx="2" fill="#B8B3C9" stroke="none"/></g>';
+        };
+        return svg(
+          '<rect width="270" height="100" fill="#FFD93D"/>' +
+          range(5, function (i) { return '<path d="M0 ' + (i * 24 + 6) + ' H270" stroke="#F2C200" stroke-width="2"/>'; }) +
+          '<g class="pg-stack">' + mini(166, 22, -10, '#FF6B6B') + mini(196, 14, 0, '#4D9DE0') + mini(226, 22, 10, '#6BCB77') + '</g>'
+        );
+      },
+    },
+    'book-a-call': {
+      font: 'Baloo 2',
+      weight: 800,
+      title: function () { return 'Book a<br>Call'; },
+      art: function () {
+        return svg(
+          '<rect width="270" height="100" fill="#FFF3C4"/>' +
+          '<g stroke="' + INK + '" stroke-width="3" stroke-linejoin="round"><rect x="168" y="20" width="62" height="62" rx="8" fill="#FFFFFF"/><rect x="168" y="20" width="62" height="16" rx="8" fill="#FF6B6B"/><path d="M180 14 v12 M218 14 v12" stroke-linecap="round"/>' +
+          range(6, function (i) { return '<rect x="' + (176 + (i % 3) * 16) + '" y="' + (44 + Math.floor(i / 3) * 16) + '" width="10" height="10" rx="2" fill="' + (i === 4 ? '#6BCB77' : '#FFF8E1') + '" stroke-width="2"/>'; }) + '</g>' +
+          '<g class="bc-phone" transform="translate(234 40) rotate(20)" stroke="' + INK + '" stroke-width="3" stroke-linejoin="round"><path d="M0 6 q0 -6 6 -6 h6 l4 12 l-7 4 q4 12 16 16 l4 -7 l12 4 v6 q0 6 -6 6 q-36 -2 -39 -35z" fill="#4D9DE0"/></g>'
+        );
+      },
+    },
+    'testers': {
+      font: 'Silkscreen',
+      title: function () { return 'Become a<br>Tester'; },
+      art: function () {
+        return svg(
+          '<rect width="270" height="100" fill="#14213D"/>' +
+          range(20, function (i) { return '<rect x="' + ((i * 59) % 270) + '" y="' + (4 + (i * 31) % 90) + '" width="2" height="2" fill="' + (i % 4 ? '#3B4A6B' : '#6BCB77') + '"/>'; }) +
+          '<g class="ts-flask" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round"><path d="M196 16 h20 M200 16 v22 l-20 34 q-4 8 6 8 h40 q10 0 6 -8 l-20 -34 v-22" fill="none"/>' +
+          '<path d="M186 66 q20 -10 40 0 l4 8 q2 4 -4 4 h-40 q-6 0 -4 -4z" fill="#6BCB77" stroke="none"/>' +
+          '<circle cx="204" cy="56" r="3" fill="#6BCB77" stroke="none"/><circle cx="212" cy="46" r="2" fill="#6BCB77" stroke="none"/></g>' +
+          '<g transform="translate(240 22)" stroke="' + INK + '" stroke-width="2"><circle r="12" fill="#FFD93D"/><text y="4.5" text-anchor="middle" font-size="12" font-family="Arial" font-weight="700" fill="' + INK + '" stroke="none">$</text></g>' +
+          '<g transform="translate(244 70)" stroke="#FF6B6B" stroke-width="2.5" stroke-linecap="round"><ellipse rx="7" ry="9" fill="#FF6B6B"/><path d="M-7 -4 h-6 M7 -4 h6 M-7 4 h-6 M7 4 h6 M-3 -9 l-3 -5 M3 -9 l3 -5" fill="none"/></g>'
+        );
+      },
+    },
   };
 
   // Loads one Google Font with only the letters it needs.
@@ -523,5 +642,11 @@
     return d.art() + '<span class="xtitle"' + label + ' style="font-family:\'' + d.font + '\', var(--font-display)">' + (d.title ? d.title(esc(title)) : esc(title)) + '</span>';
   }
 
-  window.Web3Cards = { card: card, ids: Object.keys(DESIGNS) };
+  // A page's own banner (the For Projects pages): <body data-cover="ID">.
+  function cover(id, title, esc) {
+    var inner = card(id, title, esc);
+    return inner ? '<div class="xcard xcard--' + esc(id) + ' page-cover" role="img" aria-label="' + esc(title) + '">' + inner + '</div>' : '';
+  }
+
+  window.Web3Cards = { card: card, cover: cover, ids: Object.keys(DESIGNS) };
 })();

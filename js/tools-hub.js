@@ -53,7 +53,7 @@
     var href = '../soon/?toy=' + encodeURIComponent(id);
     return '<li class="tile-locked"><a class="xcard xcard--' + esc(id) + ' is-soon is-locked" href="' + href + '" aria-label="' + esc(t.title + '. ' + t.blurb + ' ' + when + '.') + '">' + cover(id, t.title) +
       '<span class="tile-sticker tile-lock" aria-hidden="true">🔒</span></a>' +
-      '<p class="tile-when"><b>' + esc(when) + '</b>' + (future ? '<span data-cd="' + i.at.getTime() + '">' + R.countdown(i.at) + '</span>' : '') + '</p>' +
+      '<p class="tile-when"><span class="tile-name">' + esc(t.title) + '</span><b>' + esc(when) + '</b>' + (future ? '<span data-cd="' + i.at.getTime() + '">' + R.countdown(i.at) + '</span>' : '') + '</p>' +
       '<a class="tile-notify" href="' + href + '#notify">' + (R.asked(id) ? '✓ We will tell you' : '🔔 Notify me') + '</a></li>';
   }
 

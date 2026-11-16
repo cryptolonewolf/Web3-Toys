@@ -71,7 +71,7 @@
       '<span class="tile-sticker tile-lock" aria-hidden="true">🔒</span>';
     var cd = future ? '<span data-cd="' + ri.at.getTime() + '">' + R.countdown(ri.at) + '</span>' : '';
     return '<li class="tile-locked"><a class="xcard xcard--' + esc(c.id) + ' is-soon is-locked" href="' + href + '" aria-label="' + esc(said) + '">' + inner + '</a>' +
-      '<p class="tile-when"><b>' + esc(when) + '</b>' + cd + '</p>' +
+      '<p class="tile-when"><span class="tile-name">' + esc(c.title) + '</span><b>' + esc(when) + '</b>' + cd + '</p>' +
       '<a class="tile-notify" href="' + href + '#notify">' + (R.asked(c.id) ? '✓ We will tell you' : '🔔 Notify me') + '</a></li>';
   }
 

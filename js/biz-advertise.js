@@ -77,10 +77,14 @@
     var prices = Object.keys(ADS.toyMonth).map(function (k) { return ADS.toyMonth[k]; });
     // While a sale runs (ad_slots.json sale), the old price is shown crossed out.
     var was = function (p) { var off = ADS.sale && Number(ADS.sale.off); return off > 0 && off < 1 ? '<s class="bk-was">' + money(Math.round(p / (1 - off))) + '</s> ' : ''; };
+    var aud = P.audience.filter(function (a) { return a.big && a.big !== 'TBD'; }).map(function (a) { return [a.icon, a.big + ' ' + a.label]; });
     var lo = Math.min.apply(null, prices), hi = Math.max.apply(null, prices);
     var slotPrice = { toy: was(lo) + money(lo), round: '+' + money(ADS.sponsoredRound), site: was(ADS.siteWide) + money(ADS.siteWide), newsletter: was(ADS.newsletter) + money(ADS.newsletter) };
     app.innerHTML =
-      K.pair(K.hero(P, '<a class="btn" href="#calendar">See free slots</a>'), K.list(P.audienceTitle, P.audience.filter(function (a) { return a.big && a.big !== 'TBD'; }).map(function (a) { return [a.icon, a.big + ' ' + a.label]; }))) +
+      // Who you reach sits beside the intro once it has 3 or more real lines
+      // (lines still marked TBD are hidden); until then it goes inside it.
+      (aud.length >= 3 ? K.pair(K.hero(P, '<a class="btn" href="#calendar">See free slots</a>'), K.list(P.audienceTitle, aud))
+        : K.hero(P, '<a class="btn" href="#calendar">See free slots</a>').replace('<div class="btn-row">', '<ul class="bk-list bk-aud">' + aud.map(function (x) { return '<li><span aria-hidden="true">' + x[0] + '</span><span>' + esc(x[1]) + '</span></li>'; }).join('') + '</ul><div class="btn-row">')) +
       K.tabs([
         { id: 'prices', label: 'Prices', html: K.section(esc(P.slotsTitle) + (ADS.sale ? ' <span class="bk-tag bk-off">' + esc(ADS.sale.line) + '</span>' : ''), '<ul class="bk-slots">' + P.slots.map(function (x) {
           return '<li><span class="bk-slot-icon" aria-hidden="true">' + x.icon + '</span><div><b>' + esc(x.name) + '</b><span class="biz-price ad-price">' + slotPrice[x.id] + '</span><span class="small-print">' + esc(x.priceNote) + '</span></div></li>';

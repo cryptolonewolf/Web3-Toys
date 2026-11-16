@@ -7689,3 +7689,42 @@ body:is([data-page="launch-your-toy"], [data-page="test-your-product"], [data-pa
 .rel-preview button { font: inherit; font-size: 13px; padding: 4px 10px; color: var(--ink); background: var(--yellow); border: 0; border-radius: 999px; cursor: pointer; }
 .adm-preview .btn-row { align-items: center; }
 .adm-preview .field { max-width: 200px; }
+/* Not out yet: the cover is blurred behind a big lock; the name and the
+   unlock day sit under the card. */
+.xcard.is-locked .xart, .xcard.is-locked .xtitle, .xcard.is-locked .tile-img { filter: blur(5px) saturate(.85); transform: scale(1.08); }
+.xcard.is-locked::after { content: ''; position: absolute; inset: 0; z-index: 3; background: rgba(255, 248, 225, .18); }
+.xcard.is-locked .tile-lock { top: 50%; left: 50%; right: auto; width: 46px; height: 46px; font-size: 22px; translate: -50% -50%; box-shadow: var(--shadow-sm); }
+.tile-when .tile-name { display: block; font-size: 13px; font-weight: 800; color: var(--ink); }
+.tile-when .tile-name + b { display: block; }
+.soon-hero .xcard.is-locked .tile-lock { width: 60px; height: 60px; font-size: 28px; }
+
+/* ---------- For Projects page banners (js/home-cards.js, js/page-cover.js) ---------- */
+.page-cover { width: 100%; max-width: 460px; border-radius: 18px; }
+.bk-hero .page-cover { max-width: none; margin-bottom: 4px; }
+.page-cover .xtitle { padding: 0 42cqi 0 5cqi; text-align: left; }
+.xcard--launch-your-toy { background: #7b5cff; box-shadow: 0 0 0 3px var(--ink), 4px 4px 0 3px #ffd93d; }
+.xcard--launch-your-toy .xtitle { font-size: 11cqi; color: #ffd93d; text-shadow: 3px 3px 0 var(--ink); }
+.xcard--launch-your-toy:hover .lt-rocket { animation: nudge .5s ease; }
+.xcard--test-your-product { background: #e8fff1; box-shadow: 0 0 0 3px var(--ink), 4px 4px 0 3px #6bcb77; }
+.xcard--test-your-product .xtitle { font-size: 11cqi; color: var(--ink); letter-spacing: -.02em; }
+.xcard--test-your-product:hover .ty-glass { animation: nudge .5s ease; }
+.xcard--advertise { background: #ff6b6b; box-shadow: 0 0 0 3px var(--ink), 4px 4px 0 3px #ffd93d; }
+.xcard--advertise .xtitle { font-size: 9cqi; line-height: 1.15; color: #fff8e1; text-shadow: 2px 2px 0 var(--ink); }
+.xcard--advertise:hover .ad-horn { animation: nudge .5s ease; }
+.xcard--list-your-project { background: #1f4d3a; box-shadow: 0 0 0 3px var(--ink), 4px 4px 0 3px #ffe9a8; }
+.xcard--list-your-project .xtitle { font-size: 10cqi; color: #ffe9a8; text-shadow: 2px 2px 0 #0e2a1f; }
+.xcard--list-your-project:hover .lq-map { animation: nudge .5s ease; }
+.xcard--my-page { background: #ddeeff; box-shadow: 0 0 0 3px var(--ink), 4px 4px 0 3px #4d9de0; }
+.xcard--my-page .xtitle { font-size: 10cqi; line-height: 1.25; color: var(--ink); }
+.xcard--my-page:hover .mp-card { animation: nudge .5s ease; }
+.xcard--pages { background: #ffd93d; box-shadow: 0 0 0 3px var(--ink), 4px 4px 0 3px var(--ink); }
+.xcard--pages .xtitle { font-size: 12cqi; color: var(--ink); }
+.xcard--pages:hover .pg-stack { animation: nudge .5s ease; }
+.xcard--book-a-call { background: #fff3c4; box-shadow: 0 0 0 3px var(--ink), 4px 4px 0 3px #ff6b6b; }
+.xcard--book-a-call .xtitle { font-size: 13cqi; line-height: .95; color: var(--ink); }
+.xcard--book-a-call:hover .bc-phone { animation: nudge .5s ease; }
+.xcard--testers { background: #14213d; box-shadow: 0 0 0 3px var(--ink), 4px 4px 0 3px #6bcb77; }
+.xcard--testers .xtitle { font-size: 8.5cqi; line-height: 1.3; color: #6bcb77; text-shadow: 0 0 8px rgba(107, 203, 119, .6); }
+.xcard--testers:hover .ts-flask { animation: nudge .5s ease; }
+#app > .bk-hero .page-cover { max-width: 520px; }
+.bk-aud { margin: 2px 0 4px; }
