@@ -90,9 +90,10 @@
   function who(w) {
     var s = CFG.social || {};
     var links = [];
-    if (s.x) links.push('<a class="btn btn--small btn--ink" href="' + esc(s.x) + '" target="_blank" rel="noopener">' + esc(w.talk) + ' on X</a>');
-    if (s.telegram) links.push('<a class="btn btn--small" href="' + esc(s.telegram) + '" target="_blank" rel="noopener">Telegram</a>');
-    if (!links.length) links.push('<a class="btn btn--small btn--ink" href="' + esc(calUrl()) + '" target="_blank" rel="noopener">' + esc(w.talk) + '</a>');
+    if (s.x) links.push('<a class="btn btn--small btn--ink" href="' + esc(s.x) + '" target="_blank" rel="noopener">Message us on X</a>');
+    if (s.telegram) links.push('<a class="btn btn--small" href="' + esc(s.telegram) + '" target="_blank" rel="noopener">Join us on Telegram</a>');
+    // The X and Telegram links are web3.toys' own accounts; the call is with Aki.
+    links.push('<a class="btn btn--small' + (links.length ? '' : ' btn--ink') + '" href="' + esc(calUrl()) + '" target="_blank" rel="noopener">' + esc(w.talk) + '</a>');
     return section(esc(w.title), '<div class="bk-who">' + site.mascotImg('grin', 'bk-face', 64, '') + '<div class="stack stack--tight"><b>' + esc(w.name) + '</b><p class="small-print">' + esc(w.line) + '</p><div class="btn-row">' + links.join('') + '</div></div></div>', 'bk-who-sec');
   }
 

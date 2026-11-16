@@ -68,8 +68,8 @@ window.WEB3TOYS_CONFIG = {
   // Your social accounts (full links). The Earn coins tasks to join or
   // follow them stay hidden until a link is filled in.
   social: {
-    x: '',
-    telegram: '',
+    x: 'https://x.com/web3toys',
+    telegram: 'https://t.me/playweb3toys',
   },
 
   // Shown on the Contact page (Razorpay asks for these).
