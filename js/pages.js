@@ -126,8 +126,7 @@
       '<ul class="book-grid">' + data.books.map(function (b) {
         return '<li><article class="card book-card">' + bookCover(b) +
           '<div class="shop-info"><h2 class="title-sm">' + esc(b.title) + '</h2>' +
-          '<p class="text">' + esc(b.line) + '</p><p class="price"' + (sells(b) ? ' data-price-for="' + esc(b.product) + '"' : '') + '>' + esc(b.price) +
-          '</p>' + (sells(b) ? '<button type="button" class="btn btn--yellow btn--small" data-buy="' + esc(b.product) + '">' + esc(b.button || 'Buy') + '</button>' : buyButton(b)) + '</div></article></li>';
+          '<p class="text">' + esc(b.line) + '</p>' + (b.price || sells(b) ? '<p class="price"' + (sells(b) ? ' data-price-for="' + esc(b.product) + '"' : '') + '>' + esc(b.price) + '</p>' : '') + (sells(b) ? '<button type="button" class="btn btn--yellow btn--small" data-buy="' + esc(b.product) + '">' + esc(b.button || 'Buy') + '</button>' : buyButton(b)) + '</div></article></li>';
       }).join('') + '</ul><p class="small-print" data-buy-msg aria-live="polite"></p>';
     // Paid books go through the site's checkout (js/pay.js).
     var showPrices = function () {

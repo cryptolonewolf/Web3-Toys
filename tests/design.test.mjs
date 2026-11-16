@@ -93,7 +93,8 @@ describe('toy looks', () => {
 
 describe('content for the shop and new pages', () => {
   const item = (x, where) => {
-    assert.ok(x.title && x.price && 'url' in x, `${where}: ${x.title}`);
+    // A book still being written has no price, and its button says Coming soon.
+    assert.ok(x.title && (x.price || x.button === 'Coming soon') && 'url' in x, `${where}: ${x.title}`);
     if (x.cover) assert.ok(exists(x.cover), x.cover);
   };
 

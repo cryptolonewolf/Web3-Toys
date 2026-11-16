@@ -12,6 +12,8 @@ Deno.env.set('SITE_URL', 'https://site.test');
 const cryptoOrder = (await import('./crypto-order/index.ts')).handle;
 const ipn = (await import('./paymento-ipn/index.ts')).handle;
 const products = JSON.parse(await Deno.readTextFile(new URL('../../data/products.json', import.meta.url)));
+// The books are not on sale yet (notForSale); the tests still sell one to check the book download flow.
+products.products = products.products.concat(products.notForSale || []);
 
 type Row = Record<string, any>;
 let orders: Row[] = [];

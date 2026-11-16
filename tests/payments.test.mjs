@@ -70,6 +70,15 @@ describe('Work with us (Part 7)', () => {
   const sql = read('supabase/009_work_with_us.sql');
   const projects = products.filter((p) => p.type === 'project');
 
+  it('sells no book until it is written (books are in notForSale and show Coming soon)', () => {
+    const all = JSON.parse(read('data/products.json'));
+    assert.ok(!all.products.some((p) => p.type === 'book'), 'a book is on sale');
+    assert.deepEqual(all.notForSale.map((p) => p.id), ['book-first-30-days', 'book-dont-get-rekt', 'book-launch-week']);
+    JSON.parse(read('data/books.json')).books.forEach((b) => { assert.ok(!b.product, b.title); assert.equal(b.button, 'Coming soon', b.title); });
+    assert.ok(!/'book-/.test(read('supabase/008_quests_referrals.sql').split('insert into public.coin_products')[1].split('on conflict')[0]), 'books cannot be unlocked with coins');
+    assert.ok(read('supabase/024_books_later.sql').includes("delete from public.coin_products where id in ('book-first-30-days'"));
+  });
+
   it('has the agreed prices', () => {
     const usd = Object.fromEntries(projects.map((p) => [p.id, p.usd]));
     // Quests are 40% off for now; was keeps the price before the sale.

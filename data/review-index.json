@@ -19,8 +19,8 @@
    "file": "data/business/advertise_page.json",
    "item": "(whole file)",
    "label": "Sponsor a toy people actually play.",
-   "note": "Words for /advertise/ (js/biz-advertise.js). Prices, toys that take rounds, allowed categories and rules are in ad_slots.json. audience: fill in real numbers from admin, Toy stats before going live (t",
-   "hash": "5208901ad40a"
+   "note": "Words for /advertise/ (js/biz-advertise.js). Prices, toys that take rounds, allowed categories and rules are in ad_slots.json. audience: only true lines. Add real numbers (monthly players, certificate",
+   "hash": "b943f30a31a7"
   },
   {
    "file": "data/business/launch_page.json",
@@ -965,7 +965,7 @@
    "item": "(whole file)",
    "label": "data/products.json",
    "note": "Everything that can be bought. id: short, no spaces. type: book, report, certificate, export, call or project (what it is; project is a Work with us request, paid after the request form). usd and inr:",
-   "hash": "00cb487ae645"
+   "hash": "1ccb53f5c0d9"
   },
   {
    "file": "data/releases.json",

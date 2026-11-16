@@ -101,10 +101,8 @@ insert into public.coin_products (id, title, coins, per_item) values
   ('cert-hd', 'HD certificate', 400, true),
   ('cert-premium', 'Premium certificate design', 600, true),
   ('export-branded', 'Branded export', 1000, true),
-  ('launch-report', 'Full Launch Readiness Report', 2000, true),
-  ('book-first-30-days', 'Your First 30 Days in Crypto', 1500, false),
-  ('book-dont-get-rekt', 'Don''t Get Rekt', 2000, false),
-  ('book-launch-week', 'Launch Week Playbook', 3000, false)
+  ('launch-report', 'Full Launch Readiness Report', 2000, true)
+  -- The books come back here once they are written (see 024_books_later.sql).
 on conflict (id) do update set title = excluded.title, coins = excluded.coins, per_item = excluded.per_item;
 alter table public.coin_products enable row level security;
 drop policy if exists "coin prices are public" on public.coin_products;

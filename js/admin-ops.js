@@ -99,7 +99,7 @@
     if (c === 'razorpay-live') { var co = S.pings['create-order']; return { done: !!(co && co.live), note: co ? (co.live ? 'live keys' : 'test keys') : 'unknown' }; }
     if (c === 'resend') { var d = S.pings['ops-digest'] || S.pings['launch-emails']; return { done: !!(d && d.email), note: d ? (d.email ? 'set' : 'RESEND_API_KEY missing') : 'unknown' }; }
     if (c === 'social') return { done: !!((cfg.social || {}).x && (cfg.social || {}).telegram) };
-    if (c === 'books') return { done: S.setup.books >= S.bookCount && S.bookCount > 0, note: (S.setup.books || 0) + ' of ' + S.bookCount + ' uploaded' };
+    if (c === 'books') return S.bookCount ? { done: S.setup.books >= S.bookCount, note: (S.setup.books || 0) + ' of ' + S.bookCount + ' uploaded' } : { done: true, note: 'no books on sale yet' };
     if (c === 'portraits') return { done: S.portraits.have >= S.portraits.total, note: S.portraits.have + ' of ' + S.portraits.total };
     if (c === 'audience') return { done: !S.audienceTbd, note: S.audienceTbd ? 'still says TBD' : '' };
     if (c === 'review') return { done: S.reviewLeft === 0, note: S.reviewLeft + ' left' };

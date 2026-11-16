@@ -1,5 +1,5 @@
 {
-  "_help": "Words for /advertise/ (js/biz-advertise.js). Prices, toys that take rounds, allowed categories and rules are in ad_slots.json. audience: fill in real numbers from admin, Toy stats before going live (they are marked for review). Built with js/biz-kit.js: subtitle, guarantee, how (steps), who, faq, video, caseStudies (hidden while empty; real ones only), reply and callLink.",
+  "_help": "Words for /advertise/ (js/biz-advertise.js). Prices, toys that take rounds, allowed categories and rules are in ad_slots.json. audience: only true lines. Add real numbers (monthly players, certificates) from admin once there are some. Built with js/biz-kit.js: subtitle, guarantee, how (steps), who, faq, video, caseStudies (hidden while empty; real ones only), reply and callLink.",
   "review": true,
   "label": "For projects",
   "title": "Sponsor a toy people actually play.",
@@ -8,23 +8,18 @@
   "audience": [
     {
       "icon": "🎮",
-      "big": "11+",
-      "label": "free toys, a new one every Tuesday"
-    },
-    {
-      "icon": "🌍",
-      "big": "TBD",
-      "label": "monthly players (fill in from admin before launch)"
+      "big": "Free",
+      "label": "toys and tools, with new ones unlocking every week"
     },
     {
       "icon": "🎓",
-      "big": "TBD",
-      "label": "certificates earned (fill in from admin before launch)"
+      "big": "5 minutes",
+      "label": "per toy, ending in a quiz and a certificate"
     },
     {
-      "icon": "🧠",
-      "big": "5 min",
-      "label": "average play: people are paying attention"
+      "icon": "🏷️",
+      "big": "Labelled",
+      "label": "cards on start and result screens, never inside the game"
     }
   ],
   "slotsTitle": "Slots and prices",
