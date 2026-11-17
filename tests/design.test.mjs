@@ -30,6 +30,27 @@ describe('every page', () => {
   }
 });
 
+describe('link previews', () => {
+  // Every page (and the pages inside folders) shows a big picture when shared
+  // on X, Telegram, WhatsApp, LinkedIn, Discord and Facebook.
+  const all = (dir) => readdirSync(new URL('../' + dir, import.meta.url), { withFileTypes: true }).flatMap((d) => {
+    if (d.isDirectory()) return ['node_modules', 'marketing', 'docs', 'tests', 'supabase', 'tools', '.git'].includes(d.name) && !dir ? [] : all(dir + d.name + '/');
+    return d.name.endsWith('.html') ? [dir + d.name] : [];
+  });
+  it('every page has og:image, a big twitter:card and a twitter:image that matches og:image', () => {
+    const files = all('');
+    assert.ok(files.length > 90, files.length + ' pages');
+    files.forEach((f) => {
+      const s = read(f);
+      const og = (s.match(/<meta property="og:image" content="([^"]+)"/) || [])[1];
+      const tw = (s.match(/<meta name="twitter:image" content="([^"]+)"/) || [])[1];
+      assert.ok(og && /^https:\/\/web3\.toys\//.test(og), f + ' needs og:image (a full https://web3.toys/ link)');
+      assert.equal(tw, og, f + ': twitter:image must match og:image');
+      assert.ok(s.includes('<meta name="twitter:card" content="summary_large_image" />'), f + ' needs twitter:card');
+    });
+  });
+});
+
 describe('the live site', () => {
   it('keeps only the top level tools, tests and README off the live site, not data/tools', () => {
     const lines = read('.vercelignore').split('\n').map((l) => l.trim()).filter((l) => l && !l.startsWith('#'));
