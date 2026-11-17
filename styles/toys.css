@@ -7789,3 +7789,15 @@ body:is([data-page="launch-your-toy"], [data-page="test-your-product"], [data-pa
   .footer-bottom { padding-bottom: 64px; }
   .footer-col .footer-link { padding: 3px 0; }
 }
+/* ---------- Invite and earn (js/affiliate.js) ---------- */
+.aff-link { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.aff-link code { flex: 1 1 220px; min-width: 0; padding: 10px 12px; font-size: 14px; overflow-wrap: anywhere; background: var(--cream); border: 2px solid var(--ink); border-radius: 12px; }
+.aff-link .btn { width: auto; }
+.aff-nums { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; }
+.aff-nums li { display: grid; gap: 2px; padding: 10px 12px; background: rgba(31, 27, 46, .045); border-radius: 12px; }
+.aff-nums b { font: 700 22px var(--font-display); }
+.aff-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.aff-list li { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; padding: 8px 10px; font-size: 14px; background: rgba(31, 27, 46, .045); border-radius: 10px; }
+.aff-list .small-print { grid-column: 1 / -1; margin: 0; }
+.aff-wallet summary, .aff-wallet + details summary { cursor: pointer; }
+.cm-earn { margin: 0; padding: 10px 12px; font-weight: 800; background: var(--mint-tint); border: 2px solid var(--ink); border-radius: 12px; }

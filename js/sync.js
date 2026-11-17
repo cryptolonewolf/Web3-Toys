@@ -125,6 +125,7 @@
       .then(fetchCertificates).then(pushCertificates)
       .then(fetchLedger).then(pushCoins)
       .then(function () { return referral(profile); })
+      .then(noteRef)
       .then(function () { return pull(profile); });
   }
 
@@ -145,6 +146,20 @@
         if (r.data === 'paid' || r.data === 'capped') profile.referral_done = true;
       });
     }).catch(function () { /* try again next sync */ });
+  }
+
+  // Invite and earn: tell the server which link this player came through
+  // (kept 90 days in the browser; once per visit). The first link wins.
+  function noteRef() {
+    var v = null;
+    try {
+      if (sessionStorage.getItem('web3toys.refNoted')) return;
+      v = JSON.parse(localStorage.getItem('web3toys.ref.v2') || 'null');
+    } catch (e) { return; }
+    if (!v || !v.code || !(Date.now() - v.at < 90 * 864e5)) return;
+    return db.rpc('note_ref', { p_code: v.code }).then(function (r) {
+      if (!r.error) try { sessionStorage.setItem('web3toys.refNoted', '1'); } catch (e) { /* ok */ }
+    }, function () { /* not set up yet */ });
   }
 
   function sync() {

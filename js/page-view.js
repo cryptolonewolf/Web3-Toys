@@ -72,6 +72,9 @@
 
   function render() {
     var p = page;
+    // A visit to a claimed, live page counts as that page's invite link
+    // (Invite and earn); the owner's own visits do not.
+    if (p.claimed && p.status === 'published' && !p.is_owner && site.keepReferral) site.keepReferral(p.handle.toLowerCase());
     var T = P.types[p.type] || P.types.project;
     var socials = P.socials.filter(function (s) { return (p.socials || {})[s.id]; }).map(function (s) { return '<a class="btn btn--small" href="' + esc(p.socials[s.id]) + '" target="_blank" rel="noopener nofollow ugc">' + esc(s.label) + '</a>'; });
     if (p.website) socials.unshift('<a class="btn btn--small" href="' + esc(p.website) + '" target="_blank" rel="noopener nofollow ugc">🌐 Website</a>');
@@ -167,7 +170,7 @@
       }
       if (p.type === 'creator' && p.claimed) {
         html += '<section class="card card--yellow stack stack--tight"><h2 class="title-md">🎮 Play with ' + esc(p.name) + '</h2>' +
-          (S.ref_code ? '<a class="btn btn--ink" href="' + R + '?ref=' + esc(S.ref_code) + '&via=' + esc(p.handle) + '">Join web3.toys with my link</a>' : '') +
+          '<a class="btn btn--ink" href="' + R + '?ref=' + esc(p.handle) + '&via=' + esc(p.handle) + '">Join web3.toys with my link</a>' +
           '<p class="text"><b>' + Number(S.joined || 0).toLocaleString('en-US') + '</b> ' + (Number(S.joined) === 1 ? 'player has' : 'players have') + ' joined with ' + esc(p.name) + '\'s link.</p>' +
           ((S.joined_fans || []).length ? names(S.joined_fans) : '') + '<p class="small-print">Only players who chose to share with ' + esc(p.name) + ' are shown by name.</p></section>';
       }

@@ -114,7 +114,7 @@
       (s.user ? '' : ' · <button type="button" class="text-button" data-login>Log in to save</button>') + '</p></div>' +
       '<ul class="pf-stats">' + stat(s.done.length + '/' + s.toys.length, 'Toys done') + stat(s.certs.length + s.pros.length, 'Certificates') + stat(s.streak + (s.streak === 1 ? ' day' : ' days'), 'Streak') + '</ul></section>' +
       (tab ? '' : '<p class="pf-say" data-say aria-live="polite">' + esc(say) + '</p>') +
-      '<div class="pf-dash">' + earnCard(s) + inviteCard(s) + certsCard(s) + '</div>' +
+      '<div class="pf-dash">' + earnCard(s) + inviteCard(s) + certsCard(s) + '<section class="card pf-card aff-card" data-aff hidden></section></div>' +
       (s.next.length ? '<section class="pf-section pf-section--play" aria-labelledby="h-play"><h2 class="pf-card-title" id="h-play">🎮 Keep playing</h2><ul class="pf-row pf-row--toys">' + s.next.slice(0, 8).map(function (c) {
         return '<li><a class="xcard xcard--' + esc(c.id) + ' pf-toy" href="../' + esc(c.path) + '" aria-label="' + esc(c.title) + '">' + (Web3Cards.card(c.id, c.title, esc) || '<span class="xtitle">' + esc(c.title) + '</span>') + '</a></li>';
       }).join('') + '</ul></section>' : '') +
@@ -126,6 +126,9 @@
 
     applyTheme(s.user ? s.cx.theme : null);
     bind(s);
+    // Invite and earn, for people with a page (js/affiliate.js).
+    var ab = app.querySelector('[data-aff]');
+    if (ab && s.user && window.Web3Affiliate) window.Web3Affiliate.render(ab, { root: '../', compact: true }).then(function () { ab.hidden = !ab.innerHTML; });
   }
 
   function card(id, title, extra, body) {

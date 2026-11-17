@@ -1,0 +1,21 @@
+{
+  "_help": "Invite and earn (js/affiliate.js, supabase/025_affiliates.sql). Only people with a published web3.toys page earn. tiers: the share of what their buyers pay, by paying buyers brought in so far; keep the same numbers in affiliate_tiers in 025_affiliates.sql (a test compares them). The waiting time, the $20 minimum, the 90 day link window, the 12 month invite window and the rupee rate are in affiliate_settings (rupee rate: admin, Affiliates). Words: edit freely, keep them true.",
+  "review": true,
+  "title": "Invite and earn",
+  "line": "Share your link. When people you bring in buy anything on web3.toys, you get a share, paid in USDC or USDT.",
+  "tiers": [
+    { "minBuyers": 0, "rate": 0.15 },
+    { "minBuyers": 5, "rate": 0.2 },
+    { "minBuyers": 15, "rate": 0.25 },
+    { "minBuyers": 30, "rate": 0.3 }
+  ],
+  "rules": [
+    "Counts when someone joins with your link (for 12 months), or arrives through it or your web3.toys page and buys within 90 days.",
+    "Every paid purchase counts: reports, certificates, Pro pages, Quests, ad slots, toy and test deposits. Coin unlocks do not.",
+    "One inviter per buyer: the first link wins. Your own purchases never count.",
+    "Earnings wait 30 days. Project deposits, Quests and ad slots also wait until the project is delivered. Refunds cancel the earning.",
+    "Payouts from $20, in USDC or USDT to your wallet, sent by hand after a check. We may hold or cancel earnings that look like abuse."
+  ],
+  "noPage": "Invite and earn is for people with a published web3.toys page. Claim yours first, it is free.",
+  "walletLine": "Where should we send your stablecoins? Use a wallet you control and double-check the network: payments sent to the wrong network cannot be recovered."
+}

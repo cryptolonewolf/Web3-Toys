@@ -23,6 +23,13 @@
    "hash": "b943f30a31a7"
   },
   {
+   "file": "data/business/affiliate.json",
+   "item": "(whole file)",
+   "label": "Invite and earn",
+   "note": "Invite and earn (js/affiliate.js, supabase/025_affiliates.sql). Only people with a published web3.toys page earn. tiers: the share of what their buyers pay, by paying buyers brought in so far; keep th",
+   "hash": "0bd3b80a9e59"
+  },
+  {
    "file": "data/business/launch_page.json",
    "item": "(whole file)",
    "label": "Don't pay for posts. Let people play your product.",
@@ -34,7 +41,7 @@
    "item": "(whole file)",
    "label": "data/business/pages.json",
    "note": "Profile pages at web3.toys/@handle (js/page-view.js, js/page-edit.js, supabase/019_pages.sql). Edit the wording freely. reserved: handles nobody can use (every folder of the site is added automaticall",
-   "hash": "b340c9d65eb2"
+   "hash": "caa17cca6cdd"
   },
   {
    "file": "data/business/sponsored_rounds.json",
@@ -846,7 +853,7 @@
    "item": "(whole file)",
    "label": "Terms of use",
    "note": "The Terms page. Plain-English draft: have a lawyer check it before taking payments. Lines starting with TODO are placeholders.",
-   "hash": "68ace487b05a"
+   "hash": "8e2dd25ccffd"
   },
   {
    "file": "data/prices/ADA.json",

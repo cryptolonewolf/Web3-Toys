@@ -525,6 +525,7 @@
     log: logEvent,
     deliver: deliver,
     businessOn: businessOn,
+    keepReferral: function (c) { keepReferral(c); },
     coins: { award: award, wallet: wallet, amount: coinAmount, refresh: showCoins, pageKey: pageKey },
   };
 
@@ -567,10 +568,18 @@
     try { sessionStorage.setItem('web3toys.via.v1', m[1].toLowerCase()); } catch (e) { /* private mode */ }
   }
 
-  function keepReferral() {
-    var m = /[?&]ref=([a-z0-9]{6,12})\b/i.exec(location.search);
+  // Invite links: ?ref=CODE or ?ref=HANDLE (a web3.toys page). v1 links a
+  // new player to their inviter; v2 remembers the link for 90 days, for
+  // Invite and earn (supabase/025_affiliates.sql). The first link wins.
+  function keepReferral(code) {
+    var m = code ? [0, code] : /[?&]ref=@?([A-Za-z0-9_]{2,15})(?![A-Za-z0-9_])/.exec(location.search);
     if (!m) return;
-    try { if (!localStorage.getItem('web3toys.ref.v1')) localStorage.setItem('web3toys.ref.v1', m[1].toLowerCase()); } catch (e) { /* private mode */ }
+    var c = m[1].toLowerCase();
+    try {
+      if (!localStorage.getItem('web3toys.ref.v1')) localStorage.setItem('web3toys.ref.v1', c);
+      var old = JSON.parse(localStorage.getItem('web3toys.ref.v2') || 'null');
+      if (!old || !(Date.now() - old.at < 90 * 864e5)) localStorage.setItem('web3toys.ref.v2', JSON.stringify({ code: c, at: Date.now() }));
+    } catch (e) { /* private mode */ }
   }
 
   // Paid offers on finish screens (js/offers.js), on every page. Pages say

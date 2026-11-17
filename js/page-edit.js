@@ -35,7 +35,7 @@
     var K = P.claimPage;
     return '<div class="bk-pair cm-intro"><div class="cm-left"><section class="card bk-sec"><h2 class="bk-h">' + esc(K.canTitle) + '</h2><ul class="bk-list">' +
       K.can.map(function (x, i) { return '<li><span class="cm-pin" aria-hidden="true">' + (i + 1) + '</span><span>' + x[0] + ' ' + esc(x[1]) + '</span></li>'; }).join('') + '</ul>' +
-      '<p class="small-print">⭐ ' + esc(K.proLine) + '</p></section></div>' +
+      (K.earnLine ? '<p class="cm-earn">💸 ' + esc(K.earnLine) + '</p>' : '') + '<p class="small-print">⭐ ' + esc(K.proLine) + '</p></section></div>' +
       '<section class="card bk-sec cm-sample"><h2 class="bk-h">' + esc(K.sampleTitle) + ' <span class="bk-tag">' + esc(K.sampleLabel) + '</span></h2>' +
       '<div class="cm-switch" role="tablist" aria-label="Kind of page"><button type="button" role="tab" aria-selected="true" data-sample="project">🧩 Project</button><button type="button" role="tab" aria-selected="false" data-sample="creator">🎙️ Creator</button></div>' +
       '<div class="cm-frame" data-sample-box>' + sample('project') + '</div><p class="small-print">' + esc(K.sampleNote) + '</p></section></div>';
@@ -263,8 +263,10 @@
         return '<button type="button" class="pg-swatch' + (c.toLowerCase() === p.color.toLowerCase() ? ' is-on' : '') + '" style="background:' + c + '" data-color="' + c + '" aria-label="' + c + '"></button>';
       }).join('') + '<input type="color" value="' + esc(p.color) + '" data-color-input aria-label="Custom colour" /></div></fieldset>' +
       '<button type="submit" class="btn btn--ink btn--block">Save</button><p class="small-print" data-msg aria-live="polite"></p></form>' +
-      '<section class="card stack stack--tight" id="pro" data-pro><h2 class="title-md">⭐ Pro</h2><p class="small-print">Checking…</p></section>' + rules());
+      '<section class="card stack stack--tight" id="pro" data-pro><h2 class="title-md">⭐ Pro</h2><p class="small-print">Checking…</p></section>' +
+      '<section class="card stack stack--tight" id="earn" data-earn></section>' + rules());
     pro(app.querySelector('[data-pro]'), p);
+    if (window.Web3Affiliate) window.Web3Affiliate.render(app.querySelector('[data-earn]'), { root: R }).then(function () { if (location.hash === '#earn') { var e = document.getElementById('earn'); if (e) e.scrollIntoView({ block: 'start' }); } });
     var f = app.querySelector('.pg-edit');
     var msg = f.querySelector('[data-msg]');
     var pics = { avatar: p.avatar_path || '', banner: p.banner_path || '' };

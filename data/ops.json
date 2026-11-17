@@ -31,6 +31,7 @@
     { "id": "sql-021", "group": "Database", "title": "Run supabase/021_pages_pro.sql (consent, Pro, directory)", "how": "Supabase, SQL Editor, paste the file, Run.", "check": "sql-021" },
     { "id": "sql-022", "group": "Database", "title": "Run supabase/022_test_funnel.sql (leads, funnel, founding offer)", "how": "Supabase, SQL Editor, paste the file, Run.", "check": "sql-022" },
     { "id": "sql-023", "group": "Database", "title": "Run supabase/023_release_schedule.sql (Switch on, Early Bird dates)", "how": "Supabase, SQL Editor: run 017_ops.sql again first (safe), then paste 023 and Run.", "check": "sql-023" },
+    { "id": "sql-025", "group": "Database", "title": "Run supabase/025_affiliates.sql (Invite and earn)", "how": "Supabase, SQL Editor: run 017_ops.sql again first (safe), then paste 025 and Run.", "check": "sql-025" },
     { "id": "sql-018", "group": "Database", "title": "Run supabase/018_ops_schedule.sql (daily digest and weekly link check)", "how": "docs/setup/operations.md", "check": "sql-018" },
     { "id": "fn-create-order", "group": "Functions", "title": "Paste create-order again (knows the For Projects prices)", "how": "Supabase, Edge Functions, create-order, replace the code with supabase/functions/create-order/index.ts, Deploy.", "check": "fn:create-order:4" },
     { "id": "fn-crypto-order", "group": "Functions", "title": "Paste crypto-order again", "how": "Same as create-order, with supabase/functions/crypto-order/index.ts.", "check": "fn:crypto-order:4" },

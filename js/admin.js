@@ -7,7 +7,7 @@
   var C = window.Web3Common;
   var esc = C.esc;
   var app = document.getElementById('app');
-  var TABS = [['ops', '🏠 Operations'], ['inbox', 'Inbox'], ['users', 'Users'], ['leads', 'Leads'], ['purchases', 'Purchases'], ['bookings', 'Bookings'], ['toyreq', 'Toy requests'], ['testreq', 'Test requests'], ['pages', 'Pages'], ['tests', 'Tests & payouts'], ['sponsors', 'Sponsor bookings'], ['requests', 'Project requests'], ['review', 'Review queue'], ['growth', 'Referrals & posts'], ['releases', 'Releases'], ['stats', 'Toy stats'], ['revenue', 'Revenue'], ['audit', 'Audit log']];
+  var TABS = [['ops', '🏠 Operations'], ['inbox', 'Inbox'], ['users', 'Users'], ['leads', 'Leads'], ['purchases', 'Purchases'], ['bookings', 'Bookings'], ['toyreq', 'Toy requests'], ['testreq', 'Test requests'], ['pages', 'Pages'], ['tests', 'Tests & payouts'], ['sponsors', 'Sponsor bookings'], ['requests', 'Project requests'], ['review', 'Review queue'], ['growth', 'Referrals & posts'], ['affiliates', '💸 Affiliates'], ['releases', 'Releases'], ['stats', 'Toy stats'], ['revenue', 'Revenue'], ['audit', 'Audit log']];
   var hash = location.hash.replace('#', '').split(':');
   var tab = hash[0] || 'ops';
   var sub = hash[1] || '';
@@ -80,7 +80,7 @@
     var panel = app.querySelector('[data-panel]');
     var ctx = { db: db, load: load, cache: cache, esc: esc, must: must, tiles: tiles, grid: grid, bindCsv: bindCsv, render: render, go: go, refundOrder: refundOrder, date: date };
     var O = window.Web3AdminOps;
-    ({ ops: function (p) { return O.home(p, ctx); }, inbox: function (p) { return O.inbox(p, ctx, sub); }, audit: function (p) { delete cache.audit; return O.audit(p, ctx); }, pages: function (p) { return window.Web3AdminPages.tab(p, ctx, sub); }, revenue: function (p) { return O.revenue(p, ctx); }, users: users, leads: leads, purchases: purchases, bookings: bookings, requests: requests, review: review, growth: growth, releases: releases, stats: stats, toyreq: function (p) { return bizRequests(p, 'toy'); }, testreq: function (p) { return bizRequests(p, 'test'); }, tests: productTests, sponsors: sponsorBookings })[tab](panel)
+    ({ ops: function (p) { return O.home(p, ctx); }, inbox: function (p) { return O.inbox(p, ctx, sub); }, audit: function (p) { delete cache.audit; return O.audit(p, ctx); }, pages: function (p) { return window.Web3AdminPages.tab(p, ctx, sub); }, revenue: function (p) { return O.revenue(p, ctx); }, users: users, leads: leads, purchases: purchases, bookings: bookings, requests: requests, review: review, growth: growth, affiliates: affiliates, releases: releases, stats: stats, toyreq: function (p) { return bizRequests(p, 'toy'); }, testreq: function (p) { return bizRequests(p, 'test'); }, tests: productTests, sponsors: sponsorBookings })[tab](panel)
       .catch(function (err) { panel.innerHTML = '<p class="tk-warn is-bad">Could not load: ' + esc(err.message) + '</p>'; });
   }
 
@@ -230,6 +230,42 @@
   }
 
   // ---------- Referrals and X posts (spot checks) ----------
+
+  // ---------- Invite and earn (supabase/025_affiliates.sql) ----------
+  // Payouts people asked for (send the stablecoins, then Mark paid with the
+  // transaction), each affiliate's numbers, earnings with flags, and the
+  // rupee rate used to turn rupee sales into dollars.
+  function affiliates(panel) {
+    var usd = function (n) { return '$' + Number(n || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
+    var FLAG = { 'new-account': 'bought within an hour of joining', big: '$500 or more', 'repeat-buyer': 'same buyer 3+ times', 'refunded-after-payout': 'refunded after payout' };
+    return db().rpc('admin_affiliates').then(must).then(function (a) {
+      var waiting = a.payouts.filter(function (p) { return p.status === 'requested'; });
+      show(panel, tiles([['Payouts waiting', waiting.length], ['To send', usd(waiting.reduce(function (n, p) { return n + Number(p.amount_usd); }, 0))], ['Affiliates earning', a.affiliates.length], ['Flagged earnings', a.flagged.length]]) +
+        '<p class="small-print">Send each payout yourself from your wallet (the token and network they chose), then press Mark paid and paste the transaction hash or link. Look at flagged earnings first. Rupee sales are counted at ₹' + esc(a.settings.inr_per_usd) + ' per $1 <button type="button" class="text-button" data-aff-rate>Change</button>.</p>' +
+        '<h3 class="pf-h">Payouts</h3>' + (a.payouts.length ? '<div class="adm-scroll"><table class="tk-table adm-table"><thead><tr><th>Who</th><th>Amount</th><th>Send to</th><th>Status</th><th></th></tr></thead><tbody>' + a.payouts.map(function (p) {
+          return '<tr><td>' + esc(p.display_name || '') + (p.handle ? ' (@' + esc(p.handle) + ')' : '') + (p.flagged ? ' <span class="chip is-yellow">' + p.flagged + ' flagged</span>' : '') + '</td><td><b>' + usd(p.amount_usd) + '</b></td><td>' + esc(p.token) + ' on ' + esc(p.network) + '<br><code>' + esc(p.wallet) + '</code></td><td>' + esc(p.status) + (p.tx ? '<br><span class="small-print">' + esc(p.tx) + '</span>' : '') + '</td><td>' +
+            (p.status === 'requested' ? '<div class="btn-row"><button type="button" class="btn btn--small btn--ink" data-aff-paid="' + esc(p.id) + '">Mark paid</button><button type="button" class="btn btn--small" data-aff-reject="' + esc(p.id) + '">Reject</button></div>' : '') + '</td></tr>';
+        }).join('') + '</tbody></table></div>' : '<p class="small-print">No payouts yet.</p>') +
+        '<h3 class="pf-h">Flagged earnings</h3>' + (a.flagged.length ? grid('affiliate-flags', ['Date', 'Affiliate', 'Bought', 'Paid', 'Share', 'Status', 'Why'], a.flagged.map(function (e) { return [date(e.created_at), '@' + (e.handle || '?'), e.product_id, usd(e.paid_usd), usd(e.amount_usd), e.status, e.flags.map(function (f) { return FLAG[f] || f; }).join(', ')]; })) : '<p class="small-print">Nothing flagged.</p>') +
+        '<h3 class="pf-h">Affiliates</h3>' + grid('affiliates', ['Affiliate', 'Name', 'Paying buyers', 'Sales', 'Waiting', 'Paid', 'Flagged'], a.affiliates.map(function (x) { return ['@' + (x.handle || '?'), x.display_name, x.buyers, usd(x.sales), usd(x.pending), usd(x.paid), x.flagged]; })));
+      bindCsv(panel);
+      var act = function (id, action) {
+        var tx = null, note = null;
+        if (action === 'paid') { tx = window.prompt('Paste the transaction hash or link for this payout:'); if (!tx) return; }
+        else { note = window.prompt('Why are you rejecting it? (they see their earnings go back to ready)'); if (note === null) return; }
+        db().rpc('admin_affiliate_payout', { p_id: id, p_action: action, p_tx: tx, p_note: note }).then(must).then(function () { render(); }, function (err) { window.alert('Could not save: ' + err.message); });
+      };
+      panel.querySelectorAll('[data-aff-paid]').forEach(function (b) { b.addEventListener('click', function () { act(b.getAttribute('data-aff-paid'), 'paid'); }); });
+      panel.querySelectorAll('[data-aff-reject]').forEach(function (b) { b.addEventListener('click', function () { act(b.getAttribute('data-aff-reject'), 'reject'); }); });
+      panel.querySelector('[data-aff-rate]').addEventListener('click', function () {
+        var v = window.prompt('Rupees for one US dollar (used for rupee sales):', String(a.settings.inr_per_usd));
+        if (!v) return;
+        db().rpc('admin_set_affiliate_rate', { p_inr_per_usd: Number(v) }).then(must).then(function () { render(); }, function (err) { window.alert(err.message); });
+      });
+    }).catch(function (err) {
+      show(panel, '<p class="small-print">' + esc(/does not exist|function/.test(err.message || '') ? 'Run supabase/025_affiliates.sql first.' : err.message) + '</p>');
+    });
+  }
 
   function growth(panel) {
     return Promise.all([
