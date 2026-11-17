@@ -13,7 +13,7 @@
   var MENU = [
     { label: 'Toys', href: '' },
     { label: 'Tools', href: 'builder/' },
-    { label: 'Quests', href: 'academy/' },
+    { label: 'Project Quests', href: 'academy/' },
   ];
   var CALL = { label: 'Book a Call', href: 'book-a-call/' };
   // For Projects (switched on by business.live in config.js, planned for
@@ -166,7 +166,7 @@
   // then the links in labelled columns, then the small print the page
   // already has (Educational only, by BuildWithAki).
   var FOOTER_COLS = [
-    { title: 'Play and learn', links: [['Toys', ''], ['Tools', 'builder/'], ['Quests', 'academy/'], ['Real Toys', 'real-toys/'], ['Books', 'books/'], ['Leaderboard', 'leaderboard/']] },
+    { title: 'Play and learn', links: [['Toys', ''], ['Tools', 'builder/'], ['Project Quests', 'academy/'], ['Real Toys', 'real-toys/'], ['Books', 'books/'], ['Leaderboard', 'leaderboard/']] },
     { title: 'You', links: [['My Progress', 'progress/'], ['Check a certificate', 'verify/'], ['Become a tester', 'testers/', 'biz'], ['Claim My Page', 'my-page/', 'biz']] },
     { title: 'For projects', links: [['Launch Your Own Toy', 'launch-your-toy/', 'biz'], ['Test Your Product', 'test-your-product/', 'biz'], ['Advertise', 'advertise/', 'biz'], ['List your Quest', 'academy/list-your-project/'], ['Pages directory', 'pages/', 'biz'], ['Work with us', 'work-with-us/', 'nobiz'], ['Book a Call', 'book-a-call/']] },
     { title: 'About', links: [['About Aki', 'about/'], ['Contact', 'contact/'], ['Privacy', 'privacy/'], ['Terms', 'terms/'], ['Refunds', 'refunds/']] },

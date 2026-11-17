@@ -47,6 +47,7 @@ describe('link previews', () => {
       assert.ok(og && /^https:\/\/web3\.toys\//.test(og), f + ' needs og:image (a full https://web3.toys/ link)');
       assert.equal(tw, og, f + ': twitter:image must match og:image');
       assert.ok(s.includes('<meta name="twitter:card" content="summary_large_image" />'), f + ' needs twitter:card');
+      assert.ok(!/content="[^"]*<meta/.test(s), f + ': a broken meta tag');
     });
   });
 });

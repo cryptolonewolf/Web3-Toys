@@ -256,7 +256,7 @@
       '<fieldset><legend class="label">Toys to feature (up to ' + P.maxFeatured + ')</legend><div class="pg-picks">' + toys.map(function (t) {
         return '<label class="mk-check"><input type="checkbox" data-toy="' + esc(t.id) + '"' + (p.featured_toys.indexOf(t.id) >= 0 ? ' checked' : '') + ' /> <span>' + esc(t.title) + '</span></label>';
       }).join('') + '</div></fieldset>' +
-      (courses.length ? '<fieldset><legend class="label">Quests to feature</legend><div class="pg-picks">' + courses.map(function (c) {
+      (courses.length ? '<fieldset><legend class="label">Project Quests to feature</legend><div class="pg-picks">' + courses.map(function (c) {
         return '<label class="mk-check"><input type="checkbox" data-course="' + esc(c.id) + '"' + (p.featured_courses.indexOf(c.id) >= 0 ? ' checked' : '') + ' /> <span>' + esc(c.name) + '</span></label>';
       }).join('') + '</div></fieldset>' : '') +
       '<fieldset><legend class="label">Brand colour</legend><div class="pg-swatches">' + P.colors.map(function (c) {

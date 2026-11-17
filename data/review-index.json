@@ -27,7 +27,7 @@
    "item": "(whole file)",
    "label": "Invite and earn",
    "note": "Invite and earn (js/affiliate.js, supabase/025_affiliates.sql). Only people with a published web3.toys page earn. tiers: the share of what their buyers pay, by paying buyers brought in so far; keep th",
-   "hash": "0bd3b80a9e59"
+   "hash": "605b91e06f52"
   },
   {
    "file": "data/business/launch_page.json",
@@ -41,7 +41,7 @@
    "item": "(whole file)",
    "label": "data/business/pages.json",
    "note": "Profile pages at web3.toys/@handle (js/page-view.js, js/page-edit.js, supabase/019_pages.sql). Edit the wording freely. reserved: handles nobody can use (every folder of the site is added automaticall",
-   "hash": "caa17cca6cdd"
+   "hash": "dd2815182d22"
   },
   {
    "file": "data/business/sponsored_rounds.json",
@@ -846,14 +846,14 @@
    "item": "(whole file)",
    "label": "Refunds and delivery",
    "note": "The Refunds and delivery page (Razorpay asks for refund and delivery policies). Plain-English draft: have a lawyer check it.",
-   "hash": "85a61872e1e8"
+   "hash": "f3032bbca9fc"
   },
   {
    "file": "data/legal/terms.json",
    "item": "(whole file)",
    "label": "Terms of use",
    "note": "The Terms page. Plain-English draft: have a lawyer check it before taking payments. Lines starting with TODO are placeholders.",
-   "hash": "8e2dd25ccffd"
+   "hash": "e4641e333e2f"
   },
   {
    "file": "data/prices/ADA.json",
@@ -972,7 +972,7 @@
    "item": "(whole file)",
    "label": "data/products.json",
    "note": "Everything that can be bought. id: short, no spaces. type: book, report, certificate, export, call or project (what it is; project is a Work with us request, paid after the request form). usd and inr:",
-   "hash": "1ccb53f5c0d9"
+   "hash": "d401bf6bfc81"
   },
   {
    "file": "data/releases.json",

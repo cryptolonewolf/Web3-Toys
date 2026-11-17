@@ -42,10 +42,12 @@ export function covers() {
 // Points one page's share tags at its picture.
 export function tag(html, c) {
   const url = SITE + 'images/og/' + c.id + '.png';
+  // Replacer functions, so a title with $ (like "$100") is taken as is.
+  const alt = c.title.replace(/"/g, '&quot;') + ' on web3.toys';
   return html
-    .replace(/(<meta property="og:image" content=")[^"]*(")/, '$1' + url + '$2')
-    .replace(/(<meta name="twitter:image" content=")[^"]*(")/, '$1' + url + '$2')
-    .replace(/(<meta property="og:image:alt" content=")[^"]*(")/, '$1' + c.title.replace(/"/g, '&quot;') + ' on web3.toys$2');
+    .replace(/(<meta property="og:image" content=")[^"]*(")/, (m, a, b) => a + url + b)
+    .replace(/(<meta name="twitter:image" content=")[^"]*(")/, (m, a, b) => a + url + b)
+    .replace(/<meta property="og:image:alt" content="[^\n]*\/>/, () => '<meta property="og:image:alt" content="' + alt + '" />');
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {

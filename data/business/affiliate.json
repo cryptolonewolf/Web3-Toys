@@ -11,9 +11,9 @@
   ],
   "rules": [
     "Counts when someone joins with your link (for 12 months), or arrives through it or your web3.toys page and buys within 90 days.",
-    "Every paid purchase counts: reports, certificates, Pro pages, Quests, ad slots, toy and test deposits. Coin unlocks do not.",
+    "Every paid purchase counts: reports, certificates, Pro pages, Project Quests, ad slots, toy and test deposits. Coin unlocks do not.",
     "One inviter per buyer: the first link wins. Your own purchases never count.",
-    "Earnings wait 30 days. Project deposits, Quests and ad slots also wait until the project is delivered. Refunds cancel the earning.",
+    "Earnings wait 30 days. Project deposits, Project Quests and ad slots also wait until the project is delivered. Refunds cancel the earning.",
     "Payouts from $20, in USDC or USDT to your wallet, sent by hand after a check. We may hold or cancel earnings that look like abuse."
   ],
   "noPage": "Invite and earn is for people with a published web3.toys page. Claim yours first, it is free.",

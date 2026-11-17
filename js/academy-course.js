@@ -25,7 +25,7 @@
     course = c;
     if (!Academy.visible(c)) return ended('This course has ended.');
     me = Academy.entry(store, id);
-    document.title = c.name + ' course · Quests · web3.toys';
+    document.title = c.name + ' course · Project Quests · web3.toys';
     var root = document.documentElement;
     root.style.setProperty('--p', c.colors.primary);
     root.style.setProperty('--a', c.colors.accent);
@@ -37,7 +37,7 @@
 
   function ended(text) {
     app.innerHTML = '<section class="card stack stack--tight"><h1 class="title-lg">' + esc(text) + '</h1>' +
-      '<p class="text">See the courses that are running now.</p><a class="btn btn--ink btn--block" href="../">Back to Quests</a></section>';
+      '<p class="text">See the courses that are running now.</p><a class="btn btn--ink btn--block" href="../">Back to Project Quests</a></section>';
   }
 
   function save() {
@@ -359,7 +359,7 @@
       ctx.font = '700 52px ' + DISPLAY;
       // The hexagon 3 icon, then the site name.
       if (icon) ctx.drawImage(icon, 110, 94, 84, 84);
-      ctx.fillText('web3.toys · Quests', icon ? 204 : 120, 110);
+      ctx.fillText('web3.toys · Project Quests', icon ? 204 : 120, 110);
       ctx.font = '800 32px ' + BODY;
       ctx.fillText('CERTIFICATE OF COMPLETION', 120, 210);
       fit(ctx, cert.name, '700', 108, DISPLAY, 900);
