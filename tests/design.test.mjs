@@ -51,6 +51,20 @@ describe('link previews', () => {
   });
 });
 
+describe('link preview pictures from the covers', () => {
+  it('every toy, tool and project page shares its own cover (node tools/og-covers.mjs)', async () => {
+    const { covers } = await import('../tools/og-covers.mjs');
+    const list = covers();
+    assert.ok(list.length >= 30, list.length + ' pages');
+    list.forEach((c) => {
+      const s = read(c.page);
+      const url = 'https://web3.toys/images/og/' + c.id + '.png';
+      assert.ok(s.includes('<meta property="og:image" content="' + url + '"'), c.page + ': run node tools/og-covers.mjs');
+      assert.ok(exists('images/og/' + c.id + '.png'), c.id + '.png: run node tools/og-covers.mjs');
+    });
+  });
+});
+
 describe('the live site', () => {
   it('keeps only the top level tools, tests and README off the live site, not data/tools', () => {
     const lines = read('.vercelignore').split('\n').map((l) => l.trim()).filter((l) => l && !l.startsWith('#'));
